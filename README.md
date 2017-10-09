@@ -2,9 +2,10 @@
 Repozitář pro sbírku programů v jazyce IFJ17 a jejich předpokládaných výstupů včetně automatického spouštěče a aktuální distribuce intepretu.
 
 ## Instalace
-Repozitář lze naklonovat standardně pomocí GIT:
+Repozitář lze naklonovat standardně pomocí `git`, spouštěč testů požaduje interpret jazyka Python ve verzi `3.4` či vyšší.
 ```bash
 $ git clone https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests.git
+$ python3 --version
 ```
 
 ## Použití
