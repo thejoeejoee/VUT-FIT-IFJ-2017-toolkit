@@ -236,12 +236,18 @@ def main(args):
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser(description='Automatically run test cases for IFJ17 compiler.')
+    parser = ArgumentParser(
+        description='Automatic test cases runner for IFJ17 compiler.',
+        epilog="""
+        Authors: Josef Kolář (xkolar71, @thejoeejoee), Son Hai Nguyen (xnguye16, @SonyPony), GNU GPL v3, 2017
+        """
+    )
     parser.add_argument("compiler", help="path to IFJ17 compiler binary")
     parser.add_argument("interpreter", help="path to IFJ17 interpreter binary",
                         type=str, default=path.join(__DIR__, 'ic17int'))
     parser.add_argument("-d", "--tests-dir", help="path to folder with tests to run",
                         type=str, default=path.join(__DIR__, 'tests'))
+
     parsed = parser.parse_args()
 
     main(parsed)
