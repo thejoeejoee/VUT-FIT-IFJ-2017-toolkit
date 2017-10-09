@@ -1,0 +1,20 @@
+{
+  "tests": [
+    {
+      "name": "trololo",
+      "code": "scope \n end scope",
+      "stdout": ""
+    },
+    {
+      "name": "syntax error",
+      "info": "syntax error as scoppe",
+      "code": "scope \n end scoppe",
+      "compiler_exit_code": 2
+    },
+    {
+      "name": "semantic error",
+      "code": "scope \n dim a as integer = !\"foo\"\n end scope",
+      "interpreter_exit_code": 42
+    }
+  ]
+}

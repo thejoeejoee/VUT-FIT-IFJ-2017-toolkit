@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # coding=utf-8
+import json
 import os
 from argparse import ArgumentParser
 from collections import namedtuple
 from glob import iglob
+from operator import attrgetter
 from os import path
 from subprocess import Popen, PIPE
 from sys import stderr
@@ -11,12 +13,12 @@ from tempfile import mktemp
 
 __DIR__ = path.abspath(path.dirname(__file__))
 
-TestInfo = namedtuple('TestInfo', "name code stdin stdout compiler_exit_code interpreter_exit_code")
+TestInfo = namedtuple('TestInfo', "name code stdin stdout compiler_exit_code interpreter_exit_code info")
 
 
 class Logger(object):
     BLUE = '\033[94m'
-    GREEN = '\033[32m'  # green
+    GREEN = '\033[32m'
     WARNING = '\033[93m'
     HEADER = '\033[95m'
     FAIL = '\033[91m'
@@ -38,8 +40,8 @@ class Logger(object):
         Logger.log(Logger.BLUE, "SECTION ", Logger.UNDERLINE, section)
 
     @classmethod
-    def log_test(cls, name):
-        Logger.log(Logger.BOLD, 'TEST ', name, indent=1)
+    def log_test(cls, name, info=None):
+        Logger.log(Logger.BOLD, 'TEST ', name, info, indent=1)
 
     @classmethod
     def log_test_step(cls, step):
@@ -53,28 +55,128 @@ class Logger(object):
     def log_test_ok(cls):
         cls.log(Logger.GREEN, Logger.BOLD, '✓ OK', indent=3)
 
+    @classmethod
+    def log_warning(cls, warning):
+        cls.log(Logger.FAIL, Logger.BOLD, 'WARNING: ', warning)
+
+
+class TestLoader(object):
+    def __init__(self, tests_dir):
+        assert path.isdir(tests_dir), "Given tests dir is valid filesystem folder."
+
+        self._tests_dir = tests_dir
+
+    def load_section_dirs(self):
+        return (
+            path.join(self._tests_dir, dir_)
+            for dir_
+            in os.listdir(self._tests_dir)
+            if path.isdir(path.join(self._tests_dir, dir_))
+        )
+
+    def load_tests(self, section_dir):
+        assert path.isdir(section_dir)
+        file_tests = self._load_file_tests(section_dir)
+        compact_tests = self._load_compact_tests(section_dir)
+
+        return sorted(
+            tuple(file_tests) + tuple(compact_tests),
+            key=attrgetter('name')
+        )
+
+    def _load_compact_tests(self, section_dir):
+        data = self._read_file(
+            path.join(section_dir, 'tests.json'),
+            allow_fail=True
+        )
+        if not data:
+            return ()
+        try:
+            data = json.loads(data.decode('utf8'))
+        except (json.JSONDecodeError, TypeError) as e:
+            Logger.log_warning(
+                "File {} is not valid json to load ({}).".format(path.join(section_dir, 'tests.json'), e)
+            )
+            return ()
+        cases = []
+        try:
+            for test_case in data.get('tests', ()):
+                cases.append(
+                    TestInfo(
+                        test_case.get('name') or '',
+                        bytes(test_case.get('code') or '', encoding='utf-8'),
+                        bytes(test_case.get('stdin') or '', encoding='utf-8'),
+                        test_case.get('stdout') or '',
+                        int(test_case.get('compiler_exit_code') or 0),
+                        int(test_case.get('interpreter_exit_code') or 0),
+                        test_case.get('info') or '',
+                    )
+                )
+        except TypeError as e:
+            Logger.log_warning("Cannot load test cases: {}.".format(e))
+            return ()
+        return cases
+
+    def _load_file_tests(self, section_dir):
+        for code_file in sorted(iglob(path.join(section_dir, "*.code"))):
+            name, _ = path.splitext(path.basename(code_file))
+            try:
+                code = self._read_file(code_file)
+                info = TestInfo(
+                    name,
+                    code,
+                    self._read_file(path.join(section_dir, '.'.join((name, 'stdin'))), allow_fail=True),
+                    self._read_file(path.join(section_dir, '.'.join((name, 'stdout'))), allow_fail=True),
+                    int(self._read_file(path.join(section_dir, '.'.join((name, 'cexitcode'))), allow_fail=True) or 0),
+                    int(self._read_file(path.join(section_dir, '.'.join((name, 'iexitcode'))), allow_fail=True) or 0),
+                    (
+                        code[:code.index(b'\n')].lstrip(b'\'').strip()
+                        if b'\n' in code and code.strip().startswith(b'\'')
+                        else b''
+                    ).decode('utf-8')
+                )
+            except ValueError as e:
+                Logger.log_warning("Unable to load file {}: {}".format(code_file, e))
+                continue
+            yield info
+
+    @staticmethod
+    def _read_file(file, allow_fail=False):
+        assert allow_fail or (path.isfile(file) and os.access(file, os.R_OK))
+        try:
+            with open(file, 'rb') as f:
+                return f.read()
+        except IOError:
+            if not allow_fail:
+                raise
+            return None
+
 
 class TestRunner(object):
     def __init__(self, args):
         super(TestRunner, self).__init__()
-        assert path.isdir(args.tests_dir), "Given tests dir is valid filesystem folder."
         assert path.isfile(args.compiler) and os.access(args.compiler, os.X_OK), \
             "Given compiler ({}) is file and is executable.".format(args.compiler)
         assert path.isfile(args.interpreter) and os.access(args.interpreter, os.X_OK), \
             "Given interpreter ({}) is file and is executable.".format(args.interpreter)
 
-        self._tests_dir = args.tests_dir
         self._compiler_binary = args.compiler
         self._interpreter_binary = args.interpreter
+        self._loader = TestLoader(args.tests_dir)
 
     def run(self):
-        for test_section in self.test_sections:
-            Logger.log_section(path.basename(test_section))
-            for test_info in self.find_tests(test_section):
+        for test_section_dir in self._loader.load_section_dirs():
+            Logger.log_section(path.basename(test_section_dir))
+            for test_info in self._loader.load_tests(test_section_dir):
                 self._run_test(test_info)
 
     def _run_test(self, test_info):
-        Logger.log_test(test_info.name)
+        Logger.log_test(
+            test_info.name,
+            ' ({})'.format(
+                test_info.info
+            ) if test_info.info else None
+        )
         Logger.log_test_step('Compiling')
         compiler_out, compiler_err, compiler_exit_code = self._compile(test_info.code)
 
@@ -86,11 +188,12 @@ class TestRunner(object):
                 return
 
         Logger.log_test_ok()
+        if compiler_exit_code != 0:
+            # compiler stops this test case
+            return
 
         Logger.log_test_step('Interpreting')
         run_out, run_err, run_exit_code = self._interpret(compiler_out, test_info)
-        Logger.log_test_ok()
-        Logger.log_test_step('Checking outputs')
 
         if test_info.interpreter_exit_code is not None:
             if run_exit_code != test_info.interpreter_exit_code:
@@ -98,6 +201,14 @@ class TestRunner(object):
                     test_info.interpreter_exit_code, run_exit_code
                 ))
                 return
+
+        if run_exit_code != 0:
+            # interpreter stops this test case
+            return
+
+        Logger.log_test_ok()
+
+        Logger.log_test_step('Checking outputs')
         if test_info.stdout is not None:
             if run_out != test_info.stdout:
                 Logger.log_test_fail("STDOUT")
@@ -117,46 +228,6 @@ class TestRunner(object):
         process = Popen([self._interpreter_binary, code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         out, err = process.communicate(input=test_info.stdin, timeout=2)
         return out, err, process.returncode
-
-    @classmethod
-    def find_tests(cls, directory):
-        for code_file in sorted(iglob(path.join(directory, "*.code"))):
-            name, _ = path.splitext(path.basename(code_file))
-
-            try:
-
-                info = TestInfo(
-                    name,
-                    cls._read_file(code_file),
-                    cls._read_file(path.join(directory, '.'.join((name, 'stdin'))), allow_fail=True),
-                    cls._read_file(path.join(directory, '.'.join((name, 'stdout'))), allow_fail=True),
-                    int(cls._read_file(path.join(directory, '.'.join((name, 'cexitcode'))), allow_fail=True) or 0),
-                    int(cls._read_file(path.join(directory, '.'.join((name, 'iexitcode'))), allow_fail=True) or 0),
-                )
-            except ValueError:
-                # TODO: log error
-                continue
-            yield info
-
-    @property
-    def test_sections(self):
-        return (
-            path.join(self._tests_dir, dir_)
-            for dir_
-            in os.listdir(self._tests_dir)
-            if path.isdir(path.join(self._tests_dir, dir_))
-        )
-
-    @staticmethod
-    def _read_file(file, allow_fail=False):
-        assert allow_fail or (path.isfile(file) and os.access(file, os.R_OK))
-        try:
-            with open(file, 'rb') as f:
-                return f.read()
-        except IOError:
-            if not allow_fail:
-                raise
-            return None
 
 
 def main(args):
