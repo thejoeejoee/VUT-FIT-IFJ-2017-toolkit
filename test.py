@@ -14,7 +14,39 @@ from tempfile import mktemp
 
 __DIR__ = path.abspath(path.dirname(__file__))
 
+TEST_LOG_HEADER = """\
+# TEST: {}
+# INFO: {}
+# INTERPRETER STDIN: 
+# {}
+# 
+# COMPILER STDERR:
+# {}
+# INTERPRETER STDERR:
+# {}
+#
+# EXPECTED INTERPRETER STDOUT:
+# {}
+# CURRENT INTERPRETER STDOUT:
+# {}
+#
+# EXPECTED COMPILER EXIT CODE: {}
+# CURRENT COMPILER EXIT CODE: {}
+# EXPECTED INTERPRETER EXIT CODE: {}
+# CURRENT INTERPRETER EXIT CODE: {}
+"""
+
 TestInfo = namedtuple('TestInfo', "name code stdin stdout compiler_exit_code interpreter_exit_code info")
+
+
+class TestReport(object):
+    compiler_stdout = None
+    compiler_stderr = None
+    compiler_exit_code = None
+
+    interpreter_stdout = None
+    interpreter_stderr = None
+    interpreter_exit_code = None
 
 
 class Logger(object):
@@ -191,6 +223,7 @@ class TestRunner(object):
                 self._run_test(test_info)
 
     def _run_test(self, test_info):
+        report = TestReport()
         Logger.log_test(
             test_info.name,
             ' ({})'.format(
@@ -198,49 +231,55 @@ class TestRunner(object):
             ) if test_info.info else None
         )
         Logger.log_test_step('Compiling')
-        compiler_out, compiler_err, compiler_exit_code = self._compile(test_info.code)
-
-        self._save_compiled_code(test_info, compiler_out)
+        report.compiler_stdout, report.compiler_stderr, report.compiler_exit_code = self._compile(test_info.code)
 
         if test_info.compiler_exit_code is not None:
-            if compiler_exit_code != test_info.compiler_exit_code:
+            if report.compiler_exit_code != test_info.compiler_exit_code:
                 Logger.log_test_fail("COMPILER EXIT CODE FAIL, expected={}, returned={}".format(
-                    test_info.compiler_exit_code, compiler_exit_code
+                    test_info.compiler_exit_code, report.compiler_exit_code
                 ))
+                self._save_report(test_info, report)
                 return
 
         Logger.log_test_ok()
-        if compiler_exit_code != 0:
+        if report.compiler_exit_code != 0:
             # compiler stops this test case
+            self._save_report(test_info, report)
             return
 
         Logger.log_test_step('Interpreting')
-        run_out, run_err, run_exit_code = self._interpret(compiler_out, test_info)
+        report.interpreter_stdout, report.interpreter_stderr, report.interpreter_exit_code = self._interpret(
+            report.compiler_stdout, test_info
+        )
 
         if test_info.interpreter_exit_code is not None:
-            if run_exit_code != test_info.interpreter_exit_code:
+            if report.interpreter_exit_code != test_info.interpreter_exit_code:
                 Logger.log_test_fail("INTERPRETER EXIT CODE FAIL, expected={}, returned={}".format(
-                    test_info.interpreter_exit_code, run_exit_code
+                    test_info.interpreter_exit_code, report.interpreter_exit_code
                 ))
+                self._save_report(test_info, report)
                 return
 
-        if run_exit_code != 0:
+        if report.interpreter_exit_code != 0:
             # interpreter stops this test case
+            self._save_report(test_info, report)
             return
 
         Logger.log_test_ok()
 
         Logger.log_test_step('Checking outputs')
         if test_info.stdout is not None:
-            if run_out != test_info.stdout:
+            if report.interpreter_stdout != test_info.stdout:
                 Logger.log_test_fail("STDOUT")
+                self._save_report(test_info, report)
                 return
         Logger.log_test_ok()
+        self._save_report(test_info, report)
 
     def _compile(self, code):
         process = Popen([self._compiler_binary], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         out, err = process.communicate(bytes(code, encoding='utf-8'), timeout=self._command_timeout)
-        return out.decode('utf-8'), err, process.returncode
+        return out.decode('utf-8'), err.decode('utf-8'), process.returncode
 
     def _interpret(self, code, test_info):
         code_temp = mktemp()
@@ -249,9 +288,11 @@ class TestRunner(object):
 
         process = Popen([self._interpreter_binary, code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'), timeout=self._command_timeout)
-        return out.decode('utf-8'), err, process.returncode
+        return out.decode('utf-8'), err.decode('utf-8'), process.returncode
 
-    def _save_compiled_code(self, test_info, compiler_out):
+    def _save_report(self, test_info, report):
+        # type: (TestInfo, TestReport) -> None
+        replace = lambda s: (s or '').replace('\n', '\n# ')
         with open(
                 path.join(
                     self._log_dir,
@@ -260,13 +301,28 @@ class TestRunner(object):
                 ),
                 'w'
         ) as f:
+            f.write(TEST_LOG_HEADER.format(
+                test_info.name,
+                test_info.info,
+                replace(test_info.stdin),
+
+                replace(report.compiler_stderr),
+                replace(report.interpreter_stderr),
+                replace(test_info.stdout),
+                replace(report.interpreter_stdout),
+
+                test_info.compiler_exit_code,
+                report.compiler_exit_code,
+                test_info.interpreter_exit_code,
+                report.interpreter_exit_code,
+            ))
             f.write(
                 '\n'.join(
                     '# ' + line for line in test_info.code.split('\n')
                 )
             )
-            f.write('\n'*2 + '# ' * 20 + '\n'*2)
-            f.write(compiler_out)
+            f.write('\n' * 2 + '# ' * 20 + '\n' * 2)
+            f.write(report.compiler_stdout)
 
 
 def main(args):
