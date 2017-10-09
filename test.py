@@ -92,7 +92,7 @@ class TestLoader(object):
         if not data:
             return ()
         try:
-            data = json.loads(data.decode('utf8'))
+            data = json.loads(data)
         except (json.JSONDecodeError, TypeError) as e:
             Logger.log_warning(
                 "File {} is not valid json to load ({}).".format(path.join(section_dir, 'tests.json'), e)
@@ -100,12 +100,12 @@ class TestLoader(object):
             return ()
         cases = []
         try:
-            for test_case in data.get('tests', ()):
+            for i, test_case in enumerate(data.get('tests', ())):
                 cases.append(
                     TestInfo(
-                        test_case.get('name') or '',
-                        bytes(test_case.get('code') or '', encoding='utf-8'),
-                        bytes(test_case.get('stdin') or '', encoding='utf-8'),
+                        test_case.get('name') or '{:03}'.format(i + 1),
+                        test_case.get('code') or '',
+                        test_case.get('stdin') or '',
                         test_case.get('stdout') or '',
                         int(test_case.get('compiler_exit_code') or 0),
                         int(test_case.get('interpreter_exit_code') or 0),
@@ -130,10 +130,10 @@ class TestLoader(object):
                     int(self._read_file(path.join(section_dir, '.'.join((name, 'cexitcode'))), allow_fail=True) or 0),
                     int(self._read_file(path.join(section_dir, '.'.join((name, 'iexitcode'))), allow_fail=True) or 0),
                     (
-                        code[:code.index(b'\n')].lstrip(b'\'').strip()
-                        if b'\n' in code and code.strip().startswith(b'\'')
-                        else b''
-                    ).decode('utf-8')
+                        code[:code.index('\n')].lstrip('\'').strip()
+                        if '\n' in code and code.strip().startswith('\'')
+                        else ''
+                    )
                 )
             except ValueError as e:
                 Logger.log_warning("Unable to load file {}: {}".format(code_file, e))
@@ -145,7 +145,7 @@ class TestLoader(object):
         assert allow_fail or (path.isfile(file) and os.access(file, os.R_OK))
         try:
             with open(file, 'rb') as f:
-                return f.read()
+                return f.read().decode('utf-8')
         except IOError:
             if not allow_fail:
                 raise
@@ -217,17 +217,17 @@ class TestRunner(object):
 
     def _compile(self, code):
         process = Popen([self._compiler_binary], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        out, err = process.communicate(code)
-        return out, err, process.returncode
+        out, err = process.communicate(bytes(code, encoding='utf-8'))
+        return out.decode('utf-8'), err, process.returncode
 
     def _interpret(self, code, test_info):
         code_temp = mktemp()
         with open(code_temp, 'wb') as f:
-            f.write(code)
+            f.write(bytes(code, encoding='utf-8'))
 
         process = Popen([self._interpreter_binary, code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         out, err = process.communicate(input=test_info.stdin, timeout=2)
-        return out, err, process.returncode
+        return out.decode('utf-8'), err, process.returncode
 
 
 def main(args):
