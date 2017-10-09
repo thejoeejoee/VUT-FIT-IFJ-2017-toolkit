@@ -1,0 +1,5 @@
+declare function foo() as string
+
+scope
+
+end scope
