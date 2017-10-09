@@ -2,6 +2,7 @@
 # coding=utf-8
 import json
 import os
+import shutil
 from argparse import ArgumentParser
 from collections import namedtuple
 from glob import iglob
@@ -171,11 +172,21 @@ class TestRunner(object):
         self._compiler_binary = args.compiler
         self._interpreter_binary = args.interpreter
         self._command_timeout = args.command_timeout
+        self._log_dir = args.log_dir
         self._loader = TestLoader(args.tests_dir)
+
+        if path.exists(self._log_dir):
+            shutil.rmtree(self._log_dir)
+        os.mkdir(self._log_dir)
+
+        self._actual_section = None
 
     def run(self):
         for test_section_dir in self._loader.load_section_dirs():
-            Logger.log_section(path.basename(test_section_dir))
+            self._actual_section = path.basename(test_section_dir)
+
+            Logger.log_section(self._actual_section)
+            os.mkdir(path.join(self._log_dir, self._actual_section))
             for test_info in self._loader.load_tests(test_section_dir):
                 self._run_test(test_info)
 
@@ -188,6 +199,8 @@ class TestRunner(object):
         )
         Logger.log_test_step('Compiling')
         compiler_out, compiler_err, compiler_exit_code = self._compile(test_info.code)
+
+        self._save_compiled_code(test_info, compiler_out)
 
         if test_info.compiler_exit_code is not None:
             if compiler_exit_code != test_info.compiler_exit_code:
@@ -238,6 +251,23 @@ class TestRunner(object):
         out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'), timeout=self._command_timeout)
         return out.decode('utf-8'), err, process.returncode
 
+    def _save_compiled_code(self, test_info, compiler_out):
+        with open(
+                path.join(
+                    self._log_dir,
+                    self._actual_section,
+                    '.'.join((test_info.name, 'IFJcode17'))
+                ),
+                'w'
+        ) as f:
+            f.write(
+                '\n'.join(
+                    '# ' + line for line in test_info.code.split('\n')
+                )
+            )
+            f.write('\n'*2 + '# ' * 20 + '\n'*2)
+            f.write(compiler_out)
+
 
 def main(args):
     runner = TestRunner(args)
@@ -256,6 +286,8 @@ if __name__ == '__main__':
                         type=str, default=path.join(__DIR__, 'bin/ic17int'))
     parser.add_argument("-d", "--tests-dir", help="path to folder with tests to run",
                         type=str, default=path.join(__DIR__, 'tests'))
+    parser.add_argument("-l", "--log-dir", help="path to folder with logs",
+                        type=str, default=path.join(__DIR__, 'log'))
     parser.add_argument("--command-timeout", help="maximal timeout for compiler and interpreter",
                         type=int, default=5)
 
