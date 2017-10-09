@@ -243,8 +243,8 @@ if __name__ == '__main__':
         """
     )
     parser.add_argument("compiler", help="path to IFJ17 compiler binary")
-    parser.add_argument("interpreter", help="path to IFJ17 interpreter binary",
-                        type=str, default=path.join(__DIR__, 'ic17int'))
+    parser.add_argument("-i", "--interpreter", help="path to IFJ17 interpreter binary",
+                        type=str, default=path.join(__DIR__, 'bin/ic17int'))
     parser.add_argument("-d", "--tests-dir", help="path to folder with tests to run",
                         type=str, default=path.join(__DIR__, 'tests'))
 
