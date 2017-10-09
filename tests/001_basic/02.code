@@ -1,4 +1,5 @@
-declare function foo() as string
+' declared function without definition
+declaree function foo() as string
 
 scope
 

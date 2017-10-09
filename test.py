@@ -82,7 +82,7 @@ class TestLoader(object):
         test_names = tuple(map(attrgetter('name'), tests))
         conflicting = set(test for test in test_names if test_names.count(test) > 1)
         if conflicting:
-            Logger.log_warning('Conflicting test case names: {}'.format(', '.join(sorted(conflicting))))
+            Logger.log_warning('Conflicting test case names: {}.'.format(', '.join(sorted(conflicting))))
             return ()
 
         return sorted(
@@ -131,8 +131,8 @@ class TestLoader(object):
                 info = TestInfo(
                     name,
                     code,
-                    self._read_file(path.join(section_dir, '.'.join((name, 'stdin'))), allow_fail=True),
-                    self._read_file(path.join(section_dir, '.'.join((name, 'stdout'))), allow_fail=True),
+                    self._read_file(path.join(section_dir, '.'.join((name, 'stdin'))), allow_fail=True) or '',
+                    self._read_file(path.join(section_dir, '.'.join((name, 'stdout'))), allow_fail=True) or '',
                     int(self._read_file(path.join(section_dir, '.'.join((name, 'cexitcode'))), allow_fail=True) or 0),
                     int(self._read_file(path.join(section_dir, '.'.join((name, 'iexitcode'))), allow_fail=True) or 0),
                     (
@@ -165,9 +165,12 @@ class TestRunner(object):
             "Given compiler ({}) is file and is executable.".format(args.compiler)
         assert path.isfile(args.interpreter) and os.access(args.interpreter, os.X_OK), \
             "Given interpreter ({}) is file and is executable.".format(args.interpreter)
+        assert isinstance(args.command_timeout, int) and args.command_timeout > 0, \
+            'Command timeout is positive int'
 
         self._compiler_binary = args.compiler
         self._interpreter_binary = args.interpreter
+        self._command_timeout = args.command_timeout
         self._loader = TestLoader(args.tests_dir)
 
     def run(self):
@@ -223,7 +226,7 @@ class TestRunner(object):
 
     def _compile(self, code):
         process = Popen([self._compiler_binary], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        out, err = process.communicate(bytes(code, encoding='utf-8'))
+        out, err = process.communicate(bytes(code, encoding='utf-8'), timeout=self._command_timeout)
         return out.decode('utf-8'), err, process.returncode
 
     def _interpret(self, code, test_info):
@@ -232,7 +235,7 @@ class TestRunner(object):
             f.write(bytes(code, encoding='utf-8'))
 
         process = Popen([self._interpreter_binary, code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        out, err = process.communicate(input=test_info.stdin, timeout=2)
+        out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'), timeout=self._command_timeout)
         return out.decode('utf-8'), err, process.returncode
 
 
@@ -253,6 +256,8 @@ if __name__ == '__main__':
                         type=str, default=path.join(__DIR__, 'bin/ic17int'))
     parser.add_argument("-d", "--tests-dir", help="path to folder with tests to run",
                         type=str, default=path.join(__DIR__, 'tests'))
+    parser.add_argument("--command-timeout", help="maximal timeout for compiler and interpreter",
+                        type=int, default=5)
 
     parsed = parser.parse_args()
 
