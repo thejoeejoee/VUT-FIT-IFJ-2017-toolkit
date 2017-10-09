@@ -78,9 +78,15 @@ class TestLoader(object):
         assert path.isdir(section_dir)
         file_tests = self._load_file_tests(section_dir)
         compact_tests = self._load_compact_tests(section_dir)
+        tests = tuple(file_tests) + tuple(compact_tests)
+        test_names = tuple(map(attrgetter('name'), tests))
+        conflicting = set(test for test in test_names if test_names.count(test) > 1)
+        if conflicting:
+            Logger.log_warning('Conflicting test case names: {}'.format(', '.join(sorted(conflicting))))
+            return ()
 
         return sorted(
-            tuple(file_tests) + tuple(compact_tests),
+            tests,
             key=attrgetter('name')
         )
 
