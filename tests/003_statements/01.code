@@ -1,0 +1,13 @@
+' basic constant assigment
+scope
+
+dim a as string
+a = !"fooman"
+
+dim b as integer
+b =  42
+
+dim c as double
+c  = 74.85
+
+end scope

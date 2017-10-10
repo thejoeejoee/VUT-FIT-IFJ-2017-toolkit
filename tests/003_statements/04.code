@@ -1,0 +1,7 @@
+' basic constant assigment with invalid types II
+scope
+
+dim b as string
+b = 75
+
+end scope

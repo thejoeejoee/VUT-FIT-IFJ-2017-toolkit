@@ -1,0 +1,13 @@
+' input statement
+scope
+	dim a as integer
+	input a
+
+	dim b as string
+	input b
+
+	dim c as double
+	input c
+	' exponent
+	input c
+end scope

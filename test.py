@@ -82,7 +82,7 @@ class Logger(object):
 
     @classmethod
     def log_test(cls, name, info=None):
-        Logger.log(Logger.BOLD, 'TEST ', name, info, ': ', indent=1, end=False)
+        Logger.log(Logger.BOLD, name, info, ': ', indent=1, end=False)
 
     @classmethod
     def log_test_fail(cls, result):
@@ -323,7 +323,7 @@ class TestRunner(object):
             ))
             f.write(
                 '\n'.join(
-                    '# ' + line for line in test_info.code.split('\n')
+                    '# {: 3}: {}'.format(i, line) for i, line in enumerate(test_info.code.split('\n'), start=1)
                 )
             )
             f.write('\n' * 2 + '# ' * 20 + '\n' * 2)
