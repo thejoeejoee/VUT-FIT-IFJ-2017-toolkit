@@ -18,10 +18,12 @@ kde `./ifj2017` je cesta ke kompilátoru, tedy například `~/school/fit/ifj/ifj
 Takto spuštěný skript automaticky projde implictině složku `tests` a provede následující sekvenci příkazů (viz struktura testů níže):
 1. pomocí předaného kompilátoru spustí kompilaci testovaného kódu v jazyce `IFJ17` do jazyka `IFJcode17`
 2. zkontroluje návratovou hodnotu
-3. spustí přibalený interpret jazyka `IFJcode17`, kterému volitelně předá na standardní vstup definovaný obsah
-4. zkontroluje návratový kód interpretu vůči požadovanému
-5. zkontroluje obsah vypsaný na standardní výstup vůči požadovanému
-6. výsledky jsou zalogovány
+3. v případě, že je navrácená nebo očekávaná hodnota kompilátoru nenulová, je běh testu ukončen
+4. spustí přibalený interpret jazyka `IFJcode17`, kterému volitelně předá na standardní vstup definovaný obsah
+5. zkontroluje návratový kód interpretu vůči požadovanému
+6. v případě, že je navrácená nebo očekávaná hodnota interpretu nenulová, je běh testu ukončen
+7. zkontroluje obsah vypsaný na standardní výstup vůči požadovanému
+Ve všech případech jsou očekávané hodnoty i jejich reálné protějšky zalogovány.
 
 Výsledek spuštění tedy poté může vypadat nějak takto:
 ![screenshot](https://ctrlv.cz/shots/2017/10/10/zmdz.png)
@@ -40,6 +42,7 @@ Každý test obsahuje následující data:
 * očekávaný návratový kód kompilátoru _volitelně_, výchozí `0`
 * očekávaný návratový kód interpretu _volitelně_, výchozí `0`
 * očekávaný standardní výstup z běhu _volitelně_, výchozí prázdný
+
 ## Definice testů
 Testové jednotky lze definovat dvěma způsoby.
 ### Definice pro souborech
@@ -54,7 +57,7 @@ tests/001_basic/
 |
 └── 02_foo.code # další testová jednotka
 ```
-Název testu je získán z názvu souboru, v tomto případě se jedná o `01`, popis může být udán jako jednořádkový komentář na začátku souboru `01.code`, resp. souboru definující test.
+Název testu je získán z názvu souboru, v tomto případě se jedná o `01`, popis může být udán jako jednořádkový komentář na začátku souboru `01.code`, resp. souboru definující test. Tento způsob slouží především pro složitější a komplexnější testy s předem očekávaným neprázdným výstupem.
 ### Definice pomocí JSON
 Každá testovací sekce může také obsahovat soubor s pevným názvem `tests.json`. Ten definuje testové jednotky velmi obdobným systémem, avšak agregovaně:
 ```json
@@ -79,10 +82,39 @@ Každá testovací sekce může také obsahovat soubor s pevným názvem `tests.
   ]
 }
 ```
-Z vlastností testů je opět povinný pouze `code`, tedy definice kódu pro zpracování. Klíče `info`, `name`, `compiler_exit_code`, `interpreter_exit_code`, `stdin` a `stdout` opět nejsou povinné a jsou doplněný dle výchozích hodnot definovaných ve struktuře testů.
+Z vlastností testů je opět povinný pouze `code`, tedy definice kódu pro zpracování. Klíče `info`, `name`, `compiler_exit_code`, `interpreter_exit_code`, `stdin` a `stdout` opět nejsou povinné a jsou doplněný dle výchozích hodnot definovaných ve struktuře testů. Pomocí JSON nejčastěji definujeme testy, které ověřují správné návratové kódy kompilátoru, ale jednoduché konstrukce, např. `PRINT` lze testovat s přehledem také.
 
 ### Logování
 Pro každý test spouštěč zaloguje soubor do logovací složku (výchozí `log`) výsledky z testu. Tento soubor obsahuje veškeré dostupné informace o běhu kompilátoru, jeho výstup v jazyce `IFJcode17` i veškeré informace z běhu interpretu.
+
+### Konfigurace spouštění
+Spouštěč testů lze dále také konfigurovat pomocí příkazové řádky, viz nápověda po zadání argumentu `-h`:
+```bash
+./test.py -h 
+usage: test.py [-h] [-i INTERPRETER] [-d TESTS_DIR] [-l LOG_DIR]
+               [--command-timeout COMMAND_TIMEOUT]
+               compiler
+
+Automatic test cases runner for IFJ17 compiler.
+
+positional arguments:
+  compiler              path to IFJ17 compiler binary
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i INTERPRETER, --interpreter INTERPRETER
+                        path to IFJ17 interpreter binary
+  -d TESTS_DIR, --tests-dir TESTS_DIR
+                        path to folder with tests to run
+  -l LOG_DIR, --log-dir LOG_DIR
+                        path to folder with logs
+  --command-timeout COMMAND_TIMEOUT
+                        maximal timeout for compiler and interpreter
+
+Authors: Josef Kolář (xkolar71, @thejoeejoee), Son Hai Nguyen (xnguye16,
+@SonyPony), GNU GPL v3, 2017
+```
+
 
 ## Spolupráce
 Tímto chceme všechny uživatele tototo repozitáře poprosit o **spolupráci s definicí testů**. Myslíme si, že čím více testovacích jednotek vytvoříme, tím **více** budeme mít **pokrytých stavů kompilátoru** a tím méně nás překvapí hodnocení. 
