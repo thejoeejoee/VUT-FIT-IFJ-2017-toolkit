@@ -2,7 +2,9 @@
 Repozitář pro sbírku programů v jazyce IFJ17 a jejich předpokládaných výstupů včetně automatického spouštěče a aktuální distribuce intepretu.
 
 ## Instalace
-Repozitář lze naklonovat standardně pomocí `git`, spouštěč testů požaduje interpret jazyka Python ve verzi `3.4` či vyšší.
+Spouštěč je schopen provozu na architektuře **Linux nebo Windows**, požadována je **64-bit architektura** (interpret není zadávajícími dodávána jiná architektura). Jediná závislost je interpret jazyka **`Python` ve verzi `3.4` nebo vyšší**.
+
+Spouštěč lze nainstalovat pomocí standardního nástroje `git`
 ```bash
 $ git clone https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests.git
 $ python3 --version
@@ -12,7 +14,7 @@ $ python3 --version
 Celá funkce se situována do jednoho skriptu v jazyce `Python`. Pro výchozí funkci je nutno předat cestu ke spustitelnému kompilátoru jazyka `IFJ17` do jazyka `IFJcode17`, tedy například takto:
 ```bash
 $ cd VUT-FIT-IFJ-2017-tests
-$ ./test.py ./ifj2017
+$ python3 test.py ./ifj2017
 ```
 kde `./ifj2017` je cesta ke kompilátoru, tedy například `~/school/fit/ifj/ifj2017`.
 Takto spuštěný skript automaticky projde implictině složku `tests` a provede následující sekvenci příkazů (viz struktura testů níže):
