@@ -82,23 +82,23 @@ class Logger(object):
 
     @classmethod
     def log_test(cls, name, info=None):
-        Logger.log(Logger.BOLD, 'TEST ', name, info, indent=1)
-
-    @classmethod
-    def log_test_step(cls, step):
-        Logger.log(Logger.BLUE, step, '...', indent=2)
+        Logger.log(Logger.BOLD, 'TEST ', name, info, ': ', indent=1, end=False)
 
     @classmethod
     def log_test_fail(cls, result):
-        cls.log(Logger.BOLD, Logger.WARNING, '× ', result, indent=3)
+        cls.log(Logger.BOLD, Logger.WARNING, '× ', result, end=False)
 
     @classmethod
     def log_test_ok(cls):
-        cls.log(Logger.GREEN, Logger.BOLD, '✓ OK', indent=3)
+        cls.log(Logger.GREEN, Logger.BOLD, '✓', end=False)
 
     @classmethod
     def log_warning(cls, warning):
         cls.log(Logger.FAIL, Logger.BOLD, 'WARNING: ', warning)
+
+    @classmethod
+    def log_end_test_case(cls):
+        cls.log()
 
 
 class TestLoader(object):
@@ -238,12 +238,11 @@ class TestRunner(object):
                 test_info.info
             ) if test_info.info else None
         )
-        Logger.log_test_step('Compiling')
         report.compiler_stdout, report.compiler_stderr, report.compiler_exit_code = self._compile(test_info.code)
 
         if test_info.compiler_exit_code is not None:
             if report.compiler_exit_code != test_info.compiler_exit_code:
-                Logger.log_test_fail("COMPILER EXIT CODE FAIL, expected={}, returned={}".format(
+                Logger.log_test_fail("COMPILER EXIT CODE expected={}, returned={}".format(
                     test_info.compiler_exit_code, report.compiler_exit_code
                 ))
                 self._save_report(test_info, report)
@@ -255,14 +254,13 @@ class TestRunner(object):
             self._save_report(test_info, report)
             return
 
-        Logger.log_test_step('Interpreting')
         report.interpreter_stdout, report.interpreter_stderr, report.interpreter_exit_code = self._interpret(
             report.compiler_stdout, test_info
         )
 
         if test_info.interpreter_exit_code is not None:
             if report.interpreter_exit_code != test_info.interpreter_exit_code:
-                Logger.log_test_fail("INTERPRETER EXIT CODE FAIL, expected={}, returned={}".format(
+                Logger.log_test_fail("INTERPRETER EXIT CODE expected={}, returned={}".format(
                     test_info.interpreter_exit_code, report.interpreter_exit_code
                 ))
                 self._save_report(test_info, report)
@@ -275,7 +273,6 @@ class TestRunner(object):
 
         Logger.log_test_ok()
 
-        Logger.log_test_step('Checking outputs')
         if test_info.stdout is not None:
             if report.interpreter_stdout != test_info.stdout:
                 Logger.log_test_fail("STDOUT")
@@ -331,6 +328,7 @@ class TestRunner(object):
             )
             f.write('\n' * 2 + '# ' * 20 + '\n' * 2)
             f.write(report.compiler_stdout)
+        Logger.log_end_test_case()
 
 
 def main(args):
