@@ -29,7 +29,7 @@ Takto spuštěný skript automaticky projde implictině složku `tests` a proved
 Ve všech případech jsou očekávané hodnoty i jejich reálné protějšky zalogovány.
 
 Výsledek spuštění tedy poté může vypadat nějak takto:
-![screenshot](https://ctrlv.cz/shots/2017/10/10/zmdz.png)
+![screenshot](https://ctrlv.cz/shots/2017/10/10/y5nn.png)
 
 ## Struktura testů
 Testy jsou rozděleny do sekcí dle složkového rozdělení v hlavní složce testů - sekce oddělují jednotlivé obsahy a náročnosti testů:
