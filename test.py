@@ -2,7 +2,9 @@
 # coding=utf-8
 import json
 import os
+import platform
 import shutil
+import sys
 from argparse import ArgumentParser
 from collections import namedtuple
 from glob import iglob
@@ -34,9 +36,15 @@ TEST_LOG_HEADER = """\
 # CURRENT COMPILER EXIT CODE: {}
 # EXPECTED INTERPRETER EXIT CODE: {}
 # CURRENT INTERPRETER EXIT CODE: {}
+# 
 """
 
 TestInfo = namedtuple('TestInfo', "name code stdin stdout compiler_exit_code interpreter_exit_code info")
+
+INTERPRETERS = {
+    'Linux': path.join(__DIR__, 'bin/linux/ic17int'),
+    'Windows': path.join(__DIR__, 'bin/windows/ic17int.exe'),
+}
 
 
 class TestReport(object):
@@ -286,7 +294,7 @@ class TestRunner(object):
         with open(code_temp, 'wb') as f:
             f.write(bytes(code, encoding='utf-8'))
 
-        process = Popen([self._interpreter_binary, code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+        process = Popen([self._interpreter_binary, '-v', code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'), timeout=self._command_timeout)
         return out.decode('utf-8'), err.decode('utf-8'), process.returncode
 
@@ -330,6 +338,21 @@ def main(args):
     runner.run()
 
 
+def check_platform():
+    if sys.maxsize <= 2 ** 32:
+        Logger.log_warning(
+            "Interpreter IFJcode17 requires 64-bit architecture, current is not 64-bit, terminating..."
+        )
+        return
+    system = platform.system()
+    if system not in INTERPRETERS:
+        Logger.log_warning(
+            "Actual platform '{}' is not supported platform, terminating...".format(system)
+        )
+        return
+    return True
+
+
 if __name__ == '__main__':
     parser = ArgumentParser(
         description='Automatic test cases runner for IFJ17 compiler.',
@@ -337,9 +360,12 @@ if __name__ == '__main__':
         Authors: Josef Kolář (xkolar71, @thejoeejoee), Son Hai Nguyen (xnguye16, @SonyPony), GNU GPL v3, 2017
         """
     )
+    if not check_platform():
+        exit(1)
+
     parser.add_argument("compiler", help="path to IFJ17 compiler binary")
     parser.add_argument("-i", "--interpreter", help="path to IFJ17 interpreter binary",
-                        type=str, default=path.join(__DIR__, 'bin/ic17int'))
+                        type=str, default=INTERPRETERS.get(platform.system()))
     parser.add_argument("-d", "--tests-dir", help="path to folder with tests to run",
                         type=str, default=path.join(__DIR__, 'tests'))
     parser.add_argument("-l", "--log-dir", help="path to folder with logs",
