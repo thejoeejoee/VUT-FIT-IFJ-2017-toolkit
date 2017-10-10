@@ -14,9 +14,6 @@ class Logger(object):
     UNDERLINE = '\033[4m'
     END = '\033[0m'
 
-
-
-
     @classmethod
     def log(cls, *args, stream=sys.stderr, end=True, indent=0):
         stream.write('\t' * indent)

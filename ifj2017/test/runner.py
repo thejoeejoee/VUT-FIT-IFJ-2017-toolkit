@@ -7,37 +7,38 @@ import sys
 from subprocess import PIPE, Popen
 from tempfile import mktemp
 
+from ifj2017.interpreter.interpreter import Interpreter
 from .base import TestInfo
 from .base import TestReport
 from .loader import TestLoader
 from .logger import Logger
 from .. import __PROJECT_ROOT__
 
+TEST_LOG_HEADER = """\
+# TEST: {}
+# INFO: {}
+# INTERPRETER STDIN: 
+# {}
+# 
+# COMPILER STDERR:
+# {}
+# INTERPRETER STDERR:
+# {}
+#
+# EXPECTED INTERPRETER STDOUT:
+# {}
+# CURRENT INTERPRETER STDOUT:
+# {}
+#
+# EXPECTED COMPILER EXIT CODE: {}
+# CURRENT COMPILER EXIT CODE: {}
+# EXPECTED INTERPRETER EXIT CODE: {}
+# CURRENT INTERPRETER EXIT CODE: {}
+# 
+"""
+
 
 class TestRunner(object):
-    TEST_LOG_HEADER = """\
-    # TEST: {}
-    # INFO: {}
-    # INTERPRETER STDIN: 
-    # {}
-    # 
-    # COMPILER STDERR:
-    # {}
-    # INTERPRETER STDERR:
-    # {}
-    #
-    # EXPECTED INTERPRETER STDOUT:
-    # {}
-    # CURRENT INTERPRETER STDOUT:
-    # {}
-    #
-    # EXPECTED COMPILER EXIT CODE: {}
-    # CURRENT COMPILER EXIT CODE: {}
-    # EXPECTED INTERPRETER EXIT CODE: {}
-    # CURRENT INTERPRETER EXIT CODE: {}
-    # 
-    """
-
     INTERPRETERS = {
         'Linux': path.join(__PROJECT_ROOT__, 'bin/linux/ic17int'),
         'Windows': path.join(__PROJECT_ROOT__, 'bin/windows/ic17int.exe'),
@@ -123,6 +124,7 @@ class TestRunner(object):
                 self._save_report(test_info, report)
                 return
         Logger.log_test_ok()
+        Interpreter(report.compiler_stdout).run()
         self._save_report(test_info, report)
 
     def _compile(self, code):
@@ -151,7 +153,7 @@ class TestRunner(object):
                 ),
                 'w'
         ) as f:
-            f.write(self.TEST_LOG_HEADER.format(
+            f.write(TEST_LOG_HEADER.format(
                 test_info.name,
                 test_info.info,
                 replace(test_info.stdin),
@@ -189,3 +191,6 @@ class TestRunner(object):
             )
             return
         return True
+
+
+__all__ = ['TestRunner']
