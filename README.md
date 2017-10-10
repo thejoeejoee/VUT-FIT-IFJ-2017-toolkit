@@ -88,7 +88,40 @@ Každá testovací sekce může také obsahovat soubor s pevným názvem `tests.
 Z vlastností testů je opět povinný pouze `code`, tedy definice kódu pro zpracování. Klíče `info`, `name`, `compiler_exit_code`, `interpreter_exit_code`, `stdin` a `stdout` opět nejsou povinné a jsou doplněný dle výchozích hodnot definovaných ve struktuře testů. Pomocí JSON nejčastěji definujeme testy, které ověřují správné návratové kódy kompilátoru, ale jednoduché konstrukce, např. `PRINT` lze testovat s přehledem také.
 
 ### Logování
-Pro každý test spouštěč zaloguje soubor do logovací složku (výchozí `log`) výsledky z testu. Tento soubor obsahuje veškeré dostupné informace o běhu kompilátoru, jeho výstup v jazyce `IFJcode17` i veškeré informace z běhu interpretu.
+Pro každý test spouštěč zaloguje soubor do logovací složku (výchozí `log`) výsledky z testu. Tento soubor obsahuje veškeré dostupné informace o běhu kompilátoru, jeho výstup v jazyce `IFJcode17` i veškeré informace z běhu interpretu. Soubor logu jako takový je validní zdrojový kód jazyka `IFJcode17`, lze jej tedy přidat interpretu přímo (při standardní běhu je interpretu předáno pouze to, co reálně vypíše kompilátor). Struktura zalogovaných informací je následující, myslíme, že ji není třeba dodatečně popisovat: 
+```
+# TEST: 01
+# INFO: Basic test for scope without any statements.
+# INTERPRETER STDIN: 
+# 
+# 
+# COMPILER STDERR:
+# 
+# INTERPRETER STDERR:
+# Executing instruction: IJUMP at line: 2 with following arguments:
+# Executing instruction: ILABEL at line: 3 with following arguments:
+# 
+#
+# EXPECTED INTERPRETER STDOUT:
+# 
+# CURRENT INTERPRETER STDOUT:
+# 
+#
+# EXPECTED COMPILER EXIT CODE: 0
+# CURRENT COMPILER EXIT CODE: 0
+# EXPECTED INTERPRETER EXIT CODE: 0
+# CURRENT INTERPRETER EXIT CODE: 0
+# 
+# ' Basic test for scope without any statements.
+# SCOPE
+# END SCOPE
+
+# # # # # # # # # # # # # # # # # # # # 
+
+.IFJcode17
+CALL scope  
+LABEL scope  
+```
 
 ### Konfigurace spouštění
 Spouštěč testů lze dále také konfigurovat pomocí příkazové řádky, viz nápověda po zadání argumentu `-h`:
