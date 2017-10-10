@@ -23,6 +23,7 @@ Takto spuštěný skript automaticky projde implictině složku `tests` a proved
 5. zkontroluje návratový kód interpretu vůči požadovanému
 6. v případě, že je navrácená nebo očekávaná hodnota interpretu nenulová, je běh testu ukončen
 7. zkontroluje obsah vypsaný na standardní výstup vůči požadovanému
+
 Ve všech případech jsou očekávané hodnoty i jejich reálné protějšky zalogovány.
 
 Výsledek spuštění tedy poté může vypadat nějak takto:
@@ -121,6 +122,8 @@ Tímto chceme všechny uživatele tototo repozitáře poprosit o **spolupráci s
 **Všem zájemcům doporučujeme poslat pull request** ([Jak poslat Pull Request](https://blog.tomasfejfar.cz/jak-udelat-pullrequest/)), je pro nás nejsnažší na integraci do repozitáře, ale nebudeme se zlobit, když nám definice hodíte na Facebook, vytvoříte issue nebo pošlete e-mail. **Děkujeme!**
 
 _Také oceníme, když nám nalezené chyby zareportujete do Github issues, kam nám jistě můžete zapsat i vylepšení, co vás napadla nebo by se vám hodila - určitě se nějak domluvíme._
+
+![Pomožte!](https://ctrlv.cz/shots/2017/10/10/KP3O.png)
 
 ## Autoři
 - Josef Kolář, xkolar71, @thejoeejoee - idea, spouštěč, dokumentace
