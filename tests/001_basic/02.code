@@ -1,6 +1,6 @@
-' declared function without definition
-declaree function foo() as string
-
+' variable declarations
 scope
-
+Dim a as string
+Dim b as integer
+Dim c as double
 end scope

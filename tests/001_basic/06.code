@@ -1,0 +1,6 @@
+' block comments
+scope
+/' this is comment '/
+
+/' test ' '/
+end scope

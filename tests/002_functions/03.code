@@ -1,0 +1,10 @@
+' variable same name like function
+
+function bar() as string
+end function 
+
+scope
+
+dim bar as integer
+
+end scope

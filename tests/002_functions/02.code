@@ -1,0 +1,9 @@
+' empty function definition with declaration
+
+declare function bar() as string
+
+function bar() as string
+end function 
+
+scope
+end scope

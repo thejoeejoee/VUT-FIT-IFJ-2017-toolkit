@@ -1,0 +1,8 @@
+' function params with declaration
+declare function bar(h as string, t as integer) as string
+
+function bar(b as string, c as integer) as string
+end function 
+
+scope
+end scope

@@ -1,0 +1,7 @@
+' function params
+
+function bar(b as string, c as integer) as string
+end function 
+
+scope
+end scope

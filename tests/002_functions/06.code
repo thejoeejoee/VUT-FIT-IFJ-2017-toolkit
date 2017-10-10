@@ -1,0 +1,8 @@
+' function params with declaration but invalid types
+declare function bar(h as string, t as string) as string
+
+function bar(b as string, c as integer) as string
+end function 
+
+scope
+end scope
