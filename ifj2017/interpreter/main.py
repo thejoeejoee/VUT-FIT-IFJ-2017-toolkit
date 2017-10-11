@@ -39,8 +39,6 @@ label scope
     MOVE LF@b int@42
     JUMPIFNEQ test LF@a LF@b
     
-    
-    
     call function
     call function
     call function
