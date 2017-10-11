@@ -122,3 +122,11 @@ class State(object):
                 loaded.append(input_[i])
                 i += 1
             self.set_value(to, ''.join(loaded))
+
+    def string_to_int_stack(self):
+        index = self.pop_stack()
+        what = self.pop_stack()
+
+        self.push_stack(
+            ord(what[index])
+        )

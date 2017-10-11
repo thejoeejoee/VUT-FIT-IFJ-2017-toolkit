@@ -1,6 +1,7 @@
 # coding=utf-8
 import codecs
 import logging
+import math
 import operator
 
 from .operand import Operand
@@ -43,15 +44,13 @@ class Instruction(object):
         assert parts
         count = len(parts)
         self.name = parts[0].upper()
-        if count == 2:
-            self.op0 = Operand(parts[1])
-        if count == 3:
-            self.op0 = Operand(parts[1])
-            self.op1 = Operand(parts[2])
-        if count == 4:
-            self.op0 = Operand(parts[1])
-            self.op1 = Operand(parts[2])
+
+        if count > 3:
             self.op2 = Operand(parts[3])
+        if count > 2:
+            self.op1 = Operand(parts[2])
+        if count > 1:
+            self.op0 = Operand(parts[1])
 
     @property
     def operands(self):
@@ -67,6 +66,7 @@ class Instruction(object):
         'CALL': State.call,
         'RETURN': State.return_,
         'LABEL': lambda s, o: None,
+
         'JUMPIFEQ': lambda state, op0, op1, op2: state.jump_if(op0, op1, op2, positive=True),
         'JUMPIFNEQ': lambda state, op0, op1, op2: state.jump_if(op0, op1, op2, positive=False),
         'JUMPIFEQS': lambda state, op0: state.jump_if(op0, state.pop_stack(), state.pop_stack(), positive=True),
@@ -103,8 +103,7 @@ class Instruction(object):
         'ORS': _operator_stack_command(operator.or_),
         'NOTS': lambda state: state.push_stack(not state.pop_stack(None)),
 
-        # TODO: read
-        'READ': lambda state, op0, op1: None,
+        'READ': State.read,
         'TYPE': lambda state, op0, op1: state.set_value(
             op0,
             Operand.CONSTANT_MAPPING_REVERSE.get(type(state.get_value(op1))) if state.get_value(op1) is not None else ''
@@ -124,6 +123,32 @@ class Instruction(object):
         ),
         'SETCHAR': State.set_char,
 
+        'INT2FLOAT': lambda state, op0, op1: state.set_value(op1, float(state.get_value(op1))),
+        'FLOAT2INT': lambda state, op0, op1: state.set_value(op1, int(state.get_value(op1))),
+        'FLOAT2R2EINT': lambda state, op0, op1: state.set_value(
+            op0,
+            math.ceil(state.get_value(op1) / 2.) * 2
+        ),
+        'FLOAT2R2OINT': lambda state, op0, op1: state.set_value(
+            op0,
+            round(state.get_value(op1))  # TODO: odd round
+        ),
+        'INT2CHAR': lambda state, to, what: state.set_value(to, chr(state.get_value(what))),
+        'STRI2INT': lambda state, to, what, index: state.set_value(
+            to,
+            ord(state.get_value(what)[state.get_value(index)])
+        ),
+
+        'INT2FLOATS': lambda state: state.push_stack(float(state.pop_stack())),
+        'FLOAT2INTS': lambda state: state.push_stack(int(state.pop_stack())),
+        'FLOAT2R2EINTS': lambda state: state.push_stack(
+            math.ceil(state.pop_stack() / 2.) * 2
+        ),
+        'FLOAT2R2OINTS': lambda state: state.push_stack(
+            round(state.pop_stack())  # TODO: odd round
+        ),
+        'INT2CHARS': lambda state, to, what: state.push_stack(to, chr(state.pop_stack())),
+        'STRI2INTS': State.string_to_int_stack,
 
     }
 

@@ -31,7 +31,7 @@ class Operand(object):
         'bool': bool,
         'int': int,
         'float': float,
-        'string': str,  # todo: bytes?
+        'string': str,
     }
 
     CONSTANT_MAPPING_REVERSE = {k: v for v, k in CONSTANT_MAPPING.items()}

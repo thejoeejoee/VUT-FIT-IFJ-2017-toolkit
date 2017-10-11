@@ -1,10 +1,10 @@
 # coding=utf-8
-import logging
 from sys import stdout, stderr
 
 from ifj2017.interpreter.interpreter import Interpreter
 
-logging.basicConfig(level=logging.DEBUG)
+# import logging
+# logging.basicConfig(level=logging.DEBUG)
 code = """\
 .IFJcode17
 jump scope
