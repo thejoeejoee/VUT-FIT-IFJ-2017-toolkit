@@ -14,9 +14,21 @@ class TestLogger(object):
     UNDERLINE = '\033[4m'
     END = '\033[0m'
 
+    disable_colors = False
+
     @classmethod
     def log(cls, *args, stream=sys.stderr, end=True, indent=0):
         stream.write('\t' * indent)
+        if cls.disable_colors:
+            args = (
+                arg
+                for arg
+                in args
+                if arg not in (
+                cls.BLUE, cls.GREEN, cls.WARNING, cls.HEADER, cls.FAIL, cls.BOLD, cls.UNDERLINE
+            )
+            )
+
         stream.write(''.join(map(str, filter(None, args))))
         stream.write(cls.END)
         if end:

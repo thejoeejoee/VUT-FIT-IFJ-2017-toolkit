@@ -26,6 +26,8 @@ if __name__ == '__main__':
                         type=str, default=path.join(__PROJECT_ROOT__, 'log'))
     parser.add_argument("--command-timeout", help="maximal timeout for compiler and interpreter",
                         type=int, default=5)
+    parser.add_argument("--no-colors", action='store_true', help="disable colored output (for Windows CMD etc.)",
+                        default=False)
 
     runner = TestRunner(parser.parse_args())
     exit(runner.run())

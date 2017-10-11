@@ -4,7 +4,6 @@ import os
 import os.path as path
 import platform
 import shutil
-import sys
 from io import StringIO
 from subprocess import PIPE, Popen
 from tempfile import mktemp
@@ -60,6 +59,7 @@ class TestRunner(object):
         self._command_timeout = args.command_timeout
         self._log_dir = args.log_dir
         self._loader = TestLoader(args.tests_dir)
+        TestLogger.disable_colors = args.no_colors
 
         if path.exists(self._log_dir):
             shutil.rmtree(self._log_dir)
@@ -192,11 +192,6 @@ class TestRunner(object):
 
     @classmethod
     def check_platform(cls):
-        if sys.maxsize <= 2 ** 32:
-            TestLogger.log_warning(
-                "Interpreter IFJcode17 requires 64-bit architecture, current is not 64-bit, terminating..."
-            )
-            return
         system = platform.system()
         if system not in cls.INTERPRETERS:
             TestLogger.log_warning(
