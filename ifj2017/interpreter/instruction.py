@@ -4,6 +4,7 @@ import logging
 import math
 import operator
 
+from .prices import InstructionPrices
 from .operand import Operand
 from .state import State
 
@@ -155,4 +156,6 @@ class Instruction(object):
     def run(self, state):
         logging.info('Processing {}.'.format(self.name))
         command = self._commands.get(self.name, _unknown_command)
+        price = InstructionPrices.INSTRUCTIONS.get(self.name)
         command(state, *self.operands)  # fake instance argument
+        state.instruction_price += price

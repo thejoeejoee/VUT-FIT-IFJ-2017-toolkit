@@ -2,6 +2,7 @@
 
 from io import StringIO
 
+from .prices import InstructionPrices
 from .operand import Operand
 from .operand import TypeOperand
 
@@ -21,6 +22,9 @@ class State(object):
         self.data_stack = []  # top at end of list
         self.labels = {}
 
+        self.instruction_price = 0
+        self.operand_price = 0
+
     @property
     def local_frame(self):
         return self.frame_stack[-1] if self.frame_stack else {}  # little bit fake
@@ -39,9 +43,11 @@ class State(object):
         if not isinstance(value, Operand):
             return value
         if value.type == TypeOperand.CONSTANT:
+            self.operand_price += InstructionPrices.OPERAND_CONSTANT
             return value.value
         elif value.type == TypeOperand.VARIABLE:
             # wanted key error
+            self.operand_price += InstructionPrices.OPERAND_VARIABLE
             return self.frame(value.frame)[value.name]
 
     def set_value(self, to, what):
@@ -50,7 +56,7 @@ class State(object):
 
     def __str__(self):
         join = ', '.join
-        return 'State(TF=({}), LF=({})({}), GF=({}), STACK=[{}], PC={}, EXECUTED={})'.format(
+        return 'State(TF=({}), LF=({})({}), GF=({}), STACK=[{}], PC={}, EXECUTED={}, PRICE={}({}+{}))'.format(
             join('{}: {}'.format(k, v) for k, v in self.temp_frame.items()) if self.temp_frame else '-',
             join('{}: {}'.format(k, v) for k, v in self.local_frame.items()) if self.local_frame else '-',
             len(self.frame_stack),
@@ -58,6 +64,9 @@ class State(object):
             join(map(str, reversed(self.data_stack))),
             self.program_counter,
             self.executed_instructions,
+            self.instruction_price + self.operand_price,
+            self.instruction_price,
+            self.operand_price
         )
 
     # concrete state change implementations
@@ -89,6 +98,7 @@ class State(object):
 
     def push_stack(self, op):
         self.data_stack.append(self.get_value(op))
+        self.operand_price += InstructionPrices.OPERAND_STACK
 
     def pop_stack(self, op=None):
         # type: (Operand) -> object
@@ -97,6 +107,7 @@ class State(object):
             # for operand is set, without is only returned
             self.set_value(op, value)
 
+        self.operand_price += InstructionPrices.OPERAND_STACK
         self.data_stack = self.call_stack[:-1]
         return value
 

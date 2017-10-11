@@ -43,6 +43,7 @@ label scope
     
     call function
     call function
+    call function
     TYPE LF@b int@42
     BREAK
     call function
