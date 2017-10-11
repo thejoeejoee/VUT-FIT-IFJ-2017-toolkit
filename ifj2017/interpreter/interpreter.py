@@ -1,6 +1,7 @@
 # coding=utf-8
-from .state import State
+from ifj2017.interpreter.exceptions import InterpreterStopException
 from .instruction import Instruction
+from .state import State
 
 
 class Interpreter(object):
@@ -35,9 +36,13 @@ class Interpreter(object):
         while state.program_counter < program_length:
             program_counter = state.program_counter
             instruction = self._instructions[state.program_counter]  # type: Instruction
-            instruction.run(state)
+            try:
+                instruction.run(state)
+            except InterpreterStopException:
+                break
 
             if program_counter == state.program_counter:
                 # increment only in case of not manipulating with PC
                 state.program_counter += 1
-        return state.stdout.getvalue()
+
+        return state

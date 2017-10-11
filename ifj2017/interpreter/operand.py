@@ -34,6 +34,8 @@ class Operand(object):
         'string': str,  # todo: bytes?
     }
 
+    CONSTANT_MAPPING_REVERSE = {k: v for v, k in CONSTANT_MAPPING.items()}
+
     def __init__(self, value):
         # type: (str) -> None
         constant_match = CONSTANT_RE.match(value)

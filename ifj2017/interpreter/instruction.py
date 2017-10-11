@@ -24,8 +24,8 @@ def _operator_stack_command(operator_):
     # type: (callable) -> callable
     def inner(state):
         # type: (State, Operand, Operand, Operand) -> None
-        op2 = state.pop_stack(None)
-        op1 = state.pop_stack(None)
+        op2 = state.pop_stack()
+        op1 = state.pop_stack()
         state.push_stack(operator_(op1, op2))
 
     return inner
@@ -67,6 +67,10 @@ class Instruction(object):
         'CALL': State.call,
         'RETURN': State.return_,
         'LABEL': lambda s, o: None,
+        'JUMPIFEQ': lambda state, op0, op1, op2: state.jump_if(op0, op1, op2, positive=True),
+        'JUMPIFNEQ': lambda state, op0, op1, op2: state.jump_if(op0, op1, op2, positive=False),
+        'JUMPIFEQS': lambda state, op0: state.jump_if(op0, state.pop_stack(), state.pop_stack(), positive=True),
+        'JUMPIFNEQS': lambda state, op0: state.jump_if(op0, state.pop_stack(), state.pop_stack(), positive=False),
 
         # TODO: formats based on type
         # magic with escaped chars: escaped \\n to real \n
@@ -100,7 +104,27 @@ class Instruction(object):
         'NOTS': lambda state: state.push_stack(not state.pop_stack(None)),
 
         # TODO: read
-        'READ': lambda state, op0, op1: None
+        'READ': lambda state, op0, op1: None,
+        'TYPE': lambda state, op0, op1: state.set_value(
+            op0,
+            Operand.CONSTANT_MAPPING_REVERSE.get(type(state.get_value(op1))) if state.get_value(op1) is not None else ''
+        ),
+
+        'BREAK': lambda state: state.stderr.write('{}\n'.format(state)),
+        'DPRINT': lambda state, op0: state.stderr.write('{}\n'.format(state.get_value(op0))),
+
+        'CONCAT': lambda state, target, op0, op1: state.set_value(target, ''.join((
+            state.get_value(op0),
+            state.get_value(op1),
+        ))),
+        'STRLEN': lambda state, target, string: state.set_value(target, len(string)),
+        'GETCHAR': lambda state, target, string, index: state.set_value(
+            target,
+            state.get_value(string)[state.get_value(index)]
+        ),
+        'SETCHAR': State.set_char,
+
+
     }
 
     def run(self, state):
