@@ -13,5 +13,7 @@ class TestReport(object):
     interpreter_stderr = None
     interpreter_exit_code = None
 
+    success = True
+
 
 __all__ = ['TestReport', 'TestInfo']

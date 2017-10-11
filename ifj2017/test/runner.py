@@ -60,6 +60,7 @@ class TestRunner(object):
         self._log_dir = args.log_dir
         self._loader = TestLoader(args.tests_dir)
         TestLogger.disable_colors = args.no_colors
+        self._reports = []
 
         if path.exists(self._log_dir):
             shutil.rmtree(self._log_dir)
@@ -75,7 +76,7 @@ class TestRunner(object):
             os.mkdir(path.join(self._log_dir, self._actual_section))
             for test_info in self._loader.load_tests(test_section_dir):
                 self._run_test(test_info)
-        return 0  # TODO: resolve exit code
+        return TestLogger.log_results(self._reports)
 
     def _run_test(self, test_info):
         report = TestReport()
@@ -92,6 +93,7 @@ class TestRunner(object):
                 TestLogger.log_test_fail("COMPILER EXIT CODE expected={}, returned={}".format(
                     test_info.compiler_exit_code, report.compiler_exit_code
                 ))
+                report.success = False
                 self._save_report(test_info, report)
                 return
 
@@ -110,6 +112,7 @@ class TestRunner(object):
                 TestLogger.log_test_fail("INTERPRETER EXIT CODE expected={}, returned={}".format(
                     test_info.interpreter_exit_code, report.interpreter_exit_code
                 ))
+                report.success = False
                 self._save_report(test_info, report)
                 return
 
@@ -123,6 +126,7 @@ class TestRunner(object):
         if test_info.stdout is not None:
             if report.interpreter_stdout != test_info.stdout:
                 TestLogger.log_test_fail("STDOUT")
+                report.success = False
                 self._save_report(test_info, report)
                 return
         TestLogger.log_test_ok()
@@ -188,6 +192,7 @@ class TestRunner(object):
             )
             f.write('\n' * 2 + '# ' * 20 + '\n' * 2)
             f.write(report.compiler_stdout)
+        self._reports.append(report)
         TestLogger.log_end_test_case()
 
     @classmethod

@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import sys
+from operator import attrgetter
 
 
 class TestLogger(object):
@@ -65,6 +66,24 @@ class TestLogger(object):
             state.instruction_price,
             state.operand_price
         ), end=False)
+
+    @classmethod
+    def log_results(cls, reports):
+        total = len(reports)
+        success = len(tuple(filter(attrgetter('success'), reports)))
+
+        cls.log(
+            cls.UNDERLINE,
+            cls.BOLD,
+            'RESULTS:',
+            cls.END,
+            ' ({}/{})\n\t'.format(success, total),
+            cls.END,
+            cls.BOLD,
+            ''.join((cls.FAIL + '×', cls.GREEN + '✓')[report.success] for report in reports),
+            ''
+        )
+        return bool(total - success)
 
 
 __all__ = ['TestLogger']
