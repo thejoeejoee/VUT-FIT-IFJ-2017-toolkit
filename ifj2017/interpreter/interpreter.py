@@ -5,7 +5,7 @@ from .state import State
 
 
 class Interpreter(object):
-    def __init__(self, code):
+    def __init__(self, code, stdin=None):
         # type: (str) -> None
         assert code.startswith('.IFJcode17\n')
         self._code = code[code.index('\n'):]
@@ -13,6 +13,8 @@ class Interpreter(object):
         self._instructions = []
 
         self._load_code()
+
+        self._stdin = stdin
 
     def _load_code(self):
         for line in self._code.split('\n'):
@@ -31,6 +33,9 @@ class Interpreter(object):
 
     def run(self):
         state = State()
+        if self._stdin:
+            state.stdin = self._stdin
+
         self._load_labels(state)
         program_length = len(self._instructions)
         while state.program_counter < program_length:

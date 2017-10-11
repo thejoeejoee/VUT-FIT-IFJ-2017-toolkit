@@ -3,7 +3,7 @@
 import sys
 
 
-class Logger(object):
+class TestLogger(object):
     BLUE = '\033[94m'
     GREEN = '\033[32m'
     WARNING = '\033[93m'
@@ -24,27 +24,35 @@ class Logger(object):
 
     @classmethod
     def log_section(cls, section):
-        Logger.log(Logger.BLUE, "SECTION ", Logger.UNDERLINE, section)
+        cls.log(cls.BLUE, cls.UNDERLINE, section, ':')
 
     @classmethod
     def log_test(cls, name, info=None):
-        Logger.log(Logger.BOLD, name, info, ': ', indent=1, end=False)
+        cls.log(cls.BOLD, name, info, ': ', indent=1, end=False)
 
     @classmethod
     def log_test_fail(cls, result):
-        cls.log(Logger.BOLD, Logger.WARNING, '× ', result, end=False)
+        cls.log(cls.BOLD, cls.WARNING, '× ', result, end=False)
 
     @classmethod
     def log_test_ok(cls):
-        cls.log(Logger.GREEN, Logger.BOLD, '✓', end=False)
+        cls.log(cls.GREEN, cls.BOLD, '✓', end=False)
 
     @classmethod
     def log_warning(cls, warning):
-        cls.log(Logger.FAIL, Logger.BOLD, 'WARNING: ', warning)
+        cls.log(cls.FAIL, cls.BOLD, 'WARNING: ', warning)
 
     @classmethod
     def log_end_test_case(cls):
         cls.log()
 
+    @classmethod
+    def log_price(cls, state):
+        # (State) -> None
+        cls.log(cls.BLUE, ' ', state.operand_price + state.instruction_price, ' ({}+{})'.format(
+            state.instruction_price,
+            state.operand_price
+        ), end=False)
 
-__all__ = ['Logger']
+
+__all__ = ['TestLogger']

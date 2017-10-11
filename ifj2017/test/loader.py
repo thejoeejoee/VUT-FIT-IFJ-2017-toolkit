@@ -6,7 +6,7 @@ from glob import iglob
 from operator import attrgetter
 
 from .base import TestInfo
-from .logger import Logger
+from .logger import TestLogger
 
 
 class TestLoader(object):
@@ -31,7 +31,7 @@ class TestLoader(object):
         test_names = tuple(map(attrgetter('name'), tests))
         conflicting = set(test for test in test_names if test_names.count(test) > 1)
         if conflicting:
-            Logger.log_warning('Conflicting test case names: {}.'.format(', '.join(sorted(conflicting))))
+            TestLogger.log_warning('Conflicting test case names: {}.'.format(', '.join(sorted(conflicting))))
             return ()
 
         return sorted(
@@ -49,7 +49,7 @@ class TestLoader(object):
         try:
             data = json.loads(data)
         except (json.JSONDecodeError, TypeError) as e:
-            Logger.log_warning(
+            TestLogger.log_warning(
                 "File {} is not valid json to load ({}).".format(path.join(section_dir, 'tests.json'), e)
             )
             return ()
@@ -68,7 +68,7 @@ class TestLoader(object):
                     )
                 )
         except TypeError as e:
-            Logger.log_warning("Cannot load test cases: {}.".format(e))
+            TestLogger.log_warning("Cannot load test cases: {}.".format(e))
             return ()
         return cases
 
@@ -91,7 +91,7 @@ class TestLoader(object):
                     )
                 )
             except ValueError as e:
-                Logger.log_warning("Unable to load file {}: {}".format(code_file, e))
+                TestLogger.log_warning("Unable to load file {}: {}".format(code_file, e))
                 continue
             yield info
 

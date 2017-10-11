@@ -1,18 +1,20 @@
 # coding=utf-8
+import logging
 import os
 import os.path as path
 import platform
 import shutil
 import sys
+from io import StringIO
 from subprocess import PIPE, Popen
 from tempfile import mktemp
 
-from ifj2017.interpreter.interpreter import Interpreter
 from .base import TestInfo
 from .base import TestReport
 from .loader import TestLoader
-from .logger import Logger
+from .logger import TestLogger
 from .. import __PROJECT_ROOT__
+from ..interpreter.interpreter import Interpreter
 
 TEST_LOG_HEADER = """\
 # TEST: {}
@@ -69,7 +71,7 @@ class TestRunner(object):
         for test_section_dir in self._loader.load_section_dirs():
             self._actual_section = path.basename(test_section_dir)
 
-            Logger.log_section(self._actual_section)
+            TestLogger.log_section(self._actual_section)
             os.mkdir(path.join(self._log_dir, self._actual_section))
             for test_info in self._loader.load_tests(test_section_dir):
                 self._run_test(test_info)
@@ -77,7 +79,7 @@ class TestRunner(object):
 
     def _run_test(self, test_info):
         report = TestReport()
-        Logger.log_test(
+        TestLogger.log_test(
             test_info.name,
             ' ({})'.format(
                 test_info.info
@@ -87,13 +89,13 @@ class TestRunner(object):
 
         if test_info.compiler_exit_code is not None:
             if report.compiler_exit_code != test_info.compiler_exit_code:
-                Logger.log_test_fail("COMPILER EXIT CODE expected={}, returned={}".format(
+                TestLogger.log_test_fail("COMPILER EXIT CODE expected={}, returned={}".format(
                     test_info.compiler_exit_code, report.compiler_exit_code
                 ))
                 self._save_report(test_info, report)
                 return
 
-        Logger.log_test_ok()
+        TestLogger.log_test_ok()
         if report.compiler_exit_code != 0:
             # compiler stops this test case
             self._save_report(test_info, report)
@@ -105,7 +107,7 @@ class TestRunner(object):
 
         if test_info.interpreter_exit_code is not None:
             if report.interpreter_exit_code != test_info.interpreter_exit_code:
-                Logger.log_test_fail("INTERPRETER EXIT CODE expected={}, returned={}".format(
+                TestLogger.log_test_fail("INTERPRETER EXIT CODE expected={}, returned={}".format(
                     test_info.interpreter_exit_code, report.interpreter_exit_code
                 ))
                 self._save_report(test_info, report)
@@ -116,15 +118,22 @@ class TestRunner(object):
             self._save_report(test_info, report)
             return
 
-        Logger.log_test_ok()
+        TestLogger.log_test_ok()
 
         if test_info.stdout is not None:
             if report.interpreter_stdout != test_info.stdout:
-                Logger.log_test_fail("STDOUT")
+                TestLogger.log_test_fail("STDOUT")
                 self._save_report(test_info, report)
                 return
-        Logger.log_test_ok()
-        Interpreter(report.compiler_stdout).run()
+        TestLogger.log_test_ok()
+
+        try:
+            state = self._interpret_price(report.compiler_stdout, test_info)
+        except Exception as e:
+            TestLogger.log(TestLogger.WARNING, ' (fail: {})'.format(e))
+            logging.exception(e, exc_info=True)
+        else:
+            TestLogger.log_price(state=state)
         self._save_report(test_info, report)
 
     def _compile(self, code):
@@ -141,6 +150,10 @@ class TestRunner(object):
         out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'), timeout=self._command_timeout)
         os.remove(code_temp)
         return out.decode('utf-8'), err.decode('utf-8'), process.returncode
+
+    def _interpret_price(self, code, test_info):
+        interpreter = Interpreter(code=code, stdin=StringIO(test_info.stdin))
+        return interpreter.run()
 
     def _save_report(self, test_info, report):
         # type: (TestInfo, TestReport) -> None
@@ -175,18 +188,18 @@ class TestRunner(object):
             )
             f.write('\n' * 2 + '# ' * 20 + '\n' * 2)
             f.write(report.compiler_stdout)
-        Logger.log_end_test_case()
+        TestLogger.log_end_test_case()
 
     @classmethod
     def check_platform(cls):
         if sys.maxsize <= 2 ** 32:
-            Logger.log_warning(
+            TestLogger.log_warning(
                 "Interpreter IFJcode17 requires 64-bit architecture, current is not 64-bit, terminating..."
             )
             return
         system = platform.system()
         if system not in cls.INTERPRETERS:
-            Logger.log_warning(
+            TestLogger.log_warning(
                 "Actual platform '{}' is not supported platform, terminating...".format(system)
             )
             return

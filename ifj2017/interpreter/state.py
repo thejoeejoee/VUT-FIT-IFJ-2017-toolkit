@@ -1,10 +1,10 @@
 # coding=utf-8
-
+import re
 from io import StringIO
 
-from .prices import InstructionPrices
 from .operand import Operand
 from .operand import TypeOperand
+from .prices import InstructionPrices
 
 
 class State(object):
@@ -125,14 +125,34 @@ class State(object):
         # type: (Operand, Operand) -> None
         self.stdout.write('? ')
         loaded = []
-        input_ = self.stderr.readline().strip()  # type: str
+        input_ = self.stdin.readline().strip()  # type: str
+        input_len = len(input_)
         if type_.data_type == Operand.CONSTANT_MAPPING_REVERSE.get(str):
             # is string
             i = 1
-            while input_[i] != '"':
+            while i < input_len and input_[i] != '"':
                 loaded.append(input_[i])
                 i += 1
             self.set_value(to, ''.join(loaded))
+        elif type_.data_type == Operand.CONSTANT_MAPPING_REVERSE.get(int):
+            # is string
+            i = 0
+            while i < input_len and input_[i].isdecimal():
+                loaded.append(input_[i])
+                i += 1
+            self.set_value(to, int(''.join(loaded)))
+        elif type_.data_type == Operand.CONSTANT_MAPPING_REVERSE.get(float):
+            float_re = re.compile(r'^(\d+\.\d+)|(\d+[Ee][+-]?\d+)')
+            match = float_re.match(input_)
+            assert match
+            self.set_value(to, float(match.group(0)))
+        elif type_.data_type == Operand.CONSTANT_MAPPING_REVERSE.get(bool):
+            bool_re = re.compile(r'^(true|false)', re.IGNORECASE)
+            match = bool_re.match(input_)
+            assert match
+            self.set_value(to, {'true': True, 'false': False}.get(match.group(0).lower()))
+        else:
+            assert False, 'Unknown constant data type.'
 
     def string_to_int_stack(self):
         index = self.pop_stack()
