@@ -1,0 +1,4 @@
+' print statement without semicolon
+scope
+	print 85
+end scope

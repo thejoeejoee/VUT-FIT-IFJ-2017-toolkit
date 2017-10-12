@@ -1,0 +1,6 @@
+' print statement
+scope
+	print 42; -78;   142.2541;
+	print -14287877.254121211  ;
+	print 14.25;
+end scope
