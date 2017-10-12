@@ -108,7 +108,7 @@ class State(object):
             self.set_value(op, value)
 
         self.operand_price += InstructionPrices.OPERAND_STACK
-        self.data_stack = self.call_stack[:-1]
+        self.data_stack = self.data_stack[:-1]
         return value
 
     def jump_if(self, op0, op1, op2, positive=True):
@@ -150,7 +150,7 @@ class State(object):
             bool_re = re.compile(r'^(true|false)', re.IGNORECASE)
             match = bool_re.match(input_)
             assert match
-            self.set_value(to, {'true': True, 'false': False}.get(match.group(0).lower()))
+            self.set_value(to, Operand.BOOL_LITERAL_MAPPING.get(match.group(0).lower()))
         else:
             assert False, 'Unknown constant data type.'
 

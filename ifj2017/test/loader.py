@@ -16,7 +16,7 @@ class TestLoader(object):
         self._tests_dir = tests_dir
 
     def load_section_dirs(self):
-        return (
+        return sorted(
             path.join(self._tests_dir, dir_)
             for dir_
             in os.listdir(self._tests_dir)

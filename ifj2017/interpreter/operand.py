@@ -36,6 +36,8 @@ class Operand(object):
 
     CONSTANT_MAPPING_REVERSE = {k: v for v, k in CONSTANT_MAPPING.items()}
 
+    BOOL_LITERAL_MAPPING = {'true': True, 'false': False}
+
     def __init__(self, value):
         # type: (str) -> None
         constant_match = CONSTANT_RE.match(value)
@@ -58,6 +60,8 @@ class Operand(object):
         # type: (Match) -> None
         type_, value = constant_match.groups()
         self.value = self.CONSTANT_MAPPING.get(type_.lower())(value)
+        if type_.lower() == self.CONSTANT_MAPPING_REVERSE.get(bool):
+            self.value = self.BOOL_LITERAL_MAPPING.get(value.lower())
         self.type = TypeOperand.CONSTANT
 
     def _resolve_variable(self, variable_match):

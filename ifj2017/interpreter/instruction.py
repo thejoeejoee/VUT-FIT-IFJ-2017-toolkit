@@ -159,3 +159,4 @@ class Instruction(object):
         price = InstructionPrices.INSTRUCTIONS.get(self.name)
         command(state, *self.operands)  # fake instance argument
         state.instruction_price += price
+        state.executed_instructions += 1
