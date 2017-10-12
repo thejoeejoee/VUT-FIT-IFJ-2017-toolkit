@@ -1,0 +1,16 @@
+{
+  "tests": [
+    {
+      "name": "03",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "06",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "07",
+      "compiler_exit_code": 4
+    }
+  ]
+}

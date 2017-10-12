@@ -1,0 +1,20 @@
+{
+  "tests": [
+    {
+      "name": "03",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "04",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "05",
+      "stdout": "? ? ? ? "
+    },
+    {
+      "name": "07",
+      "compiler_exit_code": 2
+    }
+  ]
+}
