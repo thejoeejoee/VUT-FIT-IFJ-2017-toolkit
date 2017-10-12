@@ -1,0 +1,6 @@
+' basic while loop
+scope
+	do while 5
+		print 78;
+	loop
+end scope

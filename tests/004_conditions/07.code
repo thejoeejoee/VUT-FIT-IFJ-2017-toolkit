@@ -3,12 +3,12 @@ scope
 	if 8 then
 		if 8 then
 			print 36;
-		elseif 45
+		elseif 45 then
 			print 753;
 		else
 			print 965;
 		end if
-	elseif 45
+	elseif 45 then
 		print 74;
 	else
 		print 11;

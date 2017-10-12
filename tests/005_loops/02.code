@@ -1,0 +1,9 @@
+' multiple while loop
+scope
+	do while 5
+		print 78;
+	loop
+	do while 2
+		print 63;
+	loop
+end scope

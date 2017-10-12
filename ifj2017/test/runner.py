@@ -5,7 +5,7 @@ import os.path as path
 import platform
 import shutil
 from io import StringIO
-from subprocess import PIPE, Popen
+from subprocess import PIPE, Popen, TimeoutExpired
 from tempfile import mktemp
 
 from .base import TestInfo
@@ -86,7 +86,13 @@ class TestRunner(object):
                 test_info.info
             ) if test_info.info else None
         )
-        report.compiler_stdout, report.compiler_stderr, report.compiler_exit_code = self._compile(test_info.code)
+        try:
+            report.compiler_stdout, report.compiler_stderr, report.compiler_exit_code = self._compile(test_info.code)
+        except (TimeoutExpired, TimeoutError) as e:
+            TestLogger.log_test_fail('COMPILER TIMEOUT')
+            report.success = False
+            self._save_report(test_info, report)
+            return
 
         if test_info.compiler_exit_code is not None:
             if report.compiler_exit_code != test_info.compiler_exit_code:
@@ -103,9 +109,15 @@ class TestRunner(object):
             self._save_report(test_info, report)
             return
 
-        report.interpreter_stdout, report.interpreter_stderr, report.interpreter_exit_code = self._interpret(
-            report.compiler_stdout, test_info
-        )
+        try:
+            report.interpreter_stdout, report.interpreter_stderr, report.interpreter_exit_code = self._interpret(
+                report.compiler_stdout, test_info
+            )
+        except (TimeoutExpired, TimeoutError) as e:
+            TestLogger.log_test_fail('INTERPRETER TIMEOUT')
+            report.success = False
+            self._save_report(test_info, report)
+            return
 
         if test_info.interpreter_exit_code is not None:
             if report.interpreter_exit_code != test_info.interpreter_exit_code:

@@ -1,0 +1,17 @@
+' while in condition
+scope
+	if 78 then
+		do while 5
+			if 44 then
+				print 69;
+			elseif 96 then
+				print 74;
+			else
+				print 11;
+			end if
+		loop
+	else
+		print 77;
+	end if
+
+end scope

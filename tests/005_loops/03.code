@@ -1,0 +1,8 @@
+' nested while loop
+scope
+	do while 5
+		do while 2
+			print 63;
+		loop
+	loop
+end scope

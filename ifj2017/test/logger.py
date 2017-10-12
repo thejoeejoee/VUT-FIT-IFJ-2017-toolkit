@@ -45,7 +45,7 @@ class TestLogger(object):
 
     @classmethod
     def log_test_fail(cls, result):
-        cls.log(cls.BOLD, cls.WARNING, '× ', result, end=False)
+        cls.log(cls.BOLD, cls.WARNING, ' × ', result, end=False)
 
     @classmethod
     def log_test_ok(cls):

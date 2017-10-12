@@ -1,0 +1,11 @@
+' nested and mutliple while loop
+scope
+	do while 5
+		do while 2
+			print 63;
+		loop
+	loop
+	do while 7
+		print 57;
+	loop
+end scope

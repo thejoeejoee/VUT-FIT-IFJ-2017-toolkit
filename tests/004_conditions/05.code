@@ -2,7 +2,7 @@
 scope
 	if 8 then
 		print 42;
-	elseif 45
+	elseif 45 then
 		print 74;
 	end if
 end scope
