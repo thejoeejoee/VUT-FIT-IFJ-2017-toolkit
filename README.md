@@ -1,7 +1,7 @@
 # Automatické testy kompilátoru jazyka IFJ2017
 Repozitář pro sbírku programů v jazyce IFJ17 a jejich předpokládaných výstupů včetně automatického spouštěče a aktuální distribuce intepretu
 
-[https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki](**Veškerá dokumentace je ve WIKI.**)
+[**Veškerá dokumentace k dostupným nástrojům je ve wiki.**](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki)
 
 ## Spolupráce
 Tímto chceme všechny uživatele tototo repozitáře poprosit o **spolupráci s definicí testů** či jinou, jak uvážíte. Myslíme si, že čím více testovacích jednotek vytvoříme, tím **více** budeme mít **pokrytých stavů kompilátoru** a tím méně nás překvapí hodnocení. 
