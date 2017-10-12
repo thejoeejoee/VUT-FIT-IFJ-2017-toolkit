@@ -1,0 +1,8 @@
+' else block
+scope
+	if 8 then
+		print 42;
+	else
+		print 41;
+	end if
+end scope

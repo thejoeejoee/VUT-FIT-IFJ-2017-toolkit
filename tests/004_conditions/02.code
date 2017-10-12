@@ -1,0 +1,8 @@
+' if recursion
+scope
+	if 8 then
+		if 75 then
+			print 42;
+		end if
+	end if
+end scope
