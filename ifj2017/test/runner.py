@@ -51,7 +51,7 @@ class TestRunner(object):
             "Given compiler ({}) is file and is executable.".format(args.compiler)
         assert path.isfile(args.interpreter) and os.access(args.interpreter, os.X_OK), \
             "Given interpreter ({}) is file and is executable.".format(args.interpreter)
-        assert isinstance(args.command_timeout, int) and args.command_timeout > 0, \
+        assert isinstance(args.command_timeout, float) and args.command_timeout > 0, \
             'Command timeout is positive int'
 
         self._compiler_binary = args.compiler
@@ -155,7 +155,7 @@ class TestRunner(object):
     def _compile(self, code):
         process = Popen([self._compiler_binary], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         out, err = process.communicate(bytes(code, encoding='utf-8'), timeout=self._command_timeout)
-        return out.decode('utf-8'), err.decode('utf-8'), process.returncode
+        return out.decode(), err.decode(), process.returncode
 
     def _interpret(self, code, test_info):
         code_temp = mktemp()
@@ -165,7 +165,7 @@ class TestRunner(object):
         process = Popen([self._interpreter_binary, '-v', code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'), timeout=self._command_timeout)
         os.remove(code_temp)
-        return out.decode('utf-8'), err.decode('utf-8'), process.returncode
+        return out.decode(), err.decode(), process.returncode
 
     def _interpret_price(self, code, test_info):
         interpreter = Interpreter(code=code, stdin=StringIO(test_info.stdin))
@@ -203,7 +203,7 @@ class TestRunner(object):
                 )
             )
             f.write('\n' * 2 + '# ' * 20 + '\n' * 2)
-            f.write(report.compiler_stdout)
+            f.write(report.compiler_stdout or '# ---')
         self._reports.append(report)
         TestLogger.log_end_test_case()
 

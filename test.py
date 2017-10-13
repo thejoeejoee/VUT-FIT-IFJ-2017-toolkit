@@ -25,7 +25,7 @@ if __name__ == '__main__':
     parser.add_argument("-l", "--log-dir", help="path to folder with logs",
                         type=str, default=path.join(__PROJECT_ROOT__, 'log'))
     parser.add_argument("--command-timeout", help="maximal timeout for compiler and interpreter",
-                        type=int, default=5)
+                        type=float, default=1)
     parser.add_argument("--no-colors", action='store_true', help="disable colored output (for Windows CMD etc.)",
                         default=False)
 
