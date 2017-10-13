@@ -13,6 +13,7 @@ from .base import TestReport
 from .loader import TestLoader
 from .logger import TestLogger
 from .. import __PROJECT_ROOT__
+from ..benchmark.uploader import BenchmarkUploader
 from ..interpreter.interpreter import Interpreter
 
 TEST_LOG_HEADER = """\
@@ -61,6 +62,7 @@ class TestRunner(object):
         self._loader = TestLoader(args.tests_dir)
         TestLogger.disable_colors = args.no_colors
         self._reports = []
+        self._uploader = BenchmarkUploader(args.benchmark_url_target)
 
         if path.exists(self._log_dir):
             shutil.rmtree(self._log_dir)
@@ -69,6 +71,12 @@ class TestRunner(object):
         self._actual_section = None
 
     def run(self):
+        try:
+            self._uploader.authenticate_user()
+        except Exception as e:
+            TestLogger.log_warning('Unable to authenticate user ({}), terminating...'.format(e))
+            return 1
+
         for test_section_dir in self._loader.load_section_dirs():
             self._actual_section = path.basename(test_section_dir)
 
@@ -76,10 +84,19 @@ class TestRunner(object):
             os.mkdir(path.join(self._log_dir, self._actual_section))
             for test_info in self._loader.load_tests(test_section_dir):
                 self._run_test(test_info)
+
+        try:
+            response = self._uploader.send_reports()
+            if not response.get('success'):
+                TestLogger.log_warning('Unable to send reports ({}), terminating...'.format(response.get('message')))
+        except Exception as e:
+            TestLogger.log_warning('Unable to send reports ({}), terminating...'.format(e))
+
         return TestLogger.log_results(self._reports)
 
     def _run_test(self, test_info):
         report = TestReport()
+        report.test_info = test_info
         TestLogger.log_test(
             test_info.name,
             ' ({})'.format(
@@ -145,11 +162,13 @@ class TestRunner(object):
 
         try:
             state = self._interpret_price(report.compiler_stdout, test_info)
+            report.state = state
         except Exception as e:
             TestLogger.log(TestLogger.WARNING, ' (fail: {})'.format(e))
             logging.exception(e, exc_info=True)
         else:
             TestLogger.log_price(state=state)
+            self._uploader.collect_report(report)
         self._save_report(test_info, report)
 
     def _compile(self, code):
