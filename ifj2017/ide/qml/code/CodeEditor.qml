@@ -105,7 +105,7 @@ Item {
 
     FontMetrics {
         id: fmCodeInput
-        font: textEdit
+        font: textEdit.font
     }
 
     ExpAnalyzer {
