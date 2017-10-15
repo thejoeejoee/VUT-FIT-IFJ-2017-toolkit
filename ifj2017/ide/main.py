@@ -59,6 +59,7 @@ qmlRegisterType(ExpSyntaxHighlighter, "ExpSyntaxHighlighter", 1, 0, "ExpSyntaxHi
 qmlRegisterType(ExpAnalyzer, "ExpAnalyzer", 1, 0, "ExpAnalyzer")
 
 engine = QQmlApplicationEngine()
+engine.rootContext().setContextProperty("rootDir", base_url.toString())
 engine.load(QUrl("qml/main.qml"))
 
 sys.exit(app.exec())
