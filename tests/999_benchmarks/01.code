@@ -1,0 +1,32 @@
+' lots of nested control statements
+
+scope
+dim c as double = 47.86
+dim a as integer = 110
+dim b as integer = 100
+if 47 > 32 then
+	do while c > 44
+		a = 110
+		b = 100
+		do while b > 7
+			do while a > -110
+			    print !"\n";
+				if a > 58 then
+					print a;
+				elseif a > -60 then
+					print a;
+				else
+					print a;
+				end if
+				a = a - 1
+				if a = -110 then
+					b = 0
+				end if
+			loop
+		loop
+		c = c - 1.05
+	loop
+else
+	print 78;
+end if
+end scope
