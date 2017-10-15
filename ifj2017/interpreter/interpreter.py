@@ -7,8 +7,8 @@ from .state import State
 class Interpreter(object):
     def __init__(self, code, stdin=None):
         # type: (str) -> None
-        assert code.startswith('.IFJcode17\n')
-        self._code = code[code.index('\n'):]
+        assert code.strip().startswith('.IFJcode17')
+        self._code = code.strip()[code.index('\n'):]
 
         self._instructions = []
 
