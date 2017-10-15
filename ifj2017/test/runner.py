@@ -60,7 +60,8 @@ class TestRunner(object):
         self._command_timeout = args.command_timeout
         self._log_dir = args.log_dir
         self._loader = TestLoader(args.tests_dir)
-        TestLogger.disable_colors = args.no_colors
+        if args.no_colors:
+            TestLogger.disable_colors = args.no_colors
         self._reports = []
         self._uploader = BenchmarkUploader(args.benchmark_url_target)
 

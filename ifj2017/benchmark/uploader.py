@@ -8,9 +8,9 @@ from os import path
 from os.path import basename
 from urllib.error import URLError
 
-from ifj2017.test.base import TestReport
-from ifj2017.test.logger import TestLogger
 from .. import __PROJECT_ROOT__
+from ..test.base import TestReport
+from ..test.logger import TestLogger
 
 
 class BenchmarkUploader(object):
