@@ -71,6 +71,7 @@ class TestRunner(object):
         self._actual_section = None
 
     def run(self):
+        self._uploader.check_connection()
         try:
             self._uploader.authenticate_user()
         except Exception as e:
@@ -85,12 +86,17 @@ class TestRunner(object):
             for test_info in self._loader.load_tests(test_section_dir):
                 self._run_test(test_info)
 
-        try:
-            response = self._uploader.send_reports()
-            if not response.get('success'):
-                TestLogger.log_warning('Unable to send reports ({}), terminating...'.format(response.get('message')))
-        except Exception as e:
-            TestLogger.log_warning('Unable to send reports ({}), terminating...'.format(e))
+        if self._uploader.has_connection:
+            try:
+                response = self._uploader.send_reports()
+                if not response.get('success'):
+                    TestLogger.log_warning(
+                        'Server fail with saving result ({}), terminating...'.format(response.get('message'))
+                    )
+            except Exception as e:
+                TestLogger.log_warning('Unable to send reports ({}), terminating...'.format(e))
+        else:
+            TestLogger.log_warning('Results upload skipped.')
 
         return TestLogger.log_results(self._reports)
 
