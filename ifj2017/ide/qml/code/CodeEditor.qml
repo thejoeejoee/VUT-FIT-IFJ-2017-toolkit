@@ -1,9 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
 
+import "../controls" as Controls
+
 Item {
     id: component
 
+    property alias textComponent: textEdit
     property alias font: textEdit.font
     property alias code: textEdit.text
     property alias lineNumbersPanelColor: lineNumbers.color
@@ -83,10 +86,5 @@ Item {
             }
         }
     }
-
-    /*PySyntaxHighlighter {
-        id: shw
-        target: textEdit
-    }*/
 }
 

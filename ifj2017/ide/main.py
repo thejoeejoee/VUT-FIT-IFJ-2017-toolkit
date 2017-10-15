@@ -1,12 +1,18 @@
 # coding=utf-8
 import sys
 
+from os import path
+
+from PyQt5.QtCore import QDir
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QIcon
-from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtQml import QQmlApplicationEngine, qmlRegisterSingletonType, qmlRegisterType
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import (QSize, QtFatalMsg, QtCriticalMsg, QtWarningMsg, QtInfoMsg,
                           qInstallMessageHandler, QtDebugMsg)
+
+from ifj2017.ide.code_analyzer import CodeAnalyzer
+from ifj2017.ide.core.expression import ExpSyntaxHighlighter, ExpAnalyzer
 
 try:
     from termcolor import colored
@@ -44,6 +50,13 @@ def qt_message_handler(mode, context, message):
 qInstallMessageHandler(qt_message_handler)
 
 app = QApplication(sys.argv)
+
+base_url = QUrl("file:///{}/".format(str(path.abspath(path.dirname(__file__))).replace('\\', '/')))
+
+qmlRegisterSingletonType(base_url.resolved(QUrl("assets/styles/UIStyles.qml")), "StyleSettings", 1, 0, "StyleSettings")
+qmlRegisterSingletonType(CodeAnalyzer, "CodeAnalyzer", 1, 0, "CodeAnalyzer", CodeAnalyzer.singletonProvider)
+qmlRegisterType(ExpSyntaxHighlighter, "ExpSyntaxHighlighter", 1, 0, "ExpSyntaxHighlighter")
+qmlRegisterType(ExpAnalyzer, "ExpAnalyzer", 1, 0, "ExpAnalyzer")
 
 engine = QQmlApplicationEngine()
 engine.load(QUrl("qml/main.qml"))
