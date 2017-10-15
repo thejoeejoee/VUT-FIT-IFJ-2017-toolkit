@@ -179,7 +179,11 @@ class TestRunner(object):
 
     def _compile(self, code):
         process = Popen([self._compiler_binary], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        out, err = process.communicate(bytes(code, encoding='utf-8'), timeout=self._command_timeout)
+        try:
+            out, err = process.communicate(bytes(code, encoding='utf-8'), timeout=self._command_timeout)
+        except (TimeoutError, TimeoutExpired):
+            process.kill()
+            raise
         return out.decode(), err.decode(), process.returncode
 
     def _interpret(self, code, test_info):
@@ -188,8 +192,14 @@ class TestRunner(object):
             f.write(bytes(code, encoding='utf-8'))
 
         process = Popen([self._interpreter_binary, '-v', code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'), timeout=self._command_timeout)
-        os.remove(code_temp)
+        try:
+            out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'),
+                                           timeout=self._command_timeout)
+        except (TimeoutError, TimeoutExpired):
+            process.kill()
+            raise
+        finally:
+            os.remove(code_temp)
         return out.decode(), err.decode(), process.returncode
 
     def _interpret_price(self, code, test_info):
