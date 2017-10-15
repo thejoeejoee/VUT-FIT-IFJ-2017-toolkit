@@ -71,6 +71,7 @@ class TestRunner(object):
         self._actual_section = None
 
     def run(self):
+        self._welcome_message()
         self._uploader.check_connection()
         try:
             self._uploader.authenticate_user()
@@ -251,6 +252,15 @@ class TestRunner(object):
             )
             return
         return True
+
+    @staticmethod
+    def _welcome_message():
+        TestLogger.log(
+            TestLogger.BLUE,
+            TestLogger.BOLD,
+            "Welcome to automatic test runner for IFJ17 compiler "
+            "(https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests)."
+        )
 
 
 __all__ = ['TestRunner']

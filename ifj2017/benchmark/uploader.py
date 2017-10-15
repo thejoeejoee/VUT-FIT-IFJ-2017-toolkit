@@ -54,14 +54,26 @@ class BenchmarkUploader(object):
         self._token = token
 
     def _generate_token(self):
-        leader = input('Login of your leader? ')
-        login = input('Your login? ')
+        TestLogger.log(
+            TestLogger.HEADER,
+            'At first, please, provide your FIT login names for sending benchmark results:'
+        )
 
-        response = self._request('/api/v1/generate-author-token', dict(
-            leader=leader,
-            login=login
-        ))
-        return response.get('token') if response.get('success') else None
+        def _ask():
+            leader = input('Login of your team leader? ')
+            login = input('Your login? ')
+
+            return self._request('/api/v1/generate-author-token', dict(
+                leader=leader,
+                login=login
+            ))
+
+        response = _ask()
+        while not response.get('success'):
+            TestLogger.log_warning('Invalid credentials ({}).'.format(response.get('message')))
+            response = _ask()
+
+        return response.get('token')
 
     def collect_report(self, report):
         # type: (TestReport) -> None
