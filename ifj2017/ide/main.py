@@ -12,7 +12,7 @@ from PyQt5.QtCore import (QSize, QtFatalMsg, QtCriticalMsg, QtWarningMsg, QtInfo
                           qInstallMessageHandler, QtDebugMsg)
 
 from ifj2017.ide.code_analyzer import CodeAnalyzer
-from ifj2017.ide.core.expression import ExpSyntaxHighlighter, ExpAnalyzer
+from ifj2017.ide.code.expression import ExpSyntaxHighlighter, ExpAnalyzer
 
 try:
     from termcolor import colored

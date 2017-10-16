@@ -7,7 +7,7 @@ from PyQt5.QtGui import QTextCharFormat
 from PyQt5.QtQml import QJSValue
 from PyQt5.QtQuick import QQuickItem
 
-from ifj2017.ide.core.expression import SyntaxHighlighter, HighlightRule
+from ifj2017.ide.code.expression import SyntaxHighlighter, HighlightRule
 
 __author__ = "Son Hai Nguyen"
 __copyright__ = "Copyright 2017, /dej/uran/dom team"
