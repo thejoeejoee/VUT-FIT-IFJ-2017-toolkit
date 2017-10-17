@@ -45,6 +45,16 @@
       "info": "Semantic error (Attempt to redeclaration) ",
       "code": "scope \n dim a as integer \n dim a as integer \n end scope",
       "compiler_exit_code": 3
+    },
+    {
+      "info": "Semantic Error, call undefined function",
+      "code": "scope \n end scope",
+      "compiler_exit_code": 3
+    },
+    {
+      "info": "Semantic Error, undefined variable in expression",
+      "code": "scope \n dim a as integer \n a = 10 + variable \n end scope",
+      "compiler_exit_code": 3
     }
   ]
 }
