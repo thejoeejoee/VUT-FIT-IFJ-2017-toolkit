@@ -1,0 +1,11 @@
+' complex expression
+
+scope
+	dim a as integer = 74
+	dim b as double = 745.745
+	
+	dim c as double
+
+	c = (a * a) + b / b - b * a + (b * (a * a + b * a + 38 * 7 + 2 * 5 * b) - b * 78 * 96 - b * a + (b + b + b + b + b + b))
+	print c;
+end scope
