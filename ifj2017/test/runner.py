@@ -13,6 +13,7 @@ from .base import TestReport
 from .loader import TestLoader
 from .logger import TestLogger
 from .. import __PROJECT_ROOT__
+from ..benchmark.uploader import BenchmarkUploader
 from ..interpreter.interpreter import Interpreter
 
 TEST_LOG_HEADER = """\
@@ -59,8 +60,10 @@ class TestRunner(object):
         self._command_timeout = args.command_timeout
         self._log_dir = args.log_dir
         self._loader = TestLoader(args.tests_dir)
-        TestLogger.disable_colors = args.no_colors
+        if args.no_colors:
+            TestLogger.disable_colors = args.no_colors
         self._reports = []
+        self._uploader = BenchmarkUploader(args.benchmark_url_target)
 
         if path.exists(self._log_dir):
             shutil.rmtree(self._log_dir)
@@ -69,6 +72,14 @@ class TestRunner(object):
         self._actual_section = None
 
     def run(self):
+        self._welcome_message()
+        self._uploader.check_connection()
+        try:
+            self._uploader.authenticate_user()
+        except Exception as e:
+            TestLogger.log_warning('Unable to authenticate user ({}), terminating...'.format(e))
+            return 1
+
         for test_section_dir in self._loader.load_section_dirs():
             self._actual_section = path.basename(test_section_dir)
 
@@ -76,10 +87,24 @@ class TestRunner(object):
             os.mkdir(path.join(self._log_dir, self._actual_section))
             for test_info in self._loader.load_tests(test_section_dir):
                 self._run_test(test_info)
+
+        if self._uploader.has_connection:
+            try:
+                response = self._uploader.send_reports()
+                if not response.get('success'):
+                    TestLogger.log_warning(
+                        'Server fail with saving result ({}), terminating...'.format(response.get('message'))
+                    )
+            except Exception as e:
+                TestLogger.log_warning('Unable to send reports ({}), terminating...'.format(e))
+        else:
+            TestLogger.log_warning('Results upload skipped.')
+
         return TestLogger.log_results(self._reports)
 
     def _run_test(self, test_info):
         report = TestReport()
+        report.test_info = test_info
         TestLogger.log_test(
             test_info.name,
             ' ({})'.format(
@@ -145,17 +170,23 @@ class TestRunner(object):
 
         try:
             state = self._interpret_price(report.compiler_stdout, test_info)
+            report.state = state
         except Exception as e:
             TestLogger.log(TestLogger.WARNING, ' (fail: {})'.format(e))
             logging.exception(e, exc_info=True)
         else:
             TestLogger.log_price(state=state)
+            self._uploader.collect_report(report)
         self._save_report(test_info, report)
 
     def _compile(self, code):
         process = Popen([self._compiler_binary], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        out, err = process.communicate(bytes(code, encoding='utf-8'), timeout=self._command_timeout)
-        return out.decode(), err.decode(), process.returncode
+        try:
+            out, err = process.communicate(bytes(code, encoding='utf-8'), timeout=self._command_timeout)
+        except (TimeoutError, TimeoutExpired):
+            process.kill()
+            raise
+        return out.decode('unicode_escape'), err.decode('unicode_escape'), process.returncode
 
     def _interpret(self, code, test_info):
         code_temp = mktemp()
@@ -163,9 +194,15 @@ class TestRunner(object):
             f.write(bytes(code, encoding='utf-8'))
 
         process = Popen([self._interpreter_binary, '-v', code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'), timeout=self._command_timeout)
-        os.remove(code_temp)
-        return out.decode(), err.decode(), process.returncode
+        try:
+            out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'),
+                                           timeout=self._command_timeout)
+        except (TimeoutError, TimeoutExpired):
+            process.kill()
+            raise
+        finally:
+            os.remove(code_temp)
+        return out.decode('unicode_escape'), err.decode('unicode_escape'), process.returncode
 
     def _interpret_price(self, code, test_info):
         interpreter = Interpreter(code=code, stdin=StringIO(test_info.stdin))
@@ -216,6 +253,15 @@ class TestRunner(object):
             )
             return
         return True
+
+    @staticmethod
+    def _welcome_message():
+        TestLogger.log(
+            TestLogger.BLUE,
+            TestLogger.BOLD,
+            "Welcome to automatic test runner for IFJ17 compiler "
+            "(https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests)."
+        )
 
 
 __all__ = ['TestRunner']

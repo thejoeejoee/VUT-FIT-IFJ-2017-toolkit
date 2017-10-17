@@ -78,6 +78,7 @@ class TestLoader(object):
                         test_case.get('info') or
                         self._load_test_file(section_dir, name, 'info') or
                         self._get_code_info(code),
+                        section_dir,
                     )
                 )
         except TypeError as e:
@@ -100,6 +101,7 @@ class TestLoader(object):
                     int(self._load_test_file(section_dir, name, 'cexitcode') or 0),
                     int(self._load_test_file(section_dir, name, 'iexitcode') or 0),
                     self._load_test_file(section_dir, name, 'info') or self._get_code_info(code) or '',
+                    section_dir,
                 )
             except ValueError as e:
                 TestLogger.log_warning("Unable to load file {}: {}".format(code_file, e))

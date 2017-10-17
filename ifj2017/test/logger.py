@@ -1,7 +1,21 @@
 # coding=utf-8
 
+import os
 import sys
 from operator import attrgetter
+
+
+def no_color():
+    """
+    Return True if the running system's terminal supports color,
+    and False otherwise.
+    """
+    plat = sys.platform
+    supported_platform = plat != 'Pocket PC' and (plat != 'win32' or 'ANSICON' in os.environ)
+
+    # isatty is not always implemented, #6223.
+    is_a_tty = hasattr(sys.stdout, 'isatty') and sys.stdout.isatty()
+    return not supported_platform or not is_a_tty
 
 
 class TestLogger(object):
@@ -15,22 +29,19 @@ class TestLogger(object):
     UNDERLINE = '\033[4m'
     END = '\033[0m'
 
-    disable_colors = False
+    disable_colors = no_color()
 
     @classmethod
     def log(cls, *args, stream=sys.stderr, end=True, indent=0):
         stream.write('\t' * indent)
+        to_log = ''.join(map(str, filter(None, args)))
         if cls.disable_colors:
-            args = (
-                arg
-                for arg
-                in args
-                if arg not in (
-                cls.BLUE, cls.GREEN, cls.WARNING, cls.HEADER, cls.FAIL, cls.BOLD, cls.UNDERLINE
-            )
-            )
+            for color in (
+                    cls.BLUE, cls.GREEN, cls.WARNING, cls.HEADER, cls.FAIL, cls.BOLD, cls.UNDERLINE
+            ):
+                to_log = to_log.replace(color, '')
 
-        stream.write(''.join(map(str, filter(None, args))))
+        stream.write(to_log)
         stream.write(cls.END)
         if end:
             stream.write('\n')
