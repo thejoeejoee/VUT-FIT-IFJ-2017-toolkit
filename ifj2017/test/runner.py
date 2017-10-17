@@ -8,6 +8,8 @@ from io import StringIO
 from subprocess import PIPE, Popen, TimeoutExpired
 from tempfile import mktemp
 
+from os.path import basename
+
 from .base import TestInfo
 from .base import TestReport
 from .loader import TestLoader
@@ -17,6 +19,7 @@ from ..benchmark.uploader import BenchmarkUploader
 from ..interpreter.interpreter import Interpreter
 
 TEST_LOG_HEADER = """\
+# SECTION: {}
 # TEST: {}
 # INFO: {}
 # INTERPRETER STDIN: 
@@ -118,6 +121,11 @@ class TestRunner(object):
             report.success = False
             self._save_report(test_info, report)
             return
+        except Exception as e:
+            TestLogger.log_test_fail('FAIL TO RUN COMPILER ({})'.format(e))
+            report.success = False
+            self._save_report(test_info, report)
+            return
 
         if test_info.compiler_exit_code is not None:
             if report.compiler_exit_code != test_info.compiler_exit_code:
@@ -140,6 +148,11 @@ class TestRunner(object):
             )
         except (TimeoutExpired, TimeoutError) as e:
             TestLogger.log_test_fail('INTERPRETER TIMEOUT')
+            report.success = False
+            self._save_report(test_info, report)
+            return
+        except Exception as e:
+            TestLogger.log_test_fail('FAIL TO RUN INTERPRETER ({})'.format(e))
             report.success = False
             self._save_report(test_info, report)
             return
@@ -186,7 +199,7 @@ class TestRunner(object):
         except (TimeoutError, TimeoutExpired):
             process.kill()
             raise
-        return out.decode('unicode_escape'), err.decode('unicode_escape'), process.returncode
+        return out.decode('ascii'), err.decode('ascii'), process.returncode
 
     def _interpret(self, code, test_info):
         code_temp = mktemp()
@@ -202,7 +215,8 @@ class TestRunner(object):
             raise
         finally:
             os.remove(code_temp)
-        return out.decode('unicode_escape'), err.decode('unicode_escape'), process.returncode
+        # err has non-escaped characters
+        return out.decode('ascii'), err.decode('unicode_escape'), process.returncode
 
     def _interpret_price(self, code, test_info):
         interpreter = Interpreter(code=code, stdin=StringIO(test_info.stdin))
@@ -220,6 +234,7 @@ class TestRunner(object):
                 'w'
         ) as f:
             f.write(TEST_LOG_HEADER.format(
+                basename(test_info.section_dir),
                 test_info.name,
                 test_info.info,
                 replace(test_info.stdin),
@@ -239,7 +254,7 @@ class TestRunner(object):
                     '# {: 3}: {}'.format(i, line) for i, line in enumerate(test_info.code.split('\n'), start=1)
                 )
             )
-            f.write('\n' * 2 + '# ' * 20 + '\n' * 2)
+            f.write('\n' * 2 + '#' * 40 + '\n' * 2)
             f.write(report.compiler_stdout or '# ---')
         self._reports.append(report)
         TestLogger.log_end_test_case()
