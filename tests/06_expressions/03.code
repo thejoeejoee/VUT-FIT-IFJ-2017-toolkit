@@ -1,0 +1,5 @@
+' simple adding with inner variable
+scope
+    dim a as integer = -21
+	print 42 + 96 + a + a;
+end scope

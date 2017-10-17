@@ -1,0 +1,4 @@
+' simple adding with unary expression
+scope
+	print 42 + 21 + -21;
+end scope
