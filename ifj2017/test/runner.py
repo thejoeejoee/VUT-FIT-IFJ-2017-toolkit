@@ -186,7 +186,7 @@ class TestRunner(object):
         except (TimeoutError, TimeoutExpired):
             process.kill()
             raise
-        return out.decode(), err.decode(), process.returncode
+        return out.decode('unicode_escape'), err.decode('unicode_escape'), process.returncode
 
     def _interpret(self, code, test_info):
         code_temp = mktemp()
@@ -202,7 +202,7 @@ class TestRunner(object):
             raise
         finally:
             os.remove(code_temp)
-        return out.decode(), err.decode(), process.returncode
+        return out.decode('unicode_escape'), err.decode('unicode_escape'), process.returncode
 
     def _interpret_price(self, code, test_info):
         interpreter = Interpreter(code=code, stdin=StringIO(test_info.stdin))
