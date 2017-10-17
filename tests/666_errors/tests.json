@@ -1,0 +1,50 @@
+{
+  "tests": [
+    {
+      "info": "Lexical error (Wrond grouble format) ",
+      "code": "scope \n 19. scope",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "Lexical error (Wrong string format)",
+      "code": "scope \n !\" end scope",
+      "compiler_exit_code": 1
+    },
+
+
+
+    {
+      "info": "Syntax error",
+      "code": "scope",
+      "compiler_exit_code": 2
+    },
+    {
+      "info": "Syntax error (Expect Scope) ",
+      "code": "scope \n end",
+      "compiler_exit_code": 2
+    },
+    {
+      "info": "Syntax error (Expect END) ",
+      "code": "scope \n scope",
+      "compiler_exit_code": 2
+    },
+    { 
+      "info": "Syntax error (Empty program) ",
+      "code": "",
+      "compiler_exit_code": 2
+    },
+
+
+
+    { 
+      "info": "Semantic error (Using undefined variable) ",
+      "code": "scope \n input a \n end scope",
+      "compiler_exit_code": 3
+    },
+    { 
+      "info": "Semantic error (Attempt to redeclaration) ",
+      "code": "scope \n dim a as integer \n dim a as integer \n end scope",
+      "compiler_exit_code": 3
+    }
+  ]
+}
