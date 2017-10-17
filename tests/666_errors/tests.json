@@ -1,8 +1,8 @@
 {
   "tests": [
     {
-      "info": "Lexical error (Wrond grouble format) ",
-      "code": "scope \n 19. scope",
+      "info": "Lexical error (Wrong double format) ",
+      "code": "scope \n dim a as double = 19. ",
       "compiler_exit_code": 1
     },
     {
