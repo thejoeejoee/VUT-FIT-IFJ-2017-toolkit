@@ -111,7 +111,7 @@ class TestRunner(object):
         TestLogger.log_test(
             test_info.name,
             ' ({})'.format(
-                test_info.info
+                test_info.info.strip().rstrip('.').lower()
             ) if test_info.info else None
         )
         try:
