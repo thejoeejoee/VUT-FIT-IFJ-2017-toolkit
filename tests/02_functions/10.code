@@ -1,4 +1,4 @@
-' Call built-in features - combile
+' Call built-in features - combined
 
 scope 
 	dim retezec as string = !"ahoj ahoj ahoj"

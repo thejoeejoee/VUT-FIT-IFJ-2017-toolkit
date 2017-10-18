@@ -39,6 +39,7 @@ TEST_LOG_HEADER = """\
 # CURRENT COMPILER EXIT CODE: {}
 # EXPECTED INTERPRETER EXIT CODE: {}
 # CURRENT INTERPRETER EXIT CODE: {}
+# PRICE: {}
 # 
 """
 
@@ -248,6 +249,11 @@ class TestRunner(object):
                 report.compiler_exit_code,
                 test_info.interpreter_exit_code,
                 report.interpreter_exit_code,
+                '{} ({}+{})'.format(
+                    report.state.instruction_price + report.state.operand_price,
+                    report.state.instruction_price,
+                    report.state.operand_price
+                ) if report.state else '---'
             ))
             f.write(
                 '\n'.join(

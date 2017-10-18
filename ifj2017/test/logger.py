@@ -52,7 +52,7 @@ class TestLogger(object):
 
     @classmethod
     def log_test(cls, name, info=None):
-        cls.log(cls.BOLD, name, info, ': ', indent=1, end=False)
+        cls.log(cls.BOLD, '{:3}'.format(name), info, ': ', indent=1, end=False)
 
     @classmethod
     def log_test_fail(cls, result):
