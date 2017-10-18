@@ -1,7 +1,7 @@
-# Automatické testy kompilátoru jazyka IFJ2017
+# Toolkit k `IFJ2017` a `IFJcode17` (testy, syntax hightlight)
 Repozitář pro sbírku programů v jazyce IFJ17 a jejich předpokládaných výstupů včetně automatického spouštěče a aktuální distribuce intepretu
 
-[**Veškerá dokumentace k dostupným nástrojům je ve Wiki.**](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki)
+[**Dokumentace k dostupným nástrojům naleznete ve Wiki.**](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki)
 
 [![screenshot](https://ctrlv.cz/shots/2017/10/15/A6RL.png)](https://ctrlv.cz/shots/2017/10/15/A6RL.png)
 
