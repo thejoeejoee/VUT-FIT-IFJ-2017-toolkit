@@ -102,3 +102,4 @@ ENV/
 
 /log/
 .TOKEN
+.idea/
