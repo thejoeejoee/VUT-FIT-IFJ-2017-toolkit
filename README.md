@@ -1,5 +1,5 @@
-# Toolkit k `IFJ2017` a `IFJcode17` (testy, syntax hightlight)
-Repozitář pro sbírku programů v jazyce IFJ17 a jejich předpokládaných výstupů včetně automatického spouštěče a aktuální distribuce intepretu
+# Toolkit k `IFJ2017` a `IFJcode17`
+Repozitář obsahuje sadu plně automatických testů včetně vyhodnocování správných naávratových kódů či obsahu na standardním výstupu. 
 
 [**Dokumentace k dostupným nástrojům naleznete ve Wiki.**](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki)
 
