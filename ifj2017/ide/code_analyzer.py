@@ -1,5 +1,7 @@
 # coding=utf-8
-from PyQt5.QtCore import QObject, pyqtSlot, Q_ENUMS
+import re
+
+from PyQt5.QtCore import QObject
 from PyQt5.QtCore import QVariant
 from PyQt5.QtCore import pyqtProperty
 from PyQt5.QtCore import pyqtSignal
@@ -12,13 +14,27 @@ class CodeAnalyzer(QObject):
     _instance = None
     completerModelChanged = pyqtSignal(QVariant)
 
-    instructions = [{"identifier": func, "type": Expression.ExpressionTypes.Instruction}
-                              for func in INSTRUCTIONS]
+    VARIABLE_RE = re.compile(r'^[GLT]F@[A-z_\-$&%*]$', re.IGNORECASE)
+
+    @property
+    def code(self):
+        return ''
 
     @pyqtProperty(QVariant, notify=completerModelChanged)
     def completerModel(self) -> QVariant:
-        # TODO return keywords
-        return QVariant(CodeAnalyzer.instructions)
+        return QVariant(
+            [
+                dict(
+                    identifier=func,
+                    type=Expression.ExpressionTypes.Instruction
+                ) for func in INSTRUCTIONS
+            ] + [
+                dict(
+                    identifier=match.group(0),
+                    type=Expression.ExpressionTypes.Instruction
+                ) for match in self.VARIABLE_RE.findall(self.code)
+            ]
+        )
 
     @pyqtProperty(QVariant)
     def highlightRules(self) -> QVariant:

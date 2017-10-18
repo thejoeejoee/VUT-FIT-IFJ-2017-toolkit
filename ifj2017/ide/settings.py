@@ -4,6 +4,7 @@ from enum import IntEnum
 from PyQt5.QtCore import QObject, Q_ENUMS
 from PyQt5.QtQml import QQmlEngine, QJSEngine
 
+from ifj2017.interpreter.instruction import Instruction
 
 ICON_SIZES = (16, 24, 32, 48, 256)
 EXPRESSION_SPLITTERS = set(" \n\t")
@@ -20,14 +21,11 @@ class Expression(QObject):
     def singletonProvider(engine: QQmlEngine, script_engine: QJSEngine) -> QObject:
         return Expression()
 
-INSTRUCTIONS = (
-    'jump',
-    'label'
-)
+
+INSTRUCTIONS = Instruction._commands.keys()
 
 HIGHLIGHT_RULES = (
     (INSTRUCTIONS, "red"),
     ((r'\d+',), 'purple'),
     (("([nN])([yY])([aA])([nN])",), "#ED1869 #F2BC1F #39BFC1 #672980".split()),
 )
-
