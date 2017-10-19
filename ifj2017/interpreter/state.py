@@ -52,6 +52,7 @@ class State(object):
 
     def set_value(self, to, what):
         # type: (Operand, Operand|object) -> None
+        self.operand_price += InstructionPrices.OPERAND_VARIABLE
         self.frame(to.frame)[to.name] = self.get_value(what)
 
     def __str__(self):
