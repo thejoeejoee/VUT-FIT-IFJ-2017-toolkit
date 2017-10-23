@@ -22,6 +22,8 @@ TEST_LOG_HEADER = """\
 # SECTION: {}
 # TEST: {}
 # INFO: {}
+# REQUIRED EXTENSIONS: {}
+# ACTIVATED EXTENSIONS: {}
 # INTERPRETER STDIN: 
 # {}
 # 
@@ -64,6 +66,7 @@ class TestRunner(object):
         self._command_timeout = args.command_timeout
         self._log_dir = args.log_dir
         self._loader = TestLoader(args.tests_dir)
+        self._extensions = self._load_extensions(args.extensions_file)
         if args.no_colors:
             TestLogger.disable_colors = args.no_colors
         self._reports = []
@@ -115,6 +118,14 @@ class TestRunner(object):
                 test_info.info.strip().rstrip('.').lower()
             ) if test_info.info else None
         )
+        if test_info.extensions - self._extensions:
+            TestLogger.log(TestLogger.GREEN, ' skipping, required extension(s) {} is not activated.'.format(
+                ', '.join(test_info.extensions - self._extensions)
+            ), end=False)
+            report.success = True
+            self._save_report(test_info, report)
+            return
+
         try:
             report.compiler_stdout, report.compiler_stderr, report.compiler_exit_code = self._compile(test_info.code)
         except (TimeoutExpired, TimeoutError) as e:
@@ -238,6 +249,9 @@ class TestRunner(object):
                 basename(test_info.section_dir),
                 test_info.name,
                 test_info.info,
+                ', '.join(test_info.extensions),
+                ', '.join(self._extensions),
+
                 replace(test_info.stdin),
 
                 replace(report.compiler_stderr),
@@ -275,14 +289,36 @@ class TestRunner(object):
             return
         return True
 
-    @staticmethod
-    def _welcome_message():
+    def _welcome_message(self):
         TestLogger.log(
             TestLogger.BLUE,
             TestLogger.BOLD,
             "Welcome to automatic test runner for IFJ17 compiler "
             "(https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests)."
         )
+        if self._extensions:
+            TestLogger.log(
+                TestLogger.BLUE,
+                TestLogger.BOLD,
+                "Activated {} extensions: {}.".format(
+                    len(self._extensions),
+                    ', '.join(sorted(self._extensions))
+                ),
+            )
+
+    @staticmethod
+    def _load_extensions(extensions_file):
+        if not extensions_file:
+            return ()
+        if not path.isfile(extensions_file):
+            TestLogger.log_warning(
+                "File '{}' is not file or is not readable, assuming none of extensions.".format(extensions_file)
+            )
+            return ()
+        extensions = TestLoader._load_file(extensions_file, allow_fail=False)
+        return set(extensions.strip().split())
+
+
 
 
 __all__ = ['TestRunner']

@@ -56,6 +56,7 @@ class TestLoader(object):
             )
             return ()
         cases = []
+        extensions = tuple(data.get('extensions', ()))
         try:
             for i, test_case in enumerate(data.get('tests', ())):
                 name = test_case.get('name') or '{:03}'.format(i + 1)
@@ -79,6 +80,7 @@ class TestLoader(object):
                         self._load_test_file(section_dir, name, 'info') or
                         self._get_code_info(code),
                         section_dir,
+                        set(tuple(test_case.get('extensions', ())) + extensions)
                     )
                 )
         except TypeError as e:
@@ -102,6 +104,7 @@ class TestLoader(object):
                     int(self._load_test_file(section_dir, name, 'iexitcode') or 0),
                     self._load_test_file(section_dir, name, 'info') or self._get_code_info(code) or '',
                     section_dir,
+                    set()
                 )
             except ValueError as e:
                 TestLogger.log_warning("Unable to load file {}: {}".format(code_file, e))

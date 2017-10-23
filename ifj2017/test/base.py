@@ -3,7 +3,8 @@ from collections import namedtuple
 
 from ..interpreter.state import State
 
-TestInfo = namedtuple('TestInfo', "name code stdin stdout compiler_exit_code interpreter_exit_code info section_dir")
+TestInfo = namedtuple('TestInfo', "name code stdin stdout compiler_exit_code interpreter_exit_code info section_dir "
+                                  "extensions")
 
 
 class TestReport(object):

@@ -1,8 +1,8 @@
-' else block
+' implicit conversions
 scope
-	if 8 then
-		print 42;
+	if 200 = 200.0 then
+		print 789;
 	else
-		print 41;
+		print 0;
 	end if
 end scope

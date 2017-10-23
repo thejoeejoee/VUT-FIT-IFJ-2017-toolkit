@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding=utf-8
 import platform
-from argparse import ArgumentParser
+from argparse import ArgumentParser, FileType
 from os import path
 
 from ifj2017 import __PROJECT_ROOT__
@@ -20,6 +20,7 @@ if __name__ == '__main__':
     parser.add_argument("compiler", help="path to IFJ17 compiler binary")
     parser.add_argument("-i", "--interpreter", help="path to IFJ17 interpreter binary",
                         type=str, default=TestRunner.INTERPRETERS.get(platform.system()))
+    parser.add_argument("-e", "--extensions-file", help="path to file with extensions 'rozsireni'")
     parser.add_argument("-d", "--tests-dir", help="path to folder with tests to run",
                         type=str, default=path.join(__PROJECT_ROOT__, 'tests'))
     parser.add_argument("-l", "--log-dir", help="path to folder with logs",
