@@ -42,13 +42,18 @@
       "compiler_exit_code": 3
     },
     { 
+      "info": "Semantic error (Using undefined variable in expression) ",
+      "code": "scope \n print a*2; \n end scope",
+      "compiler_exit_code": 3
+    },
+    { 
       "info": "Semantic error (Attempt to redeclaration) ",
       "code": "scope \n dim a as integer \n dim a as integer \n end scope",
       "compiler_exit_code": 3
     },
     {
       "info": "Semantic Error, call undefined function",
-      "code": "scope \n end scope",
+      "code": "scope dim a as integer = foo()\n end scope",
       "compiler_exit_code": 3
     },
     {

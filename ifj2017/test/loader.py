@@ -38,7 +38,7 @@ class TestLoader(object):
 
         return sorted(
             tests,
-            key=attrgetter('name')
+            key=lambda test: (len(test.name), test.name)
         )
 
     def _load_compact_tests(self, section_dir):
