@@ -15,13 +15,13 @@
     {
       "name": "01",
       "info": "Asc value",
-      "output": "104",
+      "stdout": "104",
       "code": "scope \n print asc(!\"ahoj\", 2); \n end scope"
     },
     {
       "name": "02",
       "info": "Chr function",
-      "output": "a",
+      "stdout": "a",
       "code": "scope \n print chr(97); \n end scope"
     }
   ]

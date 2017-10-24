@@ -7,7 +7,7 @@
 	    {
 	      "name": "13",
 	      "info": "Implicit conversation",
-	      "output": "1.5",
+	      "stdout": "1.5",
 	      "code": "scope \n print 3/2.0;\n end scope"
 	    }
 	]
