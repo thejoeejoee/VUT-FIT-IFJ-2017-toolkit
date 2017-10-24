@@ -7,8 +7,8 @@ from .state import State
 class Interpreter(object):
     def __init__(self, code, stdin=None):
         # type: (str) -> None
-        assert code.strip().startswith('.IFJcode17')
-        self._code = code.strip()[code.index('\n'):]
+        assert code.strip()
+        self._code = code
 
         self._instructions = []
 
@@ -17,13 +17,21 @@ class Interpreter(object):
         self._stdin = stdin
 
     def _load_code(self):
-        for line in self._code.split('\n'):
+        started = False
+        # start from 1, .IFJcode17 striped
+        for i, line in enumerate(self._code.split('\n'), start=1):
             line = line.strip()
             if not line or line.startswith('#'):
                 # comment line
                 continue
+            if line == ".IFJcode17":
+                started = True
+                continue
 
-            self._instructions.append(Instruction(line=line.strip()))
+            if not started:
+                raise ValueError('Invalid code, expecting .IFJcode17, found {}.'.format(line))
+
+            self._instructions.append(Instruction(line=line.strip(), line_index=i))
 
     def _load_labels(self, state):
         # type: (State) -> None

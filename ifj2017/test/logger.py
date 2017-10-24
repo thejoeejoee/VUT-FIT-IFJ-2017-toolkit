@@ -5,7 +5,7 @@ import sys
 from operator import attrgetter
 
 
-def no_color():
+def is_color_available():
     """
     Return True if the running system's terminal supports color,
     and False otherwise.
@@ -29,11 +29,21 @@ class TestLogger(object):
     UNDERLINE = '\033[4m'
     END = '\033[0m'
 
-    disable_colors = no_color()
+    disable_colors =  is_color_available()
+    verbose = False
+
+    _test_case_buffer = None
+    _test_case_success = None
 
     @classmethod
     def log(cls, *args, stream=sys.stderr, end=True, indent=0):
-        stream.write('\t' * indent)
+        def write(what):
+            if cls._test_case_buffer is not None:
+                cls._test_case_buffer.append(what)
+            else:
+                stream.write(what)
+
+        write('\t' * indent)
         to_log = ''.join(map(str, filter(None, args)))
         if cls.disable_colors:
             for color in (
@@ -41,10 +51,10 @@ class TestLogger(object):
             ):
                 to_log = to_log.replace(color, '')
 
-        stream.write(to_log)
-        stream.write(cls.END)
+        write(to_log)
+        write(cls.END)
         if end:
-            stream.write('\n')
+            write('\n')
 
     @classmethod
     def log_section(cls, section):
@@ -52,14 +62,17 @@ class TestLogger(object):
 
     @classmethod
     def log_test(cls, name, info=None):
+        cls._test_case_buffer = []
         cls.log(cls.BOLD, '{:3}'.format(name), info, ': ', indent=1, end=False)
 
     @classmethod
     def log_test_fail(cls, result):
+        cls._test_case_success = False
         cls.log(cls.BOLD, cls.WARNING, ' × ', result, end=False)
 
     @classmethod
     def log_test_ok(cls):
+        cls._test_case_success = True
         cls.log(cls.GREEN, cls.BOLD, '✓', end=False)
 
     @classmethod
@@ -69,6 +82,9 @@ class TestLogger(object):
     @classmethod
     def log_end_test_case(cls):
         cls.log()
+        if cls.verbose or not cls._test_case_success:
+            cls._log_buffer()
+        cls._test_case_buffer = None
 
     @classmethod
     def log_price(cls, state):
@@ -95,6 +111,11 @@ class TestLogger(object):
             ''
         )
         return bool(total - success)
+
+    @classmethod
+    def _log_buffer(cls, stream=sys.stderr):
+        for to_log in cls._test_case_buffer or ():
+            stream.write(to_log)
 
 
 __all__ = ['TestLogger']

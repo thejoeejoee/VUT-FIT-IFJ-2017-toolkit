@@ -72,6 +72,7 @@ class TestRunner(object):
         self._extensions = self._load_extensions(args.extensions_file)
         if args.no_colors:
             TestLogger.disable_colors = args.no_colors
+        TestLogger.verbose = args.verbose
         self._reports = []
         self._uploader = BenchmarkUploader(args.benchmark_url_target)
 
@@ -313,12 +314,12 @@ class TestRunner(object):
     @staticmethod
     def _load_extensions(extensions_file):
         if not extensions_file:
-            return ()
+            return set()
         if not path.isfile(extensions_file):
             TestLogger.log_warning(
                 "File '{}' is not file or is not readable, assuming none of extensions.".format(extensions_file)
             )
-            return ()
+            return set()
         extensions = TestLoader._load_file(extensions_file, allow_fail=False)
         return set(extensions.strip().split())
 

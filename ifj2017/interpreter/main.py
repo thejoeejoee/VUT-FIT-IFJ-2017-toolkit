@@ -6,8 +6,10 @@ from ifj2017.interpreter.interpreter import Interpreter
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
 code = """\
+# foo bar
 .IFJcode17
 
+# foo bar
 DEFVAR GF@%00000_%__temp_variable_1  
 DEFVAR GF@%00000_%__temp_variable_2  
 DEFVAR GF@%00000_%__temp_variable_3  
