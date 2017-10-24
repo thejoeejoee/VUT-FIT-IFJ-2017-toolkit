@@ -1,0 +1,27 @@
+{
+  "tests": [
+    {
+      "name": "10",
+      "compiler_exit_code": 4,
+        "extensions": [
+        "SCOPE"
+      ]
+    },
+    {
+      "name": "11",
+      "output": "669878",
+      "compiler_exit_code": 0,
+        "extensions": [
+        "SCOPE"
+      ]
+    },
+    {
+      "name": "12",
+      "output": "669878",
+      "compiler_exit_code": 0,
+        "extensions": [
+        "SCOPE"
+      ]
+    }
+  ]
+}

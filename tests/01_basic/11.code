@@ -1,0 +1,12 @@
+' single scope without any statements
+SCOPE
+	dim a as integer = 19
+	SCOPE
+
+	if 10 < 15 then
+		dim a as integer = 669878
+		print a;
+	end if
+
+	END SCOPE
+END SCOPE
