@@ -303,7 +303,7 @@ class TestRunner(object):
         )
         if self._extensions:
             TestLogger.log(
-                TestLogger.BLUE,
+                TestLogger.GREEN,
                 TestLogger.BOLD,
                 "Activated {} extensions: {}.".format(
                     len(self._extensions),

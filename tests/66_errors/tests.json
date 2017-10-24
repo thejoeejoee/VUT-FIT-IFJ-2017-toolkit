@@ -2,7 +2,7 @@
   "tests": [
     {
       "info": "Lexical error (Wrong double format) ",
-      "code": "scope \n dim a as double = 19. ",
+      "code": "19.",
       "compiler_exit_code": 1
     },
     {
@@ -12,39 +12,29 @@
     },
     {
       "info": "Lexical error (Wrong double format) ",
-      "code": "33455457.e---",
+      "code": "33455457e",
       "compiler_exit_code": 1
     },
-
-
     {
       "info": "Lexical error (Wrong string format)",
-      "code": "scope \n !\" end scope",
+      "code": "!\"",
       "compiler_exit_code": 1
     },
-
     {
       "info": "Lexical error (Wrong string format)",
       "code": "!\"\\-1\"",
       "compiler_exit_code": 1
     },
-
     {
       "info": "Lexical error (Wrong string format)",
       "code": "!\"\\256\"",
       "compiler_exit_code": 1
     },
-
     {
       "info": "Lexical error (Wrong string format)",
       "code": "!\"\\m\"",
       "compiler_exit_code": 1
     },
-
-
-
-
-
     {
       "info": "Syntax error",
       "code": "scope",
@@ -60,37 +50,32 @@
       "code": "scope \n scope",
       "compiler_exit_code": 2
     },
-    { 
+    {
       "info": "Syntax error (Empty program) ",
       "code": "",
       "compiler_exit_code": 2
     },
-    { 
+    {
       "info": "Syntax error (bad condition) ",
       "code": "scope \n if then \n end if \n end scope",
       "compiler_exit_code": 2
     },
-    { 
+    {
       "info": "Syntax error (bad condition) ",
       "code": "scope \n if 1 < 2 then \n end if wend scope",
       "compiler_exit_code": 2
     },
-
-
-
-
-
-    { 
+    {
       "info": "Semantic error (Using undefined variable) ",
       "code": "scope \n input a \n end scope",
       "compiler_exit_code": 3
     },
-    { 
+    {
       "info": "Semantic error (Using undefined variable in expression) ",
       "code": "scope \n print a*2; \n end scope",
       "compiler_exit_code": 3
     },
-    { 
+    {
       "info": "Semantic error (Attempt to redeclaration) ",
       "code": "scope \n dim a as integer \n dim a as integer \n end scope",
       "compiler_exit_code": 3
