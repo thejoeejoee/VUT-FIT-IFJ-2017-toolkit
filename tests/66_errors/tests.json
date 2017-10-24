@@ -6,10 +6,42 @@
       "compiler_exit_code": 1
     },
     {
+      "info": "Lexical error (Wrong double format) ",
+      "code": "33455457.e---",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "Lexical error (Wrong double format) ",
+      "code": "33455457.e---",
+      "compiler_exit_code": 1
+    },
+
+
+    {
       "info": "Lexical error (Wrong string format)",
       "code": "scope \n !\" end scope",
       "compiler_exit_code": 1
     },
+
+    {
+      "info": "Lexical error (Wrong string format)",
+      "code": "!\"\\-1\"",
+      "compiler_exit_code": 1
+    },
+
+    {
+      "info": "Lexical error (Wrong string format)",
+      "code": "!\"\\256\"",
+      "compiler_exit_code": 1
+    },
+
+    {
+      "info": "Lexical error (Wrong string format)",
+      "code": "!\"\\m\"",
+      "compiler_exit_code": 1
+    },
+
+
 
 
 
@@ -33,6 +65,18 @@
       "code": "",
       "compiler_exit_code": 2
     },
+    { 
+      "info": "Syntax error (bad condition) ",
+      "code": "scope \n if then \n end if \n end scope",
+      "compiler_exit_code": 2
+    },
+    { 
+      "info": "Syntax error (bad condition) ",
+      "code": "scope \n if 1 < 2 then \n end if wend scope",
+      "compiler_exit_code": 2
+    },
+
+
 
 
 

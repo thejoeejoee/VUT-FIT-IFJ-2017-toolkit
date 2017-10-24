@@ -1,0 +1,11 @@
+' Use all data types
+scope
+	
+	dim _a669 as integer = 445655454
+	dim b__67678 as string = !"FGGHGHHghjhhjhj \056 \t ahoj \n iloilailaeiii"
+	dim ___ced65689 as double = 56758.56686
+	dim ___d___6778GHGKjhhj as double = 566678.658678e+10
+	dim GHG__e__676767 as double = 566678.658678e-10
+	dim __6767hjhjGHHJKH as double = 566678.658678e10
+
+end scope
