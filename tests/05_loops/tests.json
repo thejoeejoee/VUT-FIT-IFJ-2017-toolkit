@@ -1,0 +1,10 @@
+{
+  "tests": [
+    {
+      "name": "06",
+      "extensions": [
+        "IFTHEN"
+      ]
+    }
+  ]
+}

@@ -75,7 +75,7 @@ class Instruction(object):
 
         # TODO: formats based on type
         # magic with escaped chars: escaped \\n to real \n
-        'WRITE': lambda state, op: state.stdout.write(codecs.decode(str(state.get_value(op)), 'unicode_escape')),
+        'WRITE': State.write,
 
         'PUSHS': State.push_stack,
         'POPS': State.pop_stack,

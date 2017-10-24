@@ -1,10 +1,12 @@
-' while in condition
+' while with elseif in condition
 scope
 	if 78 > 2 then
 	    dim a as integer = 12
 		do while a >= 1
 			if a > 8 then
 				print 69;
+			elseif a > 3 then
+				print 74;
 			else
 				print 11;
 			end if
