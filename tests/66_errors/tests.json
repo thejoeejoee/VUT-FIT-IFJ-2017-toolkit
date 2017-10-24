@@ -89,6 +89,21 @@
       "info": "Semantic Error, undefined variable in expression",
       "code": "scope \n dim a as integer \n a = 10 + variable \n end scope",
       "compiler_exit_code": 3
+    },
+    {
+      "info": "Semantic Error, String in condition",
+      "code": "scope \n if !\"\" then \n end if \n end scope",
+      "compiler_exit_code": 6
+    },
+    {
+      "info": "Semantic Error, Integer in condition",
+      "code": "scope \n if 42 then \n end if \n end scope",
+      "compiler_exit_code": 6
+    },
+    {
+      "info": "Semantic Error, Double in condition",
+      "code": "scope \n if 6789678.6968 then \n end if \n end scope",
+      "compiler_exit_code": 6
     }
   ]
 }
