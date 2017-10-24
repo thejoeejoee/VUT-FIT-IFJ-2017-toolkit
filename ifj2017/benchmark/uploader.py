@@ -82,7 +82,7 @@ class BenchmarkUploader(object):
     def send_reports(self):
         # type: (dict) -> dict
         if not self._reports:
-            return {}
+            return dict(success=True)
         response = self._request(
             '/api/v1/benchmark-result',
             dict(
