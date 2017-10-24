@@ -1,4 +1,4 @@
-' single scope without any statements
+' Stack symbol table
 SCOPE
 	dim a as integer = 19
 	dim s1 as integer = 10

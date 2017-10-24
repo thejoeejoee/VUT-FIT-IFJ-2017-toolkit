@@ -2,7 +2,6 @@
   "tests": [
     {
       "name": "10",
-      "compiler_exit_code": 4,
         "extensions": [
         "SCOPE"
       ]
@@ -10,7 +9,6 @@
     {
       "name": "11",
       "stdout": "669878",
-      "compiler_exit_code": 0,
         "extensions": [
         "SCOPE"
       ]
@@ -18,10 +16,15 @@
     {
       "name": "12",
       "stdout": "669878",
-      "compiler_exit_code": 0,
         "extensions": [
         "SCOPE"
       ]
+    },
+    {
+      "name": "13",
+      "info": "Multi line string",
+      "stdout": "ahoj\nsvete",
+      "code": "scope \n print !\"ahoj\\nsvete\"; \nend scope"
     }
   ]
 }
