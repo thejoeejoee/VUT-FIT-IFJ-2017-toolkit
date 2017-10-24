@@ -11,6 +11,18 @@
     {
       "name": "07",
       "compiler_exit_code": 4
+    },
+    {
+      "name": "01",
+      "info": "Asc value",
+      "output": "104",
+      "code": "scope \n print asc(!\"ahoj\", 2); \n end scope"
+    },
+    {
+      "name": "02",
+      "info": "Chr function",
+      "output": "a",
+      "code": "scope \n print chr(97); \n end scope"
     }
   ]
 }
