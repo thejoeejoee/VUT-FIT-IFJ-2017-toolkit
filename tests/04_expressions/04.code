@@ -1,4 +1,4 @@
-' simple adding with unary expression
+' mixed operations with same priority
 scope
-	print 42 + 21 + -21;
+	print 42 + 21 + 0 - 21;
 end scope

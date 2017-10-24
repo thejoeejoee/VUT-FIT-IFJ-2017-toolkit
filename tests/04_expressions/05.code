@@ -1,6 +1,6 @@
 ' simple adding two vars to another variable
 scope
-    dim a as integer = -58
+    dim a as integer = 0 - 58
     dim b as integer = 116
     a = a + b
     print a;

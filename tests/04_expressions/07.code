@@ -1,0 +1,7 @@
+' multiple operations with different priorities II
+scope
+    dim a as integer = 2
+    dim b as integer = 16
+    a = b / a + a - b + 100
+    print a;
+end scope
