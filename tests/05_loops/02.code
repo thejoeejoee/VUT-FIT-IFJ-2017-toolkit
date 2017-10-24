@@ -1,9 +1,13 @@
 ' multiple while loop
 scope
-	do while 5
-		print 78;
+	dim a as integer = 0 - 25
+	do while a <= 10
+		print 2 * a + 0.02;
+		a = a + 8
 	loop
-	do while 2
-		print 63;
+	a = (0 - 200 + 300)
+	do while a >= 0
+		print a;
+		a = a - 11
 	loop
 end scope

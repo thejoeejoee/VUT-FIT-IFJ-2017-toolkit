@@ -1,8 +1,13 @@
 ' nested while loop
 scope
-	do while 5
-		do while 2
-			print 63;
+	dim a as integer = 25
+	dim b as integer = 10
+	do while a > (0 - 9)
+		b = 0 - 12
+		do while b <> 1
+			print a; !": "; b;
+			b = b + 1
 		loop
+		a = a - 3
 	loop
 end scope

@@ -6,11 +6,7 @@ function _add_two(_ as integer) as integer
 	return res
 end function
 
-function _multiply(_ as integer, __ as integer) as integer
-	dim res as integer
-	res = _ * __
-	return res
-end function
+declare function _multiply(__acv as integer, __foo__ as integer) as integer
 
 function ____(_______ as integer) as double
 	return _______ * 0.5
@@ -29,3 +25,9 @@ scope
 	a = __compute()
 	print a;
 end scope
+
+function _multiply(_ as integer, __ as integer) as integer
+	dim res as integer
+	res = _ * __
+	return res
+end function

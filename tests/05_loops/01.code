@@ -1,6 +1,8 @@
 ' basic while loop
 scope
-	do while 5
-		print 78;
+	dim a as double = 25.54
+	do while a > (0 - 25)
+		print a;
+		a = a - 3.29
 	loop
 end scope
