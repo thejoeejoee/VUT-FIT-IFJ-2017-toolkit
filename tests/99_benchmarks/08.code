@@ -1,4 +1,4 @@
-' Program 1: Vypocet faktorialu (iterativne)
+' factorial by iteration method
 
 scope 'Hlavni telo programu
 Dim a As Integer
@@ -13,6 +13,6 @@ Do WHile A > 0
 VYSL = vysl * a
 a = A - 1
 LooP
-Print !"\nVysledek je:" ; vYsl ; !"\n";
+Print vYsl;
 end IF
 END SCOPE

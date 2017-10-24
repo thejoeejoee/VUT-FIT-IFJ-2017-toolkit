@@ -1,0 +1,10 @@
+' multiple string concatenations
+scope
+	dim buffer as string
+	dim count as integer = 42
+	do while count > 0
+        buffer = !"" + buffer + !" barman" + !"" ' for price and optimalization
+        count = count - 1
+	loop
+	print buffer;
+end scope
