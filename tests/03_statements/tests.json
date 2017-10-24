@@ -26,7 +26,15 @@
     },
     {
       "info": "Empty condition",
-      "code": "scope \n if 10 < 15 then \n end if \n end scope"
+      "code": "scope \n if 10 < 15 then \n else \n end if \n end scope"
+    },
+    {
+      "info": "Empty condition",
+      "code": "scope \n if 10 < 15 then \n end if \n end scope",
+      "compiler_exit_code": 0,
+        "extensions": [
+        "IFTHEN"
+      ]
     }
   ]
 }
