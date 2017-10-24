@@ -15,7 +15,7 @@
     {
       "name": "01",
       "info": "Asc value",
-      "stdout": "104",
+      "stdout": " 104",
       "code": "scope \n print asc(!\"ahoj\", 2); \n end scope"
     },
     {
