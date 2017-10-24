@@ -53,7 +53,7 @@
     },
     {
       "info": "Semantic Error, call undefined function",
-      "code": "scope dim a as integer = foo()\n end scope",
+      "code": "scope \n dim a as integer = foo()\n end scope",
       "compiler_exit_code": 3
     },
     {

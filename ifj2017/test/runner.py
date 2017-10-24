@@ -4,6 +4,7 @@ import os
 import os.path as path
 import platform
 import shutil
+from datetime import datetime
 from io import StringIO
 from subprocess import PIPE, Popen, TimeoutExpired
 from tempfile import mktemp
@@ -19,13 +20,13 @@ from ..benchmark.uploader import BenchmarkUploader
 from ..interpreter.interpreter import Interpreter
 
 TEST_LOG_HEADER = """\
+# {}
 # SECTION: {}
 # TEST: {}
 # INFO: {}
 # REQUIRED EXTENSIONS: {}
 # ACTIVATED EXTENSIONS: {}
-# INTERPRETER STDIN: 
-# {}
+# STATE: {}
 # 
 # COMPILER STDERR:
 # {}
@@ -35,6 +36,8 @@ TEST_LOG_HEADER = """\
 # EXPECTED INTERPRETER STDOUT:
 # {}
 # CURRENT INTERPRETER STDOUT:
+# {}
+# INTERPRETER STDIN: 
 # {}
 #
 # EXPECTED COMPILER EXIT CODE: {}
@@ -246,18 +249,19 @@ class TestRunner(object):
                 'w'
         ) as f:
             f.write(TEST_LOG_HEADER.format(
+                datetime.now(),
                 basename(test_info.section_dir),
                 test_info.name,
                 test_info.info,
                 ', '.join(test_info.extensions),
                 ', '.join(self._extensions),
-
-                replace(test_info.stdin),
+                'SUCCESS' if report.success else 'FAIL',
 
                 replace(report.compiler_stderr),
                 replace(report.interpreter_stderr),
                 replace(test_info.stdout),
                 replace(report.interpreter_stdout),
+                replace(test_info.stdin),
 
                 test_info.compiler_exit_code,
                 report.compiler_exit_code,

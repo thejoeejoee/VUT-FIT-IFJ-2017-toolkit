@@ -7,7 +7,8 @@ end function
 function GHGKghgk67() as integer
 	dim a as integer
 	a = GHGKghgk55()
-	a = a * 2
+	a = a + a
+	return a
 end function
 
 scope
