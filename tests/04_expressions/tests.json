@@ -1,8 +1,14 @@
 {
 	"tests": [
 		{
-			"name": "04",
+			"name": "01",
 			"extensions": ["UNARY"]
-		}
+		},
+	    {
+	      "name": "13",
+	      "info": "Implicit conversation",
+	      "output": "1.5",
+	      "code": "scope \n print 3/2;\n end scope"
+	    }
 	]
 }
