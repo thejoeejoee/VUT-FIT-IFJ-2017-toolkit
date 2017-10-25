@@ -1,0 +1,20 @@
+' loop from one to 1250
+SCOPE
+
+	dim iterace as integer
+	iterace = 1
+
+	dim expx as integer
+
+	do while iterace < 1250
+
+		expx = expx + 1
+
+		iterace = iterace + 1
+
+	loop
+
+	print expx;
+
+
+END SCOPE
