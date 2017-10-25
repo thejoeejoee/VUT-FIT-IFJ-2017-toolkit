@@ -1,0 +1,8 @@
+' Condition with implicit conversion
+scope
+	if ((8*(2.0/9)+112.3 - 13.8) > (8*(2.0/9)+112.3 + 13.8)) then
+		print 42;
+	else
+		print 58;
+	end if
+end scope
