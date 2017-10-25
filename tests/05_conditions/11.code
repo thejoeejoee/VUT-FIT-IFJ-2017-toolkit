@@ -1,0 +1,8 @@
+' Call undefined function in expr
+scope
+	if foo() > 8 then
+		print 42;
+	else
+		print 58;
+	end if
+end scope

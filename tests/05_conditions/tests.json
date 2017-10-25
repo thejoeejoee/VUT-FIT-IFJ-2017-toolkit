@@ -35,6 +35,19 @@
       "extensions": [
         "IFTHEN"
       ]
+    },
+    {
+      "name": "10",
+      "extensions": [
+        "FUNEXP"
+      ]
+    },
+    {
+      "name": "11",
+      "compiler_exit_code": 3,
+      "extensions": [
+        "FUNEXP"
+      ]
     }
   ]
 }

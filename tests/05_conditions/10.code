@@ -1,0 +1,18 @@
+' variables and functions in condition
+
+function foo() as integer
+
+	return 42 + 42
+
+end function
+
+scope
+	dim a as integer
+	a = 142
+
+	if (foo() > a) then
+		print 42;
+	else
+		print 58;
+	end if
+end scope
