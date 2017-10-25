@@ -29,7 +29,7 @@ class TestLogger(object):
     UNDERLINE = '\033[4m'
     END = '\033[0m'
 
-    disable_colors =  is_color_available()
+    disable_colors = is_color_available()
     verbose = False
 
     _test_case_buffer = None
@@ -103,6 +103,9 @@ class TestLogger(object):
             cls.UNDERLINE,
             cls.BOLD,
             'RESULTS:',
+            cls.END,
+            cls.BOLD,
+            ' {:.2f}%'.format((float(success) / total) * 100),
             cls.END,
             ' ({}/{})\n\t'.format(success, total),
             cls.END,
