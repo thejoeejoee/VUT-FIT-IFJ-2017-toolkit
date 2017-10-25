@@ -11,5 +11,5 @@ scope
 	dim foo as string
 	foo = c + !" " + c + !" " + c + !"\n"
 
-	print b; foo; foo; content; 
+	print b; foo;  'foo; content; 
 end scope
