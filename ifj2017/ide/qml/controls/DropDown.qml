@@ -69,7 +69,10 @@ Item {
     visible: false
     height: flick.height
 
-    onModelChanged: currentItemIndex = 0
+    onModelChanged: {
+        currentItemIndex = 0
+        currentItem = model[0]
+    }
 
     onShow: {
         if(!component.visible)
