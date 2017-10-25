@@ -28,8 +28,13 @@
       "name": "09",
       "info": "Integer implicit return",
       "stdout": " 0",
-      "code": "function foo() as integer \n end function \n scope \n dim a as integer \n a = foo() \n print a; \n end scope",
-      "stdout": " 0"
+      "code": "function foo() as integer \n end function \n scope \n dim a as integer \n a = foo() \n print a; \n end scope"
+    },
+    {
+      "name": "10",
+      "info": "Integer implicit return",
+      "stdout": " 0",
+      "code": "function foo() as integer \n end function \n scope \n dim a as integer \n a = foo() \n print a; \n end scope"
     }
   ]
 }
