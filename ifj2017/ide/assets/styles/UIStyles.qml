@@ -6,15 +6,15 @@ QtObject {
     id: styles
 
     property QtObject completer: QtObject {
-        property color color: "black"
-        property color hoverColor: "#ED1946"
-        property color textColor: "#C1C0C0"
-        property color scrollBarColor: "#9F9F9F"
+        property color color: "#272b2d"
+        property color hoverColor: "#e0e0e0"
+        property color textColor: "#FFFFFF"
+        property color scrollBarColor: "black"
         property var typeColors: ({})
         property font font: Qt.font({family: "Roboto Light"})
 
         Component.onCompleted: {
-            typeColors[0] = "#EF4223"
+            typeColors[0] = "#00bff2"
             typeColors[1] = "#C1C0C0"
         }
     }

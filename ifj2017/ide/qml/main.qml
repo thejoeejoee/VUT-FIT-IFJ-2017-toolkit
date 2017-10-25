@@ -40,6 +40,10 @@ ApplicationWindow {
         id: codeEditor
 
         lineNumbersPanelColor: "#f2f2f2"
+
+        completer.width: 200
+        completer.visibleItemCount: 6
+
         anchors.left: mainToolbar.right
         anchors.right: root.right
         anchors.top: root.top

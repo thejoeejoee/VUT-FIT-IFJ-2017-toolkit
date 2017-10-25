@@ -11,6 +11,7 @@ import "../controls"
 Item {
     id: component
 
+    property alias completer: completer
     property alias textComponent: textEdit
     property alias font: textEdit.font
     property alias code: textEdit.text
@@ -94,7 +95,7 @@ Item {
                     color: "transparent"
 
                     Text {
-                        text: modelData
+                        text: modelData + 1
                         color: component.lineNumberColor
                         anchors.centerIn: parent
                     }
