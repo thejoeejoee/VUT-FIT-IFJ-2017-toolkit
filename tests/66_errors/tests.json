@@ -14,6 +14,30 @@
       "compiler_exit_code": 4
     },
     {
+      "name": "08",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "09",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "10",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "11",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "12",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "13",
+      "compiler_exit_code": 3
+    },
+    {
       "info": "Lexical error (Wrong double format) ",
       "code": "33455457.e---",
       "compiler_exit_code": 1

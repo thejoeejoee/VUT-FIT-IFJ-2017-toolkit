@@ -1,0 +1,12 @@
+' Convert double into integer
+
+scope
+
+	dim a as double
+	a = 2.0
+	dim b as integer
+	b = a
+
+	print b;
+
+end scope
