@@ -93,17 +93,17 @@
     {
       "info": "Semantic Error, String in condition",
       "code": "scope \n if !\"\" then \n end if \n end scope",
-      "compiler_exit_code": 6
+      "compiler_exit_code": 4
     },
     {
       "info": "Semantic Error, Integer in condition",
       "code": "scope \n if 42 then \n end if \n end scope",
-      "compiler_exit_code": 6
+      "compiler_exit_code": 4
     },
     {
       "info": "Semantic Error, Double in condition",
       "code": "scope \n if 6789678.6968 then \n end if \n end scope",
-      "compiler_exit_code": 6
+      "compiler_exit_code": 4
     }
   ]
 }
