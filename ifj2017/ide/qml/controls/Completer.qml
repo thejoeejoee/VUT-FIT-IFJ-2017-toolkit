@@ -83,10 +83,11 @@ DropDown {
     {
         var newModel = []
 
+        var filter_pattern = new RegExp("^" + currentText, 'i')
         for(var key in component.constantModel) {
             var value = component.constantModel[key]
 
-            if(value["identifier"].search("^" + currentText) !== -1)
+            if(value["identifier"].search(filter_pattern) !== -1)
                 newModel.push(value)
         }
 
