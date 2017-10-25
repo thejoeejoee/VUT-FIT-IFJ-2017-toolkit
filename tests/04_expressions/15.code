@@ -1,0 +1,40 @@
+' exp(x) 6 iteration without loop
+
+SCOPE
+
+	dim vysledek as double
+	dim citatel as integer
+	citatel = 1
+	dim jmenovatel as integer
+	jmenovatel = 1
+
+	vysledek = vysledek + citatel / jmenovatel
+
+	citatel = citatel * 2
+	jmenovatel = jmenovatel * 1
+
+	vysledek = vysledek + citatel / jmenovatel
+
+	citatel = citatel * 2
+	jmenovatel = jmenovatel * 2
+
+	vysledek = vysledek +  citatel / jmenovatel
+
+	citatel = citatel * 2
+	jmenovatel = jmenovatel * 3
+
+	vysledek = vysledek + citatel / jmenovatel
+
+	citatel = citatel * 2
+	jmenovatel = jmenovatel * 4
+
+	vysledek = vysledek + citatel / jmenovatel
+
+	citatel = citatel * 2
+	jmenovatel = jmenovatel * 5
+
+	vysledek = vysledek + citatel / jmenovatel
+
+	print vysledek;
+
+END SCOPE

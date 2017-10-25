@@ -1,0 +1,15 @@
+' Test for implicit conversion
+SCOPE
+
+	dim a as double
+	a = 123.4565
+
+	dim b as integer
+	b = 456465
+
+	dim c as double
+	c = (((a * b) / b) * b) / b 
+
+	print c;
+
+END SCOPE
