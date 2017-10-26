@@ -1,14 +1,11 @@
 ' Undeclared variable inside function
 
-fucntion HGK____78() as integer
+function HGK____() as integer
 	dim a as integer
-
 end function
 
-fucntion HGK____78() as integer
-
+function HGK____7874() as integer
 	input a
-	
 end function
 
 scope

@@ -8,6 +8,11 @@ end function
 
 declare function _multiply(__acv as integer, __foo__ as integer) as integer
 
+function _multiply(_ as integer, __ as integer) as integer
+
+	return _ * __
+end function
+
 function ____(_______ as integer) as double
 	return _______ * 0.5
 end function
@@ -20,14 +25,10 @@ function __compute() as double
 	return res
 end function
 
+
+
 scope
 	dim a as double
 	a = __compute()
 	print a;
 end scope
-
-function _multiply(_ as integer, __ as integer) as integer
-	dim res as integer
-	res = _ * __
-	return res
-end function

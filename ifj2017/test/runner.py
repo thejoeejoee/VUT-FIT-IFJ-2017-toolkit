@@ -6,10 +6,9 @@ import platform
 import shutil
 from datetime import datetime
 from io import StringIO
+from os.path import basename
 from subprocess import PIPE, Popen, TimeoutExpired
 from tempfile import mktemp
-
-from os.path import basename
 
 from .base import TestInfo
 from .base import TestReport
@@ -280,7 +279,14 @@ class TestRunner(object):
                 )
             )
             f.write('\n' * 2 + '#' * 40 + '\n' * 2)
-            f.write(report.compiler_stdout or '# ---')
+            lines = (report.compiler_stdout or '').split('\n')
+            count = len(lines)
+            f.write('\n'.join(
+                '{:80}# {:5}/{}'.format(line, i, count)
+                for i, line
+                in enumerate(lines, start=1)
+                if line
+            ) or '# ---')
         self._reports.append(report)
         TestLogger.log_end_test_case()
 
@@ -322,8 +328,6 @@ class TestRunner(object):
             return set()
         extensions = TestLoader._load_file(extensions_file, allow_fail=False)
         return set(extensions.strip().split())
-
-
 
 
 __all__ = ['TestRunner']

@@ -10,7 +10,7 @@ end function
 
 scope
 	dim a as integer
-	a = recursive(10000)
+	a = recursive(4)
 	print a;
 
 end scope 
