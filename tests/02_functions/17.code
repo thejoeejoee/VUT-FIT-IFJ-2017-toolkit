@@ -1,0 +1,9 @@
+' return outside function
+
+SCOPE
+
+	dim a as integer
+	a = 10
+	return a
+
+END SCOPE

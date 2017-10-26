@@ -35,6 +35,22 @@
       "info": "Integer implicit return",
       "stdout": " 0",
       "code": "function foo() as integer \n end function \n scope \n dim a as integer \n a = foo() \n print a; \n end scope"
+    },
+    {
+      "name": "17",
+      "compiler_exit_code": 2
+    },
+    {
+      "name": "18",
+      "stdout": " 16"
+    },
+    {
+      "name": "19",
+      "stdout": " 256"
+    },
+    {
+      "name": "20",
+      "stdout": " 16"
     }
   ]
 }

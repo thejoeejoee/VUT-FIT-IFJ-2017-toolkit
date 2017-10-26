@@ -51,6 +51,14 @@
       "stdin": "42\n24",
       "stdout": "? ?  66",
       "code": "scope \n dim a as integer \n dim b as integer \n input a \n input b \n print a + b; \nend scope"
+    },
+    {
+      "name": "18",
+      "stdout": " 4"
+    },
+    {
+      "name": "20",
+      "stdout": " 4"
     }
   ]
 }

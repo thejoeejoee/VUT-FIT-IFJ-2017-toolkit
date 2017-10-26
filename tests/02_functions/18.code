@@ -1,0 +1,17 @@
+' argument of function is call of function
+
+function __HJHLH(a as integer) as integer
+	
+	return a * 2
+
+end function
+
+
+SCOPE
+
+	dim a as integer
+	a = __HJHLH(__HJHLH(__HJHLH(2)))
+	print a;
+
+
+END SCOPE

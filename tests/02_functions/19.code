@@ -1,0 +1,15 @@
+' Argument of function is call of function and expr
+
+function HJKLHJKL_(hagd as integer) as integer
+	
+	return hagd * hagd
+
+end function
+
+SCOPE
+
+	dim __HJJ677 as integer
+	__HJJ677 = HJKLHJKL_(HJKLHJKL_(2) * HJKLHJKL_(2))
+	print __HJJ677;
+
+END SCOPE
