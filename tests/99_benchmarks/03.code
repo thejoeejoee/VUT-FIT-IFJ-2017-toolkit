@@ -3,11 +3,11 @@
 function hanoi(n as integer, from as string, to as string, middle as string) as integer
 	dim c as integer
 	if n = 1 then
-		print !"Move disk 1 from row"; from, !" to rod "; to; !"\n";
+		print !"Move disk 1 from row "; from; !" to rod "; to; !"\n";
 		return 0
 	end if
 	c = hanoi(n - 1, from, middle, to)
-	print !"Move disk"; n; !"from row"; from, !" to rod "; to; !"\n";
+	print !"Move disk"; n; !" from row "; from; !" to rod "; to; !"\n";
 	c = hanoi(n - 1, middle, to, from)
 end function
 
