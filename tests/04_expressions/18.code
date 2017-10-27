@@ -1,0 +1,13 @@
+' One line comment after expr
+
+function foo() as integer
+	return 39
+end function
+
+scope
+	
+	dim a as integer
+	a = 3 + foo() ' toto je sčítání
+	print a;
+
+end scope

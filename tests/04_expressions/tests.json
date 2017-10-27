@@ -11,6 +11,14 @@
       "info": "Implicit conversion",
       "stdout": " 1.5",
       "code": "scope \n print 3/2.0;\n end scope"
+    },
+    {
+      "name": "17",
+      "stdout": " 42"
+    },
+    {
+      "name": "18",
+      "stdout": " 42"
     }
   ]
 }
