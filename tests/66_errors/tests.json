@@ -140,6 +140,10 @@
     {
       "name": "14",
       "compiler_exit_code": 1
+    },
+    {
+      "name": "15",
+      "compiler_exit_code": 1
     }
   ]
 }

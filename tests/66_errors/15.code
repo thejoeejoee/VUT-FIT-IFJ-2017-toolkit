@@ -1,0 +1,7 @@
+' unfinished multi line comment
+
+SCOPE
+
+print 42;
+
+END SCOPE /' Toto je komentář '
