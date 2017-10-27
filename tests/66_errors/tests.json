@@ -136,6 +136,10 @@
       "info": "Semantic Error, Double in condition",
       "code": "scope \n if 6789678.6968 then \n end if \n end scope",
       "compiler_exit_code": 4
+    },
+    {
+      "name": "14",
+      "compiler_exit_code": 1
     }
   ]
 }
