@@ -13,6 +13,7 @@ from PyQt5.QtCore import (QSize, QtFatalMsg, QtCriticalMsg, QtWarningMsg, QtInfo
 
 from ifj2017.ide.code_analyzer import CodeAnalyzer
 from ifj2017.ide.code.expression import ExpSyntaxHighlighter, ExpAnalyzer
+from ifj2017.ide.core.tree_view_model import TreeViewModel
 
 try:
     from termcolor import colored
@@ -57,6 +58,7 @@ qmlRegisterSingletonType(base_url.resolved(QUrl("assets/styles/UIStyles.qml")), 
 qmlRegisterSingletonType(CodeAnalyzer, "CodeAnalyzer", 1, 0, "CodeAnalyzer", CodeAnalyzer.singletonProvider)
 qmlRegisterType(ExpSyntaxHighlighter, "ExpSyntaxHighlighter", 1, 0, "ExpSyntaxHighlighter")
 qmlRegisterType(ExpAnalyzer, "ExpAnalyzer", 1, 0, "ExpAnalyzer")
+qmlRegisterType(TreeViewModel, "TreeViewModel", 1, 0, "TreeViewModel")
 
 engine = QQmlApplicationEngine()
 engine.rootContext().setContextProperty("rootDir", base_url.toString())
