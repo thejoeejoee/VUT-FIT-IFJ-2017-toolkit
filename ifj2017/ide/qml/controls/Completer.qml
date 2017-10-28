@@ -49,7 +49,7 @@ DropDown {
             id: symbol
 
             width: height
-            height: component.itemHeight / 2
+            height: component.itemHeight / 2.
             // TODO  real color
             color: StyleSettings.completer.typeColors[itemData["type"]]
 
