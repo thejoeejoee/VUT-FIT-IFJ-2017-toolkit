@@ -1,4 +1,5 @@
 # coding=utf-8
+import difflib
 import logging
 import os
 import os.path as path
@@ -31,10 +32,6 @@ TEST_LOG_HEADER = """\
 # {}
 # INTERPRETER STDERR:
 # {}
-#
-# EXPECTED INTERPRETER STDOUT:
-# {}
-# CURRENT INTERPRETER STDOUT:
 # {}
 # INTERPRETER STDIN: 
 # {}
@@ -45,6 +42,20 @@ TEST_LOG_HEADER = """\
 # CURRENT INTERPRETER EXIT CODE: {}
 # PRICE: {}
 # 
+"""
+
+_STDOUT_TWICE = """\
+EXPECTED INTERPRETER STDOUT:
+
+{}
+
+# CURRENT INTERPRETER STDOUT:
+
+{}
+"""
+_STDOUT_DIFF = """\
+STDOUT DIFF:
+# {}
 """
 
 
@@ -72,12 +83,18 @@ class TestRunner(object):
         if args.no_colors:
             TestLogger.disable_colors = args.no_colors
         TestLogger.verbose = args.verbose
+        self._no_stdout_diff = args.no_stdout_diff
         self._reports = []
         self._uploader = BenchmarkUploader(args.benchmark_url_target)
 
         if path.exists(self._log_dir):
-            shutil.rmtree(self._log_dir)
-        os.mkdir(self._log_dir)
+            for root, dirs, files in os.walk(self._log_dir):
+                for f in files:
+                    os.unlink(os.path.join(root, f))
+                for d in dirs:
+                    shutil.rmtree(os.path.join(root, d))
+        else:
+            os.mkdir(self._log_dir)
 
         self._actual_section = None
 
@@ -259,8 +276,7 @@ class TestRunner(object):
 
                 replace(report.compiler_stderr),
                 replace(report.interpreter_stderr),
-                replace(test_info.stdout),
-                replace(report.interpreter_stdout),
+                self._stdout_log(test_info.stdout, report.interpreter_stdout),
                 replace(test_info.stdin),
 
                 test_info.compiler_exit_code,
@@ -328,6 +344,26 @@ class TestRunner(object):
             return set()
         extensions = TestLoader._load_file(extensions_file, allow_fail=False)
         return set(extensions.strip().split())
+
+    def _stdout_log(self, stdout, interpreter_stdout):
+        # type: (str, str) -> str
+        if self._no_stdout_diff or not stdout or not interpreter_stdout:
+            return _STDOUT_TWICE.format(
+                ''.join('# {}\n'.format(line) for line in (stdout or '').splitlines()),
+                ''.join('# {}\n'.format(line) for line in (interpreter_stdout or '').splitlines()),
+            )
+
+        diff = tuple(difflib.unified_diff(
+            stdout.splitlines(True),
+            interpreter_stdout.splitlines(True),
+            fromfile='expected',
+            tofile='actual',
+        ))
+
+        return _STDOUT_DIFF.format(''.join((
+            '# '.join('{}'.format(line) for line in diff[:3]),
+            ''.join('\n# {}'.format(line) for line in diff[3:]),
+        )))
 
 
 __all__ = ['TestRunner']

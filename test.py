@@ -32,6 +32,8 @@ if __name__ == '__main__':
                         type=float, default=.2)
     parser.add_argument("--no-colors", action='store_true', help="disable colored output (for Windows CMD etc.)",
                         default=False)
+    parser.add_argument("--no-stdout-diff", action='store_true', help="disable stdout log by difflib",
+                        default=False)
 
     runner = TestRunner(parser.parse_args())
     exit(runner.run())

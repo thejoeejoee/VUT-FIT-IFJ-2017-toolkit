@@ -1,4 +1,4 @@
-' One line comment after expr
+' comments inside expressions
 
 function foo() as integer
 	return 39
@@ -7,7 +7,9 @@ end function
 scope
 	
 	dim a as integer
-	a = 3 + foo() ' toto je sčítání
+	a = foo()
+	a = a + 3 + 6' comment
+	a = a /' '/ * /' '/ 2 /' + 8
 	print a;
 
 end scope
