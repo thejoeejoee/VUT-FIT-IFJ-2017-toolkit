@@ -1,4 +1,4 @@
-' divide integer and doubles (known problem with interpreter rounding)
+' divide integer and doubles
 scope
     dim a as integer = 9
     dim b as integer = 2
