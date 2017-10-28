@@ -164,6 +164,9 @@ Item {
         var lastChar = textDocument.text.slice(-1)
         var currentWord = exa.currentWord()
 
+        if(lastChar == '\n')
+            return
+
         if(textDocument.cursorPosition)
             lastChar = textDocument.text[textDocument.cursorPosition - 1]
 
