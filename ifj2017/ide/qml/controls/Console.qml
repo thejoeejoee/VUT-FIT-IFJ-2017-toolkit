@@ -13,6 +13,10 @@ Rectangle {
     clip: true
 
     ScrollView {
+        id: textOutput
+
+        property var streamHistory: []
+
         anchors.left: lineMarks.right
         anchors.right: parent.right
         anchors.top: parent.top
@@ -30,6 +34,14 @@ Rectangle {
             contentHeight: readonlyText.contentHeight + editableText.contentHeight
             width: parent.width - lineMarks.width
             height: parent.height
+
+            onContentHeightChanged: flick.scrollToEnd()
+
+            function scrollToEnd() {
+                if(flick.contentHeight > flick.height) {
+                    flick.contentY = flick.contentHeight - flick.height
+                }
+            }
 
             function moveContentAccordingToCursor(cr) {
                 // vertical move
@@ -51,9 +63,10 @@ Rectangle {
                 TextEdit {
                     id: readonlyText
 
-                    height: editableText
+                    height: 0
                     width: parent.width
 
+                    text: ""
                     leftPadding: 7
                     selectByMouse: true
                     readOnly: true
@@ -78,30 +91,23 @@ Rectangle {
                 TextInput {
                     id: editableText
 
-                    y: readonlyText.y + readonlyText.contentHeight
+                    y: readonlyText.y + ((readonlyText.text) ?readonlyText.contentHeight :0)
                     width: parent.width
+                    readOnly: true
 
                     focus: true
                     leftPadding: 7
                     font: readonlyText.font
 
-                    onFocusChanged: {
-                        if(focus) {
-                            flick.contentY = flick.contentHeight - flick.height
-
-                        }
-                    }
-
                     onAccepted: {
+                        if(editableText.readOnly)
+                            return
                         readonlyText.append(editableText.text)
                         component.textReaded(editableText.text)
                         editableText.text = ""
                         editableText.readOnly = true
+                        editableText.focus = false
                     }
-
-//                    onCursorRectangleChanged: {
-//                        flick.moveContentAccordingToCursor(cursorRectangle)
-//                    }
                 }
             }
         }
@@ -111,20 +117,20 @@ Rectangle {
     Item {
         id: lineMarks
 
-        width: 10
+        width: 15
         height: parent.height
 
         Column {
             y: -flick.contentY
             Repeater {
-                model: readonlyText.lineCount
+                model: textOutput.streamHistory
                 delegate: Rectangle {
                     width: lineMarks.width
                     height: flick.contentHeight / (readonlyText.lineCount + 1)
                     color: "transparent"
 
                     Text {
-                        text: "  >"
+                        text: modelData
                         font: readonlyText.font
                         color: "red"/*component.lineNumberColor*/
                         anchors.centerIn: parent
@@ -135,6 +141,15 @@ Rectangle {
     }
 
     function read() {
+        flick.scrollToEnd()
+        textOutput.streamHistory.push("<")
+        textOutput.streamHistoryChanged()
         editableText.readOnly = false;
+    }
+
+    function write(text) {
+        textOutput.streamHistory.push(">")
+        textOutput.streamHistoryChanged()
+        readonlyText.append(text)
     }
 }
