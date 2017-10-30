@@ -1,16 +1,16 @@
 # coding=utf-8
-import codecs
 import logging
 import math
 import operator
 
-from .prices import InstructionPrices
+from .exceptions import InvalidCodeException
 from .operand import Operand
+from .prices import InstructionPrices
 from .state import State
 
 
 def _unknown_command(state, *args):
-    logging.error('Unknown command.')
+    raise InvalidCodeException(InvalidCodeException.UNKNOWN_INSTRUCTION)
 
 
 def _operator_command(operator_):
@@ -45,23 +45,30 @@ class Instruction(object):
         assert parts
         count = len(parts)
         self.name = parts[0].upper()
-        self.line_index = line_index
 
-        if count > 3:
-            self.op2 = Operand(parts[3])
-        if count > 2:
-            self.op1 = Operand(parts[2])
-        if count > 1:
-            self.op0 = Operand(parts[1])
+        if self.name not in self._commands:
+            raise InvalidCodeException(line_index=line, type_=InvalidCodeException.UNKNOWN_INSTRUCTION)
+
+        try:
+            if count > 3:
+                self.op2 = Operand(parts[3])
+            if count > 2:
+                self.op1 = Operand(parts[2])
+            if count > 1:
+                self.op0 = Operand(parts[1])
+        except InvalidCodeException as e:
+            e.line_index = line_index
+            e.line = line
+            raise
 
     @property
     def operands(self):
         return filter(None, (self.op0, self.op1, self.op2,))
 
     _commands = {
-        'MOVE': State.move,
-        'CREATEFRAME': lambda state: state.temp_frame.clear(),
-        'PUSHFRAME': lambda state: state.frame_stack.append(state.temp_frame.copy()),
+        'MOVE': State.set_value,
+        'CREATEFRAME': State.create_frame,
+        'PUSHFRAME': State.push_frame,
         'POPFRAME': State.pop_frame,
         'DEFVAR': lambda state, op: state.set_value(op, None),
         'JUMP': State.jump,

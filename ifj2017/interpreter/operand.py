@@ -3,9 +3,13 @@ import re
 from enum import IntEnum
 from typing import Match
 
+from .exceptions import InvalidCodeException
+
+_IDENTIFIER_RE_PART = r'[a-z_\-$&%*][\w_\-$&%*]*'
 CONSTANT_RE = re.compile(r'^(?P<type>bool|int|string|float)@(?P<value>.*)$', re.IGNORECASE)
-VARIABLE_RE = re.compile(r'^(?P<frame>[GLT]F)@(?P<name>.*)$', re.IGNORECASE)
+VARIABLE_RE = re.compile(r'^(?P<frame>[GLT]F)@(?P<name>{})$'.format(_IDENTIFIER_RE_PART), re.IGNORECASE)
 TYPE_RE = re.compile(r'^(?P<type>int|string|bool|float)$', re.IGNORECASE)
+LABEL_RE = re.compile(r'^{}$'.format(_IDENTIFIER_RE_PART), re.IGNORECASE)
 
 
 class TypeOperand(IntEnum):
@@ -52,9 +56,15 @@ class Operand(object):
         if type_match:
             self._resolve_type(type_match)
             return
-        # is label
-        self.label = value
-        self.type = TypeOperand.LABEL
+        label_match = LABEL_RE.match(value)
+        if label_match:
+            # is label
+            self.label = value
+            self.type = TypeOperand.LABEL
+            return
+
+        raise InvalidCodeException(InvalidCodeException.INVALID_OPERAND)
+
 
     def _resolve_constant(self, constant_match):
         # type: (Match) -> None
@@ -62,11 +72,15 @@ class Operand(object):
         self.value = self.CONSTANT_MAPPING.get(type_.lower())(value)
         if type_.lower() == self.CONSTANT_MAPPING_REVERSE.get(bool):
             self.value = self.BOOL_LITERAL_MAPPING.get(value.lower())
+        if self.value is None:
+            raise InvalidCodeException(type_=InvalidCodeException.INVALID_OPERAND)
         self.type = TypeOperand.CONSTANT
 
     def _resolve_variable(self, variable_match):
         # type: (Match) -> None
         frame, name = variable_match.groups()
+        if not (frame and name):
+            raise InvalidCodeException(type_=InvalidCodeException.INVALID_OPERAND)
         self.frame = frame
         self.name = name
         self.type = TypeOperand.VARIABLE
@@ -74,4 +88,11 @@ class Operand(object):
     def _resolve_type(self, type_match):
         # type: (Match) -> None
         self.data_type = type_match.group(1)
+        if not self.data_type:
+            raise InvalidCodeException(type_=InvalidCodeException.INVALID_OPERAND)
         self.type = TypeOperand.DATA_TYPE
+
+    def __str__(self):
+        return 'Operand({})'.format(
+            self.value or self.name or self.label
+        )
