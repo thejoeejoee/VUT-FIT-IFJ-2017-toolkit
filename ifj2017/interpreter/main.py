@@ -20,7 +20,7 @@ PUSHFRAME
 PUSHS int@78  
 PUSHS int@2  
 GTS   
-PUSHS bool@false  
+PUSHS bool@false
 JUMPIFEQS %_LABEL_002_if_else_DEPTH_001  
 DEFVAR LF@%00001_a  
 MOVE LF@%00001_a int@0 

@@ -2,6 +2,7 @@
 import logging
 import math
 import operator
+from inspect import getfullargspec
 
 from .exceptions import InvalidCodeException
 from .operand import Operand
@@ -46,8 +47,14 @@ class Instruction(object):
         count = len(parts)
         self.name = parts[0].upper()
 
-        if self.name not in self._commands:
+        command = self._commands.get(self.name)
+
+        if not command or not callable(command):
             raise InvalidCodeException(line_index=line, type_=InvalidCodeException.UNKNOWN_INSTRUCTION)
+
+        spec = getfullargspec(command)
+        if len(spec.args) != count:
+            raise InvalidCodeException(InvalidCodeException.INVALID_OPERAND_COUNT, line_index, line)
 
         try:
             if count > 3:

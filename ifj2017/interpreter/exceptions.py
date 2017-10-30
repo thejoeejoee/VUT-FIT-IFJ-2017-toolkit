@@ -7,6 +7,7 @@ class InterpreterStopException(RuntimeError):
 class InvalidCodeException(ValueError):
     UNKNOWN_INSTRUCTION = 0
     INVALID_OPERAND = 1
+    INVALID_OPERAND_COUNT = 2
 
     def __init__(self, type_, line_index=None, line=None):
         self._type = type_
@@ -14,7 +15,7 @@ class InvalidCodeException(ValueError):
         self.line = line
 
     def __str__(self):
-        return 'Invalid line {}: {}'.format(self.line_index, self.line)
+        return 'Invalid line {}: {}.'.format(self.line_index, self.line)
 
 
 class BaseInterpreterError(RuntimeError):
