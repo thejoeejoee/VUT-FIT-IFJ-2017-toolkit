@@ -1,5 +1,6 @@
 # coding=utf-8
 import sys
+from difflib import unified_diff
 
 from os import path
 
@@ -14,6 +15,7 @@ from PyQt5.QtCore import (QSize, QtFatalMsg, QtCriticalMsg, QtWarningMsg, QtInfo
 from ifj2017.ide.code_analyzer import CodeAnalyzer
 from ifj2017.ide.code.expression import ExpSyntaxHighlighter, ExpAnalyzer
 from ifj2017.ide.core.tree_view_model import TreeViewModel
+from ifj2017.ide.code.diff_code_analyzer import DiffCodeAnalyzer
 
 try:
     from termcolor import colored
@@ -57,6 +59,7 @@ base_url = QUrl("file:///{}/".format(str(path.abspath(path.dirname(__file__))).r
 qmlRegisterSingletonType(base_url.resolved(QUrl("assets/styles/UIStyles.qml")), "StyleSettings", 1, 0, "StyleSettings")
 qmlRegisterSingletonType(CodeAnalyzer, "CodeAnalyzer", 1, 0, "CodeAnalyzer", CodeAnalyzer.singletonProvider)
 qmlRegisterType(ExpSyntaxHighlighter, "ExpSyntaxHighlighter", 1, 0, "ExpSyntaxHighlighter")
+qmlRegisterType(DiffCodeAnalyzer, "DiffCodeAnalyzer", 1, 0, "DiffCodeAnalyzer")
 qmlRegisterType(ExpAnalyzer, "ExpAnalyzer", 1, 0, "ExpAnalyzer")
 qmlRegisterType(TreeViewModel, "TreeViewModel", 1, 0, "TreeViewModel")
 

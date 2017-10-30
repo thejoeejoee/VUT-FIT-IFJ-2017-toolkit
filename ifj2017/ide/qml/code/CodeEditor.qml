@@ -5,6 +5,7 @@ import StyleSettings 1.0
 import ExpSyntaxHighlighter 1.0
 import ExpAnalyzer 1.0
 import CodeAnalyzer 1.0
+import DiffCodeAnalyzer 1.0
 
 import "../controls"
 
@@ -19,6 +20,17 @@ Item {
     property color lineNumberColor: "gray"
 
     clip: true
+
+    function removesDiffMarks() {
+        diffCodeAnalyzer.code = textEdit.text
+        internal.diffLines = []
+    }
+
+    QtObject {
+        id: internal
+
+        property var diffLines: []
+    }
 
     ScrollView {
         anchors.fill: parent
@@ -64,7 +76,14 @@ Item {
                     flick.moveContentAccordingToCursor(cursorRectangle)
                 }
 
-                onTextChanged: completeText()
+                onLineCountChanged: {
+                    internal.diffLines = diffCodeAnalyzer.compare(textEdit.text)
+                }
+
+                onTextChanged: {
+                    completeText()
+                    internal.diffLines = diffCodeAnalyzer.compare(textEdit.text)
+                }
                 onSelectedTextChanged: {
                     if(textComponent.selectedText.length) {
                         completer.model = completer.constantModel
@@ -95,9 +114,23 @@ Item {
                     color: "transparent"
 
                     Text {
+                        id: text
+
                         text: modelData + 1
                         color: component.lineNumberColor
-                        anchors.centerIn: parent
+                        anchors.right: parent.right
+                        anchors.rightMargin: 20
+                    }
+
+                    // diff mark
+                    Rectangle {
+                        color: "green"
+                        visible: (internal.diffLines.indexOf(modelData + 1) != -1)
+                        width: 2
+                        height: parent.height
+
+                        anchors.left: text.right
+                        anchors.leftMargin: 4
                     }
                 }
             }
@@ -107,6 +140,10 @@ Item {
     FontMetrics {
         id: fmCodeInput
         font: textEdit.font
+    }
+
+    DiffCodeAnalyzer {
+        id: diffCodeAnalyzer
     }
 
     ExpAnalyzer {
