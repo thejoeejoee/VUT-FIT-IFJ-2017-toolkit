@@ -1,0 +1,4 @@
+' simple adding with inner expression
+scope
+	print 42 + 96 + 21;
+end scope

@@ -1,0 +1,19 @@
+' nested and mutliple while loop
+scope
+	dim a as double
+	dim b as double
+	a = 0 - 123.789
+	do while a > (0 - 236.741)
+		b = 9
+		do while b > 3.02
+			print 63;
+			b = b - 1.123
+		loop
+		a = a + a * 2
+	loop
+	a = 78
+	do while a > 55
+		print 57;
+		a = a - 5.38
+	loop
+end scope

@@ -1,0 +1,7 @@
+' multiple operations with different priorities I
+scope
+    dim a as integer = 2
+    dim b as integer = 9
+    a = b + a * b + b
+    print a;
+end scope

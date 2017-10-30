@@ -6,54 +6,66 @@ from ifj2017.interpreter.interpreter import Interpreter
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
 code = """\
+# foo bar
 .IFJcode17
-jump scope
 
-label inner
-    write string@\\ninner\\040function\\040called\\n
-return 
+# foo bar
+DEFVAR GF@%00000_%__temp_variable_1  
+DEFVAR GF@%00000_%__temp_variable_2  
+DEFVAR GF@%00000_%__temp_variable_3  
+JUMP %_LABEL_000_main_scope_DEPTH_000  
+LABEL %_LABEL_000_main_scope_DEPTH_000  
+CREATEFRAME   
+PUSHFRAME   
+PUSHS int@78  
+PUSHS int@2  
+GTS   
+PUSHS bool@false  
+JUMPIFEQS %_LABEL_002_if_else_DEPTH_001  
+DEFVAR LF@%00001_a  
+MOVE LF@%00001_a int@0 
+PUSHS int@12  
+POPS LF@%00001_a  
+LABEL %_LABEL_003_while_start_DEPTH_002  
+PUSHS LF@%00001_a  
+PUSHS int@1  
+LTS   
+NOTS   
+PUSHS bool@false  
+JUMPIFEQS %_LABEL_004_while_end_DEPTH_002  
+PUSHS LF@%00001_a  
+PUSHS int@8  
+GTS   
+PUSHS bool@false  
+JUMPIFEQS %_LABEL_006_if_else_DEPTH_003  
+PUSHS int@69  
+POPS GF@%00000_%__temp_variable_1  
+WRITE GF@%00000_%__temp_variable_1  
+JUMP %_LABEL_005_if_end_DEPTH_003  
+JUMP %_LABEL_005_if_end_DEPTH_003  
+LABEL %_LABEL_006_if_else_DEPTH_003  
+PUSHS int@11  
+POPS GF@%00000_%__temp_variable_1  
+WRITE GF@%00000_%__temp_variable_1  
+LABEL %_LABEL_007_if_else_DEPTH_003  
+LABEL %_LABEL_005_if_end_DEPTH_003  
+PUSHS LF@%00001_a  
+PUSHS int@1  
+SUBS   
+POPS LF@%00001_a  
+JUMP %_LABEL_003_while_start_DEPTH_002  
+LABEL %_LABEL_004_while_end_DEPTH_002  
+JUMP %_LABEL_001_if_end_DEPTH_001  
+JUMP %_LABEL_001_if_end_DEPTH_001  
+LABEL %_LABEL_002_if_else_DEPTH_001  
+PUSHS int@77  
+POPS GF@%00000_%__temp_variable_1  
+WRITE GF@%00000_%__temp_variable_1  
+LABEL %_LABEL_008_if_else_DEPTH_001  
+LABEL %_LABEL_001_if_end_DEPTH_001  
+POPFRAME   
 
-label function
-    DPRINT LF@a
-    write string@\\nfunction\\040called\\n
-    call inner
-return
 
-
-label scope
-    CREATEFRAME
-    PUSHFRAME
-    DEFVAR LF@a
-    DEFVAR LF@b
-    DEFVAR GF@bar
-    MOVE LF@a int@42
-    write LF@a
-    POPFRAME
-    move TF@a   float@42.78
-    write string@\\nfoobar\\n
-    write TF@a
-    
-    CREATEFRAME
-    PUSHFRAME
-    MOVE LF@a int@42
-    MOVE LF@b int@42
-    JUMPIFNEQ test LF@a LF@b
-    
-    call function
-    call function
-    call function
-    TYPE LF@b int@42
-    BREAK
-    call function
-    
-    jump test
-    write string@\\t\\t\\tDO\\040NOT\\040WRITE\\t\\t\\t
-    label test
-    
-    pushs int@58
-    pops GF@bar
-    write string@\\n
-    write GF@bar
 """
 
 # logging.basicConfig(level=logging.DEBUG)

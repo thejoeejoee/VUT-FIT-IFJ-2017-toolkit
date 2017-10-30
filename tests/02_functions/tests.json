@@ -1,0 +1,60 @@
+{
+  "tests": [
+    {
+      "name": "03",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "06",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "07",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "01",
+      "info": "Asc value",
+      "stdout": " 104",
+      "code": "scope \n print asc(!\"ahoj\", 2); \n end scope"
+    },
+    {
+      "name": "02",
+      "info": "Chr function",
+      "stdout": " a",
+      "code": "scope \n print chr(97); \n end scope"
+    },
+    {
+      "name": "09",
+      "info": "Integer implicit return",
+      "stdout": " 0",
+      "code": "function foo() as integer \n end function \n scope \n dim a as integer \n a = foo() \n print a; \n end scope"
+    },
+    {
+      "name": "10",
+      "info": "Integer implicit return",
+      "stdout": " 0",
+      "code": "function foo() as integer \n end function \n scope \n dim a as integer \n a = foo() \n print a; \n end scope"
+    },
+    {
+      "name": "17",
+      "compiler_exit_code": 2
+    },
+    {
+      "name": "18",
+      "stdout": " 16"
+    },
+    {
+      "name": "19",
+      "stdout": " 256"
+    },
+    {
+      "name": "20",
+      "stdout": " 16"
+    },
+    {
+      "name": "21",
+      "stdout": " 20"
+    }
+  ]
+}

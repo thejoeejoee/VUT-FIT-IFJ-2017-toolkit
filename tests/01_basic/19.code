@@ -1,0 +1,4 @@
+' comment before EOF
+
+SCOPE
+END SCOPE ' comment before eof

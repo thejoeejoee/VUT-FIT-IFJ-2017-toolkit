@@ -1,0 +1,10 @@
+' Try to redefinition function
+
+function erzert(aqrqwer as integer, bqewqxc as integer) as integer
+end function
+
+function erzert(aqrqwer as integer) as integer
+end function
+
+scope
+end scope

@@ -1,0 +1,14 @@
+' Argument = var with same name as parametr
+
+function GHGK6767__T7(a as integer) as integer
+	return a * a
+end function
+
+SCOPE
+
+	dim a as integer
+	a = 2
+	a = GHGK6767__T7(a) * GHGK6767__T7(a)
+	print a;
+
+END SCOPE

@@ -1,0 +1,5 @@
+' simple adding
+scope
+	dim a as integer = 42 + 96
+	print a;
+end scope

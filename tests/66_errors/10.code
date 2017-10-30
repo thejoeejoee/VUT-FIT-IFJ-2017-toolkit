@@ -1,0 +1,9 @@
+' Convert boolean into string
+
+scope
+
+	dim a as string
+
+	a = 10 < 15
+
+end scope

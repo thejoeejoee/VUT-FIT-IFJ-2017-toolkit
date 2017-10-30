@@ -1,0 +1,34 @@
+' calling multiple functions
+
+function _add_two(_ as integer) as integer
+	dim res as integer
+	res = _ + 2
+	return res
+end function
+
+declare function _multiply(__acv as integer, __foo__ as integer) as integer
+
+function _multiply(_ as integer, __ as integer) as integer
+
+	return _ * __
+end function
+
+function ____(_______ as integer) as double
+	return _______ * 0.5
+end function
+
+function __compute() as double
+	dim res as integer
+	res = _multiply(30, 10)
+	res = _add_two(res)
+	res = ____(res)
+	return res
+end function
+
+
+
+scope
+	dim a as double
+	a = __compute()
+	print a;
+end scope

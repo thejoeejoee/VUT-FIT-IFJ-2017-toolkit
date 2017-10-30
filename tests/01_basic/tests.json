@@ -1,0 +1,64 @@
+{
+  "tests": [
+    {
+      "name": "10",
+        "extensions": [
+        "SCOPE"
+      ]
+    },
+    {
+      "name": "11",
+      "stdout": " 669878",
+        "extensions": [
+        "SCOPE"
+      ]
+    },
+    {
+      "name": "12",
+      "stdout": "669878",
+        "extensions": [
+        "SCOPE"
+      ]
+    },
+    {
+      "name": "13",
+      "info": "Multi line string",
+      "stdout": "ahoj\nsvete",
+      "code": "scope \n print !\"ahoj\\nsvete\"; \nend scope"
+    },
+    {
+      "name": "14",
+      "info": "Simple integer print",
+      "stdout": " 42",
+      "code": "scope \n print 42; \nend scope"
+    },
+    {
+      "name": "15",
+      "info": "Simple double print",
+      "stdout": " 5876.78",
+      "code": "scope \n print 5876.78; \nend scope"
+    },
+    {
+      "name": "16",
+      "info": "Simple input and print",
+      "stdin": "42",
+      "stdout": "?  42",
+      "code": "scope \n dim a as integer \n input a \n print a; \nend scope"
+    },
+    {
+      "name": "17",
+      "info": "Add two inputs",
+      "stdin": "42\n24",
+      "stdout": "? ?  66",
+      "code": "scope \n dim a as integer \n dim b as integer \n input a \n input b \n print a + b; \nend scope"
+    },
+    {
+      "name": "18",
+      "stdout": " 4"
+    },
+    {
+      "name": "20",
+      "stdout": " 4"
+    }
+  ]
+}

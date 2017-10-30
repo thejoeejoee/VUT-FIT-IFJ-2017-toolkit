@@ -1,0 +1,11 @@
+' Call function with too little arguments
+
+function foo(a as integer, b as integer) as integer
+
+end function
+
+scope
+	dim a as integer
+	a = foo(31)
+
+end scope

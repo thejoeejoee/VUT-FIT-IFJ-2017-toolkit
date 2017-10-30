@@ -1,0 +1,10 @@
+' variable declarations with edge cases
+scope
+Dim _a45 as string
+Dim __b as integer
+Dim _ as double
+Dim __ as double
+Dim _47 as double
+Dim _47_ as double
+Dim _barman as double
+end scope

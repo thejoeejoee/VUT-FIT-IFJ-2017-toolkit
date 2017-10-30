@@ -1,0 +1,23 @@
+' Function call function which have input
+
+function GK6767__() as integer
+	return 42
+end function
+
+function GKJ5___GGK() as integer
+	dim a as integer
+	a = GK6767__()
+	return a
+end function
+
+function foo() as integer
+	dim a as integer
+	a = GKJ5___GGK()
+	return a
+end function
+
+scope
+	dim a as integer
+	a = foo()
+	print a;
+end scope

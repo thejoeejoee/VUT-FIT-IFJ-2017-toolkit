@@ -1,0 +1,11 @@
+' Assign integer into string
+
+scope
+
+	dim a as string
+	a = !"ahoj"
+
+	dim b as integer
+	b = a
+
+end scope

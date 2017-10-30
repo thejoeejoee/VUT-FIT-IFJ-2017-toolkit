@@ -1,0 +1,16 @@
+' Recursive function
+
+function recursive(param as integer) as integer
+	if param = 0 then
+		return 42
+	else
+		return recursive(param - 1)
+	end if
+end function
+
+scope
+	dim a as integer
+	a = recursive(4)
+	print a;
+
+end scope 

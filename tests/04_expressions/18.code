@@ -1,0 +1,15 @@
+' comments inside expressions
+
+function foo() as integer
+	return 39
+end function
+
+scope
+	
+	dim a as integer
+	a = foo()
+	a = a + 3 + 6' comment
+	a = a /' '/ * /' '/ 2 ' + 8
+	print a;
+
+end scope

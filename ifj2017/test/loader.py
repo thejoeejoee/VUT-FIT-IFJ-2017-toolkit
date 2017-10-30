@@ -25,8 +25,10 @@ class TestLoader(object):
 
     def load_tests(self, section_dir):
         assert path.isdir(section_dir)
-        file_tests = self._load_file_tests(section_dir)
+
         compact_tests = self._load_compact_tests(section_dir)
+        already_loaded = set(map(attrgetter('name'), compact_tests))
+        file_tests = self._load_file_tests(section_dir, already_loaded)
         tests = tuple(file_tests) + tuple(compact_tests)
         test_names = tuple(map(attrgetter('name'), tests))
         conflicting = set(test for test in test_names if test_names.count(test) > 1)
@@ -36,11 +38,11 @@ class TestLoader(object):
 
         return sorted(
             tests,
-            key=attrgetter('name')
+            key=lambda test: (len(test.name), test.name)
         )
 
     def _load_compact_tests(self, section_dir):
-        data = self._read_file(
+        data = self._load_file(
             path.join(section_dir, 'tests.json'),
             allow_fail=True
         )
@@ -54,17 +56,31 @@ class TestLoader(object):
             )
             return ()
         cases = []
+        extensions = tuple(data.get('extensions', ()))
         try:
             for i, test_case in enumerate(data.get('tests', ())):
+                name = test_case.get('name') or '{:03}'.format(i + 1)
+                code = test_case.get('code') or self._load_test_file(section_dir, name, 'code')
+
                 cases.append(
                     TestInfo(
-                        test_case.get('name') or '{:03}'.format(i + 1),
-                        test_case.get('code') or '',
-                        test_case.get('stdin') or '',
-                        test_case.get('stdout') or '',
-                        int(test_case.get('compiler_exit_code') or 0),
-                        int(test_case.get('interpreter_exit_code') or 0),
-                        test_case.get('info') or '',
+                        name,
+                        code,
+                        test_case.get('stdin') or self._load_test_file(section_dir, name, 'stdin'),
+                        test_case.get('stdout') or self._load_test_file(section_dir, name, 'stdout'),
+                        int(
+                            test_case.get('compiler_exit_code') or
+                            self._load_test_file(section_dir, name, 'cexitcode') or 0
+                        ),
+                        int(
+                            test_case.get('interpreter_exit_code') or
+                            self._load_test_file(section_dir, name, 'iexitcode') or 0
+                        ),
+                        test_case.get('info') or
+                        self._load_test_file(section_dir, name, 'info') or
+                        self._get_code_info(code),
+                        section_dir,
+                        set(tuple(test_case.get('extensions', ())) + extensions)
                     )
                 )
         except TypeError as e:
@@ -72,31 +88,42 @@ class TestLoader(object):
             return ()
         return cases
 
-    def _load_file_tests(self, section_dir):
+    def _load_file_tests(self, section_dir, already_loaded):
         for code_file in sorted(iglob(path.join(section_dir, "*.code"))):
             name, _ = path.splitext(path.basename(code_file))
+            if name in already_loaded:
+                continue
             try:
-                code = self._read_file(code_file)
+                code = self._load_file(code_file)
                 info = TestInfo(
                     name,
                     code,
-                    self._read_file(path.join(section_dir, '.'.join((name, 'stdin'))), allow_fail=True) or '',
-                    self._read_file(path.join(section_dir, '.'.join((name, 'stdout'))), allow_fail=True) or '',
-                    int(self._read_file(path.join(section_dir, '.'.join((name, 'cexitcode'))), allow_fail=True) or 0),
-                    int(self._read_file(path.join(section_dir, '.'.join((name, 'iexitcode'))), allow_fail=True) or 0),
-                    (
-                        code[:code.index('\n')].lstrip('\'').strip()
-                        if '\n' in code and code.strip().startswith('\'')
-                        else ''
-                    )
+                    self._load_test_file(section_dir, name, 'stdin'),
+                    self._load_test_file(section_dir, name, 'stdout'),
+                    int(self._load_test_file(section_dir, name, 'cexitcode') or 0),
+                    int(self._load_test_file(section_dir, name, 'iexitcode') or 0),
+                    self._load_test_file(section_dir, name, 'info') or self._get_code_info(code) or '',
+                    section_dir,
+                    set()
                 )
             except ValueError as e:
                 TestLogger.log_warning("Unable to load file {}: {}".format(code_file, e))
                 continue
             yield info
 
+    @classmethod
+    def _get_code_info(cls, code):
+        return (
+            code[:code.index('\n')].lstrip('\'').strip()
+            if '\n' in code and code.strip().startswith('\'')
+            else ''
+        )
+
+    def _load_test_file(self, section_dir, test_name, type_):
+        return self._load_file(path.join(section_dir, '.'.join((test_name, type_))), allow_fail=True) or ''
+
     @staticmethod
-    def _read_file(file, allow_fail=False):
+    def _load_file(file, allow_fail=False):
         assert allow_fail or (path.isfile(file) and os.access(file, os.R_OK))
         try:
             with open(file, 'rb') as f:

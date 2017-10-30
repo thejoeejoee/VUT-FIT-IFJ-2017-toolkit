@@ -1,0 +1,40 @@
+{
+  "tests": [
+    {
+      "name": "03",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "04",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "05",
+      "stdout": "? ? ? ? "
+    },
+    {
+      "name": "06",
+      "stdout": " 42-78 142.254-1.42879e+07 14.25"
+    },
+    {
+      "name": "07",
+      "compiler_exit_code": 2
+    },
+    {
+      "info": "Empty condition",
+      "code": "scope \n if 10 < 15 then \n end if \n end scope"
+    },
+    {
+      "info": "Empty condition",
+      "code": "scope \n if 10 < 15 then \n else \n end if \n end scope"
+    },
+    {
+      "info": "Empty condition",
+      "code": "scope \n if 10 < 15 then \n end if \n end scope",
+      "compiler_exit_code": 0,
+        "extensions": [
+        "IFTHEN"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+' Call built-in features - combined
+
+scope 
+	dim retezec as string = !"ahoj ahoj ahoj"
+	retezec = substr(retezec, 6, 10)
+	dim a as integer
+	a = length(retezec)
+	print a;
+end scope

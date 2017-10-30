@@ -1,0 +1,14 @@
+' declaration in while block
+SCOPE
+	dim a as integer = 19
+	dim s1 as integer = 10
+
+	SCOPE
+        do while s1 < 15 then
+            dim a as integer = 669878
+            print a;
+            s1 = 10
+        loop
+	END SCOPE
+
+END SCOPE

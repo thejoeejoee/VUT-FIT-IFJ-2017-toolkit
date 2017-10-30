@@ -1,0 +1,13 @@
+' Simple call function
+
+function foo() as integer
+	return 42
+end function
+
+scope
+
+dim a as integer
+a = foo()
+print a;
+
+end scope

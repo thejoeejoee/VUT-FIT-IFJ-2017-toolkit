@@ -1,0 +1,16 @@
+' multiple surrounded ifs
+scope
+	if 1 = 1  then
+		if 8 > 9.85 then
+			print 36;
+		elseif 45 > 35 then
+			print 753;
+		else
+			print 965;
+		end if
+	elseif 45 > 0 then
+		print 74;
+	else
+		print 11;
+	end if
+end scope

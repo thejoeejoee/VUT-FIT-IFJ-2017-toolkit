@@ -1,0 +1,9 @@
+' Input into undeclared variable
+
+function foo() as integer
+	dim a as integer
+end function
+
+scope
+	input a
+end scope

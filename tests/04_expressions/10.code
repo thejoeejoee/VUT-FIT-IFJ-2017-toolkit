@@ -1,0 +1,14 @@
+' Convert integer into double
+function foo(a as integer, b as integer) as integer
+
+end function
+
+scope
+
+	dim a as integer
+	a = 3
+	dim b as double
+	b = a / 2
+	print b;
+
+end scope

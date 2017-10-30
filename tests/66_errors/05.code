@@ -1,0 +1,7 @@
+' Function have duplicity argument name
+
+function bar(h as string, h as integer, x as string) as string
+end function
+
+scope
+end scope

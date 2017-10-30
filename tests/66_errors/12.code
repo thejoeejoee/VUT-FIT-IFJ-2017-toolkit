@@ -1,0 +1,13 @@
+' Undeclared variable inside function
+
+function HGK____() as integer
+	dim a as integer
+end function
+
+function HGK____7874() as integer
+	input a
+end function
+
+scope
+
+end scope

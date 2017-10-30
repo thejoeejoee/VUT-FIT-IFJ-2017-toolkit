@@ -1,0 +1,8 @@
+' most simple if statement
+scope
+	if 8 > 3 then
+		print 42;
+	else
+		print 58;
+	end if
+end scope

@@ -1,0 +1,15 @@
+' string concat
+
+scope
+	dim a as string
+	dim content as string = !" my content "
+
+	print a; content; !"\n";
+
+	dim b as string = !""
+	dim c as string = !"foo bar"
+	dim foo as string
+	foo = c + !" " + c + !" " + c + !"\n"
+
+	print b; foo;  'foo; content; 
+end scope

@@ -1,0 +1,13 @@
+' Input in function
+
+function dsfs_567() as integer
+	dim a as integer
+	input a
+	return a
+end function
+
+scope
+	dim a as integer
+	a = dsfs_567()
+	print a;
+end scope

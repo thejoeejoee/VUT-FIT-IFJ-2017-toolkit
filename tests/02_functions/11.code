@@ -1,0 +1,18 @@
+' Function call function
+
+function GHGKghgk55() as integer
+	return 42
+end function
+
+function GHGKghgk67() as integer
+	dim a as integer
+	a = GHGKghgk55()
+	a = a + a
+	return a
+end function
+
+scope
+	dim b as integer
+	b = GHGKghgk67()
+	print b;
+end scope

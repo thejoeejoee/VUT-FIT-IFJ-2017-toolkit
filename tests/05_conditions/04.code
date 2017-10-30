@@ -1,0 +1,11 @@
+' two ifs
+scope
+	if (8 = 8) then
+		print 123;
+	end if
+	if 74 > (6 + 2) then
+		print 74;
+	else
+
+	end if
+end scope

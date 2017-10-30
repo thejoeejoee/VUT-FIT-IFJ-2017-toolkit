@@ -1,0 +1,21 @@
+' factorial by recursion
+declare function factorial (n As integer) As integer
+function factorial (n As integer) As integer
+	dim temp_result As integer
+	dim decremented_n As integer
+	dim result As integer
+	if n < 2 Then
+		result = 1
+	Else
+		decremented_n = n - 1
+		temp_result = factorial(decremented_n)
+		result = n * temp_result
+	end if
+	Return result
+end function
+
+scope
+	dim res as integer
+	res = factorial(25)
+	print res;
+end scope

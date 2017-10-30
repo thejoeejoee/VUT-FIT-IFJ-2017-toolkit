@@ -1,4 +1,6 @@
 # coding=utf-8
+import codecs
+import logging
 import re
 from io import StringIO
 
@@ -38,8 +40,10 @@ class State(object):
 
     def get_value(self, value):
         # type: (Operand) -> object
-        if not value:
+        if value is None:
+            # variable declaration
             return None
+
         if not isinstance(value, Operand):
             return value
         if value.type == TypeOperand.CONSTANT:
@@ -52,6 +56,7 @@ class State(object):
 
     def set_value(self, to, what):
         # type: (Operand, Operand|object) -> None
+        self.operand_price += InstructionPrices.OPERAND_VARIABLE
         self.frame(to.frame)[to.name] = self.get_value(what)
 
     def __str__(self):
@@ -161,3 +166,11 @@ class State(object):
         self.push_stack(
             ord(what[index])
         )
+
+    def write(self, op):
+        value = self.get_value(op)
+        rendered = str(value)
+        if isinstance(value, (int, float)):
+            rendered = '% g' % (value, )
+
+        self.stdout.write(codecs.decode(rendered, 'unicode_escape'))

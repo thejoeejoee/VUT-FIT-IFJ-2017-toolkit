@@ -1,0 +1,11 @@
+' variable definitions
+scope
+    Dim a as     string = !"foo"
+Dim   b as integer = 4500
+Dim b0_ as integer =   0045
+Dim c   as double = 78.4
+	Dim d as double = 78e4
+Dim   e as double =     8e-4
+    
+    Dim f   as double   = 87E4
+end scope

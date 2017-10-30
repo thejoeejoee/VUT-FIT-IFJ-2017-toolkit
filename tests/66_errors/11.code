@@ -1,0 +1,13 @@
+' Function call undefined function
+
+function foo() as integer
+	dim a as integer
+	a = bar()
+	return a
+end function 
+
+scope
+	dim a as integer
+	a = foo()
+	print a;
+end scope

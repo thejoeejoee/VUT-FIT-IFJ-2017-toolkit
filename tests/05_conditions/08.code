@@ -1,0 +1,9 @@
+' Smaller or same
+
+scope
+	if (8 <= 8)  then
+		print 42;
+	else
+		print 58;
+	end if
+end scope

@@ -1,0 +1,149 @@
+{
+  "tests": [
+    {
+      "info": "Lexical error (Wrong double format) ",
+      "code": "19.",
+      "compiler_exit_code": 1
+    },
+    {
+      "name": "06",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "07",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "08",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "09",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "10",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "11",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "12",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "13",
+      "compiler_exit_code": 3
+    },
+    {
+      "info": "Lexical error (Wrong double format) ",
+      "code": "33455457.e---",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "Lexical error (Wrong double format) ",
+      "code": "33455457e",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "Lexical error (Wrong string format)",
+      "code": "!\"",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "Lexical error (Wrong string format)",
+      "code": "!\"\\-1\"",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "Lexical error (Wrong string format)",
+      "code": "!\"\\256\"",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "Lexical error (Wrong string format)",
+      "code": "!\"\\m\"",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "Syntax error",
+      "code": "scope",
+      "compiler_exit_code": 2
+    },
+    {
+      "info": "Syntax error (Expect Scope) ",
+      "code": "scope \n end",
+      "compiler_exit_code": 2
+    },
+    {
+      "info": "Syntax error (Expect END) ",
+      "code": "scope \n scope",
+      "compiler_exit_code": 2
+    },
+    {
+      "info": "Syntax error (Empty program) ",
+      "code": "",
+      "compiler_exit_code": 2
+    },
+    {
+      "info": "Syntax error (bad condition) ",
+      "code": "scope \n if then \n end if \n end scope",
+      "compiler_exit_code": 2
+    },
+    {
+      "info": "Syntax error (bad condition) ",
+      "code": "scope \n if 1 < 2 then \n end if wend scope",
+      "compiler_exit_code": 2
+    },
+    {
+      "info": "Semantic error (Using undefined variable) ",
+      "code": "scope \n input a \n end scope",
+      "compiler_exit_code": 3
+    },
+    {
+      "info": "Semantic error (Using undefined variable in expression) ",
+      "code": "scope \n print a*2; \n end scope",
+      "compiler_exit_code": 3
+    },
+    {
+      "info": "Semantic error (Attempt to redeclaration) ",
+      "code": "scope \n dim a as integer \n dim a as integer \n end scope",
+      "compiler_exit_code": 3
+    },
+    {
+      "info": "Semantic Error, call undefined function",
+      "code": "scope \n dim a as integer = foo()\n end scope",
+      "compiler_exit_code": 3
+    },
+    {
+      "info": "Semantic Error, undefined variable in expression",
+      "code": "scope \n dim a as integer \n a = 10 + variable \n end scope",
+      "compiler_exit_code": 3
+    },
+    {
+      "info": "Semantic Error, String in condition",
+      "code": "scope \n if !\"\" then \n end if \n end scope",
+      "compiler_exit_code": 4
+    },
+    {
+      "info": "Semantic Error, Integer in condition",
+      "code": "scope \n if 42 then \n end if \n end scope",
+      "compiler_exit_code": 4
+    },
+    {
+      "info": "Semantic Error, Double in condition",
+      "code": "scope \n if 6789678.6968 then \n end if \n end scope",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "14",
+      "compiler_exit_code": 1
+    },
+    {
+      "name": "15",
+      "compiler_exit_code": 1
+    }
+  ]
+}

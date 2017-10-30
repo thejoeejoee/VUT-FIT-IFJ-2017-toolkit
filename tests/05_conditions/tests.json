@@ -1,0 +1,53 @@
+{
+  "tests": [
+    {
+      "name": "01",
+      "stdout": " 42"
+    },
+    {
+      "name": "02",
+      "stdout": " 42"
+    },
+    {
+      "name": "03",
+      "stdout": " 789"
+    },
+    {
+      "name": "04",
+      "stdout": " 123 74"
+    },
+    {
+      "name": "05",
+      "extensions": [
+        "IFTHEN"
+      ]
+    },
+    {
+      "name": "06",
+      "stdout": " 74",
+      "extensions": [
+        "IFTHEN"
+      ]
+    },
+    {
+      "name": "07",
+      "stdout": " 753",
+      "extensions": [
+        "IFTHEN"
+      ]
+    },
+    {
+      "name": "10",
+      "extensions": [
+        "FUNEXP"
+      ]
+    },
+    {
+      "name": "11",
+      "compiler_exit_code": 3,
+      "extensions": [
+        "FUNEXP"
+      ]
+    }
+  ]
+}

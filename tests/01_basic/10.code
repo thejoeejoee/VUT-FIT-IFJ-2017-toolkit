@@ -1,0 +1,18 @@
+' Scope inside scope
+
+
+SCOPE
+	dim a as integer = 31
+	SCOPE
+		dim a as integer = 42
+		SCOPE
+			dim a as integer = 69
+			SCOPE
+
+				print a;
+
+			END SCOPE
+		END SCOPE
+	END SCOPE
+END SCOPE
+

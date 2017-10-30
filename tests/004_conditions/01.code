@@ -1,6 +1,0 @@
-' most simple if statement
-scope
-	if 8 then
-		print 42;
-	end if
-end scope

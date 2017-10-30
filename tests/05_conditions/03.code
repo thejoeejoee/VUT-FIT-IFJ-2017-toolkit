@@ -1,0 +1,8 @@
+' implicit conversions
+scope
+	if 200 = 200.0 then
+		print 789;
+	else
+		print 0;
+	end if
+end scope

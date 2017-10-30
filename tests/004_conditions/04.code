@@ -1,9 +1,0 @@
-' two  ifs
-scope
-	if 8 then
-		print 42;
-	end if
-	if 74 then
-		print 74;
-	end if
-end scope

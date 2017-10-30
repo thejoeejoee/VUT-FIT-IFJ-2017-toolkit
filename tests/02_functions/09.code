@@ -1,0 +1,8 @@
+' Call built-in feature length
+
+scope 
+	dim retezec as string = !"ahoj"
+	dim a as integer
+	a = length(retezec)
+	print a;
+end scope

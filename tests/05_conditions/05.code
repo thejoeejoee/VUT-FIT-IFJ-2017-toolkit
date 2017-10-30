@@ -1,0 +1,8 @@
+' if with else if
+scope
+	if 8 = 0 then
+		print 42;
+	elseif 45 > 81 then
+		print 74;
+	end if
+end scope

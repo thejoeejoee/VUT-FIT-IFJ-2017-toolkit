@@ -1,0 +1,13 @@
+' Comment inside expression
+
+function foo() as integer
+	return 39
+end function
+
+scope
+	
+	dim a as integer
+	a = 3 + /'toto je sčítání'/ foo()
+	print a;
+
+end scope

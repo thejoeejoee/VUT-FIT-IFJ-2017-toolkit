@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding=utf-8
 import platform
-from argparse import ArgumentParser
+from argparse import ArgumentParser, FileType
 from os import path
 
 from ifj2017 import __PROJECT_ROOT__
@@ -20,13 +20,19 @@ if __name__ == '__main__':
     parser.add_argument("compiler", help="path to IFJ17 compiler binary")
     parser.add_argument("-i", "--interpreter", help="path to IFJ17 interpreter binary",
                         type=str, default=TestRunner.INTERPRETERS.get(platform.system()))
+    parser.add_argument("-e", "--extensions-file", help="path to file with extensions 'rozsireni'")
+    parser.add_argument("-v", "--verbose", help="enable verbose output", default=False, action='store_true')
     parser.add_argument("-d", "--tests-dir", help="path to folder with tests to run",
                         type=str, default=path.join(__PROJECT_ROOT__, 'tests'))
     parser.add_argument("-l", "--log-dir", help="path to folder with logs",
                         type=str, default=path.join(__PROJECT_ROOT__, 'log'))
+    parser.add_argument("--benchmark-url-target", help="target hostname to send benchmark results",
+                        type=str, default='https://ifj.josefkolar.cz')
     parser.add_argument("--command-timeout", help="maximal timeout for compiler and interpreter",
-                        type=int, default=5)
+                        type=float, default=.2)
     parser.add_argument("--no-colors", action='store_true', help="disable colored output (for Windows CMD etc.)",
+                        default=False)
+    parser.add_argument("--no-stdout-diff", action='store_true', help="disable stdout log by difflib",
                         default=False)
 
     runner = TestRunner(parser.parse_args())

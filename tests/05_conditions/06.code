@@ -1,0 +1,10 @@
+' if with else if and else block
+scope
+	if 8 > 9 then
+		print 42;
+	elseif 45 > 12 then
+		print 74;
+	else
+		print 11;
+	end if
+end scope

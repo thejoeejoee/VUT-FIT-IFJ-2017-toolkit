@@ -39,12 +39,13 @@ class Instruction(object):
     op1 = None
     op2 = None
 
-    def __init__(self, line):
+    def __init__(self, line, line_index):
         # type: (str) -> None
         parts = line.split()
         assert parts
         count = len(parts)
         self.name = parts[0].upper()
+        self.line_index = line_index
 
         if count > 3:
             self.op2 = Operand(parts[3])
@@ -75,7 +76,7 @@ class Instruction(object):
 
         # TODO: formats based on type
         # magic with escaped chars: escaped \\n to real \n
-        'WRITE': lambda state, op: state.stdout.write(codecs.decode(str(state.get_value(op)), 'unicode_escape')),
+        'WRITE': State.write,
 
         'PUSHS': State.push_stack,
         'POPS': State.pop_stack,

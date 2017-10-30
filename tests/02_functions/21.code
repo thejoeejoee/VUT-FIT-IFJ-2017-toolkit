@@ -1,0 +1,47 @@
+' Recursion of three functions
+
+declare function bar(nn as integer) as integer
+
+function foo(a as integer) as integer
+	dim b as integer
+	if (a = 0) then
+		return 20
+	else
+		b = bar(a - 1)	
+		return b
+	end if
+end function
+
+function bar(a as integer) as integer
+	dim b as integer
+	if (a = 0) then
+		return 20
+	else
+		b = foo(a - 1)
+		return b
+	end if
+end function
+
+function start(a as integer) as integer
+
+	dim b as integer
+
+	if (a > 10) then 
+		b = foo(a)
+		return b
+	else
+		b = bar(a)
+		return b
+	end if	
+
+	
+end function
+
+scope
+	
+	dim a as integer
+	a = start(20)
+	print a;
+
+
+end scope

@@ -1,0 +1,4 @@
+' mixed operations with same priority
+scope
+	print 42 + 21 + 0 - 21;
+end scope

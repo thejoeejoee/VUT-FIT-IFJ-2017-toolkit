@@ -1,0 +1,16 @@
+' while in condition
+scope
+	if 78 > 2 then
+	    dim a as integer = 12
+		do while a >= 1
+			if a > 8 then
+				print 69;
+			else
+				print 11;
+			end if
+			a = a - 1
+		loop
+	else
+		print 77;
+	end if
+end scope
