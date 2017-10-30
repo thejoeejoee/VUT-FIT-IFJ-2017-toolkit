@@ -12,6 +12,7 @@ from .prices import InstructionPrices
 class State(object):
     program_counter = 0
     executed_instructions = 0
+    program_line = 0
 
     def __init__(self):
         self.stdout = StringIO()
@@ -188,7 +189,7 @@ class State(object):
         join = ', '.join
         return 'State(TF=({}), LF=({})({}), GF=({}), STACK=[{}], PC={}, EXECUTED={}, PRICE={}({}+{}))'.format(
             join('{}: {}'.format(k, v) for k, v in self.temp_frame.items()) if self.temp_frame else '-',
-            join('{}: {}'.format(k, v) for k, v in self.local_frame.items()) if self.local_frame else '-',
+            join('{}: {}'.format(k, v) for k, v in self.local_frame.items()) if self.frame_stack else '-',
             len(self.frame_stack),
             join('{}: {}'.format(k, v) for k, v in self.global_frame.items()) if self.global_frame else '-',
             join(map(str, reversed(self.data_stack))),

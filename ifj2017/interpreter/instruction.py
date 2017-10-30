@@ -46,6 +46,7 @@ class Instruction(object):
         assert parts
         count = len(parts)
         self.name = parts[0].upper()
+        self.line_index = line_index
 
         command = self._commands.get(self.name)
 
@@ -175,3 +176,4 @@ class Instruction(object):
         command(state, *self.operands)  # fake instance argument
         state.instruction_price += price
         state.executed_instructions += 1
+        state.program_line = self.line_index

@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from ifj2017.interpreter.exceptions import InterpreterStopException
+from .exceptions import InterpreterStopException, InvalidCodeException
 from .instruction import Instruction
 from .state import State
 
@@ -19,9 +19,9 @@ class Interpreter(object):
 
     def _load_code(self):
         started = False
-        # start from 1, .IFJcode17 striped
+        # _start from 1, .IFJcode17 striped
         for i, line in enumerate(self._code.split('\n'), start=1):
-            line = line.strip()
+            line = line.strip().split('#', 1)[0].strip()  # naive method to strip comment?
             if not line or line.startswith('#'):
                 # comment line
                 continue
@@ -30,7 +30,7 @@ class Interpreter(object):
                 continue
 
             if not started:
-                raise ValueError('Invalid code, expecting .IFJcode17, found {}.'.format(line))
+                raise InvalidCodeException('Invalid code, expecting .IFJcode17, found {}.'.format(line))
 
             self._instructions.append(Instruction(line=line.strip(), line_index=i))
 
@@ -45,7 +45,9 @@ class Interpreter(object):
         if self._stdin:
             state.stdin = self._stdin
 
+        state.program_line = self._instructions[0].line_index if self._instructions else -1
         self._load_labels(state)
+
         return state, len(self._instructions)
 
     def run(self):
