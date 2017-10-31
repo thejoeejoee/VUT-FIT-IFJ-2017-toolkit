@@ -1,0 +1,16 @@
+' chr builtin function
+scope
+	dim res as string
+	dim tmp as integer
+	tmp = 0 - 10
+
+	res = chr(119)
+	print res;
+	res = chr(40)
+	print res;
+	res = chr(41.25)
+	print res;
+	res = chr(1)
+	print res;
+	
+end scope

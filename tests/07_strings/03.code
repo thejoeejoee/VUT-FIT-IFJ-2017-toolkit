@@ -1,0 +1,27 @@
+' substr builtin function
+scope
+	dim res as string
+	dim tmp as integer
+	tmp = 0 - 1
+
+	res = substr(!"son hai nguyen", 5, 3)
+	print res;
+
+	res = substr(!"son hai nguyen", 9, 120)
+	print res;
+
+	res = substr(!"", 1, 1)
+	print res;
+
+	res = substr(!"nothing", 0, 1)
+	print res;
+
+	res = substr(!"nothing", tmp, 1)
+	print res;
+
+	res = substr(!"\nson hai nguyen", 1, tmp)
+	print res;
+
+	print !"\nEND";
+	
+end scope

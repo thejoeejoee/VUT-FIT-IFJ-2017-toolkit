@@ -133,7 +133,7 @@ class Instruction(object):
             state.get_value(op0),
             state.get_value(op1),
         ))),
-        'STRLEN': lambda state, target, string: state.set_value(target, len(string)),
+        'STRLEN': lambda state, target, string: state.set_value(target, len(state.get_value(string))),
         'GETCHAR': lambda state, target, string, index: state.set_value(
             target,
             state.get_value(string)[state.get_value(index)]
@@ -164,7 +164,7 @@ class Instruction(object):
         'FLOAT2R2OINTS': lambda state: state.push_stack(
             round(state.pop_stack())  # TODO: odd round
         ),
-        'INT2CHARS': lambda state, to, what: state.push_stack(to, chr(state.pop_stack())),
+        'INT2CHARS': lambda state: state.push_stack(chr(state.pop_stack())),
         'STRI2INTS': State.string_to_int_stack,
 
     }
