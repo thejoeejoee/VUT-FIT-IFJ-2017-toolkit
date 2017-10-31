@@ -1,0 +1,21 @@
+' Try to modify an argument passed by the value
+
+declare function HJHKHJK(hjhjhj as integer) as integer
+
+function HJHKHJK(dj as integer) as integer
+	dj = 99
+end function
+
+
+
+SCOPE
+
+	dim a as integer
+	a = 10
+
+	dim b as integer
+	b = HJHKHJK(a)
+
+	print a;
+
+END SCOPE
