@@ -5,15 +5,19 @@ from .interpreter import Interpreter
 
 
 class Debugger(object):
-    def __init__(self):
+    def __init__(self, state_kwargs=None):
         self._breakpoints = set()
         self._interpreter = None  # type: Interpreter
         self._state = None
         self._active = False
+        self._state_kwargs = state_kwargs
         self._debugger_iterator = None
 
     def _start(self, code):
-        self._interpreter = Interpreter(code=code)
+        self._interpreter = Interpreter(
+            code=code,
+            state_kwargs=self._state_kwargs
+        )
         self._active = True
 
     def add_breakpoint(self, line):
