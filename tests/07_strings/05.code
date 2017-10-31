@@ -8,9 +8,9 @@ scope
 	print res;
 	res = chr(40)
 	print res;
-	res = chr(1)
+	res = chr(41.25)
 	print res;
-	res = chr(0)
+	res = chr(1)
 	print res;
 	
 end scope

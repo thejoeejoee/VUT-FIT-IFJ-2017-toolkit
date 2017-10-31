@@ -71,6 +71,6 @@ POPFRAME
 # logging.basicConfig(level=logging.DEBUG)
 
 if __name__ == '__main__':
-    state = Interpreter(code).run()
-    print(state.stdout.getvalue(), file=stdout)
-    print(state.stderr.getvalue(), file=stderr)
+    state_ = Interpreter(code).run()
+    print(state_.stdout.getvalue(), file=stdout)
+    print(state_.stderr.getvalue(), file=stderr)
