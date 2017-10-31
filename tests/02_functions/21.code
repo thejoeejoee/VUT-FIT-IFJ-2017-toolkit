@@ -7,7 +7,8 @@ function foo(a as integer) as integer
 	if (a = 0) then
 		return 20
 	else
-		b = bar(a - 1)	
+		b = a - 1
+		b = bar(b)	
 		return b
 	end if
 end function
@@ -17,7 +18,8 @@ function bar(a as integer) as integer
 	if (a = 0) then
 		return 20
 	else
-		b = foo(a - 1)
+		b = a - 1
+		b = foo(b)
 		return b
 	end if
 end function

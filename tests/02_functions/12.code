@@ -1,10 +1,12 @@
 ' Recursive function
 
 function recursive(param as integer) as integer
+	dim param0 as integer
+	param0 = param - 1
 	if param = 0 then
 		return 42
 	else
-		return recursive(param - 1)
+		return recursive(param0)
 	end if
 end function
 

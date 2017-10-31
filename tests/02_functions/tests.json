@@ -42,11 +42,13 @@
     },
     {
       "name": "18",
-      "stdout": " 16"
+      "stdout": " 16",
+      "extensions": ["FUNEXP"]
     },
     {
       "name": "19",
-      "stdout": " 256"
+      "stdout": " 256",
+      "extensions": ["FUNEXP"]
     },
     {
       "name": "20",
