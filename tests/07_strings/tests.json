@@ -3,6 +3,10 @@
     {
       "name": "01",
       "stdout": " 0 6 445"
+    },
+    {
+      "name": "10",
+      "stdin": "abcdefghfoo"
     }
   ]
 }
