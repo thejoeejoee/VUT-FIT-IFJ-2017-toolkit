@@ -1,4 +1,5 @@
 # coding=utf-8
+from typing import Set
 from .state import State
 from .interpreter import Interpreter
 
@@ -52,3 +53,11 @@ class Debugger(object):
             return None
 
         return self._state
+
+    @property
+    def breakpoints(self) -> Set[int]:
+        return self._breakpoints
+
+    @breakpoints.setter
+    def breakpoints(self, v: Set[int]) -> None:
+        self._breakpoints = v

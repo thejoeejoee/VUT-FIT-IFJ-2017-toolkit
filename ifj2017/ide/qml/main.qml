@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 1.4
 import TreeViewModel 1.0
+import Debugger 1.0
 import StyleSettings 1.0
 
 import "code"
@@ -17,6 +18,11 @@ ApplicationWindow {
         id: root
         color: "white"
         anchors.fill: parent
+    }
+
+    // INFO test
+    Debugger {
+        id: ifjDebugger
     }
 
     // Main bar
@@ -120,6 +126,7 @@ ApplicationWindow {
         id: codeEditor
 
         lineNumbersPanelColor: "#f2f2f2"
+        breakpoints: ifjDebugger.breakpoints
 
         completer.width: 200
         completer.visibleItemCount: 6
@@ -129,6 +136,12 @@ ApplicationWindow {
         anchors.top: root.top
         anchors.bottom: consoleWidget.top
 
+        onToggleBreakpointRequest: {
+            ifjDebugger.toggleBreakpoint(line)
+        }
+
+        onLinesAdded: ifjDebugger.handleAddedLines(lines)
+        onLinesRemoved: ifjDebugger.handleRemovedLines(lines)
     }
 
     Controls.Console {

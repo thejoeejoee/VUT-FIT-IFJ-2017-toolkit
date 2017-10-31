@@ -1,10 +1,8 @@
 # coding=utf-8
 import sys
-from difflib import unified_diff
 
 from os import path
 
-from PyQt5.QtCore import QDir
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QIcon
 from PyQt5.QtQml import QQmlApplicationEngine, qmlRegisterSingletonType, qmlRegisterType
@@ -16,6 +14,7 @@ from ifj2017.ide.code_analyzer import CodeAnalyzer
 from ifj2017.ide.code.expression import ExpSyntaxHighlighter, ExpAnalyzer
 from ifj2017.ide.core.tree_view_model import TreeViewModel
 from ifj2017.ide.code.diff_code_analyzer import DiffCodeAnalyzer
+from ifj2017.ide.debugger_wrapper import DebuggerWrapper
 
 try:
     from termcolor import colored
@@ -62,6 +61,7 @@ qmlRegisterType(ExpSyntaxHighlighter, "ExpSyntaxHighlighter", 1, 0, "ExpSyntaxHi
 qmlRegisterType(DiffCodeAnalyzer, "DiffCodeAnalyzer", 1, 0, "DiffCodeAnalyzer")
 qmlRegisterType(ExpAnalyzer, "ExpAnalyzer", 1, 0, "ExpAnalyzer")
 qmlRegisterType(TreeViewModel, "TreeViewModel", 1, 0, "TreeViewModel")
+qmlRegisterType(DebuggerWrapper, "Debugger", 1, 0, "Debugger")
 
 engine = QQmlApplicationEngine()
 engine.rootContext().setContextProperty("rootDir", base_url.toString())

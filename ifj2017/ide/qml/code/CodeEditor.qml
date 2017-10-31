@@ -12,6 +12,11 @@ import "../controls"
 Item {
     id: component
 
+    signal toggleBreakpointRequest(int line)
+    signal linesRemoved(var lines)
+    signal linesAdded(var lines)
+
+    property var breakpoints: []
     property alias completer: completer
     property alias textComponent: textEdit
     property alias font: textEdit.font
@@ -78,11 +83,13 @@ Item {
 
                 onLineCountChanged: {
                     internal.diffLines = diffCodeAnalyzer.compare(textEdit.text)
+                    diffCodeAnalyzer.saveTempCode(textEdit.text)
                 }
 
                 onTextChanged: {
                     completeText()
                     internal.diffLines = diffCodeAnalyzer.compare(textEdit.text)
+                    diffCodeAnalyzer.saveTempCode(textEdit.text)
                 }
                 onSelectedTextChanged: {
                     if(textComponent.selectedText.length) {
@@ -132,6 +139,21 @@ Item {
                         anchors.left: text.right
                         anchors.leftMargin: 4
                     }
+
+                    Rectangle {
+                        id: debuggerMark
+
+                        color: "red"
+                        width: height
+                        height: parent.height * 0.7
+                        radius: height
+                        visible: (component.breakpoints.indexOf(modelData + 1) != -1)
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: component.toggleBreakpointRequest(modelData + 1)
+                    }
                 }
             }
         }
@@ -144,6 +166,9 @@ Item {
 
     DiffCodeAnalyzer {
         id: diffCodeAnalyzer
+
+        onRemovedLines: component.linesRemoved(lines)
+        onAddedLines: component.linesAdded(lines)
     }
 
     ExpAnalyzer {
