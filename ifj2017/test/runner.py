@@ -142,7 +142,7 @@ class TestRunner(object):
             TestLogger.log(TestLogger.GREEN, ' skipping, required extension(s) {} is not activated.'.format(
                 ', '.join(test_info.extensions - self._extensions)
             ), end=False)
-            report.success = True
+            report.success = None
             self._save_report(test_info, report)
             return
 
@@ -171,6 +171,7 @@ class TestRunner(object):
         TestLogger.log_test_ok()
         if report.compiler_exit_code != 0:
             # compiler stops this test case
+            report.success = True
             self._save_report(test_info, report)
             return
 
@@ -200,6 +201,7 @@ class TestRunner(object):
 
         if report.interpreter_exit_code != 0:
             # interpreter stops this test case
+            report.success = True
             self._save_report(test_info, report)
             return
 
@@ -218,10 +220,10 @@ class TestRunner(object):
             report.state = state
         except Exception as e:
             TestLogger.log(TestLogger.WARNING, ' (fail: {})'.format(e))
-            logging.exception(e, exc_info=True)
         else:
             TestLogger.log_price(state=state)
             self._uploader.collect_report(report)
+        report.success = True
         self._save_report(test_info, report)
 
     def _compile(self, code):

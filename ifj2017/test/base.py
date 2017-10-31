@@ -21,7 +21,7 @@ class TestReport(object):
     state = None  # type: State
     test_info = None  # type: TestInfo
 
-    success = True
+    success = None
 
 
 __all__ = ['TestReport', 'TestInfo']
