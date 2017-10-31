@@ -1,0 +1,24 @@
+' asc builtin function
+scope
+	dim res as integer
+	dim tmp as integer
+	tmp = 0 - 10
+
+	res = asc(!"test", 0)
+	print res;
+	res = asc(!"test", 1)
+	print res;
+	res = asc(!"\001", 1)
+	print res;
+	res = asc(!"\255", 1)
+	print res;
+	res = asc(!"\127", 1)
+	print res;
+	res = asc(!"\n", 1)
+	print res;
+	res = asc(!"asdasd", tmp)
+	print res;
+	res = asc(!"asdasd", 42)
+	print res;
+	
+end scope
