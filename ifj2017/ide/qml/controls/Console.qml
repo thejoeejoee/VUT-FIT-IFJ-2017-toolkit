@@ -5,7 +5,6 @@ Rectangle {
     id: component
 
     signal textReaded(string text)
-    property color lineMarksColor: "gray"
 
     color: "transparent"
     border.color: "red"
@@ -13,11 +12,7 @@ Rectangle {
     clip: true
 
     ScrollView {
-        id: textOutput
-
-        property var streamHistory: []
-
-        anchors.left: lineMarks.right
+        anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
@@ -32,7 +27,7 @@ Rectangle {
 
             contentWidth: readonlyText.contentWidth
             contentHeight: readonlyText.contentHeight + editableText.contentHeight
-            width: parent.width - lineMarks.width
+            width: parent.width
             height: parent.height
 
             onContentHeightChanged: flick.scrollToEnd()
@@ -78,8 +73,25 @@ Rectangle {
                         }
                     }
 
+
+
+                    onTextChanged: {
+                        var lines = readonlyText.text.split("\n")
+                        var lastLine = lines[lines.length - 1]
+                        editableText.x = fm.advanceWidth(lastLine) + readonlyText.leftPadding
+                    }
+
                     onCursorRectangleChanged: {
                         flick.moveContentAccordingToCursor(cursorRectangle)
+                    }
+
+                    FontMetrics {
+                        id: fm
+                        font: readonlyText.font
+
+                        Component.onCompleted: {
+
+                        }
                     }
                 }
 
@@ -91,7 +103,8 @@ Rectangle {
                 TextInput {
                     id: editableText
 
-                    y: readonlyText.y + ((readonlyText.text) ?readonlyText.contentHeight :0)
+                    y: readonlyText.y + ((readonlyText.text)
+                                         ?readonlyText.contentHeight - contentHeight :0)
                     width: parent.width
                     readOnly: true
 
@@ -102,7 +115,7 @@ Rectangle {
                     onAccepted: {
                         if(editableText.readOnly)
                             return
-                        readonlyText.append(editableText.text)
+                        readonlyText.text += editableText.text + "\n"
                         component.textReaded(editableText.text)
                         editableText.text = ""
                         editableText.readOnly = true
@@ -113,43 +126,16 @@ Rectangle {
         }
     }
 
-    // LINE MARKS
-    Item {
-        id: lineMarks
-
-        width: 15
-        height: parent.height
-
-        Column {
-            y: -flick.contentY
-            Repeater {
-                model: textOutput.streamHistory
-                delegate: Rectangle {
-                    width: lineMarks.width
-                    height: flick.contentHeight / (readonlyText.lineCount + 1)
-                    color: "transparent"
-
-                    Text {
-                        text: modelData
-                        font: readonlyText.font
-                        color: "red"/*component.lineNumberColor*/
-                        anchors.centerIn: parent
-                    }
-                }
-            }
-        }
-    }
-
     function read() {
+        var lines = readonlyText.text.split("\n")
+        var lastLine = lines[lines.length - 1]
+
+        editableText.forceActiveFocus()
         flick.scrollToEnd()
-        textOutput.streamHistory.push("<")
-        textOutput.streamHistoryChanged()
         editableText.readOnly = false;
     }
 
     function write(text) {
-        textOutput.streamHistory.push(">")
-        textOutput.streamHistoryChanged()
-        readonlyText.append(text)
+        readonlyText.text += text
     }
 }

@@ -3,6 +3,7 @@ import QtQuick.Controls 1.4
 import TreeViewModel 1.0
 import Debugger 1.0
 import StyleSettings 1.0
+import IOWrapper 1.0
 
 import "code"
 import "controls" as Controls
@@ -23,6 +24,17 @@ ApplicationWindow {
     // INFO test
     Debugger {
         id: ifjDebugger
+        model: debugStateModel
+        ioWrapper: consoleIOWrapper
+    }
+
+    IOWrapper {
+        id: consoleIOWrapper
+        onReadRequest: {
+            consoleWidget.read()
+        }
+
+        onWriteRequest: consoleWidget.write(text)
     }
 
     // Main bar
@@ -52,7 +64,7 @@ ApplicationWindow {
                 height: width
 
                 onClicked: {
-                    ifjDebugger.run(codeEditor.code)
+                    ifjDebugger.debug(codeEditor.code)
 //                    consoleWidget.write("dfsdfsdf")
 //                    consoleWidget.read()
 //                    if(com.visible)
@@ -71,7 +83,8 @@ ApplicationWindow {
                 height: width
 
                 onClicked: {
-                    consoleWidget.read()
+//                    consoleWidget.read()
+                    ifjDebugger.runToNextBreakPoint()
                 }
             }
 
@@ -84,7 +97,11 @@ ApplicationWindow {
                 height: width
 
                 onClicked: {
-                    codeEditor.removesDiffMarks()
+//                    codeEditor.removesDiffMarks()
+                    if(com.visible)
+                        com.hide()
+                    else
+                        com.show()
                 }
             }
         }
@@ -154,24 +171,27 @@ ApplicationWindow {
         anchors.bottom: root.bottom
 
 //        Component.onCompleted: read()
-        onTextReaded: console.log(text)
+        onTextReaded: {
+            console.log(text)
+            consoleIOWrapper.handleConsoleRead(text)
+        }
     }
 
     TreeViewModel {
-            id: theModel
+            id: debugStateModel
         }
 
     SlideWidget {
         id: com
 
-        width: 300
+        width: 500
         height: parent.height
         color: "red"
 
         TreeView {
             width: 500
             height: 500
-            model: theModel
+            model: debugStateModel
             itemDelegate: Rectangle {
                color: "white"
                height: 20

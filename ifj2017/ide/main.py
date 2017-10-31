@@ -15,6 +15,7 @@ from ifj2017.ide.code.expression import ExpSyntaxHighlighter, ExpAnalyzer
 from ifj2017.ide.core.tree_view_model import TreeViewModel
 from ifj2017.ide.code.diff_code_analyzer import DiffCodeAnalyzer
 from ifj2017.ide.debugger_wrapper import DebuggerWrapper
+from ifj2017.ide.io_wrapper import IOWrapper
 
 try:
     from termcolor import colored
@@ -62,6 +63,7 @@ qmlRegisterType(DiffCodeAnalyzer, "DiffCodeAnalyzer", 1, 0, "DiffCodeAnalyzer")
 qmlRegisterType(ExpAnalyzer, "ExpAnalyzer", 1, 0, "ExpAnalyzer")
 qmlRegisterType(TreeViewModel, "TreeViewModel", 1, 0, "TreeViewModel")
 qmlRegisterType(DebuggerWrapper, "Debugger", 1, 0, "Debugger")
+qmlRegisterType(IOWrapper, "IOWrapper", 1, 0, "IOWrapper")
 
 engine = QQmlApplicationEngine()
 engine.rootContext().setContextProperty("rootDir", base_url.toString())
