@@ -1,0 +1,21 @@
+{
+  "tests": [
+    {
+      "name": "01",
+      "stdout": " 1 1"
+    },
+    {
+      "name": "02",
+      "stdout": " 1 1 1"
+    },
+    {
+      "name": "03",
+      "stdout": " 1"
+    },
+    {
+      "name": "04",
+      "stdout": " 1"
+    }
+  ],
+  "extensions": ["FUNEXP"]
+}
