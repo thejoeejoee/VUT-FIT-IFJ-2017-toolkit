@@ -30,6 +30,7 @@ class Debugger(object):
         self._start(code)
         self._breakpoints = set(breakpoints) if breakpoints else set()
         self._debugger_iterator = self._interpreter.debug()
+        return self.run_to_next_breakpoint()
 
     def run_to_next_breakpoint(self):
         if not self._active:

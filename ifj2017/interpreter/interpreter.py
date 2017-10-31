@@ -6,7 +6,7 @@ from .state import State
 
 
 class Interpreter(object):
-    def __init__(self, code, stdin=None):
+    def __init__(self, code, state_kwargs=None):
         # type: (str) -> None
         assert code.strip()
         self._code = code
@@ -15,7 +15,7 @@ class Interpreter(object):
 
         self._load_code()
 
-        self._stdin = stdin
+        self._state_kwargs = state_kwargs
 
     def _load_code(self):
         started = False
@@ -41,9 +41,7 @@ class Interpreter(object):
                 state.labels[instruction.op0.label] = index
 
     def _prepare_state(self):
-        state = State()
-        if self._stdin:
-            state.stdin = self._stdin
+        state = State(**(self._state_kwargs or {}))
 
         state.program_line = self._instructions[0].line_index if self._instructions else -1
         self._load_labels(state)
@@ -80,3 +78,8 @@ class Interpreter(object):
                 # increment only in case of not manipulating with PC
                 state.program_counter += 1
         return state
+
+    def program_line(self, state):
+        # type: (State) -> int
+        instruction = self._instructions[state.program_counter]  # type:  Instruction
+        return instruction.line_index

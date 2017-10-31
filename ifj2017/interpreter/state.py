@@ -14,10 +14,10 @@ class State(object):
     executed_instructions = 0
     program_line = 0
 
-    def __init__(self):
-        self.stdout = StringIO()
-        self.stderr = StringIO()
-        self.stdin = StringIO()
+    def __init__(self, stdout=None, stderr=None, stdin=None):
+        self.stdout = stdout or StringIO()
+        self.stderr = stderr or StringIO()
+        self.stdin = stdin or StringIO()
         self.temp_frame = None
         self.frame_stack = []  # top at end of list
         self.global_frame = {}
