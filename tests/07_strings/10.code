@@ -1,4 +1,4 @@
-' combined input with builtin functions
+' combined input with builtin functions (TODO: stdout)
 
 Scope
 	Dim s1 As String
