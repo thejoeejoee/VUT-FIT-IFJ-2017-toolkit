@@ -146,28 +146,39 @@ class State(object):
         input_len = len(input_)
         if type_.data_type == Operand.CONSTANT_MAPPING_REVERSE.get(str):
             # is string
-            i = 1
+            i = input_[0] == "\""
             while i < input_len and input_[i] != '"':
                 loaded.append(input_[i])
                 i += 1
-            self.set_value(to, ''.join(loaded))
+            try:
+                self.set_value(to, ''.join(loaded))
+            except ValueError:
+                self.set_value(to, "")
         elif type_.data_type == Operand.CONSTANT_MAPPING_REVERSE.get(int):
             # is string
             i = 0
             while i < input_len and input_[i].isdecimal():
                 loaded.append(input_[i])
                 i += 1
-            self.set_value(to, int(''.join(loaded)))
+            try:
+                self.set_value(to, int(''.join(loaded)))
+            except ValueError:
+                self.set_value(to, 0)
         elif type_.data_type == Operand.CONSTANT_MAPPING_REVERSE.get(float):
             float_re = re.compile(r'^(\d+\.\d+)|(\d+[Ee][+-]?\d+)')
             match = float_re.match(input_)
             assert match
-            self.set_value(to, float(match.group(0)))
+            try:
+                self.set_value(to, float(match.group(0)))
+            except ValueError:
+                self.set_value(to, .0)
         elif type_.data_type == Operand.CONSTANT_MAPPING_REVERSE.get(bool):
             bool_re = re.compile(r'^(true|false)', re.IGNORECASE)
             match = bool_re.match(input_)
-            assert match
-            self.set_value(to, Operand.BOOL_LITERAL_MAPPING.get(match.group(0).lower()))
+            if match:
+                self.set_value(to, Operand.BOOL_LITERAL_MAPPING.get(match.group(0).lower()))
+            else:
+                self.set_value(to, False)
 
     def write(self, op):
         value = self.get_value(op)
