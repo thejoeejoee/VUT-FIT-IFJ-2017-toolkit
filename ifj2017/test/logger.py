@@ -14,7 +14,7 @@ def is_color_available():
     supported_platform = plat != 'Pocket PC' and (plat != 'win32' or 'ANSICON' in os.environ)
 
     # isatty is not always implemented, #6223.
-    is_a_tty = hasattr(sys.stdout, 'isatty') and sys.stdout.isatty()
+    is_a_tty = hasattr(sys.stderr, 'isatty') and sys.stderr.isatty()
     return not supported_platform or not is_a_tty
 
 
