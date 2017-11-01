@@ -43,7 +43,7 @@ class Debugger(object):
         for state in self._debugger_iterator:
             self._state = state
 
-            if self._state.program_counter in self._breakpoints:
+            if self._interpreter.program_line(self._state) in self._breakpoints:
                 return self._state
         self._active = False
 

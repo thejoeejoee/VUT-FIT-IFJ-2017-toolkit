@@ -25,7 +25,7 @@ class Interpreter(object):
             if not line or line.startswith('#'):
                 # comment line
                 continue
-            if line == ".IFJcode17":
+            if line == ".IFJcode17" and not started:
                 started = True
                 continue
 
