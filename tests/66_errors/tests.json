@@ -1,11 +1,6 @@
 {
   "tests": [
     {
-      "info": "Lexical error (Wrong double format) ",
-      "code": "19.",
-      "compiler_exit_code": 1
-    },
-    {
       "name": "06",
       "compiler_exit_code": 4
     },
@@ -38,32 +33,52 @@
       "compiler_exit_code": 3
     },
     {
-      "info": "Lexical error (Wrong double format) ",
+      "info": "wrong double format I",
       "code": "33455457.e---",
       "compiler_exit_code": 1
     },
     {
-      "info": "Lexical error (Wrong double format) ",
+      "info": "wrong double format II",
       "code": "33455457e",
       "compiler_exit_code": 1
     },
     {
-      "info": "Lexical error (Wrong string format)",
+      "info": "wrong double format III",
+      "code": ".25",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "wrong double format IV",
+      "code": ".e74",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "wrong double format V",
+      "code": "12.21.74",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "unterminated string",
       "code": "!\"",
       "compiler_exit_code": 1
     },
     {
-      "info": "Lexical error (Wrong string format)",
+      "info": "wrong string escape sequence I",
       "code": "!\"\\-1\"",
       "compiler_exit_code": 1
     },
     {
-      "info": "Lexical error (Wrong string format)",
+      "info": "wrong string escape sequence II",
+      "code": "!\"\\1\"",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "wrong string escape sequence III",
       "code": "!\"\\256\"",
       "compiler_exit_code": 1
     },
     {
-      "info": "Lexical error (Wrong string format)",
+      "info": "wrong string escape sequence IV",
       "code": "!\"\\m\"",
       "compiler_exit_code": 1
     },
@@ -120,6 +135,11 @@
     {
       "info": "assignment or undefined variable",
       "code": "scope \n dim a as integer \n a = 10 + variable \n end scope",
+      "compiler_exit_code": 3
+    },
+    {
+      "info": "assignment or undefined variable in same variable declaration",
+      "code": "scope \n dim a as integer \n a = a + 1 \n end scope",
       "compiler_exit_code": 3
     },
     {
