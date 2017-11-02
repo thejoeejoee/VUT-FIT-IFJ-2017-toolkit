@@ -1,0 +1,16 @@
+' basic scopes
+scope
+	dim a as integer = 42
+	scope
+		print a;
+		dim a as integer = 43
+		print a;
+	end scope
+	print a;
+	scope
+		print a;
+		dim a as integer = 43
+		print a;
+	end scope
+	print a;
+end scope

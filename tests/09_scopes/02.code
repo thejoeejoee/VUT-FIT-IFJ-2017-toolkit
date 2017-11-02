@@ -1,0 +1,16 @@
+' declaration in while block
+scope
+	dim s1 as integer = 10
+
+    do while s1 < 15 then
+        dim a as integer = 669878
+        print a;
+        s1 = s1 + 1
+    loop
+    print !"\n";
+    do while s1 < 15 then
+        dim a as integer = 1234
+        print a;
+        s1 = s1 + 1
+    loop
+end scope
