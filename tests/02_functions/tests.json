@@ -25,16 +25,19 @@
       "code": "scope \n print chr(97); \n end scope"
     },
     {
-      "name": "09",
-      "info": "Integer implicit return",
+      "info": "function integer implicit return",
       "stdout": " 0",
       "code": "function foo() as integer \n end function \n scope \n dim a as integer \n a = foo() \n print a; \n end scope"
     },
     {
-      "name": "10",
-      "info": "Integer implicit return",
+      "info": "function double implicit return",
       "stdout": " 0",
-      "code": "function foo() as integer \n end function \n scope \n dim a as integer \n a = foo() \n print a; \n end scope"
+      "code": "function foo() as double \n end function \n scope \n dim a as double \n a = foo() \n print a; \n end scope"
+    },
+    {
+      "info": "function string implicit return",
+      "stdout": "",
+      "code": "function foo() as string \n end function \n scope \n dim a as string \n a = foo() \n print a; \n end scope"
     },
     {
       "name": "17",
