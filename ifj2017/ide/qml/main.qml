@@ -59,7 +59,6 @@ ApplicationWindow {
                 id: playButton
 
                 iconSource: rootDir + "assets/images/playIcon.svg"
-                iconDisabledSource: rootDir + "assets/images/disabledPlayIcon.svg"
                 width: parent.width
                 height: width
 
@@ -78,7 +77,6 @@ ApplicationWindow {
                 id: playDebugButton
 
                 iconSource: rootDir + "assets/images/playBugIcon.svg"
-                iconDisabledSource: rootDir + "assets/images/disabledPlayBugIcon.svg"
                 width: parent.width
                 height: width
 
@@ -92,7 +90,6 @@ ApplicationWindow {
                 id: stopButton
 
                 iconSource: rootDir + "assets/images/stopIcon.svg"
-                iconDisabledSource: rootDir + "assets/images/disabledStopIcon.svg"
                 width: parent.width
                 height: width
 
