@@ -9,13 +9,6 @@ class TreeViewModel(QStandardItemModel):
     def __init__(self, parent = None):
         super().__init__(parent)
 
-        self.add_item("prvni", "sub", 1, "int")
-        self.add_item("sub", "foo2", 1, "int")
-        self.add_item("prvni", "foo", 1, "float")
-        self.add_item("prvni", "foo", 1, "int")
-        self.add_item("prvni2", "foo", 2, "int")
-        self.add_item("prvni3", "foo", 3, "int")
-
     def roleNames(self) -> Dict:
         return {
             Qt.DisplayRole: "name_col".encode(),
@@ -24,12 +17,17 @@ class TreeViewModel(QStandardItemModel):
         }
 
     def add_item(self, branch_name, name, value, value_type) -> None:
-        new_item = QStandardItem(name)
-        new_item.setData(value, Qt.UserRole)
-        new_item.setData(value_type, Qt.UserRole + 1)
+        existing_item = self.findItems(name, Qt.MatchExactly | Qt.MatchRecursive)
+        if existing_item:
+            item = existing_item[0]
+        else:
+            item = QStandardItem(name)
+        item.setData(value, Qt.UserRole)
+        item.setData(value_type, Qt.UserRole + 1)
 
-        branch = self._get_branch(branch_name)
-        branch.appendRow(new_item)
+        if not existing_item:
+            branch = self._get_branch(branch_name)
+            branch.appendRow(item)
 
     def _get_branch(self, branch_name: str) -> QStandardItem:
         branches = self.findItems(branch_name, Qt.MatchExactly | Qt.MatchRecursive)
