@@ -7,8 +7,6 @@ Rectangle {
     signal textReaded(string text)
 
     color: "transparent"
-    border.color: "red"
-    border.width: 1
     clip: true
 
     ScrollView {
@@ -73,8 +71,6 @@ Rectangle {
                         }
                     }
 
-
-
                     onTextChanged: {
                         var lines = readonlyText.text.split("\n")
                         var lastLine = lines[lines.length - 1]
@@ -93,11 +89,6 @@ Rectangle {
 
                         }
                     }
-                }
-
-                Rectangle {
-                    color: "lightGray"
-                    anchors.fill: editableText
                 }
 
                 TextInput {

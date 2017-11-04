@@ -1,5 +1,8 @@
 import QtQuick 2.7
 import QtQuick.Controls 1.4
+import QtQuick.Dialogs 1.0
+import QtQuick.Layouts 1.0
+
 import TreeViewModel 1.0
 import Debugger 1.0
 import StyleSettings 1.0
@@ -27,16 +30,12 @@ ApplicationWindow {
     Debugger {
         id: ifjDebugger
 
-        model: debugStateModel
-        ioWrapper: consoleIOWrapper
+        model: debugStateView.model
+        ioWrapper: consoleWidget.ioWrapper
 
         onProgramEnded: stopProgram()
     }
 
-    IOWrapper {
-        id: consoleIOWrapper
-        onReadRequest: consoleWidget.read()
-        onWriteRequest: consoleWidget.write(text)
     FileDialog {
         id: fileDialog
 
@@ -120,89 +119,72 @@ ApplicationWindow {
         }
     }
 
-    CodeEditor {
-        id: codeEditor
+    SplitView {
+        orientation: Qt.Vertical
 
-        lineNumbersPanelColor: "#f2f2f2"
-        breakpoints: ifjDebugger.breakpoints
-        currentLine: ifjDebugger.currentLine
-
-        completer.width: 200
-        completer.visibleItemCount: 6
-
-        anchors.left: mainToolbar.right
-        anchors.right: com.left
         anchors.top: root.top
-        anchors.bottom: consoleWidget.top
-
-        onToggleBreakpointRequest: ifjDebugger.toggleBreakpoint(line)
-        onLinesAdded: ifjDebugger.handleAddedLines(lines)
-        onLinesRemoved: ifjDebugger.handleRemovedLines(lines)
-    }
-
-    Controls.DebugToolbar {
-        id: debugToolbar
-
-        color: "#2f2f2f"
-        height: 25
-
-        anchors.left: consoleWidget.left
-        anchors.right: consoleWidget.right
-        anchors.bottom: consoleWidget.top
-
-        onRunToNextBreakpointRequest: ifjDebugger.runToNextBreakpoint()
-        onRunTonextLineRequest: ifjDebugger.runToNextLine()
-    }
-
-    Controls.Console {
-        id: consoleWidget
-
-        height: 300
-
-        anchors.left: mainToolbar.right
-        anchors.right: com.left
         anchors.bottom: root.bottom
+        anchors.left: mainToolbar.right
+        anchors.right: root.right
 
-        onTextReaded: consoleIOWrapper.handleConsoleRead(text)
-    }
+        handleDelegate: Rectangle {
+            height: 2
+            color: "lightGray"
+        }
 
-    TreeViewModel {
-        id: debugStateModel
-    }
+        SplitView {
+            id: editorSplitView
 
-    SlideWidget {
-        id: com
+            orientation: Qt.Horizontal
+            Layout.fillHeight: true
 
-        width: 500
-        height: parent.height
-        color: "red"
-
-        TreeView {
-            width: 500
-            height: 500
-            model: debugStateModel
-            itemDelegate: Rectangle {
-               color: "white"
-               height: 20
-
-               Text {
-                   anchors.verticalCenter: parent.verticalCenter
-                   text: styleData.value === undefined ? "" : styleData.value // The branches don't have a description_role so styleData.value will be undefined
-               }
-           }
-
-            TableViewColumn {
-                role: "name_col"
-                title: "Name"
+            handleDelegate: Rectangle {
+                width: 2
+                color: "lightGray"
             }
-            TableViewColumn {
-                role: "value_col"
-                title: "Value"
+
+            CodeEditor {
+                id: codeEditor
+
+                width: 500
+                height: parent.height
+                Layout.fillWidth: true
+
+                placeHolderText: "<b>File</b><br>
+                                    - open file (Ctrl+O)<br>
+                                    - save file (Ctrl+S)<br>
+                                  <br><b>Run program</b><br>
+                                    - run program (F5)<br>
+                                    - debug run to next breakpoint (F5)<br>
+                                    - debug run to next line (F6)"
+                lineNumbersPanelColor: "#f2f2f2"
+                breakpoints: ifjDebugger.breakpoints
+                currentLine: ifjDebugger.currentLine
+
+                completer.width: 200
+                completer.visibleItemCount: 6
+
+                onToggleBreakpointRequest: ifjDebugger.toggleBreakpoint(line)
+                onLinesAdded: ifjDebugger.handleAddedLines(lines)
+                onLinesRemoved: ifjDebugger.handleRemovedLines(lines)
             }
-            TableViewColumn {
-                role: "type_col"
-                title: "Type"
+
+            View.DebugStateView {
+                id: debugStateView
+
+                contentWidth: 500
+                height: parent.height
             }
+        }
+
+        Widgets.ConsoleWidget {
+            id: consoleWidget
+
+            toolbarHeight: 25
+            height: 300
+
+            onRunToNextLineRequest: ifjDebugger.runToNextLine()
+            onRunToNextBreakPointRequest: ifjDebugger.runToNextBreakpoint()
         }
     }
 
@@ -210,6 +192,7 @@ ApplicationWindow {
         stopButton.enabled = true;
         playButton.enabled = false;
         playDebugButton.enabled = false;
+        consoleWidget.debugToolbarEnabled = false
         consoleWidget.clear()
         consoleWidget.write("Program started...\n")
         ifjDebugger.run(codeEditor.code)
@@ -219,8 +202,9 @@ ApplicationWindow {
         stopButton.enabled = true;
         playButton.enabled = false;
         playDebugButton.enabled = false;
+        consoleWidget.debugToolbarEnabled = true
         consoleWidget.clear()
-        com.show()
+        debugStateView.show()
         consoleWidget.write("Debug started...\n")
         ifjDebugger.debug(codeEditor.code)
     }
@@ -229,7 +213,8 @@ ApplicationWindow {
         stopButton.enabled = false;
         playButton.enabled = true;
         playDebugButton.enabled = true;
-        com.hide()
+        consoleWidget.debugToolbarEnabled = false
+        debugStateView.hide()
         ifjDebugger.stop()
         // TODO exit codes
         consoleWidget.write("\nProgram ended")

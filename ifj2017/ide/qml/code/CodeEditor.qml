@@ -24,6 +24,7 @@ Item {
     property alias lineNumbersPanelColor: lineNumbers.color
     property color lineNumberColor: "gray"
     property int currentLine: -1
+    property string placeHolderText: ""
 
     clip: true
 
@@ -34,8 +35,24 @@ Item {
 
     QtObject {
         id: internal
-
         property var diffLines: []
+    }
+
+    Item {
+        anchors.fill: parent
+        opacity: textEdit.text == ""
+
+        Behavior on opacity {
+            NumberAnimation { duration: 150 }
+        }
+
+        Text {
+            color: "gray"
+            text: component.placeHolderText
+            font.pixelSize: 20
+
+            anchors.centerIn: parent
+        }
     }
 
     ScrollView {

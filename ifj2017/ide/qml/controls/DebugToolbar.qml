@@ -8,6 +8,7 @@ Rectangle {
 
     Row {
         anchors.fill: parent
+        Item { width: 5; height: parent.height }
 
         Text {
             text: qsTr("Program output")
@@ -15,6 +16,17 @@ Rectangle {
 
             anchors.verticalCenter: parent.verticalCenter
         }
+
+        Item { width: 25; height: parent.height }
+
+        Rectangle {
+            width: 1
+            height: parent.height * 0.7
+            color: "gray"
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
+        Item { width: 5; height: parent.height }
 
         IconButton {
             id: runToNextBreakpointButton
