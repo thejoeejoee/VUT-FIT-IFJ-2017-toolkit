@@ -91,7 +91,7 @@ Item {
                 }
 
                 onTextChanged: {
-                    completeText()
+                    updateCompleterModel()
                     internal.diffLines = diffCodeAnalyzer.compare(textEdit.text)
                     diffCodeAnalyzer.saveTempCode(textEdit.text)
                 }
@@ -100,10 +100,10 @@ Item {
                         completer.model = completer.constantModel
                         completer.currentText = ""
                     }
-                    else
-                        completeText()
                 }
-                onCursorPositionChanged: completeText()
+
+                onCursorPositionChanged: updateCompleterModel()
+
                 Rectangle{
                     id: currentLineMark
                     width: parent.width
@@ -230,25 +230,24 @@ Item {
             return textDocument.x + textDocument.width - infoWidth - textDocument.textMargin
     }
 
-    /**
-    Show suggestion box with filtered suggestions
-    */
-    function completeText() {
+    function updateCompleterModel() {
         var textDocument = component.textComponent
         var lastChar = textDocument.text.slice(-1)
         var currentWord = exa.currentWord()
 
-        if(lastChar == '\n')
-            return
-
         if(textDocument.cursorPosition)
             lastChar = textDocument.text[textDocument.cursorPosition - 1]
 
-        if(CodeAnalyzer.expressionSplitters.indexOf(lastChar) != -1)
-            completer.show()
-
         completer.currentText = currentWord
         completer.currentTextChanged(completer.currentText)
+    }
+
+    /**
+    Show suggestion box with filtered suggestions
+    */
+    function completeText() {
+        updateCompleterModel()
+        completer.show()
     }
 
     /**
