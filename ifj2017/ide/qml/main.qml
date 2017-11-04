@@ -157,7 +157,9 @@ ApplicationWindow {
                                   <br><b>Run program</b><br>
                                     - run program (F5)<br>
                                     - debug run to next breakpoint (F5)<br>
-                                    - debug run to next line (F6)"
+                                    - debug run to next line (F6)<br>
+                                  <br><b>Code</b><br>
+                                    - show completer (Ctrl + Space)"
                 lineNumbersPanelColor: "#f2f2f2"
                 breakpoints: ifjDebugger.breakpoints
                 currentLine: ifjDebugger.currentLine
