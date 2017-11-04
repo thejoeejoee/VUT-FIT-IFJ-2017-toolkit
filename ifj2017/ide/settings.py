@@ -22,10 +22,17 @@ class Expression(QObject):
         return Expression()
 
 
-INSTRUCTIONS = Instruction._commands.keys()
+INSTRUCTIONS = tuple(sorted(list(Instruction._commands.keys())))
+IDENTIFIER_PATTERN = r'[\w_\-\$&%*]+'
 
 HIGHLIGHT_RULES = (
-    (INSTRUCTIONS, "red"),
-    ((r'\d+',), 'purple'),
+    (("".join(("(?i)", instruction)) for instruction in INSTRUCTIONS), "#1d73a3"),
+    ((r'[LGT]F@', ), '#930c80'),
+    ((r'#.*$', ), 'gray'),
+    ((r'(?<=[LGT]F@){identifier}'.format(identifier=IDENTIFIER_PATTERN), ), 'black'),
+    ((r'(?i)(call|label|JUMP|jumpifeq|jumpifneq|jumpifeqs|jumpifneqs)(\s+)({identifier})'.format(identifier=IDENTIFIER_PATTERN), ), ("#1d73a3", None ,'#4c4c4c')),
+    ((r'(float|int)(@)(-?[0-9.]+)', r'(bool)(@)((?i)(true|false))', r'(string)@(.*)'), '#1ed3a8'),
+
+
     (("([nN])([yY])([aA])([nN])",), "#ED1869 #F2BC1F #39BFC1 #672980".split()),
 )

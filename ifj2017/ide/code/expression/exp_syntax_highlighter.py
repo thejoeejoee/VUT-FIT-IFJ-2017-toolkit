@@ -27,7 +27,8 @@ class ExpSyntaxHighlighter(QObject):
 
     def _setupFormat(self, color: QColor, fontSettings: QFont) -> QTextCharFormat:
         pattern_format = QTextCharFormat()
-        pattern_format.setForeground(color)
+        if color is not None:
+            pattern_format.setForeground(color)
         pattern_format.setFontItalic(fontSettings.italic())
         pattern_format.setFontWeight(fontSettings.bold())
 
