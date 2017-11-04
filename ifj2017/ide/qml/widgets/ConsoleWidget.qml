@@ -11,7 +11,7 @@ Item {
 
     property alias ioWrapper: consoleIOWrapper
     property alias toolbarHeight: debugToolbar.height
-    property alias debugToolbarEnabled: debugToolbar.enabled
+    property alias debugToolbarEnabled: debugToolbar.debugButtonsEnabled
 
     IOWrapper {
         id: consoleIOWrapper
@@ -23,7 +23,7 @@ Item {
         id: debugToolbar
 
         color: "#2f2f2f"
-        enabled: false
+        debugButtonsEnabled: false
 
         anchors.left: parent.left
         anchors.right: parent.right
@@ -31,6 +31,7 @@ Item {
 
         onRunToNextBreakpointRequest: component.runToNextBreakPointRequest()
         onRunTonextLineRequest: component.runToNextLineRequest()
+        onClearConsole: component.clear()
     }
 
     Console {

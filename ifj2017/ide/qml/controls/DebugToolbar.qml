@@ -5,6 +5,9 @@ Rectangle {
 
     signal runToNextBreakpointRequest()
     signal runTonextLineRequest()
+    signal clearConsole()
+
+    property bool debugButtonsEnabled: true
 
     Row {
         anchors.fill: parent
@@ -29,11 +32,24 @@ Rectangle {
         Item { width: 5; height: parent.height }
 
         IconButton {
+            id: clearConsoleButton
+
+            iconSource: rootDir + "assets/images/clearIcon.svg"
+            width: height
+            height: parent.height
+
+            anchors.verticalCenter: parent.verticalCenter
+
+            onClicked: component.clearConsole()
+        }
+
+        IconButton {
             id: runToNextBreakpointButton
 
             iconSource: rootDir + "assets/images/debugNextBreakpointIcon.svg"
             width: height
             height: parent.height
+            enabled: component.debugButtonsEnabled
 
             anchors.verticalCenter: parent.verticalCenter
 
@@ -46,6 +62,7 @@ Rectangle {
             iconSource: rootDir + "assets/images/debugNextLineIcon.svg"
             width: height
             height: parent.height
+            enabled: component.debugButtonsEnabled
 
             anchors.verticalCenter: parent.verticalCenter
 
