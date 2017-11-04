@@ -56,7 +56,7 @@ Rectangle {
                 TextEdit {
                     id: readonlyText
 
-                    height: 0
+                    height: contentHeight
                     width: parent.width
 
                     text: ""
@@ -64,12 +64,6 @@ Rectangle {
                     selectByMouse: true
                     readOnly: true
                     font.pixelSize: 16
-                    onFocusChanged: {   // pass focus to editable line
-                        if(focus) {
-                            focus = false
-                            editableText.focus = true
-                        }
-                    }
 
                     onTextChanged: {
                         var lines = readonlyText.text.split("\n")
@@ -84,10 +78,6 @@ Rectangle {
                     FontMetrics {
                         id: fm
                         font: readonlyText.font
-
-                        Component.onCompleted: {
-
-                        }
                     }
                 }
 
@@ -99,7 +89,6 @@ Rectangle {
                     width: parent.width
                     readOnly: true
 
-                    focus: true
                     leftPadding: 7
                     font: readonlyText.font
 
