@@ -23,6 +23,7 @@ Item {
     property alias code: textEdit.text
     property alias lineNumbersPanelColor: lineNumbers.color
     property color lineNumberColor: "gray"
+    property int currentLine: -1
 
     clip: true
 
@@ -38,8 +39,11 @@ Item {
     }
 
     ScrollView {
-        anchors.fill: parent
         verticalScrollBarPolicy: Qt.ScrollBarAlwaysOn
+        anchors.left: lineNumbers.right
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
 
         Flickable {
             id: flick
@@ -73,7 +77,7 @@ Item {
                 font.pixelSize: 16
                 selectByMouse: true
 
-                x: lineNumbers.width + 7
+                leftPadding: 7
                 width: flick.width
                 height: flick.height
 
@@ -100,6 +104,14 @@ Item {
                         completeText()
                 }
                 onCursorPositionChanged: completeText()
+                Rectangle{
+                    id: currentLineMark
+                    width: parent.width
+                    height: flick.contentHeight / textEdit.lineCount
+                    y: (component.currentLine - 1) * height
+                    color: "red"
+                    opacity: 0.4
+                }
             }
         }
     }
