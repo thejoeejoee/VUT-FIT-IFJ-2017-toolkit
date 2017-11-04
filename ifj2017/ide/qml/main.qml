@@ -21,27 +21,18 @@ ApplicationWindow {
         anchors.fill: parent
     }
 
-    // INFO test
     Debugger {
         id: ifjDebugger
+
         model: debugStateModel
         ioWrapper: consoleIOWrapper
 
-        onCurrentLineChanged: {
-            console.log(line)
-        }
-
-        onProgramEnded: {
-            stopProgram()
-        }
+        onProgramEnded: stopProgram()
     }
 
     IOWrapper {
         id: consoleIOWrapper
-        onReadRequest: {
-            consoleWidget.read()
-        }
-
+        onReadRequest: consoleWidget.read()
         onWriteRequest: consoleWidget.write(text)
     }
 
@@ -70,15 +61,7 @@ ApplicationWindow {
                 width: parent.width
                 height: width * 0.7
 
-                onClicked: {
-                    runProgram()
-//                    consoleWidget.write("dfsdfsdf")
-//                    consoleWidget.read()
-//                    if(com.visible)
-//                        com.hide()
-//                    else
-//                        com.show()
-                }
+                onClicked: runProgram()
             }
 
             Controls.IconButton {
@@ -88,9 +71,7 @@ ApplicationWindow {
                 width: parent.width
                 height: playButton.height
 
-                onClicked: {
-                    debugProgram()
-                }
+                onClicked: debugProgram()
             }
 
             Controls.IconButton {
@@ -101,15 +82,7 @@ ApplicationWindow {
                 width: parent.width
                 height: playButton.height
 
-                onClicked: {
-                    stopProgram()
-//                    codeEditor.removesDiffMarks()
-
-//                    if(com.visible)
-//                        com.hide()
-//                    else
-//                        com.show()
-                }
+                onClicked: stopProgram()
             }
         }
     }
@@ -129,10 +102,7 @@ ApplicationWindow {
         anchors.top: root.top
         anchors.bottom: consoleWidget.top
 
-        onToggleBreakpointRequest: {
-            ifjDebugger.toggleBreakpoint(line)
-        }
-
+        onToggleBreakpointRequest: ifjDebugger.toggleBreakpoint(line)
         onLinesAdded: ifjDebugger.handleAddedLines(lines)
         onLinesRemoved: ifjDebugger.handleRemovedLines(lines)
     }
@@ -160,14 +130,12 @@ ApplicationWindow {
         anchors.right: com.left
         anchors.bottom: root.bottom
 
-        onTextReaded: {
-            consoleIOWrapper.handleConsoleRead(text)
-        }
+        onTextReaded: consoleIOWrapper.handleConsoleRead(text)
     }
 
     TreeViewModel {
-            id: debugStateModel
-        }
+        id: debugStateModel
+    }
 
     SlideWidget {
         id: com
@@ -204,20 +172,6 @@ ApplicationWindow {
             }
         }
     }
-
-//    states: [
-//        State {
-//            name: "stopped"
-//            PropertyChanges { target: stopButton; enabled: false }
-//            PropertyChanges { target: playButton; enabled: true }
-//            PropertyChanges { target: playDebugButton; enabled: true }
-//            StateChangeScript { script: {
-//                    com.hide()
-//                    ifjDebugger.stop()
-//                }
-//            }
-//        }
-//    ]
 
     function runProgram() {
         stopButton.enabled = true;
