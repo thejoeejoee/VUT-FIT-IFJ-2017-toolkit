@@ -41,6 +41,7 @@ ApplicationWindow {
 
         folder: shortcuts.documents
         selectMultiple: false
+        selectExisting: (fileIO.actionType != "save")
         nameFilters: [ "IFJ files (*.IFJcode17)", "All files (*)" ]
 
         onAccepted: {
