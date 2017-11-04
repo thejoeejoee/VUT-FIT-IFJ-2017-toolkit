@@ -10,7 +10,7 @@ SlideWidget {
     property alias model: debugStateModel
 
     TreeView {
-        width: component.contentWidth
+        width: component.width
         height: parent.height
         model: debugStateModel
         alternatingRowColors: false
