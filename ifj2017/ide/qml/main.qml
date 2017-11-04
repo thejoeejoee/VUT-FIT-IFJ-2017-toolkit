@@ -26,6 +26,14 @@ ApplicationWindow {
         id: ifjDebugger
         model: debugStateModel
         ioWrapper: consoleIOWrapper
+
+        onCurrentLineChanged: {
+            console.log(line)
+        }
+
+        onProgramEnded: {
+            stopProgram()
+        }
     }
 
     IOWrapper {
@@ -47,9 +55,9 @@ ApplicationWindow {
         color: "#2f2f2f"
 
         Column {
-            spacing: 20
-            width: parent.width * 0.5
-            height: playButton.width * 3 + 2 * spacing
+            spacing: 0
+            width: parent.width
+            height: playButton.height * 3 + 2 * spacing
 
             anchors.bottom: parent.bottom
             anchors.bottomMargin: spacing
@@ -60,10 +68,10 @@ ApplicationWindow {
 
                 iconSource: rootDir + "assets/images/playIcon.svg"
                 width: parent.width
-                height: width
+                height: width * 0.7
 
                 onClicked: {
-                    ifjDebugger.debug(codeEditor.code)
+                    runProgram()
 //                    consoleWidget.write("dfsdfsdf")
 //                    consoleWidget.read()
 //                    if(com.visible)
@@ -78,69 +86,40 @@ ApplicationWindow {
 
                 iconSource: rootDir + "assets/images/playBugIcon.svg"
                 width: parent.width
-                height: width
+                height: playButton.height
 
                 onClicked: {
-//                    consoleWidget.read()
-                    ifjDebugger.runToNextBreakPoint()
+                    debugProgram()
                 }
             }
 
             Controls.IconButton {
                 id: stopButton
 
+                enabled: false
                 iconSource: rootDir + "assets/images/stopIcon.svg"
                 width: parent.width
-                height: width
+                height: playButton.height
 
                 onClicked: {
+                    stopProgram()
 //                    codeEditor.removesDiffMarks()
-                    if(com.visible)
-                        com.hide()
-                    else
-                        com.show()
+
+//                    if(com.visible)
+//                        com.hide()
+//                    else
+//                        com.show()
                 }
             }
         }
     }
-
-//    TreeViewModel {
-//            id: theModel
-//        }
-//        TreeView {
-//            anchors.left: mainToolbar.right
-//            width: 500
-//            height: 500
-//            model: theModel
-//            itemDelegate: Rectangle {
-//               color: "white"
-//               height: 20
-
-//               Text {
-//                   anchors.verticalCenter: parent.verticalCenter
-//                   text: styleData.value === undefined ? "" : styleData.value // The branches don't have a description_role so styleData.value will be undefined
-//               }
-//           }
-
-//            TableViewColumn {
-//                role: "name_col"
-//                title: "Name"
-//            }
-//            TableViewColumn {
-//                role: "value_col"
-//                title: "Value"
-//            }
-//            TableViewColumn {
-//                role: "type_col"
-//                title: "Type"
-//            }
-//        }
 
     CodeEditor {
         id: codeEditor
 
         lineNumbersPanelColor: "#f2f2f2"
         breakpoints: ifjDebugger.breakpoints
+        currentLine: ifjDebugger.currentLine
 
         completer.width: 200
         completer.visibleItemCount: 6
@@ -158,6 +137,20 @@ ApplicationWindow {
         onLinesRemoved: ifjDebugger.handleRemovedLines(lines)
     }
 
+    Controls.DebugToolbar {
+        id: debugToolbar
+
+        color: "#2f2f2f"
+        height: 25
+
+        anchors.left: consoleWidget.left
+        anchors.right: consoleWidget.right
+        anchors.bottom: consoleWidget.top
+
+        onRunToNextBreakpointRequest: ifjDebugger.runToNextBreakpoint()
+        onRunTonextLineRequest: ifjDebugger.runToNextLine()
+    }
+
     Controls.Console {
         id: consoleWidget
 
@@ -167,9 +160,7 @@ ApplicationWindow {
         anchors.right: com.left
         anchors.bottom: root.bottom
 
-//        Component.onCompleted: read()
         onTextReaded: {
-            console.log(text)
             consoleIOWrapper.handleConsoleRead(text)
         }
     }
@@ -213,4 +204,47 @@ ApplicationWindow {
             }
         }
     }
-}
+
+//    states: [
+//        State {
+//            name: "stopped"
+//            PropertyChanges { target: stopButton; enabled: false }
+//            PropertyChanges { target: playButton; enabled: true }
+//            PropertyChanges { target: playDebugButton; enabled: true }
+//            StateChangeScript { script: {
+//                    com.hide()
+//                    ifjDebugger.stop()
+//                }
+//            }
+//        }
+//    ]
+
+    function runProgram() {
+        stopButton.enabled = true;
+        playButton.enabled = false;
+        playDebugButton.enabled = false;
+        consoleWidget.clear()
+        consoleWidget.write("Program started...\n")
+        ifjDebugger.run(codeEditor.code)
+    }
+
+    function debugProgram() {
+        stopButton.enabled = true;
+        playButton.enabled = false;
+        playDebugButton.enabled = false;
+        consoleWidget.clear()
+        com.show()
+        consoleWidget.write("Debug started...\n")
+        ifjDebugger.debug(codeEditor.code)
+    }
+
+    function stopProgram() {
+        stopButton.enabled = false;
+        playButton.enabled = true;
+        playDebugButton.enabled = true;
+        com.hide()
+        ifjDebugger.stop()
+        // TODO exit codes
+        consoleWidget.write("\nProgram ended")
+    }
+ }
