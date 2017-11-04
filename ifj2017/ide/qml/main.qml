@@ -4,16 +4,19 @@ import TreeViewModel 1.0
 import Debugger 1.0
 import StyleSettings 1.0
 import IOWrapper 1.0
+import FileIO 1.0
 
 import "code"
 import "controls" as Controls
 import "containers"
+import "view" as View
+import "widgets" as Widgets
 
 ApplicationWindow {
     visible: true
     width: 1000
     height: 800
-    title: qsTr("Advánc Ifj Creator")
+    title: fileIO.source + ((fileIO.source) ?" - " :"") + qsTr("Advánc Ifj Creator")
 
     Rectangle {
         id: root
@@ -34,6 +37,36 @@ ApplicationWindow {
         id: consoleIOWrapper
         onReadRequest: consoleWidget.read()
         onWriteRequest: consoleWidget.write(text)
+    FileDialog {
+        id: fileDialog
+
+        folder: shortcuts.documents
+        selectMultiple: false
+        nameFilters: [ "IFJ files (*.IFJcode17)", "All files (*)" ]
+
+        onAccepted: {
+            fileIO.source = fileDialog.fileUrl
+            if(fileIO.actionType == "open")
+                codeEditor.code = fileIO.read()
+            else if(fileIO.actionType == "save")
+                fileIO.write(codeEditor.code)
+            fileIO.actionType = ""
+        }
+    }
+
+    FileIO {
+        id: fileIO
+        property string actionType: ""
+    }
+
+    Shortcut {
+        sequence: "Ctrl+O"
+        onActivated: openFile()
+    }
+
+    Shortcut {
+        sequence: "Ctrl+S"
+        onActivated: saveFile()
     }
 
     // Main bar
@@ -200,5 +233,20 @@ ApplicationWindow {
         ifjDebugger.stop()
         // TODO exit codes
         consoleWidget.write("\nProgram ended")
+    }
+
+    function saveFile() {
+        if(fileIO.source == "") {
+            fileIO.actionType = "save"
+            fileDialog.visible = true
+        }
+
+        else
+            fileIO.write(codeEditor.code)
+    }
+
+    function openFile() {
+        fileIO.actionType = "open"
+        fileDialog.visible = true
     }
  }
