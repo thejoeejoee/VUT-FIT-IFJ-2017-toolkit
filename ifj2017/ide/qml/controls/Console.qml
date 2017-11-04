@@ -126,6 +126,10 @@ Rectangle {
         }
     }
 
+    function clear() {
+        readonlyText.clear()
+    }
+
     function read() {
         var lines = readonlyText.text.split("\n")
         var lastLine = lines[lines.length - 1]
