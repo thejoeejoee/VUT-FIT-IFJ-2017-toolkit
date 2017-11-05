@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.7
 import QtQuick.Controls 2.0
 import StyleSettings 1.0
 
@@ -27,6 +27,7 @@ DropDown {
     onModelChanged: {
         if(!model.length)
             component.hide()
+        component.resize()
     }
 
     onConstantModelChanged: updateModel()
@@ -61,7 +62,7 @@ DropDown {
         Text {
             color: component.textColor
             text: itemData["identifier"]
-            font.pixelSize: parent.height * 0.8
+            font: dummyText.font
             anchors.left: symbol.right
             anchors.leftMargin: symbol.anchors.leftMargin
             anchors.verticalCenter: parent.verticalCenter
@@ -74,6 +75,17 @@ DropDown {
         component.target.Keys.downPressed.connect(component.moveDownWrapper)
         component.target.Keys.returnPressed.connect(component.handleEnterKey)
         component.target.Keys.enterPressed.connect(component.handleEnterKey)
+    }
+
+    Text {
+        id: dummyText
+        visible: false
+        font.pixelSize: itemHeight * 0.8
+    }
+
+    FontMetrics {
+        id: fm
+        font: dummyText.font
     }
 
     /**
@@ -136,5 +148,18 @@ DropDown {
                     break;
             }
         }
+    }
+
+    function resize() {
+        var maxTextWidth = 0
+
+        for(var key in component.model) {
+            var textWidth = fm.advanceWidth(component.model[key]["identifier"])
+
+            if(textWidth > maxTextWidth)
+                maxText = component.model[key]["identifier"]
+        }
+
+        component.width = maxTextWidth + (component.itemHeight) * 2
     }
 }
