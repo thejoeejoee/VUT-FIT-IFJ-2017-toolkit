@@ -56,4 +56,8 @@ Item {
     function read() {
         rawConsole.read()
     }
+
+    function stopRead() {
+        rawConsole.stopRead()
+    }
 }

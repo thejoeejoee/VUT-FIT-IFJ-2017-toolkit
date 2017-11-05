@@ -134,4 +134,8 @@ class DebuggerWrapper(QObject):
 
     @pyqtSlot()
     def stop(self):
-        pass
+        self._io_wrapper.unblockWaitSignal.emit()
+        self._debugger.stop()
+        self._program_line = -1
+        self._model.clear()
+        self.currentLineChanged.emit(-1)

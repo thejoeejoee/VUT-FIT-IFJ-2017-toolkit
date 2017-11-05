@@ -110,6 +110,10 @@ Rectangle {
         readonlyText.clear()
     }
 
+    function stopRead() {
+        editableText.readOnly = true
+    }
+
     function read() {
         var lines = readonlyText.text.split("\n")
         var lastLine = lines[lines.length - 1]

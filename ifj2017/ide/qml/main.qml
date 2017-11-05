@@ -218,6 +218,7 @@ ApplicationWindow {
         playDebugButton.enabled = true;
         consoleWidget.debugToolbarEnabled = false
         debugStateView.hide()
+        consoleWidget.stopRead()
         ifjDebugger.stop()
         // TODO exit codes
         consoleWidget.write("\nProgram ended")

@@ -33,5 +33,7 @@ class IOWrapper(QObject):
     def readline(self):
         self.readRequest.emit()
         self.block_until_emit(self.unblockWaitSignal)
+        text = self._text
+        self._text = ""
 
-        return self._text
+        return text
