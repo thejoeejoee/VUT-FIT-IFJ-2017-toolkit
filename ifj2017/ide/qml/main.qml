@@ -42,14 +42,14 @@ ApplicationWindow {
 
         folder: shortcuts.documents
         selectMultiple: false
-        selectExisting: (fileIO.actionType != "save")
+        selectExisting: (fileIO.actionType != "save" && fileIO.actionType != "saveAs")
         nameFilters: [ "IFJ files (*.IFJcode17)", "All files (*)" ]
 
         onAccepted: {
             fileIO.source = fileDialog.fileUrl
             if(fileIO.actionType == "open")
                 codeEditor.code = fileIO.read()
-            else if(fileIO.actionType == "save")
+            else if(fileIO.actionType == "save" || fileIO.actionType == "saveAs")
                 fileIO.write(codeEditor.code)
             fileIO.actionType = ""
         }
@@ -68,6 +68,11 @@ ApplicationWindow {
     Shortcut {
         sequence: "Ctrl+S"
         onActivated: saveFile()
+    }
+
+    Shortcut {
+        sequence: "F12"
+        onActivated: saveFileAs()
     }
 
     Shortcut {
@@ -173,6 +178,7 @@ ApplicationWindow {
                 placeHolderText: "<b>File</b><br>
                                     - open file (Ctrl+O)<br>
                                     - save file (Ctrl+S)<br>
+                                    - save file as (F12)<br>
                                   <br><b>Run program</b><br>
                                     - run program (F5)<br>
                                     - debug run to next breakpoint (F5)<br>
@@ -250,6 +256,11 @@ ApplicationWindow {
         ifjDebugger.stop()
         // TODO exit codes
         consoleWidget.write("\nProgram ended")
+    }
+
+    function saveFileAs() {
+        fileIO.actionType = "saveAs"
+        fileDialog.visible = true
     }
 
     function saveFile() {
