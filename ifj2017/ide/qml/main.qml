@@ -23,6 +23,7 @@ ApplicationWindow {
 
     Rectangle {
         id: root
+        state: "stopped"
         color: "white"
         anchors.fill: parent
     }
@@ -67,6 +68,24 @@ ApplicationWindow {
     Shortcut {
         sequence: "Ctrl+S"
         onActivated: saveFile()
+    }
+
+    Shortcut {
+        sequence: "F5"
+        onActivated: {
+            if(root.state == "stopped")
+                runProgram()
+            else if(root.state == "runningDebug")
+                ifjDebugger.runToNextBreakpoint()
+        }
+    }
+
+    Shortcut {
+        sequence: "F6"
+        onActivated: {
+            if(root.state == "runningDebug")
+                ifjDebugger.runToNextLine()
+        }
     }
 
     // Main bar
@@ -192,6 +211,7 @@ ApplicationWindow {
     }
 
     function runProgram() {
+        root.state = "running"
         stopButton.enabled = true;
         playButton.enabled = false;
         playDebugButton.enabled = false;
@@ -202,6 +222,7 @@ ApplicationWindow {
     }
 
     function debugProgram() {
+        root.state = "runningDebug"
         stopButton.enabled = true;
         playButton.enabled = false;
         playDebugButton.enabled = false;
@@ -213,6 +234,7 @@ ApplicationWindow {
     }
 
     function stopProgram() {
+        root.state = "stopped"
         stopButton.enabled = false;
         playButton.enabled = true;
         playDebugButton.enabled = true;
