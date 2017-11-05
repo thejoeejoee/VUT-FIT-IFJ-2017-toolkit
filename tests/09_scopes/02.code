@@ -1,16 +1,17 @@
 ' declaration in while block
 scope
-	dim s1 as integer = 10
+    dim counter as integer = 10
 
-    do while s1 < 15 then
+    do while counter < 15
         dim a as integer = 669878
         print a;
-        s1 = s1 + 1
+        counter = counter + 1
     loop
     print !"\n";
-    do while s1 < 15 then
+    counter = 100
+    do while counter < 106
         dim a as integer = 1234
         print a;
-        s1 = s1 + 1
+        counter = counter + 1
     loop
 end scope

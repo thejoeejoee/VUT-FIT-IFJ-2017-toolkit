@@ -1,0 +1,28 @@
+' declaration in all condition branches
+
+scope
+	dim i as integer = 24 * 2
+
+	do while i > 0
+		if i > 38 then
+			dim b as double = 42
+			print b;
+		else
+			if i > 24 then
+				dim b as double = 74
+				print b;
+			else
+				if i > 10 then
+					dim b as double = 13
+					print b;
+				else
+					dim b as double = 11
+					print b;
+				end if
+			end if
+		end if
+		print !"\n";
+		i = i - 1.1
+	loop
+
+end scope
