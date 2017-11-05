@@ -157,7 +157,7 @@ DropDown {
             var textWidth = fm.advanceWidth(component.model[key]["identifier"])
 
             if(textWidth > maxTextWidth)
-                maxText = component.model[key]["identifier"]
+                maxTextWidth = textWidth
         }
 
         component.width = maxTextWidth + (component.itemHeight) * 2
