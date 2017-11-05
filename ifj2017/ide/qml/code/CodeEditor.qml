@@ -49,7 +49,7 @@ Item {
         Text {
             color: "gray"
             text: component.placeHolderText
-            font.pixelSize: 20
+            font.pixelSize: Core.scaledSize(20)
 
             anchors.centerIn: parent
         }
@@ -91,10 +91,10 @@ Item {
                 id: textEdit
 
                 focus: true
-                font.pixelSize: 16
+                font.pixelSize: Core.scaledSize(17)
                 selectByMouse: true
 
-                leftPadding: 7
+                leftPadding: Core.scaledSize(7)
                 width: flick.width
                 height: flick.height
 

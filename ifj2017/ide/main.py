@@ -12,6 +12,7 @@ from PyQt5.QtCore import (QSize, QtFatalMsg, QtCriticalMsg, QtWarningMsg, QtInfo
 
 from ifj2017.ide.code_analyzer import CodeAnalyzer
 from ifj2017.ide.code.expression import ExpSyntaxHighlighter, ExpAnalyzer
+from ifj2017.ide.core.core import Core
 from ifj2017.ide.core.tree_view_model import TreeViewModel
 from ifj2017.ide.code.diff_code_analyzer import DiffCodeAnalyzer
 from ifj2017.ide.debugger_wrapper import DebuggerWrapper
@@ -67,8 +68,11 @@ qmlRegisterType(DebuggerWrapper, "Debugger", 1, 0, "Debugger")
 qmlRegisterType(IOWrapper, "IOWrapper", 1, 0, "IOWrapper")
 qmlRegisterType(FileIO, "FileIO", 1, 0, "FileIO")
 
+core = Core()
+
 engine = QQmlApplicationEngine()
 engine.rootContext().setContextProperty("rootDir", base_url.toString())
+engine.rootContext().setContextProperty("Core", core)
 engine.load(QUrl("qml/main.qml"))
 
 sys.exit(app.exec())
