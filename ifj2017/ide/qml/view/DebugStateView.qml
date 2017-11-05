@@ -20,7 +20,7 @@ SlideWidget {
         }
 
         itemDelegate: Item {
-           height: 22
+           height: Core.scaledSize(22)
 
            Text {
                anchors.verticalCenter: parent.verticalCenter
@@ -31,7 +31,7 @@ SlideWidget {
         TableViewColumn {
             role: "name_col"
             title: "Name"
-            width: 250
+            width: Core.scaledSize(250)
         }
         TableViewColumn {
             role: "value_col"

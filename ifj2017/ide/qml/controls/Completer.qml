@@ -21,7 +21,7 @@ DropDown {
     /// Text color of suggestions
     property color textColor
 
-    scrollbarWidth: 3
+    scrollbarWidth: Core.scaledSize(3)
     model: constantModel
 
     onModelChanged: {

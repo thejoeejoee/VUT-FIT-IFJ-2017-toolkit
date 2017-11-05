@@ -61,10 +61,10 @@ Rectangle {
                     width: parent.width
 
                     text: ""
-                    leftPadding: 7
+                    leftPadding: Core.scaledSize(7)
                     selectByMouse: true
                     readOnly: true
-                    font.pixelSize: 16
+                    font.pixelSize: Core.scaledSize(16)
 
                     onTextChanged: {
                         var lines = readonlyText.text.split("\n")
@@ -90,7 +90,7 @@ Rectangle {
                     width: parent.width
                     readOnly: true
 
-                    leftPadding: 7
+                    leftPadding: Core.scaledSize(7)
                     font: readonlyText.font
 
                     onAccepted: {

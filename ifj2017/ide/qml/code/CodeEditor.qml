@@ -137,7 +137,7 @@ Item {
     Rectangle {
         id: lineNumbers
 
-        width: 50
+        width: Core.scaledSize(50)
         height: parent.height
 
         Column {
@@ -155,7 +155,7 @@ Item {
                         text: modelData + 1
                         color: component.lineNumberColor
                         anchors.right: parent.right
-                        anchors.rightMargin: 20
+                        anchors.rightMargin: Core.scaledSize(20)
                     }
 
                     // diff mark
@@ -166,7 +166,7 @@ Item {
                         height: parent.height
 
                         anchors.left: text.right
-                        anchors.leftMargin: 4
+                        anchors.leftMargin: Core.scaledSize(4)
                     }
 
                     Rectangle {
@@ -225,7 +225,7 @@ Item {
 
         x: component.calcTextInfoPos(width)
         y: textEdit.cursorRectangle.y + textEdit.cursorRectangle.height + textEdit.y
-        itemHeight: 20
+        itemHeight: Core.scaledSize(20)
 
         opacity: 0.8
         color: StyleSettings.completer.color

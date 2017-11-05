@@ -97,7 +97,7 @@ ApplicationWindow {
     Rectangle {
         id: mainToolbar
 
-        width: 55
+        width: Core.scaledSize(55)
         height: parent.height
 
         color: "#2f2f2f"
@@ -153,7 +153,7 @@ ApplicationWindow {
         anchors.right: root.right
 
         handleDelegate: Rectangle {
-            height: 2
+            height: Core.scaledSize(2)
             color: "lightGray"
         }
 
@@ -164,14 +164,14 @@ ApplicationWindow {
             Layout.fillHeight: true
 
             handleDelegate: Rectangle {
-                width: 2
+                width: Core.scaledSize(2)
                 color: "lightGray"
             }
 
             CodeEditor {
                 id: codeEditor
 
-                width: 500
+                width: Core.scaledSize(500)
                 height: parent.height
                 Layout.fillWidth: true
 
@@ -189,8 +189,8 @@ ApplicationWindow {
                 breakpoints: ifjDebugger.breakpoints
                 currentLine: ifjDebugger.currentLine
 
-                completer.width: 200
-                completer.visibleItemCount: 6
+                completer.width: Core.scaledSize(200)
+                completer.visibleItemCount: Core.scaledSize(6)
 
                 onToggleBreakpointRequest: ifjDebugger.toggleBreakpoint(line)
                 onLinesAdded: ifjDebugger.handleAddedLines(lines)
@@ -200,7 +200,7 @@ ApplicationWindow {
             View.DebugStateView {
                 id: debugStateView
 
-                contentWidth: 500
+                contentWidth: Core.scaledSize(500)
                 height: parent.height
             }
         }
@@ -208,8 +208,8 @@ ApplicationWindow {
         Widgets.ConsoleWidget {
             id: consoleWidget
 
-            toolbarHeight: 25
-            height: 300
+            toolbarHeight: Core.scaledSize(25)
+            height: Core.scaledSize(300)
 
             onRunToNextLineRequest: ifjDebugger.runToNextLine()
             onRunToNextBreakPointRequest: ifjDebugger.runToNextBreakpoint()
