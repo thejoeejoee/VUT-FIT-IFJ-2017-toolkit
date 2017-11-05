@@ -247,6 +247,7 @@ Item {
     }
 
     function updateCompleterModel() {
+        CodeAnalyzer.code = component.code
         var textDocument = component.textComponent
         var lastChar = textDocument.text.slice(-1)
         var currentWord = exa.currentWord()

@@ -1,10 +1,7 @@
 # coding=utf-8
 import re
-
-from PyQt5.QtCore import QObject
-from PyQt5.QtCore import QVariant
-from PyQt5.QtCore import pyqtProperty
-from PyQt5.QtCore import pyqtSignal
+from typing import Optional
+from PyQt5.QtCore import QObject, QVariant, pyqtProperty, pyqtSignal
 from PyQt5.QtQml import QQmlEngine, QJSEngine
 
 from ifj2017.ide.settings import Expression, HIGHLIGHT_RULES, EXPRESSION_SPLITTERS, INSTRUCTIONS
@@ -12,13 +9,23 @@ from ifj2017.ide.settings import Expression, HIGHLIGHT_RULES, EXPRESSION_SPLITTE
 
 class CodeAnalyzer(QObject):
     _instance = None
-    completerModelChanged = pyqtSignal(QVariant)
+    completerModelChanged = pyqtSignal()
 
-    VARIABLE_RE = re.compile(r'^[GLT]F@[A-z_\-$&%*]$', re.IGNORECASE)
+    VARIABLE_RE = re.compile(r'[GLT]F@[A-Za-z0-9_\-\$&%\*]+', re.IGNORECASE)
 
-    @property
-    def code(self):
-        return ''
+    def __init__(self, parent: Optional[QObject] = None):
+        super().__init__(parent)
+
+        self._code = ''
+
+    @pyqtProperty(str)
+    def code(self) -> str:
+        return self._code
+
+    @code.setter
+    def code(self, v: str) -> None:
+        self._code = v
+        self.completerModelChanged.emit()
 
     @pyqtProperty(QVariant, notify=completerModelChanged)
     def completerModel(self) -> QVariant:
@@ -30,9 +37,9 @@ class CodeAnalyzer(QObject):
                 ) for func in INSTRUCTIONS
             ] + [
                 dict(
-                    identifier=match.group(0),
-                    type=Expression.ExpressionTypes.Instruction
-                ) for match in self.VARIABLE_RE.findall(self.code)
+                    identifier=match,
+                    type=Expression.ExpressionTypes.Variable
+                ) for match in sorted(set(self.VARIABLE_RE.findall(self._code)))
             ]
         )
 

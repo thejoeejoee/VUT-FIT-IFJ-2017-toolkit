@@ -15,7 +15,7 @@ QtObject {
 
         Component.onCompleted: {
             typeColors[0] = "#00bff2"
-            typeColors[1] = "#C1C0C0"
+            typeColors[1] = "#ffe20d"
         }
     }
 }
