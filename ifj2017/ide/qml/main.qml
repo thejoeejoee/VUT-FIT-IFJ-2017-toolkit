@@ -75,7 +75,7 @@ ApplicationWindow {
         onActivated: {
             if(root.state == "stopped")
                 runProgram()
-            else if(root.state == "runningDebug")
+            else if(root.state == "runningDebug" && consoleWidget.debugToolbarEnabled)
                 ifjDebugger.runToNextBreakpoint()
         }
     }
@@ -83,7 +83,7 @@ ApplicationWindow {
     Shortcut {
         sequence: "F6"
         onActivated: {
-            if(root.state == "runningDebug")
+            if(root.state == "runningDebug"  && consoleWidget.debugToolbarEnabled)
                 ifjDebugger.runToNextLine()
         }
     }
@@ -207,6 +207,12 @@ ApplicationWindow {
 
             onRunToNextLineRequest: ifjDebugger.runToNextLine()
             onRunToNextBreakPointRequest: ifjDebugger.runToNextBreakpoint()
+            onReadingChanged: {
+                if(root.state == "runningDebug" && reading)
+                    consoleWidget.debugToolbarEnabled = false
+                else if(root.state == "runningDebug" && !reading)
+                    consoleWidget.debugToolbarEnabled = true
+            }
         }
     }
 

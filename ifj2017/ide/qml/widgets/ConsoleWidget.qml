@@ -12,6 +12,7 @@ Item {
     property alias ioWrapper: consoleIOWrapper
     property alias toolbarHeight: debugToolbar.height
     property alias debugToolbarEnabled: debugToolbar.debugButtonsEnabled
+    readonly property alias reading: rawConsole.reading
 
     IOWrapper {
         id: consoleIOWrapper

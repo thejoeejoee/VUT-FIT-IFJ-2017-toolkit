@@ -5,6 +5,7 @@ Rectangle {
     id: component
 
     signal textReaded(string text)
+    property bool reading: false
 
     color: "transparent"
     clip: true
@@ -100,6 +101,7 @@ Rectangle {
                         editableText.text = ""
                         editableText.readOnly = true
                         editableText.focus = false
+                        component.reading = false
                     }
                 }
             }
@@ -112,6 +114,7 @@ Rectangle {
 
     function stopRead() {
         editableText.readOnly = true
+        component.reading = false
     }
 
     function read() {
@@ -120,6 +123,7 @@ Rectangle {
 
         editableText.forceActiveFocus()
         flick.scrollToEnd()
+        component.reading = true
         editableText.readOnly = false;
     }
 
