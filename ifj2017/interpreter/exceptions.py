@@ -23,7 +23,8 @@ class BaseInterpreterError(RuntimeError):
 
 
 class EmptyDataStackError(BaseInterpreterError):
-    pass
+    def __str__(self):
+        return 'Empty data stack.'
 
 
 class UndefinedVariableError(BaseInterpreterError):
@@ -31,20 +32,31 @@ class UndefinedVariableError(BaseInterpreterError):
         self.name = name
         self.frame = frame
 
+    def __str__(self):
+        return 'Undefined variable {}@{}.'.format(self.frame, self.name)
+
 
 class UndeclaredVariableError(BaseInterpreterError):
     def __init__(self, name, frame):
         self.name = name
         self.frame = frame
 
+    def __str__(self):
+        return 'Undeclared variable {}@{}.'.format(self.frame, self.name)
 
 class UnknownLabelError(BaseInterpreterError):
-    pass
+    def __init__(self, label_name):
+        self.label_name = label_name
+
+    def __str__(self):
+        return 'Unknown label.'
 
 
 class InvalidReturnError(BaseInterpreterError):
-    pass
+    def __str__(self):
+        return 'Invalid return.'
 
 
 class FrameError(BaseInterpreterError):
-    pass
+    def __str__(self):
+        return 'Frame error.'
