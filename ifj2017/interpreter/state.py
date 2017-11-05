@@ -106,7 +106,7 @@ class State(object):
     def jump(self, op):
         # type: (Operand) -> None
         if op.label not in self.labels:
-            raise UnknownLabelError()
+            raise UnknownLabelError(op.label)
 
         self.program_counter = self.labels.get(op.label)
 
