@@ -102,12 +102,15 @@ class State(object):
         self.program_counter = self.labels.get(op.label)
 
     def push_stack(self, op):
-        self.data_stack.append(self.get_value(op))
+        value = self.get_value(op)
+        logging.debug("Push {} to stack.".format(value))
+        self.data_stack.append(value)
         self.operand_price += InstructionPrices.OPERAND_STACK
 
     def pop_stack(self, op=None):
         # type: (Operand) -> object
         value = self.data_stack[-1]
+        logging.debug("Pop {} from stack.".format(value))
         if op:
             # for operand is set, without is only returned
             self.set_value(op, value)

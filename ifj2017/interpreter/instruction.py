@@ -29,6 +29,7 @@ def _operator_stack_command(operator_):
         # type: (State, Operand, Operand, Operand) -> None
         op2 = state.pop_stack()
         op1 = state.pop_stack()
+        logging.debug("Stack operation {} {} {}.".format(op1, operator_.__name__, op2))
         state.push_stack(operator_(op1, op2))
 
     return inner
@@ -75,8 +76,6 @@ class Instruction(object):
         'JUMPIFEQS': lambda state, op0: state.jump_if(op0, state.pop_stack(), state.pop_stack(), positive=True),
         'JUMPIFNEQS': lambda state, op0: state.jump_if(op0, state.pop_stack(), state.pop_stack(), positive=False),
 
-        # TODO: formats based on type
-        # magic with escaped chars: escaped \\n to real \n
         'WRITE': State.write,
 
         'PUSHS': State.push_stack,
@@ -130,7 +129,7 @@ class Instruction(object):
         'FLOAT2INT': lambda state, op0, op1: state.set_value(op1, int(state.get_value(op1))),
         'FLOAT2R2EINT': lambda state, op0, op1: state.set_value(
             op0,
-            math.ceil(state.get_value(op1) / 2.) * 2
+            round(state.get_value(op1) / 2.) * 2
         ),
         'FLOAT2R2OINT': lambda state, op0, op1: state.set_value(
             op0,
@@ -145,18 +144,17 @@ class Instruction(object):
         'INT2FLOATS': lambda state: state.push_stack(float(state.pop_stack())),
         'FLOAT2INTS': lambda state: state.push_stack(int(state.pop_stack())),
         'FLOAT2R2EINTS': lambda state: state.push_stack(
-            math.ceil(state.pop_stack() / 2.) * 2
+            round(state.pop_stack() / 2.) * 2
         ),
         'FLOAT2R2OINTS': lambda state: state.push_stack(
             round(state.pop_stack())  # TODO: odd round
         ),
         'INT2CHARS': lambda state: state.push_stack(chr(state.pop_stack())),
         'STRI2INTS': State.string_to_int_stack,
-
     }
 
     def run(self, state):
-        logging.info('Processing {}.'.format(self.name))
+        logging.info('Processing {} on {}.'.format(self.name, self.line_index))
         command = self._commands.get(self.name, _unknown_command)
         price = InstructionPrices.INSTRUCTIONS.get(self.name)
         command(state, *self.operands)  # fake instance argument
