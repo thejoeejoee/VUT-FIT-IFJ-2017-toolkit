@@ -59,81 +59,45 @@ Item {
         }
     }
 
-    ScrollView {
-        verticalScrollBarPolicy: Qt.ScrollBarAlwaysOn
+    TextArea {
+        id: textEdit
+
+        focus: true
+        font.pixelSize: Core.scaledSize(17)
+        selectByMouse: true
+        textMargin: Core.scaledSize(7)
+
         anchors.left: lineNumbers.right
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
 
-        Flickable {
-            id: flick
+        onLineCountChanged: {
+            internal.diffLines = diffCodeAnalyzer.compare(textEdit.text)
+            diffCodeAnalyzer.saveTempCode(textEdit.text)
+        }
 
-            clip: true
-            interactive: false
-
-            contentWidth: textEdit.paintedWidth
-            contentHeight: textEdit.paintedHeight
-            width: parent.width - lineNumbers.width
-            height: parent.height
-
-            function moveContentAccordingToCursor(cr) {
-                // vertical move
-                if(flick.contentY + flick.height < cr.y + cr.height)
-                    flick.contentY += cr.y + cr.height - flick.height - flick.contentY
-                else if(flick.contentY > cr.y)
-                    flick.contentY += cr.y - flick.contentY
-
-                // horizontal move
-                if(flick.contentX + flick.width < cr.x + cr.width)
-                    flick.contentX += cr.x - flick.width - flick.contentX
-                else if(flick.contentX > cr.x)
-                    flick.contentX += cr.x - flick.contentX
+        onTextChanged: {
+            updateCompleterModel()
+            internal.diffLines = diffCodeAnalyzer.compare(textEdit.text)
+            diffCodeAnalyzer.saveTempCode(textEdit.text)
+        }
+        onSelectedTextChanged: {
+            if(textComponent.selectedText.length) {
+                completer.model = completer.constantModel
+                completer.currentText = ""
             }
+        }
 
-            TextEdit {
-                id: textEdit
+        onCursorPositionChanged: updateCompleterModel()
 
-                focus: true
-                font.pixelSize: Core.scaledSize(17)
-                selectByMouse: true
-
-                leftPadding: Core.scaledSize(7)
-                width: flick.width
-                height: flick.height
-
-                onCursorRectangleChanged: {
-                    flick.moveContentAccordingToCursor(cursorRectangle)
-                }
-
-                onLineCountChanged: {
-                    internal.diffLines = diffCodeAnalyzer.compare(textEdit.text)
-                    diffCodeAnalyzer.saveTempCode(textEdit.text)
-                }
-
-                onTextChanged: {
-                    updateCompleterModel()
-                    internal.diffLines = diffCodeAnalyzer.compare(textEdit.text)
-                    diffCodeAnalyzer.saveTempCode(textEdit.text)
-                }
-                onSelectedTextChanged: {
-                    if(textComponent.selectedText.length) {
-                        completer.model = completer.constantModel
-                        completer.currentText = ""
-                    }
-                }
-
-                onCursorPositionChanged: updateCompleterModel()
-
-                Rectangle{
-                    id: currentLineMark
-                    width: parent.width
-                    height: flick.contentHeight / textEdit.lineCount
-                    y: (component.currentLine - 1) * height
-                    color: "red"
-                    opacity: 0.4
-                }
-            }
+        Rectangle{
+            id: currentLineMark
+            width: parent.width
+            height: textEdit.contentHeight / textEdit.lineCount
+            y: (component.currentLine - 1) * height
+            color: "red"
+            opacity: 0.4
         }
     }
 
@@ -145,12 +109,13 @@ Item {
         height: parent.height
 
         Column {
-            y: -flick.contentY
+            y: -textEdit.flickableItem.contentY
+
             Repeater {
                 model: textEdit.lineCount
                 delegate: Rectangle {
                     width: lineNumbers.width
-                    height: flick.contentHeight / textEdit.lineCount
+                    height: textEdit.contentHeight / textEdit.lineCount
                     color: "transparent"
 
                     Text {
