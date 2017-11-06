@@ -35,6 +35,10 @@ ApplicationWindow {
         ioWrapper: consoleWidget.ioWrapper
 
         onProgramEnded: stopProgram()
+        onProgramEndedWithError: {
+            consoleWidget.write(msg + "\n")
+            stopProgram()
+        }
     }
 
     FileDialog {

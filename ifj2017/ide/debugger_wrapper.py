@@ -1,9 +1,11 @@
 # coding=utf-8
 from operator import itemgetter
 from typing import Optional, Union
+from collections import Callable
 from PyQt5.QtCore import QObject, pyqtSlot, QVariant, pyqtProperty, pyqtSignal
 from PyQt5.QtQml import QJSValue
 
+from ifj2017.interpreter.exceptions import InvalidCodeException, BaseInterpreterError
 from ifj2017.ide.io_wrapper import IOWrapper
 from ifj2017.ide.core.tree_view_model import TreeViewModel
 from ifj2017.interpreter.debugger import Debugger
@@ -14,6 +16,7 @@ class DebuggerWrapper(QObject):
     breakpointsChanged = pyqtSignal(QVariant)
     currentLineChanged = pyqtSignal(int, arguments=["line"])
     programEnded = pyqtSignal()
+    programEndedWithError = pyqtSignal(str, arguments=["msg"])
 
     def __init__(self, parent: Optional[QObject] = None):
         super().__init__(parent)
@@ -93,14 +96,21 @@ class DebuggerWrapper(QObject):
 
     @pyqtSlot(str)
     def debug(self, code: str) -> None:
-        state = self._debugger.debug(code, self._debugger.breakpoints)
-        self._update_program_line(state)
-        self.set_model_data(state)
+        state, error = self.save_interpreter_command(self._debugger.debug, code, self._debugger.breakpoints)
+        if error:
+            self.programEndedWithError.emit(error)
+
+        elif not self._check_program_end(state):
+            self._update_program_line(state)
+            self.set_model_data(state)
 
     @pyqtSlot(str)
     def run(self, code: str) -> None:
-        self._debugger.run(code)
-        self.programEnded.emit()
+        _, error = self.save_interpreter_command(self._debugger.run, code)
+        if error:
+            self.programEndedWithError.emit(error)
+        else:
+            self.programEnded.emit()
 
     @pyqtProperty(QVariant, notify=breakpointsChanged)
     def breakpoints(self) -> QVariant:
@@ -112,21 +122,31 @@ class DebuggerWrapper(QObject):
 
     @pyqtSlot()
     def runToNextBreakpoint(self):
-        state = self._debugger.run_to_next_breakpoint()
-        if self._check_program_end(state):
-            return
+        state, error = self.save_interpreter_command(self._debugger.run_to_next_breakpoint)
+        if error:
+            self.programEndedWithError.emit(error)
 
-        self._update_program_line(state)
-        self.set_model_data(state)
+        elif not self._check_program_end(state):
+            self._update_program_line(state)
+            self.set_model_data(state)
 
     @pyqtSlot()
     def runToNextLine(self):
-        state = self._debugger.run_to_next_line()
-        if self._check_program_end(state):
-            return
+        state, error = self.save_interpreter_command(self._debugger.run_to_next_line)
+        if error:
+            self.programEndedWithError.emit(error)
 
-        self._update_program_line(state)
-        self.set_model_data(state)
+        elif not self._check_program_end(state):
+            self._update_program_line(state)
+            self.set_model_data(state)
+
+    def save_interpreter_command(self, command, *args, **kwargs):
+        try:
+            if isinstance(command, Callable):
+                return command(*args, **kwargs), None
+        except (InvalidCodeException, BaseInterpreterError) as e:
+            return None, str(e)
+        return None, None
 
     def set_model_data(self, state: State):
         self._model.clear()
