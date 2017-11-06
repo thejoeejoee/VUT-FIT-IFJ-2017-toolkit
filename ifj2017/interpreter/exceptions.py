@@ -24,7 +24,7 @@ class BaseInterpreterError(RuntimeError):
 
 class EmptyDataStackError(BaseInterpreterError):
     def __str__(self):
-        return 'Empty data stack.'
+        return 'Empty data stack error.'
 
 
 class UndefinedVariableError(BaseInterpreterError):
@@ -49,12 +49,12 @@ class UnknownLabelError(BaseInterpreterError):
         self.label_name = label_name
 
     def __str__(self):
-        return 'Unknown label.'
+        return 'Unknown label {} error.'.format(self.label_name)
 
 
 class InvalidReturnError(BaseInterpreterError):
     def __str__(self):
-        return 'Invalid return.'
+        return 'Invalid return error.'
 
 
 class FrameError(BaseInterpreterError):

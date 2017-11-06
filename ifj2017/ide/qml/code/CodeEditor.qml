@@ -39,19 +39,23 @@ Item {
     }
 
     Item {
-        anchors.fill: parent
+        z: 1
+        visible: opacity != 0
         opacity: textEdit.text == ""
+        anchors.fill: parent
 
         Behavior on opacity {
             NumberAnimation { duration: 150 }
         }
 
-        Text {
+        Label {
             color: "gray"
+            textFormat: Text.RichText;
             text: component.placeHolderText
             font.pixelSize: Core.scaledSize(20)
 
             anchors.centerIn: parent
+            onLinkActivated: Qt.openUrlExternally(link)
         }
     }
 

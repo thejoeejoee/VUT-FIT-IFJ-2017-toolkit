@@ -46,6 +46,8 @@ class Debugger(object):
 
         for state in self._debugger_iterator:
             self._state = state
+            if not self._active:
+                return None
 
             if self._interpreter.program_line(self._state) in self._breakpoints:
                 return self._state

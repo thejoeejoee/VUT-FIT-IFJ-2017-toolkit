@@ -34,7 +34,7 @@ ApplicationWindow {
         model: debugStateView.model
         ioWrapper: consoleWidget.ioWrapper
 
-        onProgramEnded: stopProgram()
+        onProgramEnded: if(root.state != "stopped") stopProgram()
         onProgramEndedWithError: {
             consoleWidget.write(msg, "#7a0000")
             stopProgram()
@@ -75,7 +75,7 @@ ApplicationWindow {
     }
 
     Shortcut {
-        sequence: "F12"
+        sequence: "Ctrl+Shift+S"
         onActivated: saveFileAs()
     }
 
@@ -166,6 +166,7 @@ ApplicationWindow {
 
             orientation: Qt.Horizontal
             Layout.fillHeight: true
+            Layout.minimumHeight: Core.scaledSize(100)
 
             handleDelegate: Rectangle {
                 width: Core.scaledSize(2)
@@ -178,17 +179,38 @@ ApplicationWindow {
                 width: Core.scaledSize(500)
                 height: parent.height
                 Layout.fillWidth: true
+                Layout.minimumWidth: Core.scaledSize(100)
 
-                placeHolderText: "<b>File</b><br>
-                                    - open file (Ctrl+O)<br>
-                                    - save file (Ctrl+S)<br>
-                                    - save file as (F12)<br>
-                                  <br><b>Run program</b><br>
-                                    - run program (F5)<br>
-                                    - debug run to next breakpoint (F5)<br>
-                                    - debug run to next line (F6)<br>
-                                  <br><b>Code</b><br>
-                                    - show completer (Ctrl + Space)"
+                placeHolderText: '
+<style>a{ color: #e6b400; }
+table {
+    width: 100%;
+}
+td {
+    width: 50%;
+    padding: 1em;
+}
+</style>
+<table>
+    <tr><td>
+        <b>File</b><br>
+            - open file (Ctrl+O)<br>
+            - save file (Ctrl+S)<br>
+            - save file as (F12)<br>
+        <br><b>Run program</b><br>
+            - run program (F5)<br>
+            - debug run to next breakpoint (F5)<br>
+            - debug run to next line (F6)<br>
+        <br><b>Code</b><br>
+            - show completer (Ctrl + Space)
+    </td><td>
+        <b>License</b> LGPL<br>
+        <b>Repository</b> - <a href="http://bit.ly/IFJ-toolkit">thejoeejoee@VUT-FIT-IFJ-toolkit</a><br>
+        <b>Authors</b><br>
+            - <a href="http://goo.gl/7eKD7G">Son Hai Nguyen</a>, xnguye16, <a href="http://goo.gl/j5KDWY">@SonyPony</a><br>
+            - <a href="http://goo.gl/thmHgr">Josef Kolář</a>, xkolar71, <a href="http://goo.gl/9b9pC9">@thejoeejoee</a><br><br>
+    </td></tr>
+</table>'
                 lineNumbersPanelColor: "#f2f2f2"
                 breakpoints: ifjDebugger.breakpoints
                 currentLine: ifjDebugger.currentLine
@@ -214,6 +236,7 @@ ApplicationWindow {
 
             toolbarHeight: Core.scaledSize(25)
             height: Core.scaledSize(300)
+            Layout.minimumHeight: Core.scaledSize(50)
 
             onRunToNextLineRequest: ifjDebugger.runToNextLine()
             onRunToNextBreakPointRequest: ifjDebugger.runToNextBreakpoint()
