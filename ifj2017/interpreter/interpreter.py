@@ -8,7 +8,6 @@ from .state import State
 class Interpreter(object):
     def __init__(self, code, state_kwargs=None):
         # type: (str) -> None
-        assert code.strip()
         self._code = code
 
         self._instructions = []
@@ -19,6 +18,9 @@ class Interpreter(object):
 
     def _load_code(self):
         started = False
+        if not self._code.strip():
+            raise InvalidCodeException("Empty code")
+
         # _start from 1, .IFJcode17 striped
         for i, line in enumerate(self._code.split('\n'), start=1):
             line = line.strip().split('#', 1)[0].strip()  # naive method to strip comment?
