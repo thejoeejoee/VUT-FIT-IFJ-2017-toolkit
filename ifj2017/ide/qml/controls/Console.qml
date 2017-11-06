@@ -1,5 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 1.4
+import FormattedTextWriter 1.0
 
 Rectangle {
     id: component
@@ -9,6 +10,11 @@ Rectangle {
 
     color: "transparent"
     clip: true
+
+    FormattedTextWriter {
+        id: formattedTextWriter
+        target: readonlyText
+    }
 
     ScrollView {
         anchors.left: parent.left
@@ -96,7 +102,7 @@ Rectangle {
                     onAccepted: {
                         if(editableText.readOnly)
                             return
-                        readonlyText.text += editableText.text + "\n"
+                        component.write(editableText.text + "\n")
                         component.textReaded(editableText.text)
                         editableText.text = ""
                         editableText.readOnly = true
@@ -127,7 +133,8 @@ Rectangle {
         editableText.readOnly = false;
     }
 
-    function write(text) {
-        readonlyText.text += text
+    function write(text, color) {
+        color = (color == undefined) ?readonlyText.color :color
+        formattedTextWriter.write(text, color)
     }
 }

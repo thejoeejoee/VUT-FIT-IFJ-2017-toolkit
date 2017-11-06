@@ -50,8 +50,8 @@ Item {
         rawConsole.clear()
     }
 
-    function write(text) {
-        rawConsole.write(text)
+    function write(text, color) {
+        rawConsole.write(text, color)
     }
 
     function read() {

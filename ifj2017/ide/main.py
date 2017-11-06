@@ -18,6 +18,7 @@ from ifj2017.ide.code.diff_code_analyzer import DiffCodeAnalyzer
 from ifj2017.ide.debugger_wrapper import DebuggerWrapper
 from ifj2017.ide.io_wrapper import IOWrapper
 from ifj2017.ide.core.file_io import FileIO
+from ifj2017.ide.core.formatted_text_writer import FormattedTextWriter
 
 try:
     from termcolor import colored
@@ -67,6 +68,7 @@ qmlRegisterType(TreeViewModel, "TreeViewModel", 1, 0, "TreeViewModel")
 qmlRegisterType(DebuggerWrapper, "Debugger", 1, 0, "Debugger")
 qmlRegisterType(IOWrapper, "IOWrapper", 1, 0, "IOWrapper")
 qmlRegisterType(FileIO, "FileIO", 1, 0, "FileIO")
+qmlRegisterType(FormattedTextWriter, "FormattedTextWriter", 1, 0, "FormattedTextWriter")
 
 core = Core()
 

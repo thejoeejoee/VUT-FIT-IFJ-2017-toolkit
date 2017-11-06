@@ -36,7 +36,7 @@ ApplicationWindow {
 
         onProgramEnded: stopProgram()
         onProgramEndedWithError: {
-            consoleWidget.write(msg + "\n")
+            consoleWidget.write(msg, "#7a0000")
             stopProgram()
         }
     }
@@ -233,7 +233,7 @@ ApplicationWindow {
         playDebugButton.enabled = false;
         consoleWidget.debugToolbarEnabled = false
         consoleWidget.clear()
-        consoleWidget.write("Program started...\n")
+        consoleWidget.write("Program started...\n", "#002d77")
         ifjDebugger.run(codeEditor.code)
     }
 
@@ -245,7 +245,7 @@ ApplicationWindow {
         consoleWidget.debugToolbarEnabled = true
         consoleWidget.clear()
         debugStateView.show()
-        consoleWidget.write("Debug started...\n")
+        consoleWidget.write("Debug started...\n", "#002d77")
         ifjDebugger.debug(codeEditor.code)
     }
 
@@ -259,7 +259,7 @@ ApplicationWindow {
         consoleWidget.stopRead()
         ifjDebugger.stop()
         // TODO exit codes
-        consoleWidget.write("\nProgram ended")
+        consoleWidget.write("\nProgram ended.", "#002d77")
     }
 
     function saveFileAs() {
