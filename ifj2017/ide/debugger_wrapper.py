@@ -129,8 +129,19 @@ class DebuggerWrapper(QObject):
         self.set_model_data(state)
 
     def set_model_data(self, state: State):
-        for var_name, var_value in sorted(state.frame("GF").items(), key=itemgetter(0)):
-            self._model.add_item("GF", str(var_name), str(var_value), type(var_value).__name__)
+        self._model.clear()
+
+        for frame in ["GF", "TF"]:
+            if state.frame(frame):
+                for var_name, var_value in sorted(state.frame(frame).items(), key=itemgetter(0)):
+                    self._model.set_item_data([frame], str(var_name), str(var_value), type(var_value).__name__)
+        if len(state.frame_stack):
+            for var_name, var_value in sorted(state.frame("LF").items(), key=itemgetter(0)):
+                self._model.set_item_data(["LF"], str(var_name), str(var_value), type(var_value).__name__)
+        # data stack
+        for i, value in enumerate(state.data_stack[::-1]):
+            self._model.set_item_data(["Data stack"], "[{index}]".format(index=i), str(value), type(var_value).__name__)
+
 
     @pyqtSlot()
     def stop(self):
