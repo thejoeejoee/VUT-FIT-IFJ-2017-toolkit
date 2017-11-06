@@ -1,5 +1,5 @@
 # coding=utf-8
-from typing import Dict, Union
+from typing import Dict, Union, List
 
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 from PyQt5.QtCore import Qt
@@ -17,11 +17,11 @@ class TreeViewModel(QStandardItemModel):
         parent_model.appendRow(item)
         return item
 
-    def _get_item(self, path, item_name):
+    def get_item(self, path: List[str], item_name: str):
         parents = [None]
 
-        for i, name in path + [item_name]:
-            parent_model = self if i is 0 else parents[-1]
+        for i, name in enumerate(path + [item_name]):
+            parent_model = self if i == 0 else parents[-1]
             items = self.findItems(name, Qt.MatchExactly | Qt.MatchRecursive)
             target_item = None
 
@@ -31,11 +31,21 @@ class TreeViewModel(QStandardItemModel):
                 for item in items: # check found items with corresponding parent
                     if item.parent() == parents[-1]:
                         target_item = item
-                    else:
-                        target_item = self._create_item(parent_model, name, {Qt.UserRole: "", Qt.UserRole + 1: ""})
+                if target_item is None:
+                    target_item = self._create_item(parent_model, name, {Qt.UserRole: "", Qt.UserRole + 1: ""})
 
             parents.append(target_item)
         return parents[-1]
+
+    def clear_sub_tree(self, path: List[str], item_name: str) -> None:
+        index = self.get_item(path, item_name).index()
+        self.removeRows(0, self.rowCount(index), index)
+
+    def remove_sub_tree(self, path: List[str], item_name: str) -> None:
+        index = self.get_item(path, item_name).index()
+        parent_index = index.parent()
+
+        self.removeRows(index.row(), 1, parent_index)
 
 
     def roleNames(self) -> Dict:
@@ -46,6 +56,6 @@ class TreeViewModel(QStandardItemModel):
         }
 
     def set_item_data(self, path, name, value, value_type) -> None:
-        item = self._get_item(path, name)
+        item = self.get_item(path, name)
         item.setData(value, Qt.UserRole)
         item.setData(value_type, Qt.UserRole + 1)

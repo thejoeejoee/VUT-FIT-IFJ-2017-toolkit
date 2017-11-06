@@ -8,38 +8,49 @@ SlideWidget {
     id: component
 
     property alias model: debugStateModel
+    property alias view: treeView
 
-    TreeView {
+    Item {
         width: component.width
         height: parent.height
-        model: debugStateModel
-        alternatingRowColors: false
 
         TreeViewModel {
             id: debugStateModel
+
+            Component.onCompleted: console.log(debugStateModel, "bar")
         }
 
-        itemDelegate: Item {
-           height: Core.scaledSize(22)
+        TreeView {
+            id: treeView
 
-           Text {
-               anchors.verticalCenter: parent.verticalCenter
-               text: styleData.value === undefined ? "" : styleData.value
+            anchors.fill: parent
+            model: debugStateModel
+            alternatingRowColors: false
+
+            itemDelegate: Item {
+               height: Core.scaledSize(22)
+
+               Text {
+                   anchors.verticalCenter: parent.verticalCenter
+                   text: styleData.value === undefined ? "" : styleData.value
+               }
            }
-       }
 
-        TableViewColumn {
-            role: "name_col"
-            title: "Name"
-            width: Core.scaledSize(250)
-        }
-        TableViewColumn {
-            role: "value_col"
-            title: "Value"
-        }
-        TableViewColumn {
-            role: "type_col"
-            title: "Type"
+            Component.onCompleted: console.log("view", treeView.model)
+
+            TableViewColumn {
+                role: "name_col"
+                title: "Name"
+                width: Core.scaledSize(250)
+            }
+            TableViewColumn {
+                role: "value_col"
+                title: "Value"
+            }
+            TableViewColumn {
+                role: "type_col"
+                title: "Type"
+            }
         }
     }
 }

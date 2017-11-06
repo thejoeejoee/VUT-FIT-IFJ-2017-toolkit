@@ -149,24 +149,38 @@ class DebuggerWrapper(QObject):
         return None, None
 
     def set_model_data(self, state: State):
-        self._model.clear()
-
+        # frames
         for frame in ["GF", "TF"]:
             if state.frame(frame):
+                self._model.clear_sub_tree([], frame)
                 for var_name, var_value in sorted(state.frame(frame).items(), key=itemgetter(0)):
                     self._model.set_item_data([frame], str(var_name), str(var_value), type(var_value).__name__)
         if len(state.frame_stack):
+            self._model.clear_sub_tree([], "LF")
             for var_name, var_value in sorted(state.frame("LF").items(), key=itemgetter(0)):
                 self._model.set_item_data(["LF"], str(var_name), str(var_value), type(var_value).__name__)
+
         # data stack
+        self._model.clear_sub_tree([], "Data stack")
         for i, value in enumerate(state.data_stack[::-1]):
-            self._model.set_item_data(["Data stack"], "[{index}]".format(index=i), str(value), type(var_value).__name__)
+            self._model.set_item_data(["Data stack"], "[{index}]".format(index=i), str(value), type(value).__name__)
+
+        # frames stack9
+        frame_stack_model_item_index = self._model.get_item([], "Frame stack").index()
+        for i, frame in enumerate(state.frame_stack[::-1]):
+            self._model.clear_sub_tree(["Frame stack"], "[{}]".format(i))
+            for var_name, var_value in sorted(frame.items(), key=itemgetter(0)):
+                self._model.set_item_data(["Frame stack", "[{index}]".format(index=i)], str(var_name), str(var_value), type(var_value).__name__)
+
+        for i in range(len(state.frame_stack), self._model.rowCount(frame_stack_model_item_index)):
+            self._model.remove_sub_tree(["Frame stack"], "[{}]".format(i))
+
 
 
     @pyqtSlot()
     def stop(self):
-        self._io_wrapper.unblockWaitSignal.emit()
         self._debugger.stop()
+        self._io_wrapper.unblockWaitSignal.emit()
         self._program_line = -1
         self._model.clear()
         self.currentLineChanged.emit(-1)
