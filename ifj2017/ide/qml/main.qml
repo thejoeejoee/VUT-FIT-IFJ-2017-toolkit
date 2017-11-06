@@ -196,7 +196,7 @@ td {
         <b>File</b><br>
             - open file (Ctrl+O)<br>
             - save file (Ctrl+S)<br>
-            - save file as (F12)<br>
+            - save file as (Ctrl+Shift+S)<br>
         <br><b>Run program</b><br>
             - run program (F5)<br>
             - debug run to next breakpoint (F5)<br>
