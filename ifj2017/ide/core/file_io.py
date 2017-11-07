@@ -17,6 +17,10 @@ class FileIO(QObject):
 
         self._source = ""
 
+    @staticmethod
+    def removeFilePrefix(path: str) -> str:
+        return path.replace(FILE_PREFIX[system()], "")
+
     @pyqtProperty(str, notify=sourceChanged)
     def source(self) -> str:
         return self._source
@@ -24,7 +28,7 @@ class FileIO(QObject):
     @source.setter
     def source(self, v: str) -> None:
         if self._source != v:
-            self._source = v.replace(FILE_PREFIX[system()], "")
+            self._source = FileIO.removeFilePrefix(v)
             self.sourceChanged.emit(str)
 
     @pyqtSlot(str)

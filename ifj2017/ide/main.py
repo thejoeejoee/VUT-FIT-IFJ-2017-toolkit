@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import (QSize, QtFatalMsg, QtCriticalMsg, QtWarningMsg, QtInfoMsg,
                           qInstallMessageHandler, QtDebugMsg)
 
+from ifj2017.ide.settings import ICON_SIZES
 from ifj2017.ide.code_analyzer import CodeAnalyzer
 from ifj2017.ide.code.expression import ExpSyntaxHighlighter, ExpAnalyzer
 from ifj2017.ide.core.core import Core
@@ -58,6 +59,12 @@ qInstallMessageHandler(qt_message_handler)
 app = QApplication(sys.argv)
 
 base_url = QUrl("file:///{}/".format(str(path.abspath(path.dirname(__file__))).replace('\\', '/')))
+
+icon = QIcon()
+for size in ICON_SIZES:
+    path = FileIO.removeFilePrefix(base_url.resolved(QUrl("assets/icons/{}x{}.png".format(size, size))).url())
+    icon.addFile(path, QSize(size, size))
+app.setWindowIcon(icon)
 
 qmlRegisterSingletonType(base_url.resolved(QUrl("assets/styles/UIStyles.qml")), "StyleSettings", 1, 0, "StyleSettings")
 qmlRegisterSingletonType(CodeAnalyzer, "CodeAnalyzer", 1, 0, "CodeAnalyzer", CodeAnalyzer.singletonProvider)
