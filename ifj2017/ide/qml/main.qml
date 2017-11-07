@@ -172,7 +172,7 @@ ApplicationWindow {
 
             handleDelegate: Rectangle {
                 width: Core.scaledSize(2)
-                color: "lightGray"
+                color: "#e5e5e5"
             }
 
             CodeEditor {
