@@ -65,9 +65,10 @@ Item {
         focus: true
         font.pixelSize: Core.scaledSize(17)
         selectByMouse: true
-        textMargin: Core.scaledSize(7)
         frameVisible: false
+        textMargin: 0
 
+        anchors.leftMargin: Core.scaledSize(7)
         anchors.left: lineNumbers.right
         anchors.right: parent.right
         anchors.top: parent.top
@@ -126,6 +127,8 @@ Item {
                         color: component.lineNumberColor
                         anchors.right: parent.right
                         anchors.rightMargin: Core.scaledSize(20)
+
+                        anchors.verticalCenter: parent.verticalCenter
                     }
 
                     // diff mark
