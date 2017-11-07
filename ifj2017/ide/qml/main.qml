@@ -207,8 +207,9 @@ td {
             - show completer (Ctrl + Space)
     </td><td>
         <b>License</b> LGPL<br>
-        <b>Repository</b> - <a href="http://bit.ly/IFJ-toolkit">thejoeejoee@VUT-FIT-IFJ-toolkit</a><br>
-        <b>Authors</b><br>
+        <br><b>Repository</b><br>
+             - <a href="http://bit.ly/IFJ-toolkit">thejoeejoee@VUT-FIT-IFJ-toolkit</a><br>
+        <br><b>Authors</b><br>
             - <a href="http://goo.gl/7eKD7G">Son Hai Nguyen</a>, xnguye16, <a href="http://goo.gl/j5KDWY">@SonyPony</a><br>
             - <a href="http://goo.gl/thmHgr">Josef Kolář</a>, xkolar71, <a href="http://goo.gl/9b9pC9">@thejoeejoee</a><br><br>
     </td></tr>
@@ -283,7 +284,6 @@ td {
         debugStateView.hide()
         consoleWidget.stopRead()
         ifjDebugger.stop()
-        // TODO exit codes
         consoleWidget.write("\nProgram ended.", "#002d77")
     }
 

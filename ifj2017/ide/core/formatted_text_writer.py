@@ -36,7 +36,7 @@ class FormattedTextWriter(QObject):
         self._cursor.removeSelectedText()
 
     @pyqtSlot(str, QColor)
-    def write(self, text, color):
+    def write(self, text: str, color: QColor) -> None:
         self._cursor.movePosition(QTextCursor.End)
         self._cursor.insertText(text, self._setupFormat(color))
 
