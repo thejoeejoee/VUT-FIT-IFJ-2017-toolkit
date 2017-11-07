@@ -25,6 +25,7 @@ Item {
     property color lineNumberColor: "gray"
     property int currentLine: -1
     property string placeHolderText: ""
+    property alias editorDisabled: textEdit.readOnly
 
     clip: true
 

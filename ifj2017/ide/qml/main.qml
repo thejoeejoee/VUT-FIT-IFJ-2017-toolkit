@@ -183,6 +183,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 Layout.minimumWidth: Core.scaledSize(100)
 
+                editorDisabled: root.state != "stopped"
                 placeHolderText: '
 <style>a{ color: #e6b400; }
 table {
