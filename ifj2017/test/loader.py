@@ -43,7 +43,7 @@ class TestLoader(object):
         )
 
     def _load_compact_tests(self, section_dir):
-        data = self._load_file(
+        data = self.load_file(
             path.join(section_dir, 'tests.json'),
             allow_fail=True
         )
@@ -96,7 +96,7 @@ class TestLoader(object):
             if name in already_loaded:
                 continue
             try:
-                code = self._load_file(code_file)
+                code = self.load_file(code_file)
                 info = TestInfo(
                     name,
                     code,
@@ -124,7 +124,7 @@ class TestLoader(object):
 
     def _load_test_file(self, section_dir, test_name, type_):
         return ((
-            self._load_file(
+            self.load_file(
                 path.join(
                     section_dir,
                     '.'.join((test_name, type_))
@@ -134,7 +134,7 @@ class TestLoader(object):
         ) or ''
 
     @staticmethod
-    def _load_file(file, allow_fail=False):
+    def load_file(file, allow_fail=False):
         assert allow_fail or (path.isfile(file) and os.access(file, os.R_OK))
         try:
             with open(file, 'rb') as f:

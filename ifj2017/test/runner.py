@@ -1,13 +1,12 @@
 # coding=utf-8
 import difflib
-import logging
 import os
 import os.path as path
 import platform
 import shutil
 from datetime import datetime
 from io import StringIO
-from os.path import basename
+from os.path import basename, abspath, isfile
 from subprocess import PIPE, Popen, TimeoutExpired
 from tempfile import mktemp
 
@@ -64,6 +63,7 @@ class TestRunner(object):
         'Linux': path.join(__PROJECT_ROOT__, 'bin/linux/ic17int'),
         'Windows': path.join(__PROJECT_ROOT__, 'bin/windows/ic17int.exe'),
     }
+    EXTENSION_FILE_NAME = 'rozsireni'
 
     def __init__(self, args):
         super(TestRunner, self).__init__()
@@ -82,7 +82,8 @@ class TestRunner(object):
             args.tests_dir,
             args.command_timeout
         )
-        self._extensions = self._load_extensions(args.extensions_file)
+        self._extensions_auto_loaded_from = False
+        self._extensions = self._try_load_extensions(args.extensions_file, args.compiler)
         if args.no_colors:
             TestLogger.disable_colors = args.no_colors
         TestLogger.verbose = args.verbose
@@ -334,22 +335,33 @@ class TestRunner(object):
             TestLogger.log(
                 TestLogger.GREEN,
                 TestLogger.BOLD,
-                "Activated {} extensions: {}.".format(
+                "Activated {} extensions: {}{}.".format(
                     len(self._extensions),
-                    ', '.join(sorted(self._extensions))
+                    ', '.join(sorted(self._extensions)),
+                    ' - autoloaded from {}'.format(self._extensions_auto_loaded_from)
+                    if self._extensions_auto_loaded_from else ''
                 ),
             )
 
-    @staticmethod
-    def _load_extensions(extensions_file):
+    def _try_load_extensions(self, extensions_file, compiler_path):
         if not extensions_file:
-            return set()
+            alt_paths = tuple(path_ for path_ in (
+                abspath(path.join(path.dirname(compiler_path), self.EXTENSION_FILE_NAME)),
+                abspath(path.join(path.dirname(compiler_path), '..', self.EXTENSION_FILE_NAME)),
+                abspath(path.join(path.dirname(compiler_path), '../..', self.EXTENSION_FILE_NAME)),
+            ) if isfile(path_) and os.access(path_, os.R_OK))
+            if not alt_paths:
+                return set()
+
+            extensions_file = alt_paths[0]
+            self._extensions_auto_loaded_from = extensions_file
+
         if not path.isfile(extensions_file):
             TestLogger.log_warning(
                 "File '{}' is not file or is not readable, assuming none of extensions.".format(extensions_file)
             )
             return set()
-        extensions = TestLoader._load_file(extensions_file, allow_fail=False)
+        extensions = TestLoader.load_file(extensions_file, allow_fail=False)
         return set(extensions.strip().split())
 
     def _stdout_log(self, stdout, interpreter_stdout):
