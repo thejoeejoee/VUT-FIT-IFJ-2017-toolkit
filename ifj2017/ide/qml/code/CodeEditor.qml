@@ -69,6 +69,7 @@ Item {
         selectByMouse: true
         frameVisible: false
         textMargin: 0
+        wrapMode: TextEdit.NoWrap
 
         anchors.leftMargin: Core.scaledSize(7)
         anchors.left: lineNumbers.right
