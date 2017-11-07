@@ -29,7 +29,7 @@ class FileIO(QObject):
     def source(self, v: str) -> None:
         if self._source != v:
             self._source = FileIO.removeFilePrefix(v)
-            self.sourceChanged.emit(str)
+            self.sourceChanged.emit(v)
 
     @pyqtSlot(str)
     def write(self, content: str) -> None:
