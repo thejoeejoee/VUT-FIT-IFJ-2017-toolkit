@@ -265,9 +265,10 @@ class TestRunner(object):
                     self._actual_section,
                     '.'.join((test_info.name, 'IFJcode17'))
                 ),
-                'w'
+                'wb'
         ) as f:
-            f.write(TEST_LOG_HEADER.format(
+            write = lambda v: f.write(bytes(v, encoding="utf-8"))
+            write(TEST_LOG_HEADER.format(
                 datetime.now(),
                 basename(test_info.section_dir),
                 test_info.name,
@@ -291,15 +292,15 @@ class TestRunner(object):
                     report.state.operand_price
                 ) if report.state else '---'
             ))
-            f.write(
+            write(
                 '\n'.join(
                     '# {: 3}: {}'.format(i, line) for i, line in enumerate(test_info.code.split('\n'), start=1)
                 )
             )
-            f.write('\n' * 2 + '#' * 40 + '\n' * 2)
+            write('\n' * 2 + '#' * 40 + '\n' * 2)
             lines = (report.compiler_stdout or '').split('\n')
             count = len(lines)
-            f.write('\n'.join(
+            write('\n'.join(
                 '{:80}# {:5}/{}'.format(line, i, count)
                 for i, line
                 in enumerate(lines, start=1)

@@ -5,11 +5,18 @@ import sys
 from operator import attrgetter
 
 
-def is_color_available():
+def disable_color():
     """
     Return True if the running system's terminal supports color,
     and False otherwise.
     """
+    # windows dark magic via https://stackoverflow.com/a/39675059
+    # noinspection PyBroadException
+    try:
+        os.system('')
+    except:
+        pass
+
     plat = sys.platform
     supported_platform = plat != 'Pocket PC' and (plat != 'win32' or 'ANSICON' in os.environ)
 
@@ -29,7 +36,7 @@ class TestLogger(object):
     UNDERLINE = '\033[4m'
     END = '\033[0m'
 
-    disable_colors = is_color_available()
+    disable_colors = disable_color()
     verbose = False
 
     _test_case_buffer = None
