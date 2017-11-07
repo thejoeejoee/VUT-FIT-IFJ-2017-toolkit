@@ -10,10 +10,11 @@ from .logger import TestLogger
 
 
 class TestLoader(object):
-    def __init__(self, tests_dir):
+    def __init__(self, tests_dir, default_timeout):
         assert path.isdir(tests_dir), "Given tests dir is valid filesystem folder."
 
         self._tests_dir = tests_dir
+        self._default_timeout = default_timeout
 
     def load_section_dirs(self):
         return sorted(
@@ -80,7 +81,8 @@ class TestLoader(object):
                         self._load_test_file(section_dir, name, 'info') or
                         self._get_code_info(code),
                         section_dir,
-                        set(tuple(test_case.get('extensions', ())) + extensions)
+                        set(tuple(test_case.get('extensions', ())) + extensions),
+                        test_case.get('timeout') or self._default_timeout
                     )
                 )
         except TypeError as e:
@@ -104,7 +106,8 @@ class TestLoader(object):
                     int(self._load_test_file(section_dir, name, 'iexitcode') or 0),
                     self._load_test_file(section_dir, name, 'info') or self._get_code_info(code) or '',
                     section_dir,
-                    set()
+                    set(),
+                    self._default_timeout
                 )
             except ValueError as e:
                 TestLogger.log_warning("Unable to load file {}: {}".format(code_file, e))

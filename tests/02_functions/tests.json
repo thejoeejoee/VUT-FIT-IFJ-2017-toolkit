@@ -68,6 +68,10 @@
     {
       "name": "23",
       "compiler_exit_code": 4
+    },
+    {
+      "name": "24",
+      "compiler_exit_code": 4
     }
   ]
 }

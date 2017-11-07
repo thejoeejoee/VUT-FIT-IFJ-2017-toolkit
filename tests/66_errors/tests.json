@@ -166,6 +166,10 @@
       "compiler_exit_code": 1
     },
     {
+      "name": "16",
+      "compiler_exit_code": 3
+    },
+    {
       "info": "wrong operand types",
       "compiler_exit_code": 4,
       "code": "scope \n print !\"foo\" + 6;\n end scope"

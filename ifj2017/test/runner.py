@@ -78,7 +78,10 @@ class TestRunner(object):
         self._interpreter_binary = args.interpreter
         self._command_timeout = args.command_timeout
         self._log_dir = args.log_dir
-        self._loader = TestLoader(args.tests_dir)
+        self._loader = TestLoader(
+            args.tests_dir,
+            args.command_timeout
+        )
         self._extensions = self._load_extensions(args.extensions_file)
         if args.no_colors:
             TestLogger.disable_colors = args.no_colors
@@ -147,7 +150,7 @@ class TestRunner(object):
             return
 
         try:
-            report.compiler_stdout, report.compiler_stderr, report.compiler_exit_code = self._compile(test_info.code)
+            report.compiler_stdout, report.compiler_stderr, report.compiler_exit_code = self._compile(test_info)
         except (TimeoutExpired, TimeoutError) as e:
             TestLogger.log_test_fail('COMPILER TIMEOUT')
             report.success = False
@@ -226,10 +229,11 @@ class TestRunner(object):
         report.success = True
         self._save_report(test_info, report)
 
-    def _compile(self, code):
+    def _compile(self, test_info):
+        # type: (TestInfo) -> tuple
         process = Popen([self._compiler_binary], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         try:
-            out, err = process.communicate(bytes(code, encoding='utf-8'), timeout=self._command_timeout)
+            out, err = process.communicate(bytes(test_info.code, encoding='utf-8'), timeout=test_info.timeout)
         except (TimeoutError, TimeoutExpired):
             process.kill()
             raise
@@ -243,7 +247,7 @@ class TestRunner(object):
         process = Popen([self._interpreter_binary, '-v', code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         try:
             out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'),
-                                           timeout=self._command_timeout)
+                                           timeout=test_info.timeout)
         except (TimeoutError, TimeoutExpired):
             process.kill()
             raise

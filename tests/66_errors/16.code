@@ -1,0 +1,13 @@
+' function declaration after definition
+
+function fce() as integer
+	return 0
+end function
+
+declare function fce() as integer
+
+scope
+	dim b as integer
+	b = fce()
+	print b;
+end scope

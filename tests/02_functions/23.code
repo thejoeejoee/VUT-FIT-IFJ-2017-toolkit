@@ -1,4 +1,4 @@
-' invalid types without supported implicit conversion
+' invalid types without supported implicit conversion I
 
 function get_integer(a as integer) as integer
 	return a
