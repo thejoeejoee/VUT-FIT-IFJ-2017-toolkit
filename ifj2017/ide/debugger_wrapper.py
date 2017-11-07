@@ -1,14 +1,15 @@
 # coding=utf-8
+from collections import Callable
 from operator import itemgetter
 from typing import Optional, Union
-from collections import Callable
+
 from PyQt5.QtCore import QObject, pyqtSlot, QVariant, pyqtProperty, pyqtSignal
 from PyQt5.QtQml import QJSValue
 
-from ifj2017.interpreter.exceptions import InvalidCodeException, BaseInterpreterError
-from ifj2017.ide.io_wrapper import IOWrapper
 from ifj2017.ide.core.tree_view_model import TreeViewModel
+from ifj2017.ide.io_wrapper import IOWrapper
 from ifj2017.interpreter.debugger import Debugger
+from ifj2017.interpreter.exceptions import InvalidCodeException, BaseInterpreterError
 from ifj2017.interpreter.state import State
 
 
@@ -169,12 +170,21 @@ class DebuggerWrapper(QObject):
         for i, frame in enumerate(state.frame_stack[::-1]):
             self._model.clear_sub_tree(["Frame stack"], "[{}]".format(i))
             for var_name, var_value in sorted(frame.items(), key=itemgetter(0)):
-                self._model.set_item_data(["Frame stack", "[{index}]".format(index=i)], str(var_name), str(var_value), type(var_value).__name__)
+                self._model.set_item_data(["Frame stack", "[{index}]".format(index=i)], str(var_name), str(var_value),
+                                          type(var_value).__name__)
 
         for i in range(len(state.frame_stack), self._model.rowCount(frame_stack_model_item_index)):
             self._model.remove_sub_tree(["Frame stack"], "[{}]".format(i))
 
-
+        self._model.set_item_data(
+            [],
+            "Price", '{} ({}+{})'.format(
+                state.instruction_price + state.operand_price,
+                state.instruction_price,
+                state.operand_price
+            ),
+            ''
+        )
 
     @pyqtSlot()
     def stop(self):
