@@ -10,7 +10,7 @@ FILE_PREFIX = defaultdict(lambda: "file://", **{
 })
 
 class FileIO(QObject):
-    sourceChanged = pyqtSignal()
+    sourceChanged = pyqtSignal(str, arguments=["source"])
 
     def __init__(self, parent: Optional[QObject]):
         super().__init__(parent)
@@ -25,7 +25,7 @@ class FileIO(QObject):
     def source(self, v: str) -> None:
         if self._source != v:
             self._source = v.replace(FILE_PREFIX[system()], "")
-            self.sourceChanged.emit()
+            self.sourceChanged.emit(str)
 
     @pyqtSlot(str)
     def write(self, content: str) -> None:

@@ -23,6 +23,9 @@ ApplicationWindow {
 
     Rectangle {
         id: root
+
+        property string fileActionType: ""
+
         state: "stopped"
         color: "white"
         anchors.fill: parent
@@ -46,22 +49,21 @@ ApplicationWindow {
 
         folder: shortcuts.documents
         selectMultiple: false
-        selectExisting: (fileIO.actionType != "save" && fileIO.actionType != "saveAs")
+        selectExisting: (root.fileActionType != "save" && root.fileActionType != "saveAs")
         nameFilters: [ "IFJ files (*.IFJcode17)", "All files (*)" ]
 
         onAccepted: {
             fileIO.source = fileDialog.fileUrl
-            if(fileIO.actionType == "open")
+            if(root.fileActionType == "open")
                 codeEditor.code = fileIO.read()
-            else if(fileIO.actionType == "save" || fileIO.actionType == "saveAs")
+            else if(root.fileActionType == "save" || root.fileActionType == "saveAs")
                 fileIO.write(codeEditor.code)
-            fileIO.actionType = ""
+            root.fileActionType = ""
         }
     }
 
     FileIO {
         id: fileIO
-        property string actionType: ""
     }
 
     Shortcut {
@@ -286,13 +288,13 @@ td {
     }
 
     function saveFileAs() {
-        fileIO.actionType = "saveAs"
+        root.fileActionType = "saveAs"
         fileDialog.visible = true
     }
 
     function saveFile() {
         if(fileIO.source == "") {
-            fileIO.actionType = "save"
+            root.fileActionType = "save"
             fileDialog.visible = true
         }
 
@@ -301,7 +303,7 @@ td {
     }
 
     function openFile() {
-        fileIO.actionType = "open"
+        root.fileActionType = "open"
         fileDialog.visible = true
     }
  }
