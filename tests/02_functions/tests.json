@@ -64,6 +64,10 @@
     {
       "name": "22",
       "stdout": " 10"
+    },
+    {
+      "name": "23",
+      "compiler_exit_code": 4
     }
   ]
 }
