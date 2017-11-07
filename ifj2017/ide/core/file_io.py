@@ -1,7 +1,13 @@
 # coding=utf-8
 from typing import Optional
+from platform import system
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtProperty, pyqtSlot
+from collections import defaultdict
 
+FILE_PREFIX = defaultdict(lambda: "file://", **{
+    "Windows": "file:///",
+    "Linux": "file://"
+})
 
 class FileIO(QObject):
     sourceChanged = pyqtSignal()
@@ -18,7 +24,7 @@ class FileIO(QObject):
     @source.setter
     def source(self, v: str) -> None:
         if self._source != v:
-            self._source = v.replace("file:///", "")
+            self._source = v.replace(FILE_PREFIX[system()], "")
             self.sourceChanged.emit()
 
     @pyqtSlot(str)
