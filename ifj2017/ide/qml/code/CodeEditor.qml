@@ -65,6 +65,7 @@ Item {
 
         focus: true
         font.pixelSize: Core.scaledSize(17)
+        font.family: "Source Code Pro Medium"
         selectByMouse: true
         frameVisible: false
         textMargin: 0

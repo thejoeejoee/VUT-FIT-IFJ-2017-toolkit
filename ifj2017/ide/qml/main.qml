@@ -44,6 +44,10 @@ ApplicationWindow {
         }
     }
 
+    FontLoader {
+        source: rootDir + "assets/fonts/SourceCodePro-Medium.otf"
+    }
+
     FileDialog {
         id: fileDialog
 
