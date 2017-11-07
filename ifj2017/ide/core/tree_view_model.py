@@ -9,7 +9,6 @@ class TreeViewModel(QStandardItemModel):
     def __init__(self, parent = None):
         super().__init__(parent)
 
-
     def _create_item(self, parent_model: Union[QStandardItem, QStandardItemModel], name: str, data: Dict) -> QStandardItem:
         item = QStandardItem(name)
         for user_role, row_data in data.items():
