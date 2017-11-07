@@ -97,7 +97,7 @@ Item {
             id: currentLineMark
             width: parent.width
             height: textEdit.contentHeight / textEdit.lineCount
-            y: (component.currentLine - 1) * height
+            y: (component.currentLine - 1) * height -textEdit.flickableItem.contentY
             color: "red"
             opacity: 0.4
         }
@@ -107,7 +107,7 @@ Item {
     Rectangle {
         id: lineNumbers
 
-        width: Core.scaledSize(50)
+        width: Core.scaledSize(55)
         height: parent.height
 
         Column {
@@ -126,7 +126,7 @@ Item {
                         text: modelData + 1
                         color: component.lineNumberColor
                         anchors.right: parent.right
-                        anchors.rightMargin: Core.scaledSize(20)
+                        anchors.rightMargin: Core.scaledSize(10)
 
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -150,6 +150,10 @@ Item {
                         height: parent.height * 0.7
                         radius: height
                         visible: (component.breakpoints.indexOf(modelData + 1) != -1)
+
+                        anchors.right: text.left
+                        anchors.rightMargin: Core.scaledSize(4)
+                        anchors.verticalCenter: parent.verticalCenter
                     }
 
                     MouseArea {
