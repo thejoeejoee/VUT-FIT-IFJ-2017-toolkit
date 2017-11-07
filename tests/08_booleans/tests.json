@@ -17,5 +17,5 @@
       "stdout": " 1"
     }
   ],
-  "extensions": ["FUNEXP"]
+  "extensions": ["BOOLOP"]
 }

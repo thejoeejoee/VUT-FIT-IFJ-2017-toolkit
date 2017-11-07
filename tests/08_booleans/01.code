@@ -6,12 +6,12 @@ scope
 		print 1;
 	else
 		print 0;
-	end if;
+	end if
 
 	a = faLsE
 	if not a then
 		print 1;
 	else
 		print 0;
-	end if;
+	end if
 end scope

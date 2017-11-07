@@ -1,0 +1,15 @@
+' functions with funexp and unary
+
+function fce1(a as integer) as integer
+	return -a
+end function
+
+function fce2(a as integer, b as double) as double
+	return -a * fce1(---a*-3) / -b
+end function
+
+scope
+	dim b as integer
+	b = fce2(-7.12e1, -(-fce2(2, 9) + -2))
+	print b;
+end scope

@@ -1,0 +1,11 @@
+' functions with unary minus
+
+function fce(a as integer) 
+	return -a
+end function
+
+scope
+	dim b as integer
+	b = fce(42)
+	print b;
+end scope

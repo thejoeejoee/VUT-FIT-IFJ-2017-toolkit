@@ -1,0 +1,54 @@
+{
+  "tests": [
+    {
+      "code": "scope\n print -5;\n end scope",
+      "stdout": "-5"
+    },
+    {
+      "code": "scope\n print -5.7854e20;\n end scope",
+      "stdout": "-5.7854e+20"
+    },
+    {
+      "code": "scope\n print 5 + -5;\n end scope",
+      "stdout": " 0"
+    },
+    {
+      "code": "scope\n print -(2 * 2);\n end scope",
+      "stdout": "-4"
+    },
+    {
+      "code": "scope\n print -(-(3 * 8));\n end scope",
+      "stdout": " 24"
+    },
+    {
+      "code": "scope\n print --(3 * 12);\n end scope",
+      "stdout": " 36"
+    },
+    {
+      "code": "scope\n print -0-----(2 * 15)*2;\n end scope",
+      "stdout": "-60"
+    },
+    {
+      "code": "scope\n dim a as integer = -42\n print -a;\n end scope",
+      "stdout": " 42"
+    },
+    {
+      "name": "01",
+      "stdout": " 2 8 4 2 4"
+    },
+    {
+      "name": "02",
+      "stdout": "-42"
+    },
+    {
+      "name": "03",
+      "extensions": [
+        "FUNEXP"
+      ],
+      "stdout": "-22684"
+    }
+  ],
+  "extensions": [
+    "UNARY"
+  ]
+}
