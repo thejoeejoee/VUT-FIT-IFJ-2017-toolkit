@@ -66,6 +66,7 @@ Item {
         font.pixelSize: Core.scaledSize(17)
         selectByMouse: true
         textMargin: Core.scaledSize(7)
+        frameVisible: false
 
         anchors.left: lineNumbers.right
         anchors.right: parent.right

@@ -16,106 +16,58 @@ Rectangle {
         target: readonlyText
     }
 
-    ScrollView {
+    TextArea {
+        id: readonlyText
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
+        textMargin: 0
+        anchors.leftMargin: Core.scaledSize(7)
 
-        verticalScrollBarPolicy: Qt.ScrollBarAlwaysOn
+        text: ""
+        selectByMouse: true
+        readOnly: true
+        font.pixelSize: Core.scaledSize(16)
+        frameVisible: false
 
-        Flickable {
-            id: flick
+        onTextChanged: {
+            var lines = readonlyText.text.split("\n")
+            var lastLine = lines[lines.length - 1]
+            editableText.x = fm.advanceWidth(lastLine) + readonlyText.anchors.leftMargin
+        }
 
-            clip: true
-            interactive: false
+        FontMetrics {
+            id: fm
+            font: readonlyText.font
+        }
+    }
 
-            contentWidth: readonlyText.contentWidth
-            contentHeight: readonlyText.contentHeight + editableText.contentHeight
-            width: parent.width
-            height: parent.height
+    TextInput {
+        id: editableText
 
-            onContentHeightChanged: flick.scrollToEnd()
+        y: readonlyText.y + ((readonlyText.text)
+                             ?readonlyText.contentHeight - contentHeight :0)
 
-            function scrollToEnd() {
-                if(flick.contentHeight > flick.height) {
-                    flick.contentY = flick.contentHeight - flick.height
-                }
-            }
+        width: parent.width
+        readOnly: true
+        font: readonlyText.font
 
-            function moveContentAccordingToCursor(cr) {
-                // vertical move
-                if(flick.contentY + flick.height < cr.y + cr.height)
-                    flick.contentY += cr.y + cr.height - flick.height - flick.contentY
-                else if(flick.contentY > cr.y)
-                    flick.contentY += cr.y - flick.contentY
-
-                // horizontal move
-                if(flick.contentX + flick.width < cr.x + cr.width)
-                    flick.contentX += cr.x - flick.width - flick.contentX
-                else if(flick.contentX > cr.x)
-                    flick.contentX += cr.x - flick.contentX
-            }
-
-            Item {
-                width: flick.width
-
-                TextEdit {
-                    id: readonlyText
-
-                    height: contentHeight
-                    width: parent.width
-
-                    text: ""
-                    leftPadding: Core.scaledSize(7)
-                    selectByMouse: true
-                    readOnly: true
-                    font.pixelSize: Core.scaledSize(16)
-
-                    onTextChanged: {
-                        var lines = readonlyText.text.split("\n")
-                        var lastLine = lines[lines.length - 1]
-                        editableText.x = fm.advanceWidth(lastLine) + readonlyText.leftPadding
-                    }
-
-                    onCursorRectangleChanged: {
-                        flick.moveContentAccordingToCursor(cursorRectangle)
-                    }
-
-                    FontMetrics {
-                        id: fm
-                        font: readonlyText.font
-                    }
-                }
-
-                TextInput {
-                    id: editableText
-
-                    y: readonlyText.y + ((readonlyText.text)
-                                         ?readonlyText.contentHeight - contentHeight :0)
-                    width: parent.width
-                    readOnly: true
-
-                    leftPadding: Core.scaledSize(7)
-                    font: readonlyText.font
-
-                    onAccepted: {
-                        if(editableText.readOnly)
-                            return
-                        component.write(editableText.text + "\n")
-                        component.textReaded(editableText.text)
-                        editableText.text = ""
-                        editableText.readOnly = true
-                        editableText.focus = false
-                        component.reading = false
-                    }
-                }
-            }
+        onAccepted: {
+            if(editableText.readOnly)
+                return
+            component.write(editableText.text + "\n")
+            component.textReaded(editableText.text)
+            editableText.text = ""
+            editableText.readOnly = true
+            editableText.focus = false
+            component.reading = false
         }
     }
 
     function clear() {
-        readonlyText.clear()
+        readonlyText.text = ""
     }
 
     function stopRead() {
@@ -128,7 +80,7 @@ Rectangle {
         var lastLine = lines[lines.length - 1]
 
         editableText.forceActiveFocus()
-        flick.scrollToEnd()
+//        flick.scrollToEnd()
         component.reading = true
         editableText.readOnly = false;
     }
