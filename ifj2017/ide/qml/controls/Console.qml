@@ -67,7 +67,7 @@ Rectangle {
     }
 
     function clear() {
-        readonlyText.text = ""
+        formattedTextWriter.clear()
     }
 
     function stopRead() {

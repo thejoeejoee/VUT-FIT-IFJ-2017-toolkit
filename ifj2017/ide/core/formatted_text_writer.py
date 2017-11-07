@@ -18,6 +18,7 @@ class FormattedTextWriter(QObject):
 
         self._target = None
         self._document = None
+        self._cursor = None
         self.targetChanged.connect(self._setupNewDocument)
 
     def _setupFormat(self, color: QColor) -> QTextCharFormat:
@@ -29,11 +30,15 @@ class FormattedTextWriter(QObject):
 
         return pattern_format
 
+    @pyqtSlot()
+    def clear(self) -> None:
+        self._cursor.select(QTextCursor.Document)
+        self._cursor.removeSelectedText()
+
     @pyqtSlot(str, QColor)
     def write(self, text, color):
-        cursor = QTextCursor(self._target.property("textDocument").textDocument())
-        cursor.movePosition(QTextCursor.End)
-        cursor.insertText(text, self._setupFormat(color))
+        self._cursor.movePosition(QTextCursor.End)
+        self._cursor.insertText(text, self._setupFormat(color))
 
     @pyqtSlot(QQuickItem)
     def _setupNewDocument(self, target: QQuickItem) -> None:
@@ -43,6 +48,7 @@ class FormattedTextWriter(QObject):
         """
 
         self._document = target.property("textDocument").textDocument()
+        self._cursor = QTextCursor(self._target.property("textDocument").textDocument())
 
     @pyqtProperty(QQuickItem)
     def target(self) -> QQuickItem:
