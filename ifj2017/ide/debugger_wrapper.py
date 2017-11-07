@@ -59,7 +59,6 @@ class DebuggerWrapper(QObject):
     @model.setter
     def model(self, v: TreeViewModel) -> None:
         self._model = v
-        print(self._model)
 
     @pyqtSlot(QJSValue)
     def handleRemovedLines(self, lines: QJSValue) -> None:

@@ -16,8 +16,6 @@ SlideWidget {
 
         TreeViewModel {
             id: debugStateModel
-
-            Component.onCompleted: console.log(debugStateModel, "bar")
         }
 
         TreeView {
@@ -35,8 +33,6 @@ SlideWidget {
                    text: styleData.value === undefined ? "" : styleData.value
                }
            }
-
-            Component.onCompleted: console.log("view", treeView.model)
 
             TableViewColumn {
                 role: "name_col"
