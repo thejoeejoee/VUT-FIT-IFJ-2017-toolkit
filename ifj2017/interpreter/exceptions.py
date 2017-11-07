@@ -19,7 +19,14 @@ class InvalidCodeException(ValueError):
 
 
 class BaseInterpreterError(RuntimeError):
-    pass
+    msg = None
+
+    def __init__(self, msg=None):
+        super().__init__()
+        self.msg = msg
+
+    def __str__(self):
+        return self.msg or 'Interpreter error.'
 
 
 class EmptyDataStackError(BaseInterpreterError):
@@ -44,12 +51,13 @@ class UndeclaredVariableError(BaseInterpreterError):
     def __str__(self):
         return 'Undeclared variable {}@{}.'.format(self.frame, self.name)
 
+
 class UnknownLabelError(BaseInterpreterError):
     def __init__(self, label_name):
         self.label_name = label_name
 
     def __str__(self):
-        return 'Unknown label {} error.'.format(self.label_name)
+        return 'Unknown label {}.'.format(self.label_name)
 
 
 class InvalidReturnError(BaseInterpreterError):

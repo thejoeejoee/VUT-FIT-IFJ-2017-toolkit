@@ -33,7 +33,7 @@ class State(object):
     @property
     def local_frame(self):
         if not self.frame_stack:
-            raise FrameError()
+            raise FrameError('Access to non existing local frame.')
         return self.frame_stack[-1]
 
     def frame(self, frame):
@@ -48,14 +48,14 @@ class State(object):
 
     def push_frame(self):
         if self.temp_frame is None:
-            raise FrameError()
+            raise FrameError('Temp frame to push is undefined.')
 
         self.frame_stack.append(self.temp_frame.copy())
         self.temp_frame = None
 
     def pop_frame(self):
         if not self.frame_stack:
-            raise FrameError()
+            raise FrameError('Non-existing frame to pop.')
         self.temp_frame = self.frame_stack[-1]
         self.frame_stack = self.frame_stack[:-1]
 
@@ -81,6 +81,8 @@ class State(object):
     def set_value(self, to, what):
         # type: (Operand, Operand|object) -> None
         frame = self.frame(to.frame)
+        if frame is None:
+            raise FrameError('Non existing frame {}'.format(to.frame))
         if to.name not in frame and what is not None:  # declared or declaration
             raise UndeclaredVariableError(to.name, to.frame)
         frame[to.name] = self.get_value(what)
