@@ -4,17 +4,14 @@ from .exceptions import InterpreterStopException, InvalidCodeException
 from .instruction import Instruction
 from .state import State
 
-
 class Interpreter(object):
     def __init__(self, code, state_kwargs=None):
         # type: (str) -> None
         self._code = code
-
         self._instructions = []
-
         self._load_code()
-
         self._state_kwargs = state_kwargs
+        self._active = True
 
     def _load_code(self):
         started = False
@@ -52,7 +49,8 @@ class Interpreter(object):
 
     def run(self):
         state, program_length = self._prepare_state()
-        while state.program_counter < program_length:
+
+        while state.program_counter < program_length and self._active:
             program_counter = state.program_counter
             instruction = self._instructions[state.program_counter]  # type: Instruction
             try:
@@ -67,7 +65,7 @@ class Interpreter(object):
 
     def debug(self):
         state, program_length = self._prepare_state()
-        while state.program_counter < program_length:
+        while state.program_counter < program_length  and self._active:
             yield state  # can be modified
             program_counter = state.program_counter
             instruction = self._instructions[state.program_counter]  # type: Instruction

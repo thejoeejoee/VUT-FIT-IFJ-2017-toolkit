@@ -4,7 +4,10 @@ from operator import itemgetter
 from typing import Optional, Union
 
 from PyQt5.QtCore import QObject, pyqtSlot, QVariant, pyqtProperty, pyqtSignal
+from PyQt5.QtCore import QThread
 from PyQt5.QtQml import QJSValue
+
+from enum import IntEnum
 
 from ifj2017.ide.core.tree_view_model import TreeViewModel
 from ifj2017.ide.io_wrapper import IOWrapper
@@ -12,6 +15,80 @@ from ifj2017.interpreter.debugger import Debugger
 from ifj2017.interpreter.exceptions import InvalidCodeException, BaseInterpreterError
 from ifj2017.interpreter.state import State
 
+class DebuggerWorker(QThread):
+    class CommandType(IntEnum):
+        RUN = 1
+        DEBUG_RUN = 2
+        DEBUG_NEXT_LINE = 3
+        DEBUG_NEXT_BREAKPOINT = 4
+
+    programEnded = pyqtSignal()
+    stateChanged = pyqtSignal(State, arguments=["state"])
+    programEndedWithError = pyqtSignal(str, arguments=["msg"])
+    currentLineChanged = pyqtSignal(int, arguments=["line"])
+
+    def __init__(self, debugger, parent: Optional[QObject] = None):
+        super().__init__(parent)
+
+        self._debugger = debugger
+        self.code = ""
+        self.command_type = DebuggerWorker.CommandType.RUN
+
+        self._commands = {
+            DebuggerWorker.CommandType.RUN: self._run,
+            DebuggerWorker.CommandType.DEBUG_RUN: self._debug_run,
+            DebuggerWorker.CommandType.DEBUG_NEXT_LINE: self._debug_next_line,
+            DebuggerWorker.CommandType.DEBUG_NEXT_BREAKPOINT: self._debug_next_breakpoint
+        }
+
+    def save_interpreter_command(self, command, *args, **kwargs):
+        try:
+            if isinstance(command, Callable):
+                return command(*args, **kwargs), None
+        except (InvalidCodeException, BaseInterpreterError) as e:
+            return None, str(e)
+        return None, None
+
+    def _update_program_line(self, state: State) -> None:
+        if self._debugger._interpreter and state:
+            self.currentLineChanged.emit(self._debugger._interpreter.program_line(state))
+        else:
+            self.currentLineChanged.emit(-1)
+
+    def _run_debug_command(self, command, *args, **kwargs):
+        state, error = self.save_interpreter_command(command, *args, **kwargs)
+        self._update_program_line(state)
+        if error:
+            self.programEndedWithError.emit(error)
+
+        elif not self._check_program_end(state):
+            self.stateChanged.emit(state)
+
+    def _debug_next_line(self):
+        self._run_debug_command(self._debugger.run_to_next_line)
+
+    def _debug_next_breakpoint(self):
+        self._run_debug_command(self._debugger.run_to_next_breakpoint)
+
+    def _debug_run(self):
+        self._run_debug_command(self._debugger.debug, self.code, self._debugger.breakpoints)
+
+    def _run(self):
+        _, error = self.save_interpreter_command(self._debugger.run, self.code)
+        if error:
+            self.programEndedWithError.emit(error)
+        else:
+            self.programEnded.emit()
+
+    def run(self):
+        command = self._commands.get(self.command_type, None)
+        if command:
+            command()
+
+    def _check_program_end(self, state: Union[State, None]) -> bool:
+        if state is None:
+            self.programEnded.emit()
+        return state is None
 
 class DebuggerWrapper(QObject):
     breakpointsChanged = pyqtSignal(QVariant)
@@ -27,17 +104,14 @@ class DebuggerWrapper(QObject):
         self._io_wrapper = None
         self._program_line = -1
 
-    def _check_program_end(self, state: Union[State, None]) -> bool:
-        if state is None:
-            self.programEnded.emit()
-        return state is None
+        self._init_debug_worker()
 
-    def _update_program_line(self, state: State) -> None:
-        if self._debugger._interpreter:
-            self._program_line = self._debugger._interpreter.program_line(state)
-        else:
-            self._program_line = -1
-        self.currentLineChanged.emit(self._program_line)
+    def _init_debug_worker(self):
+        self._debugger_worker = DebuggerWorker(self._debugger, self)
+        self._debugger_worker.programEnded.connect(self.programEnded)
+        self._debugger_worker.programEndedWithError.connect(self.programEndedWithError)
+        self._debugger_worker.currentLineChanged.connect(self._update_program_line)
+        self._debugger_worker.stateChanged.connect(self._set_model_data)
 
     @pyqtProperty(IOWrapper)
     def ioWrapper(self) -> IOWrapper:
@@ -74,6 +148,11 @@ class DebuggerWrapper(QObject):
         self._debugger.breakpoints = breakpoints
         self.breakpointsChanged.emit(self.breakpoints)
 
+    @pyqtSlot(int)
+    def _update_program_line(self, v: int) -> None:
+        self._program_line = v
+        self.currentLineChanged.emit(v)
+
     @pyqtSlot(QJSValue)
     def handleAddedLines(self, lines: QJSValue) -> None:
         lines = lines.toVariant()
@@ -96,21 +175,15 @@ class DebuggerWrapper(QObject):
 
     @pyqtSlot(str)
     def debug(self, code: str) -> None:
-        state, error = self.save_interpreter_command(self._debugger.debug, code, self._debugger.breakpoints)
-        if error:
-            self.programEndedWithError.emit(error)
-
-        elif not self._check_program_end(state):
-            self._update_program_line(state)
-            self.set_model_data(state)
+        self._debugger_worker.command_type = DebuggerWorker.CommandType.DEBUG_RUN
+        self._debugger_worker.code = code
+        self._debugger_worker.start()
 
     @pyqtSlot(str)
     def run(self, code: str) -> None:
-        _, error = self.save_interpreter_command(self._debugger.run, code)
-        if error:
-            self.programEndedWithError.emit(error)
-        else:
-            self.programEnded.emit()
+        self._debugger_worker.command_type = DebuggerWorker.CommandType.RUN
+        self._debugger_worker.code = code
+        self._debugger_worker.start()
 
     @pyqtProperty(QVariant, notify=breakpointsChanged)
     def breakpoints(self) -> QVariant:
@@ -122,23 +195,13 @@ class DebuggerWrapper(QObject):
 
     @pyqtSlot()
     def runToNextBreakpoint(self):
-        state, error = self.save_interpreter_command(self._debugger.run_to_next_breakpoint)
-        if error:
-            self.programEndedWithError.emit(error)
-
-        elif not self._check_program_end(state):
-            self._update_program_line(state)
-            self.set_model_data(state)
+        self._debugger_worker.command_type = DebuggerWorker.CommandType.DEBUG_NEXT_BREAKPOINT
+        self._debugger_worker.start()
 
     @pyqtSlot()
     def runToNextLine(self):
-        state, error = self.save_interpreter_command(self._debugger.run_to_next_line)
-        if error:
-            self.programEndedWithError.emit(error)
-
-        elif not self._check_program_end(state):
-            self._update_program_line(state)
-            self.set_model_data(state)
+        self._debugger_worker.command_type = DebuggerWorker.CommandType.DEBUG_NEXT_LINE
+        self._debugger_worker.start()
 
     def save_interpreter_command(self, command, *args, **kwargs):
         try:
@@ -148,7 +211,7 @@ class DebuggerWrapper(QObject):
             return None, str(e)
         return None, None
 
-    def set_model_data(self, state: State):
+    def _set_model_data(self, state: State):
         # frames
         for frame in ("GF", "TF"):
             if state.frame(frame):

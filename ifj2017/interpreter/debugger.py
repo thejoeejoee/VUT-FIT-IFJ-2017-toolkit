@@ -38,7 +38,8 @@ class Debugger(object):
 
     def stop(self):
         self._active = False
-        self._interpreter = self._state = self._debugger_iterator = None
+        self._state = self._debugger_iterator = None
+        self._interpreter._active = False
 
     def run_to_next_breakpoint(self):
         if not self._active:
