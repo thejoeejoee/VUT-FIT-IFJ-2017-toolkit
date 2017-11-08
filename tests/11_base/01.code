@@ -1,0 +1,6 @@
+'Binary integer
+scope
+	dim a as integer
+	a = &b101001
+	print a;
+end scope

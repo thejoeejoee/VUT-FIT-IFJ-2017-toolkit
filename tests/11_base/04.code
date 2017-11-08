@@ -1,0 +1,6 @@
+'Hexa integer 2
+scope
+	dim a as integer
+	a = &h1f1a1
+	print a;
+end scope

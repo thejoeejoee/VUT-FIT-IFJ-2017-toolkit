@@ -1,0 +1,6 @@
+'Octa integer
+scope
+	dim a as integer
+	a = &o12344
+	print a;
+end scope

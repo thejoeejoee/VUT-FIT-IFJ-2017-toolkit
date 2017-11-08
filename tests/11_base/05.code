@@ -1,0 +1,6 @@
+'Binary * binary
+scope
+	dim a as integer
+	a = &b1010 * &b1010
+	print a;
+end scope
