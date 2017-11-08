@@ -299,11 +299,11 @@ class TestRunner(object):
             ))
             write(
                 '\n'.join(
-                    '# {: 3}: {}'.format(i, line) for i, line in enumerate(test_info.code.split('\n'), start=1)
+                    '# {: 3}: {}'.format(i, line) for i, line in enumerate(test_info.code.splitlines(), start=1)
                 )
             )
             write('\n' * 2 + '#' * 40 + '\n' * 2)
-            lines = (report.compiler_stdout or '').split('\n')
+            lines = (report.compiler_stdout or '').splitlines()
             count = len(lines)
             write('\n'.join(
                 '{:80}# {:5}/{}'.format(line, i, count)
