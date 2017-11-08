@@ -1,0 +1,14 @@
+' assignment of boolean expressions
+scope
+	dim a as boolean = 42 > (1 + 2 * 3) and true
+	dim b as boolean 
+	dim c as boolean = 1 = 2 or True = False or 1 <> 1 or False
+
+	a = a = True and 36 = (4 + 3 * 12 - 4) and 2 + 2 = 4 and not (c <> (4 * 8 = 13))
+	b = c = True or c <> True
+	if a and b then
+		print 1;
+	else
+		print 0;
+	end if
+end scope

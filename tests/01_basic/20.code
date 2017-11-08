@@ -10,7 +10,7 @@
 ''''''''''
 /' Zajisteni zakladni kompatibility IFJ17->FreeBASIC '/ 'where wre the fuck anymals !!! '
 
-		  a =                                                    4
+		  a =              /' today, comment for yout '/                                      4 + /' today, comment for yout '/ 7
 'today, tomorow toyotaaa ''' 
 /' today, comment for yout '/ 'GUHGHK656GG__FZFT
 
@@ -19,3 +19,4 @@
 		  print a; /' afd '/ ''
 
   	END  SCOPE ' one line comment
+/' '/ '

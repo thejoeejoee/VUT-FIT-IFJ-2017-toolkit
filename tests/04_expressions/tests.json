@@ -7,10 +7,17 @@
       ]
     },
     {
-      "name": "13",
-      "info": "Implicit conversion",
+      "info": "implicit conversion",
       "stdout": " 1.5",
       "code": "scope \n print 3/2.0;\n end scope"
+    },
+    {
+      "info": "unary magic",
+      "stdout": "-20",
+      "code": "scope \n print ---------20;\n end scope",
+      "extensions": [
+        "UNARY"
+      ]
     },
     {
       "name": "17",
@@ -19,6 +26,10 @@
     {
       "name": "18",
       "stdout": " 96"
+    },
+    {
+      "name": "19",
+      "compiler_exit_code": 4
     }
   ]
 }

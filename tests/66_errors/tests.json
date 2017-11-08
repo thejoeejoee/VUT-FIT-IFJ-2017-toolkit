@@ -1,11 +1,6 @@
 {
   "tests": [
     {
-      "info": "Lexical error (Wrong double format) ",
-      "code": "19.",
-      "compiler_exit_code": 1
-    },
-    {
       "name": "06",
       "compiler_exit_code": 4
     },
@@ -38,102 +33,127 @@
       "compiler_exit_code": 3
     },
     {
-      "info": "Lexical error (Wrong double format) ",
+      "info": "wrong double format I",
       "code": "33455457.e---",
       "compiler_exit_code": 1
     },
     {
-      "info": "Lexical error (Wrong double format) ",
+      "info": "wrong double format II",
       "code": "33455457e",
       "compiler_exit_code": 1
     },
     {
-      "info": "Lexical error (Wrong string format)",
+      "info": "wrong double format III",
+      "code": ".25",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "wrong double format IV",
+      "code": ".e74",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "wrong double format V",
+      "code": "scope\n dim a as integer = 12.21.74\n end scope",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "unterminated string",
       "code": "!\"",
       "compiler_exit_code": 1
     },
     {
-      "info": "Lexical error (Wrong string format)",
+      "info": "wrong string escape sequence I",
       "code": "!\"\\-1\"",
       "compiler_exit_code": 1
     },
     {
-      "info": "Lexical error (Wrong string format)",
+      "info": "wrong string escape sequence II",
+      "code": "!\"\\1\"",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "wrong string escape sequence III",
       "code": "!\"\\256\"",
       "compiler_exit_code": 1
     },
     {
-      "info": "Lexical error (Wrong string format)",
+      "info": "wrong string escape sequence IV",
       "code": "!\"\\m\"",
       "compiler_exit_code": 1
     },
     {
-      "info": "Syntax error",
+      "info": "scope without end",
       "code": "scope",
       "compiler_exit_code": 2
     },
     {
-      "info": "Syntax error (Expect Scope) ",
-      "code": "scope \n end",
-      "compiler_exit_code": 2
-    },
-    {
-      "info": "Syntax error (Expect END) ",
-      "code": "scope \n scope",
-      "compiler_exit_code": 2
-    },
-    {
-      "info": "Syntax error (Empty program) ",
+      "info": "empty program",
       "code": "",
       "compiler_exit_code": 2
     },
     {
-      "info": "Syntax error (bad condition) ",
+      "info": "missing end scope",
+      "code": "scope \n end",
+      "compiler_exit_code": 2
+    },
+    {
+      "info": "missing end",
+      "code": "scope \n scope",
+      "compiler_exit_code": 2
+    },
+    {
+      "info": "empty expression in condition",
       "code": "scope \n if then \n end if \n end scope",
       "compiler_exit_code": 2
     },
     {
-      "info": "Syntax error (bad condition) ",
-      "code": "scope \n if 1 < 2 then \n end if wend scope",
+      "info": "wrong if termination",
+      "code": "scope \n if 1 < 2 then \n wend if end scope",
       "compiler_exit_code": 2
     },
     {
-      "info": "Semantic error (Using undefined variable) ",
+      "info": "undefined variable",
       "code": "scope \n input a \n end scope",
       "compiler_exit_code": 3
     },
     {
-      "info": "Semantic error (Using undefined variable in expression) ",
+      "info": "undefined variable in expression",
       "code": "scope \n print a*2; \n end scope",
       "compiler_exit_code": 3
     },
     {
-      "info": "Semantic error (Attempt to redeclaration) ",
+      "info": "variable redeclaration",
       "code": "scope \n dim a as integer \n dim a as integer \n end scope",
       "compiler_exit_code": 3
     },
     {
-      "info": "Semantic Error, call undefined function",
+      "info": "undeclared function call",
       "code": "scope \n dim a as integer = foo()\n end scope",
       "compiler_exit_code": 3
     },
     {
-      "info": "Semantic Error, undefined variable in expression",
+      "info": "assignment or undefined variable",
       "code": "scope \n dim a as integer \n a = 10 + variable \n end scope",
       "compiler_exit_code": 3
     },
     {
-      "info": "Semantic Error, String in condition",
+      "info": "assignment or undefined variable in same variable declaration",
+      "code": "scope \n dim a as integer = a + 1 \n end scope",
+      "compiler_exit_code": 3
+    },
+    {
+      "info": "condition type error with string value",
       "code": "scope \n if !\"\" then \n end if \n end scope",
       "compiler_exit_code": 4
     },
     {
-      "info": "Semantic Error, Integer in condition",
+      "info": "condition type error with integer value",
       "code": "scope \n if 42 then \n end if \n end scope",
       "compiler_exit_code": 4
     },
     {
-      "info": "Semantic Error, Double in condition",
+      "info": "condition type error with double value",
       "code": "scope \n if 6789678.6968 then \n end if \n end scope",
       "compiler_exit_code": 4
     },
@@ -144,6 +164,60 @@
     {
       "name": "15",
       "compiler_exit_code": 1
+    },
+    {
+      "name": "16",
+      "compiler_exit_code": 3
+    },
+    {
+      "info": "wrong operand types",
+      "compiler_exit_code": 4,
+      "code": "scope \n print !\"foo\" + 6;\n end scope"
+    },
+    {
+      "info": "wrong operand for two strings",
+      "compiler_exit_code": 4,
+      "code": "scope \n print !\"foo\" * !\"foo\";\n end scope"
+    },
+    {
+      "info": "invalid operators order",
+      "compiler_exit_code": 2,
+      "code": "scope \n print 2 + * 8;\n end scope"
+    },
+    {
+      "info": "missing operand in expression I",
+      "compiler_exit_code": 2,
+      "code": "scope \n print * 2;\n end scope"
+    },
+    {
+      "info": "missing operand in expression II",
+      "compiler_exit_code": 2,
+      "code": "scope \n print 2 - 9 +;\n end scope"
+    },
+    {
+      "info": "unterminated braces group",
+      "compiler_exit_code": 2,
+      "code": "scope \n print ((2 + 3);\n end scope"
+    },
+    {
+      "info": "missing operator",
+      "compiler_exit_code": 2,
+      "code": "scope \n print (5 + 9)(2 + 3);\n end scope"
+    },
+    {
+      "info": "missing content of braces group",
+      "compiler_exit_code": 2,
+      "code": "scope \n print () + (5 + 9);\n end scope"
+    },
+    {
+      "info": "missing operand in braces group",
+      "compiler_exit_code": 2,
+      "code": "scope \n print (* 6) + (5 + 9);\n end scope"
+    },
+    {
+      "info": "keyword in expression",
+      "compiler_exit_code": 2,
+      "code": "scope \n print (print + 9);\n end scope"
     }
   ]
 }

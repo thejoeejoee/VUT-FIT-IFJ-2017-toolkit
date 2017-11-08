@@ -48,6 +48,10 @@
       "extensions": [
         "FUNEXP"
       ]
+    },
+    {
+      "name": "12",
+      "stdout": " 1 1 1 1"
     }
   ]
 }

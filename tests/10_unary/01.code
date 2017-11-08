@@ -1,0 +1,19 @@
+' assignment with operators
+scope
+	dim a as double
+	a += 2.0e0
+	print a;
+	a *= 4.00e0
+	print a;
+	a -= 4
+	print a;
+	a /= 2
+	print a;
+	dim b as integer = 48
+	b \= 12
+	print b;
+
+	dim c as string = !"bar"
+	c += !" foo" + !" "
+	print c;
+end scope

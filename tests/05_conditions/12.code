@@ -1,0 +1,34 @@
+' string compare
+scope
+	dim str1 as string
+	dim str2 as string
+
+	if str1 > str2 then
+		print 0;
+	else
+		print 1;
+	end if
+
+	if str1 >= str2 then
+		print 1;
+	else
+		print 0;
+	end if
+
+	str1 = !"a"
+	str2 = !"b"
+	if str1 < str2 then
+		print 1;
+	else
+		print 0;
+	end if
+
+	str1 = !"aa"
+	str2 = !"aac"
+	if str2 > str1 then
+		print 1;
+	else
+		print 0;
+	end if
+
+end scope

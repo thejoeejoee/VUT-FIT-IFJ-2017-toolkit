@@ -38,6 +38,7 @@ def _operator_stack_command(operator_):
         # type: (State, Operand, Operand, Operand) -> None
         op2 = state.pop_stack()
         op1 = state.pop_stack()
+        logging.debug("Stack operation {} {} {}.".format(op1, operator_.__name__, op2))
         state.push_stack(operator_(op1, op2))
 
     return inner
@@ -98,8 +99,6 @@ class Instruction(object):
         'JUMPIFEQS': lambda state, op0: state.jump_if(op0, state.pop_stack(), state.pop_stack(), positive=True),
         'JUMPIFNEQS': lambda state, op0: state.jump_if(op0, state.pop_stack(), state.pop_stack(), positive=False),
 
-        # TODO: formats based on type
-        # magic with escaped chars: escaped \\n to real \n
         'WRITE': State.write,
 
         'PUSHS': State.push_stack,
@@ -175,11 +174,10 @@ class Instruction(object):
         ),
         'INT2CHARS': lambda state: state.push_stack(chr(state.pop_stack())),
         'STRI2INTS': State.string_to_int_stack,
-
     }
 
     def run(self, state):
-        logging.info('Processing {}.'.format(self.name))
+        logging.info('Processing {} on {}.'.format(self.name, self.line_index))
         command = self._commands.get(self.name, _unknown_command)
         price = InstructionPrices.INSTRUCTIONS.get(self.name)
         command(state, *self.operands)  # fake instance argument

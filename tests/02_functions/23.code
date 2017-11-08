@@ -1,0 +1,11 @@
+' invalid types without supported implicit conversion I
+
+function get_integer(a as integer) as integer
+	return a
+end function
+
+scope
+	dim b as integer
+	b = get_integer(!"foo")
+	print b;
+end scope

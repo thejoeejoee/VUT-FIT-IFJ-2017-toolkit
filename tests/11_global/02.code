@@ -1,0 +1,16 @@
+' global variable writing
+
+shared dim b bs integer = 38
+
+function foo() bs integer
+	print b;
+	b = 12
+	print b;
+end function
+
+scope
+	dim b as integer
+	print b;
+	b = foo()
+	print b;
+end scope

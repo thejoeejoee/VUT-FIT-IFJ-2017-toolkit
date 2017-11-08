@@ -1,13 +1,12 @@
 # coding=utf-8
 import difflib
-import logging
 import os
 import os.path as path
 import platform
 import shutil
 from datetime import datetime
 from io import StringIO
-from os.path import basename
+from os.path import basename, abspath, isfile
 from subprocess import PIPE, Popen, TimeoutExpired
 from tempfile import mktemp
 
@@ -64,6 +63,7 @@ class TestRunner(object):
         'Linux': path.join(__PROJECT_ROOT__, 'bin/linux/ic17int'),
         'Windows': path.join(__PROJECT_ROOT__, 'bin/windows/ic17int.exe'),
     }
+    EXTENSION_FILE_NAME = 'rozsireni'
 
     def __init__(self, args):
         super(TestRunner, self).__init__()
@@ -78,8 +78,12 @@ class TestRunner(object):
         self._interpreter_binary = args.interpreter
         self._command_timeout = args.command_timeout
         self._log_dir = args.log_dir
-        self._loader = TestLoader(args.tests_dir)
-        self._extensions = self._load_extensions(args.extensions_file)
+        self._loader = TestLoader(
+            args.tests_dir,
+            args.command_timeout
+        )
+        self._extensions_auto_loaded_from = False
+        self._extensions = self._try_load_extensions(args.extensions_file, args.compiler)
         if args.no_colors:
             TestLogger.disable_colors = args.no_colors
         TestLogger.verbose = args.verbose
@@ -142,12 +146,12 @@ class TestRunner(object):
             TestLogger.log(TestLogger.GREEN, ' skipping, required extension(s) {} is not activated.'.format(
                 ', '.join(test_info.extensions - self._extensions)
             ), end=False)
-            report.success = True
+            report.success = None
             self._save_report(test_info, report)
             return
 
         try:
-            report.compiler_stdout, report.compiler_stderr, report.compiler_exit_code = self._compile(test_info.code)
+            report.compiler_stdout, report.compiler_stderr, report.compiler_exit_code = self._compile(test_info)
         except (TimeoutExpired, TimeoutError) as e:
             TestLogger.log_test_fail('COMPILER TIMEOUT')
             report.success = False
@@ -171,6 +175,7 @@ class TestRunner(object):
         TestLogger.log_test_ok()
         if report.compiler_exit_code != 0:
             # compiler stops this test case
+            report.success = True
             self._save_report(test_info, report)
             return
 
@@ -200,6 +205,7 @@ class TestRunner(object):
 
         if report.interpreter_exit_code != 0:
             # interpreter stops this test case
+            report.success = True
             self._save_report(test_info, report)
             return
 
@@ -218,16 +224,17 @@ class TestRunner(object):
             report.state = state
         except Exception as e:
             TestLogger.log(TestLogger.WARNING, ' (fail: {})'.format(e))
-            logging.exception(e, exc_info=True)
         else:
             TestLogger.log_price(state=state)
             self._uploader.collect_report(report)
+        report.success = True
         self._save_report(test_info, report)
 
-    def _compile(self, code):
+    def _compile(self, test_info):
+        # type: (TestInfo) -> tuple
         process = Popen([self._compiler_binary], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         try:
-            out, err = process.communicate(bytes(code, encoding='utf-8'), timeout=self._command_timeout)
+            out, err = process.communicate(bytes(test_info.code, encoding='utf-8'), timeout=test_info.timeout)
         except (TimeoutError, TimeoutExpired):
             process.kill()
             raise
@@ -241,7 +248,7 @@ class TestRunner(object):
         process = Popen([self._interpreter_binary, '-v', code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         try:
             out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'),
-                                           timeout=self._command_timeout)
+                                           timeout=test_info.timeout)
         except (TimeoutError, TimeoutExpired):
             process.kill()
             raise
@@ -263,9 +270,10 @@ class TestRunner(object):
                     self._actual_section,
                     '.'.join((test_info.name, 'IFJcode17'))
                 ),
-                'w'
+                'wb'
         ) as f:
-            f.write(TEST_LOG_HEADER.format(
+            write = lambda v: f.write(bytes(v, encoding="utf-8"))
+            write(TEST_LOG_HEADER.format(
                 datetime.now(),
                 basename(test_info.section_dir),
                 test_info.name,
@@ -289,21 +297,22 @@ class TestRunner(object):
                     report.state.operand_price
                 ) if report.state else '---'
             ))
-            f.write(
+            write(
                 '\n'.join(
                     '# {: 3}: {}'.format(i, line) for i, line in enumerate(test_info.code.split('\n'), start=1)
                 )
             )
-            f.write('\n' * 2 + '#' * 40 + '\n' * 2)
+            write('\n' * 2 + '#' * 40 + '\n' * 2)
             lines = (report.compiler_stdout or '').split('\n')
             count = len(lines)
-            f.write('\n'.join(
+            write('\n'.join(
                 '{:80}# {:5}/{}'.format(line, i, count)
                 for i, line
                 in enumerate(lines, start=1)
                 if line
             ) or '# ---')
         self._reports.append(report)
+        TestLogger._test_case_success = report.success
         TestLogger.log_end_test_case()
 
     @classmethod
@@ -327,22 +336,33 @@ class TestRunner(object):
             TestLogger.log(
                 TestLogger.GREEN,
                 TestLogger.BOLD,
-                "Activated {} extensions: {}.".format(
+                "Activated {} extensions: {}{}.".format(
                     len(self._extensions),
-                    ', '.join(sorted(self._extensions))
+                    ', '.join(sorted(self._extensions)),
+                    ' - autoloaded from {}'.format(self._extensions_auto_loaded_from)
+                    if self._extensions_auto_loaded_from else ''
                 ),
             )
 
-    @staticmethod
-    def _load_extensions(extensions_file):
+    def _try_load_extensions(self, extensions_file, compiler_path):
         if not extensions_file:
-            return set()
+            alt_paths = tuple(path_ for path_ in (
+                abspath(path.join(path.dirname(compiler_path), self.EXTENSION_FILE_NAME)),
+                abspath(path.join(path.dirname(compiler_path), '..', self.EXTENSION_FILE_NAME)),
+                abspath(path.join(path.dirname(compiler_path), '../..', self.EXTENSION_FILE_NAME)),
+            ) if isfile(path_) and os.access(path_, os.R_OK))
+            if not alt_paths:
+                return set()
+
+            extensions_file = alt_paths[0]
+            self._extensions_auto_loaded_from = extensions_file
+
         if not path.isfile(extensions_file):
             TestLogger.log_warning(
                 "File '{}' is not file or is not readable, assuming none of extensions.".format(extensions_file)
             )
             return set()
-        extensions = TestLoader._load_file(extensions_file, allow_fail=False)
+        extensions = TestLoader.load_file(extensions_file, allow_fail=False)
         return set(extensions.strip().split())
 
     def _stdout_log(self, stdout, interpreter_stdout):

@@ -5,16 +5,23 @@ import sys
 from operator import attrgetter
 
 
-def is_color_available():
+def disable_color():
     """
     Return True if the running system's terminal supports color,
     and False otherwise.
     """
+    # windows dark magic via https://stackoverflow.com/a/39675059
+    # noinspection PyBroadException
+    try:
+        os.system('')
+    except:
+        pass
+
     plat = sys.platform
     supported_platform = plat != 'Pocket PC' and (plat != 'win32' or 'ANSICON' in os.environ)
 
     # isatty is not always implemented, #6223.
-    is_a_tty = hasattr(sys.stdout, 'isatty') and sys.stdout.isatty()
+    is_a_tty = hasattr(sys.stderr, 'isatty') and sys.stderr.isatty()
     return not supported_platform or not is_a_tty
 
 
@@ -29,7 +36,7 @@ class TestLogger(object):
     UNDERLINE = '\033[4m'
     END = '\033[0m'
 
-    disable_colors = is_color_available()
+    disable_colors = disable_color()
     verbose = False
 
     _test_case_buffer = None
@@ -98,6 +105,7 @@ class TestLogger(object):
     def log_results(cls, reports):
         total = len(reports)
         success = len(tuple(filter(attrgetter('success'), reports)))
+        skipped = len(tuple(filter(lambda r: r.success is None, reports)))
 
         cls.log(
             cls.UNDERLINE,
@@ -105,12 +113,18 @@ class TestLogger(object):
             'RESULTS:',
             cls.END,
             cls.BOLD,
-            ' {:.2f}%'.format((float(success) / total) * 100),
+            ' {:.2f}%'.format((float(success) / (total - skipped)) * 100),
             cls.END,
-            ' ({}/{})\n\t'.format(success, total),
+            ' ({}/{})\n\t'.format(success, total - skipped),
             cls.END,
             cls.BOLD,
-            ''.join((cls.FAIL + '×', cls.GREEN + '✓')[report.success] for report in reports),
+            ''.join(
+                (
+                    (cls.FAIL + '×', cls.GREEN + '✓')[report.success]
+                    if report.success is not None
+                    else cls.BLUE + '-'
+                )
+                for report in reports),
             ''
         )
         return bool(total - success)

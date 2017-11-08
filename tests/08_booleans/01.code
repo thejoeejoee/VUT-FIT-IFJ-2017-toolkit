@@ -1,0 +1,17 @@
+' basic declaration with assignment
+scope
+	dim a as boolean
+	a = True
+	if a then
+		print 1;
+	else
+		print 0;
+	end if
+
+	a = faLsE
+	if not a then
+		print 1;
+	else
+		print 0;
+	end if
+end scope

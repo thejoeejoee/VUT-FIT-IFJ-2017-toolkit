@@ -5,7 +5,7 @@ from ..interpreter.state import State
 
 TestInfo = namedtuple(
     'TestInfo',
-    "name code stdin stdout compiler_exit_code interpreter_exit_code info section_dir extensions"
+    "name code stdin stdout compiler_exit_code interpreter_exit_code info section_dir extensions timeout"
 )
 
 
@@ -21,7 +21,7 @@ class TestReport(object):
     state = None  # type: State
     test_info = None  # type: TestInfo
 
-    success = True
+    success = None
 
 
 __all__ = ['TestReport', 'TestInfo']

@@ -10,10 +10,11 @@ from .logger import TestLogger
 
 
 class TestLoader(object):
-    def __init__(self, tests_dir):
+    def __init__(self, tests_dir, default_timeout):
         assert path.isdir(tests_dir), "Given tests dir is valid filesystem folder."
 
         self._tests_dir = tests_dir
+        self._default_timeout = default_timeout
 
     def load_section_dirs(self):
         return sorted(
@@ -42,7 +43,7 @@ class TestLoader(object):
         )
 
     def _load_compact_tests(self, section_dir):
-        data = self._load_file(
+        data = self.load_file(
             path.join(section_dir, 'tests.json'),
             allow_fail=True
         )
@@ -80,7 +81,8 @@ class TestLoader(object):
                         self._load_test_file(section_dir, name, 'info') or
                         self._get_code_info(code),
                         section_dir,
-                        set(tuple(test_case.get('extensions', ())) + extensions)
+                        set(tuple(test_case.get('extensions', ())) + extensions),
+                        test_case.get('timeout') or self._default_timeout
                     )
                 )
         except TypeError as e:
@@ -94,7 +96,7 @@ class TestLoader(object):
             if name in already_loaded:
                 continue
             try:
-                code = self._load_file(code_file)
+                code = self.load_file(code_file)
                 info = TestInfo(
                     name,
                     code,
@@ -104,7 +106,8 @@ class TestLoader(object):
                     int(self._load_test_file(section_dir, name, 'iexitcode') or 0),
                     self._load_test_file(section_dir, name, 'info') or self._get_code_info(code) or '',
                     section_dir,
-                    set()
+                    set(),
+                    self._default_timeout
                 )
             except ValueError as e:
                 TestLogger.log_warning("Unable to load file {}: {}".format(code_file, e))
@@ -121,7 +124,7 @@ class TestLoader(object):
 
     def _load_test_file(self, section_dir, test_name, type_):
         return ((
-            self._load_file(
+            self.load_file(
                 path.join(
                     section_dir,
                     '.'.join((test_name, type_))
@@ -131,7 +134,7 @@ class TestLoader(object):
         ) or ''
 
     @staticmethod
-    def _load_file(file, allow_fail=False):
+    def load_file(file, allow_fail=False):
         assert allow_fail or (path.isfile(file) and os.access(file, os.R_OK))
         try:
             with open(file, 'rb') as f:

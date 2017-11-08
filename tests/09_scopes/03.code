@@ -1,0 +1,55 @@
+' combined scopes with loops and conditions
+scope
+	dim a as integer = 42
+	print !"first scope\n";
+	scope
+		print a;
+		do while a > 10
+			a = a - 5.7
+			dim a as double
+			a = 25 * a
+			print a;
+		loop
+		dim a as integer = 43
+		do while a < 67
+			a = a + 2
+			dim a as double
+			a = 25.78 * a - 7
+			print a;
+		loop
+		print a; !"\n";
+	end scope
+	print !"second scope\n";
+	print a; !"\n";
+	scope
+		dim b as double = 20
+		print a;
+		dim a as integer = 43
+		if a > b then
+			scope
+				dim b as integer
+				b = 15
+				print b;
+				scope
+				dim b as integer
+					b = 21 + a
+					print b;
+				end scope
+			end scope
+			dim b as double
+			b = 25
+			print b;
+		else
+			scope
+				dim b as integer
+				b = 15
+				print b;
+			end scope
+			dim b as double
+			b = 25
+			print b;
+		end if
+		print a; b;
+	end scope
+	print a;
+end scope

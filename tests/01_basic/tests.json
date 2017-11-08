@@ -14,13 +14,6 @@
       ]
     },
     {
-      "name": "12",
-      "stdout": "669878",
-        "extensions": [
-        "SCOPE"
-      ]
-    },
-    {
       "name": "13",
       "info": "Multi line string",
       "stdout": "ahoj\nsvete",
@@ -58,7 +51,7 @@
     },
     {
       "name": "20",
-      "stdout": " 4"
+      "stdout": " 11"
     }
   ]
 }

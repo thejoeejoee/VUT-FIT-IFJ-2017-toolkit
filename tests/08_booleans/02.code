@@ -1,0 +1,24 @@
+' boolean operations
+scope
+	dim a as boolean = True
+	dim b as boolean = False
+	dim c as boolean = False
+
+	if b or c and a then
+		print 1;
+	else
+		print 0;
+	end if
+
+	if b or (c and a) then
+		print 0;
+	else
+		print 1;
+	end if
+
+	if False or (False and (False or (True or True))) then
+		print 1;
+	else
+		print 0;
+	end if
+end scope
