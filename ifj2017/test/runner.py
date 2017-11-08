@@ -258,7 +258,7 @@ class TestRunner(object):
         return out.decode('ascii'), err.decode('unicode_escape'), process.returncode
 
     def _interpret_price(self, code, test_info):
-        interpreter = Interpreter(code=code, stdin=StringIO(test_info.stdin))
+        interpreter = Interpreter(code=code, state_kwargs=dict(stdin=StringIO(test_info.stdin)))
         return interpreter.run()
 
     def _save_report(self, test_info, report):

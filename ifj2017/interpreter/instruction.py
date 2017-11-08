@@ -1,17 +1,26 @@
 # coding=utf-8
-import codecs
 import logging
 import math
 import operator
+from inspect import getfullargspec
 
-from ifj2017.interpreter import state
-from .prices import InstructionPrices
+from .exceptions import InvalidCodeException
 from .operand import Operand
+from .prices import InstructionPrices
 from .state import State
 
+def even_round(v: int) -> int:
+    if int(v) % 2 == 0:
+        return int(math.floor(v))
+    return int(math.ceil(v))
+
+def odd_round(v: int) -> int:
+    if int(v) % 2 == 1:
+        return int(math.floor(v))
+    return int(math.ceil(v))
 
 def _unknown_command(state, *args):
-    logging.error('Unknown command.')
+    raise InvalidCodeException(InvalidCodeException.UNKNOWN_INSTRUCTION)
 
 
 def _operator_command(operator_):
@@ -49,21 +58,35 @@ class Instruction(object):
         self.name = parts[0].upper()
         self.line_index = line_index
 
-        if count > 3:
-            self.op2 = Operand(parts[3])
-        if count > 2:
-            self.op1 = Operand(parts[2])
-        if count > 1:
-            self.op0 = Operand(parts[1])
+        command = self._commands.get(self.name)
+
+        if not command or not callable(command):
+            raise InvalidCodeException(line_index=line, type_=InvalidCodeException.UNKNOWN_INSTRUCTION)
+
+        spec = getfullargspec(command)
+        if len(spec.args) != count:
+            raise InvalidCodeException(InvalidCodeException.INVALID_OPERAND_COUNT, line_index, line)
+
+        try:
+            if count > 3:
+                self.op2 = Operand(parts[3])
+            if count > 2:
+                self.op1 = Operand(parts[2])
+            if count > 1:
+                self.op0 = Operand(parts[1])
+        except InvalidCodeException as e:
+            e.line_index = line_index
+            e.line = line
+            raise
 
     @property
     def operands(self):
         return filter(None, (self.op0, self.op1, self.op2,))
 
     _commands = {
-        'MOVE': State.move,
-        'CREATEFRAME': lambda state: state.temp_frame.clear(),
-        'PUSHFRAME': lambda state: state.frame_stack.append(state.temp_frame.copy()),
+        'MOVE': State.set_value,
+        'CREATEFRAME': State.create_frame,
+        'PUSHFRAME': State.push_frame,
         'POPFRAME': State.pop_frame,
         'DEFVAR': lambda state, op: state.set_value(op, None),
         'JUMP': State.jump,
@@ -129,11 +152,11 @@ class Instruction(object):
         'FLOAT2INT': lambda state, op0, op1: state.set_value(op1, int(state.get_value(op1))),
         'FLOAT2R2EINT': lambda state, op0, op1: state.set_value(
             op0,
-            round(state.get_value(op1) / 2.) * 2
+            even_round(state.get_value(op0))
         ),
         'FLOAT2R2OINT': lambda state, op0, op1: state.set_value(
             op0,
-            round(state.get_value(op1))  # TODO: odd round
+            odd_round(state.get_value(op1))
         ),
         'INT2CHAR': lambda state, to, what: state.set_value(to, chr(state.get_value(what))),
         'STRI2INT': lambda state, to, what, index: state.set_value(
@@ -144,10 +167,10 @@ class Instruction(object):
         'INT2FLOATS': lambda state: state.push_stack(float(state.pop_stack())),
         'FLOAT2INTS': lambda state: state.push_stack(int(state.pop_stack())),
         'FLOAT2R2EINTS': lambda state: state.push_stack(
-            round(state.pop_stack() / 2.) * 2
+            even_round(state.pop_stack())
         ),
         'FLOAT2R2OINTS': lambda state: state.push_stack(
-            round(state.pop_stack())  # TODO: odd round
+            odd_round(state.pop_stack())
         ),
         'INT2CHARS': lambda state: state.push_stack(chr(state.pop_stack())),
         'STRI2INTS': State.string_to_int_stack,
@@ -160,3 +183,4 @@ class Instruction(object):
         command(state, *self.operands)  # fake instance argument
         state.instruction_price += price
         state.executed_instructions += 1
+        state.program_line = self.line_index
