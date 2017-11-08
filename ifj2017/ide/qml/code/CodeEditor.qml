@@ -27,7 +27,12 @@ Item {
     property string placeHolderText: ""
     property alias editorDisabled: textEdit.readOnly
 
+
     clip: true
+    onCurrentLineChanged: {
+        if(currentLine != -1)
+            component.scrollToLine(currentLine)
+    }
 
     function removesDiffMarks() {
         diffCodeAnalyzer.code = textEdit.text
@@ -264,6 +269,19 @@ Item {
         else
             textDocument.remove(textDocument.selectionStart, textDocument.selectionEnd)
         textDocument.insert(textDocument.selectionStart, expansion)
+    }
+
+    function scrollToLine(line) {
+        var contentHeight = textEdit.contentHeight
+        var visibleAreaHeight = textEdit.height
+        var lineHeight = contentHeight / textEdit.lineCount
+        var visibleLinesCount = Math.floor(visibleAreaHeight / lineHeight)
+        var firstVisibleLine = Math.ceil(textEdit.flickableItem.contentY / lineHeight)
+
+        if(line < firstVisibleLine)
+            textEdit.flickableItem.contentY = (line - 2) * lineHeight
+        else if(line > firstVisibleLine + visibleLinesCount)
+            textEdit.flickableItem.contentY = (line - visibleLinesCount) * lineHeight
     }
 }
 
