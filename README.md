@@ -14,11 +14,13 @@ _Také oceníme, když nám nalezené chyby zareportujete do Github issues, kam 
 ![Pomožte!](https://ctrlv.cz/shots/2017/10/10/KP3O.png)
 
 ## Changelog
-* 18-10-2017 - zveřejněno, průběžně základní sada ~60 testů
-* 22-10-2017 - přidána další sada testů, ~90 testů
-* 24-10-2017 - drobné úpravy v logování, celkové agregace úspěšnosti
-* 26-10-2017 - možnost spouštění testů dle implementovaných rozšíření
+* 09-11-2017 - uživatelské testování a ladění IFJcode17 IDE, příprava release
+* 08-11-2017 - kompletní testy pro `UNARY, SCOPE, BOOLOP, BASE`, testy na chyby zmíněné na přednáškách/democviku, celkem asi 180 testů
 * 31-10-2017 - další várka testů, ~140 testů včetně testů některých rozšíření
+* 26-10-2017 - možnost spouštění testů dle implementovaných rozšíření
+* 24-10-2017 - drobné úpravy v logování, celkové agregace úspěšnosti
+* 22-10-2017 - přidána další sada testů, ~90 testů
+* 18-10-2017 - zveřejněno, průběžně základní sada ~60 testů
 
 ## Autoři
 - [Josef Kolář](https://www.facebook.com/kolar.joe), xkolar71, [@thejoeejoee](https://github.com/thejoeejoee) - idea, spouštěč, hodnotící interpret, Wiki
