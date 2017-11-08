@@ -214,12 +214,13 @@ class DebuggerWrapper(QObject):
     def _set_model_data(self, state: State):
         # frames
         for frame in ("GF", "TF"):
+            self._model.clear_sub_tree([], frame)
             if state.frame(frame):
-                self._model.clear_sub_tree([], frame)
                 for var_name, var_value in sorted(state.frame(frame).items(), key=itemgetter(0)):
                     self._model.set_item_data([frame], str(var_name), str(var_value), type(var_value).__name__)
+
+        self._model.clear_sub_tree([], "LF")
         if state.frame_stack:
-            self._model.clear_sub_tree([], "LF")
             for var_name, var_value in sorted(state.frame("LF").items(), key=itemgetter(0)):
                 self._model.set_item_data(["LF"], str(var_name), str(var_value), type(var_value).__name__)
 
