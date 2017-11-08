@@ -58,10 +58,14 @@ ApplicationWindow {
 
         onAccepted: {
             fileIO.source = fileDialog.fileUrl
-            if(root.fileActionType == "open")
+            if(root.fileActionType == "open") {
                 codeEditor.code = fileIO.read()
-            else if(root.fileActionType == "save" || root.fileActionType == "saveAs")
+                codeEditor.removesDiffMarks()
+            }
+            else if(root.fileActionType == "save" || root.fileActionType == "saveAs") {
                 fileIO.write(codeEditor.code)
+                codeEditor.removesDiffMarks()
+            }
             root.fileActionType = ""
         }
     }
@@ -303,8 +307,10 @@ td {
             fileDialog.visible = true
         }
 
-        else
+        else {
             fileIO.write(codeEditor.code)
+            codeEditor.removesDiffMarks()
+        }
     }
 
     function openFile() {

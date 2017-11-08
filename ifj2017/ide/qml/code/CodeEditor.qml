@@ -31,7 +31,9 @@ Item {
 
     function removesDiffMarks() {
         diffCodeAnalyzer.code = textEdit.text
+        diffCodeAnalyzer.saveTempCode(textEdit.text)
         internal.diffLines = []
+        internal.diffLinesChanged()
     }
 
     QtObject {
