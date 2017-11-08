@@ -9,6 +9,15 @@ from .operand import Operand
 from .prices import InstructionPrices
 from .state import State
 
+def even_round(v: int) -> int:
+    if int(v) % 2 == 0:
+        return int(math.floor(v))
+    return int(math.ceil(v))
+
+def odd_round(v: int) -> int:
+    if int(v) % 2 == 1:
+        return int(math.floor(v))
+    return int(math.ceil(v))
 
 def _unknown_command(state, *args):
     raise InvalidCodeException(InvalidCodeException.UNKNOWN_INSTRUCTION)
@@ -144,11 +153,11 @@ class Instruction(object):
         'FLOAT2INT': lambda state, op0, op1: state.set_value(op1, int(state.get_value(op1))),
         'FLOAT2R2EINT': lambda state, op0, op1: state.set_value(
             op0,
-            math.ceil(state.get_value(op1) / 2.) * 2
+            even_round(state.get_value(op0))
         ),
         'FLOAT2R2OINT': lambda state, op0, op1: state.set_value(
             op0,
-            round(state.get_value(op1))  # TODO: odd round
+            odd_round(state.get_value(op1))
         ),
         'INT2CHAR': lambda state, to, what: state.set_value(to, chr(state.get_value(what))),
         'STRI2INT': lambda state, to, what, index: state.set_value(
@@ -159,10 +168,10 @@ class Instruction(object):
         'INT2FLOATS': lambda state: state.push_stack(float(state.pop_stack())),
         'FLOAT2INTS': lambda state: state.push_stack(int(state.pop_stack())),
         'FLOAT2R2EINTS': lambda state: state.push_stack(
-            math.ceil(state.pop_stack() / 2.) * 2
+            even_round(state.pop_stack())
         ),
         'FLOAT2R2OINTS': lambda state: state.push_stack(
-            round(state.pop_stack())  # TODO: odd round
+            odd_round(state.pop_stack())
         ),
         'INT2CHARS': lambda state: state.push_stack(chr(state.pop_stack())),
         'STRI2INTS': State.string_to_int_stack,
