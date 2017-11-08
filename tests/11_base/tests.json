@@ -2,45 +2,30 @@
   "tests": [
     {
       "stdout": " 41",
-      "name": "01",
-        "extensions": [
-        "BASE"
-      ]
+      "name": "01"
     },
     {
       "stdout": " 5348",
-      "name": "02",
-        "extensions": [
-        "BASE"
-      ]
+      "name": "02"
     },
     {
       "stdout": " 1",
-      "name": "03",
-        "extensions": [
-        "BASE"
-      ]
+      "name": "03"
     },
     {
       "stdout": " 127393",
-      "name": "04",
-        "extensions": [
-        "BASE"
-      ]
+      "name": "04"
     },
     {
       "stdout": " 100",
-      "name": "05",
-        "extensions": [
-        "BASE"
-      ]
+      "name": "05"
     },
     {
       "stdout": " 80970",
-      "name": "06",
-        "extensions": [
-        "BASE"
-      ]
+      "name": "06"
     }
+  ],
+  "extensions": [
+    "BASE"
   ]
 }
