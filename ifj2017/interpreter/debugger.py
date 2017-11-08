@@ -50,7 +50,7 @@ class Debugger(object):
             if not self._active:
                 return None
 
-            if self._interpreter.program_line(self._state) in self._breakpoints:
+            if self._interpreter.program_line(self._state.program_counter) in self._breakpoints:
                 return self._state
         self._active = False
 

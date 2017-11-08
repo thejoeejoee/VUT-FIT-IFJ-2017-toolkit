@@ -1,4 +1,5 @@
 # coding=utf-8
+from time import sleep
 from typing import Optional
 
 from PyQt5.QtCore import QEventLoop, QObject, pyqtSlot
@@ -23,6 +24,7 @@ class IOWrapper(QObject):
 
     def write(self, text: str) -> None:
         self.writeRequest.emit(text)
+        sleep(0.001)
 
     def block_until_emit(self, unblock_signal):
         loop = QEventLoop()

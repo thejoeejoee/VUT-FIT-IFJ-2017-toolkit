@@ -79,8 +79,7 @@ class Interpreter(object):
                 state.program_counter += 1
         return state
 
-    def program_line(self, state):
+    def program_line(self, program_counter):
         # type: (State) -> int
-        assert isinstance(state, State), "Valid instance of State."
-        instruction = self._instructions[state.program_counter]  # type:  Instruction
+        instruction = self._instructions[program_counter]  # type:  Instruction
         return instruction.line_index

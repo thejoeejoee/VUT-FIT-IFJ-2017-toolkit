@@ -87,6 +87,10 @@ class State(object):
             raise UndeclaredVariableError(to.name, to.frame)
         frame[to.name] = self.get_value(what)
 
+        # explicit variable access, only declaration
+        if what is None:
+            self.operand_price += InstructionPrices.OPERAND_VARIABLE
+
     def define_variable(self, variable):
         # type: (Operand) -> None
         self.frame(variable.frame)[variable.name] = None

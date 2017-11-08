@@ -51,7 +51,7 @@ class DebuggerWorker(QThread):
 
     def _update_program_line(self, state: State) -> None:
         if self._debugger._interpreter and state:
-            self.currentLineChanged.emit(self._debugger._interpreter.program_line(state))
+            self.currentLineChanged.emit(self._debugger._interpreter.program_line(state.program_counter))
         else:
             self.currentLineChanged.emit(-1)
 
