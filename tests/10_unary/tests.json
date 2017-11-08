@@ -1,40 +1,48 @@
 {
   "tests": [
     {
+      "info": "base unary minus",
       "code": "scope\n print -5;\n end scope",
       "stdout": "-5"
     },
     {
+      "info": "unary minus for double",
       "code": "scope\n print -5.7854e20;\n end scope",
       "stdout": "-5.7854e+20"
     },
     {
+      "info": "unary minus in expression I",
       "code": "scope\n print 5 + -5;\n end scope",
       "stdout": " 0"
     },
     {
+      "info": "unary minus in expression II",
       "code": "scope\n print -(2 * 2);\n end scope",
       "stdout": "-4"
     },
     {
+      "info": "unary minus in expression III",
       "code": "scope\n print -(-(3 * 8));\n end scope",
       "stdout": " 24"
     },
     {
+      "info": "unary minus in expression IV",
       "code": "scope\n print --(3 * 12);\n end scope",
       "stdout": " 36"
     },
     {
+      "info": "unary magic",
       "code": "scope\n print -0-----(2 * 15)*2;\n end scope",
       "stdout": "-60"
     },
     {
+      "info": "unary minus for variable",
       "code": "scope\n dim a as integer = -42\n print -a;\n end scope",
       "stdout": " 42"
     },
     {
       "name": "01",
-      "stdout": " 2 8 4 2 4"
+      "stdout": " 2 8 4 2 4 foobar"
     },
     {
       "name": "02",

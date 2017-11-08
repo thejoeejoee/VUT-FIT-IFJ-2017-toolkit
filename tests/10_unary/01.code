@@ -12,4 +12,8 @@ scope
 	dim b as integer = 48
 	b \= 12
 	print b;
+
+	dim c as string = !"bar"
+	c += !" foo" + !" "
+	print c;
 end scope

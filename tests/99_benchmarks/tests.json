@@ -2,7 +2,7 @@
   "tests": [
     {
       "name": "11",
-      "timeout": 100
+      "timeout": 5
     }
   ]
 }

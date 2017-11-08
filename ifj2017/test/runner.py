@@ -312,6 +312,7 @@ class TestRunner(object):
                 if line
             ) or '# ---')
         self._reports.append(report)
+        TestLogger._test_case_success = report.success
         TestLogger.log_end_test_case()
 
     @classmethod

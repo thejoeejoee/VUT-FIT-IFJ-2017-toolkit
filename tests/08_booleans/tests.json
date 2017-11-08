@@ -17,5 +17,7 @@
       "stdout": " 1"
     }
   ],
-  "extensions": ["BOOLOP"]
+  "extensions": [
+    "BOOLOP"
+  ]
 }
