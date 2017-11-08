@@ -17,8 +17,8 @@ import "widgets" as Widgets
 
 ApplicationWindow {
     visible: true
-    width: 1000
-    height: 800
+    width: Core.scaledSize(1000)
+    height: Core.scaledSize(800)
     title: fileIO.source + ((fileIO.source) ?" - " :"") + qsTr("Advánc Ifj Creator")
 
     Rectangle {
