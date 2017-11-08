@@ -26,6 +26,10 @@
     {
       "name": "18",
       "stdout": " 96"
+    },
+    {
+      "name": "19",
+      "compiler_exit_code": 4
     }
   ]
 }
