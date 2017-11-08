@@ -1,0 +1,42 @@
+{
+  "tests": [
+    {
+      "name": "01",
+      "stdout": " 42 42"
+    },
+    {
+      "name": "02",
+      "stdout": " 38 38 12 12"
+    },
+    {
+      "name": "03",
+      "stdout": " 38 25"
+    },
+    {
+      "name": "04",
+      "stdout": " 38 76"
+    },
+    {
+      "name": "05",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "06",
+      "stdout": " 1 1 1"
+    },
+    {
+      "name": "07",
+      "stdout": " 45",
+      "extensions": [
+        "FUNEXP"
+      ]
+    },
+    {
+      "name": "08",
+      "compiler_exit_code": 3
+    }
+  ],
+  "extensions": [
+    "GLOBAL"
+  ]
+}

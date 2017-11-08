@@ -1,0 +1,9 @@
+' override global variable in main scope
+
+shared dim b bs integer = 38
+
+scope
+	print b;
+	dim b as integer = 25
+	print b;
+end scope

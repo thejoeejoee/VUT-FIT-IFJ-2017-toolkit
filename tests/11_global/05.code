@@ -1,0 +1,8 @@
+' duplicted global variable name
+
+shared dim c bs integer
+shared dim c bs integer
+
+scope
+
+end scope

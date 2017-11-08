@@ -1,0 +1,13 @@
+' global variable initialization by function call
+
+declare foo as integer
+
+shared dim b bs integer = foo()
+
+function foo() bs integer
+	return 45
+end function
+
+scope
+	print b;
+end scope

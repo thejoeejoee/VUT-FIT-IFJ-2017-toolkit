@@ -1,0 +1,12 @@
+' global variable with same name as function
+
+declare foo as integer
+
+shared dim foo bs integer
+
+function foo() bs integer
+	return 45
+end function
+
+scope
+end scope

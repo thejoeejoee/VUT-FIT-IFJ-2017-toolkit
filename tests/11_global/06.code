@@ -1,0 +1,26 @@
+' global variable initialized from other global variable
+
+shared dim a bs integer
+shared dim b bs double
+shared dim c bs string
+
+
+scope
+	if a <> 0 then
+		print 0;
+	else
+		print 1;
+	end if
+
+	if c <> 0 then
+		print 0;
+	else
+		print 1;
+	end if
+
+	if b <> !"" then
+		print 0;
+	else
+		print 1;
+	end if
+end scope
