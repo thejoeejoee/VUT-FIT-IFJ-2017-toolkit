@@ -1,0 +1,19 @@
+' declaration in nested flow control statements
+
+scope
+	dim i1 as integer = 10
+	dim i2 as integer = 10
+
+	do while i1 > 0
+		do while i2 > 0
+			dim a as integer = 42
+			a = a + i1 + i2
+			print a;
+			i2 = i2 - 1
+		loop
+		print !"\n";
+		i1 = i1 - 1
+		i2 = 10
+	loop
+
+end scope
