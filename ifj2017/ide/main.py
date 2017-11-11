@@ -2,6 +2,7 @@
 import sys
 
 from os import path
+from platform import system
 
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QIcon
@@ -18,7 +19,7 @@ from ifj2017.ide.core.tree_view_model import TreeViewModel
 from ifj2017.ide.code.diff_code_analyzer import DiffCodeAnalyzer
 from ifj2017.ide.debugger_wrapper import DebuggerWrapper
 from ifj2017.ide.io_wrapper import IOWrapper
-from ifj2017.ide.core.file_io import FileIO
+from ifj2017.ide.core.file_io import FileIO, FILE_PREFIX
 from ifj2017.ide.core.formatted_text_writer import FormattedTextWriter
 
 try:
@@ -58,7 +59,7 @@ qInstallMessageHandler(qt_message_handler)
 
 app = QApplication(sys.argv)
 
-base_url = QUrl("file:///{}/".format(str(path.abspath(path.dirname(__file__))).replace('\\', '/')))
+base_url = QUrl("{}{}/".format(FILE_PREFIX[system()], str(path.abspath(path.dirname(__file__))).replace('\\', '/')))
 
 icon = QIcon()
 for size in ICON_SIZES:
