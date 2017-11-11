@@ -90,6 +90,16 @@ ApplicationWindow {
     }
 
     Shortcut {
+        sequence: "Ctrl+F"
+        onActivated: searchPanel.show()
+    }
+
+    Shortcut {
+        sequence: "Esc"
+        onActivated: searchPanel.hide()
+    }
+
+    Shortcut {
         sequence: "F5"
         onActivated: {
             if(root.state == "stopped")
@@ -233,6 +243,16 @@ td {
                 onToggleBreakpointRequest: ifjDebugger.toggleBreakpoint(line)
                 onLinesAdded: ifjDebugger.handleAddedLines(lines)
                 onLinesRemoved: ifjDebugger.handleRemovedLines(lines)
+            }
+
+            Controls.SearchPanel {
+                id: searchPanel
+
+                height: Core.scaledSize(25)
+                Layout.maximumHeight: Core.scaledSize(25)
+                color: "#2f2f2f"
+
+                onSearchPatternChanged: codeEditor.setSearchPattern(searchPattern)
             }
 
             Widgets.ConsoleWidget {

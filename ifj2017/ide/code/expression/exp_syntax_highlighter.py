@@ -1,4 +1,6 @@
 # coding=utf-8
+import re
+
 from typing import Optional, List
 
 from PyQt5.QtCore import QObject, QRegularExpression, pyqtProperty, pyqtSlot
@@ -8,6 +10,7 @@ from PyQt5.QtQml import QJSValue
 from PyQt5.QtQuick import QQuickItem
 
 from ifj2017.ide.code.expression import SyntaxHighlighter, HighlightRule
+from ifj2017.ide.settings import SEARCH_FORMAT
 
 __author__ = "Son Hai Nguyen"
 __copyright__ = "Copyright 2017, /dej/uran/dom team"
@@ -24,11 +27,14 @@ class ExpSyntaxHighlighter(QObject):
         super().__init__(parent)
 
         self._syntax_highlighter = SyntaxHighlighter(self)
+        self._base_font = None
 
-    def _setupFormat(self, color: QColor, fontSettings: QFont) -> QTextCharFormat:
+    def _setupFormat(self, color: QColor, fontSettings: QFont, colorIsForeground: bool = True) -> QTextCharFormat:
         pattern_format = QTextCharFormat()
-        if color is not None:
+        if color and colorIsForeground:
             pattern_format.setForeground(color)
+        if color and (not colorIsForeground):
+            pattern_format.setBackground(color)
         pattern_format.setFontItalic(fontSettings.italic())
         pattern_format.setFontWeight(fontSettings.bold())
 
@@ -45,6 +51,8 @@ class ExpSyntaxHighlighter(QObject):
         """
 
         pattern_format = list()
+        self._base_font = fontSettings
+
         for single_color in color.toVariant():
             pattern_format.append(self._setupFormat(QColor(single_color), fontSettings))
 
@@ -63,11 +71,23 @@ class ExpSyntaxHighlighter(QObject):
         """
 
         pattern_format = self._setupFormat(color, fontSettings)
+        self._base_font = fontSettings
 
         for single_pattern in patterns:
             self._syntax_highlighter.addHighlightRule(
                 HighlightRule(pattern_format, QRegularExpression(single_pattern))
             )
+
+    @pyqtSlot(str)
+    def setSearchPattern(self, pattern: str) -> None:
+        pattern_format = self._setupFormat(QColor(SEARCH_FORMAT), self._base_font, False)
+        if pattern:
+            self._syntax_highlighter.setSearchRule(
+                HighlightRule(pattern_format, QRegularExpression(re.escape(pattern)))
+            )
+        else:
+            self._syntax_highlighter.setSearchRule(None)
+        self._syntax_highlighter.rehighlight()
 
     @pyqtProperty(QQuickItem)
     def target(self) -> None:

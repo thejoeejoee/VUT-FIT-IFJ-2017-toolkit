@@ -6,11 +6,6 @@ from collections import Iterable
 from PyQt5.QtCore import pyqtSignal, QObject, pyqtProperty, QRegularExpression, pyqtSlot
 from PyQt5.QtGui import QSyntaxHighlighter, QTextCharFormat
 from PyQt5.QtQuick import QQuickItem, QQuickTextDocument
- 
-__author__ = "Son Hai Nguyen"
-__copyright__ = "Copyright 2017, /dej/uran/dom team"
-__credits__ = ["Josef Kolář", "Son Hai Nguyen", "Martin Omacht", "Robert Navrátil"]
-__license__ = "GNU GPL Version 3"
 
 
 class HighlightRule(QObject):
@@ -47,6 +42,7 @@ class SyntaxHighlighter(QSyntaxHighlighter):
 
         self._target = None
         self._highlight_rules = list()
+        self._search_rule = None
 
         self.targetChanged.connect(self._setupNewDocument)
 
@@ -63,7 +59,9 @@ class SyntaxHighlighter(QSyntaxHighlighter):
          :param p_str: Block of text which changed
         """
 
-        for rule in self._highlight_rules:
+        for rule in self._highlight_rules + [self._search_rule]:
+            if not rule:
+                continue
             cursor = 0
             match_pattern = rule.match_pattern
 
@@ -81,6 +79,9 @@ class SyntaxHighlighter(QSyntaxHighlighter):
 
     def addHighlightRule(self, highlightRule: HighlightRule) -> None:
         self._highlight_rules.append(highlightRule)
+
+    def setSearchRule(self, searchRule: Optional[HighlightRule]) -> None:
+        self._search_rule = searchRule
 
     @pyqtSlot(QQuickItem)
     def _setupNewDocument(self, target: QQuickItem) -> None:

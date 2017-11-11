@@ -25,6 +25,8 @@ class Expression(QObject):
 INSTRUCTIONS = tuple(sorted(list(Instruction._commands.keys())))
 IDENTIFIER_PATTERN = r'[\w_\-\$&%*]+'
 
+SEARCH_FORMAT = "yellow"
+
 HIGHLIGHT_RULES = (
     (("".join(("(?i)", instruction)) for instruction in INSTRUCTIONS), "#1d73a3"),
     ((r'[LGT]F@', ), '#930c80'),

@@ -305,5 +305,9 @@ Item {
         else if(line > firstVisibleLine + visibleLinesCount)
             textEdit.flickableItem.contentY = (line - visibleLinesCount) * lineHeight
     }
+
+    function setSearchPattern(pattern) {
+        esh.setSearchPattern(pattern)
+    }
 }
 
