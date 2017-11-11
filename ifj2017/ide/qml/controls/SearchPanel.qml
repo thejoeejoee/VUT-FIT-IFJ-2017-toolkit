@@ -7,6 +7,7 @@ Rectangle {
     id: component
 
     property alias searchPattern: textInput.text
+    visible: false
 
     Row {
         leftPadding: Core.scaledSize(5)
