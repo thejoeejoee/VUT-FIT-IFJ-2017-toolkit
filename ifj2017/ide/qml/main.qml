@@ -159,7 +159,7 @@ ApplicationWindow {
     }
 
     SplitView {
-        orientation: Qt.Vertical
+        orientation: Qt.Horizontal
 
         anchors.top: root.top
         anchors.bottom: root.bottom
@@ -167,19 +167,19 @@ ApplicationWindow {
         anchors.right: root.right
 
         handleDelegate: Rectangle {
-            height: Core.scaledSize(2)
+            width: Core.scaledSize(2)
             color: "lightGray"
         }
 
         SplitView {
             id: editorSplitView
 
-            orientation: Qt.Horizontal
-            Layout.fillHeight: true
-            Layout.minimumHeight: Core.scaledSize(100)
+            orientation: Qt.Vertical
+            Layout.fillWidth: true
+            Layout.minimumWidth: Core.scaledSize(100)
 
             handleDelegate: Rectangle {
-                width: Core.scaledSize(2)
+                height: Core.scaledSize(2)
                 color: "#e5e5e5"
             }
 
@@ -188,8 +188,8 @@ ApplicationWindow {
 
                 width: Core.scaledSize(500)
                 height: parent.height
-                Layout.fillWidth: true
-                Layout.minimumWidth: Core.scaledSize(100)
+                Layout.fillHeight: true
+                Layout.minimumHeight: Core.scaledSize(100)
 
                 editorDisabled: root.state != "stopped"
                 placeHolderText: '
@@ -235,28 +235,35 @@ td {
                 onLinesRemoved: ifjDebugger.handleRemovedLines(lines)
             }
 
-            View.DebugStateView {
-                id: debugStateView
+            Widgets.ConsoleWidget {
+                id: consoleWidget
 
-                contentWidth: Core.scaledSize(500)
-                height: parent.height
+                toolbarHeight: Core.scaledSize(25)
+                height: Core.scaledSize(300)
+                Layout.minimumHeight: Core.scaledSize(50)
+
+                onRunToNextLineRequest: ifjDebugger.runToNextLine()
+                onRunToNextBreakPointRequest: ifjDebugger.runToNextBreakpoint()
+                onReadingChanged: {
+                    if(root.state == "runningDebug" && reading)
+                        consoleWidget.debugToolbarEnabled = false
+                    else if(root.state == "runningDebug" && !reading)
+                        consoleWidget.debugToolbarEnabled = true
+                }
             }
         }
 
-        Widgets.ConsoleWidget {
-            id: consoleWidget
+        View.DebugStateView {
+            id: debugStateView
 
-            toolbarHeight: Core.scaledSize(25)
-            height: Core.scaledSize(300)
-            Layout.minimumHeight: Core.scaledSize(50)
+            callStackModel: ifjDebugger.callStackModel
 
-            onRunToNextLineRequest: ifjDebugger.runToNextLine()
-            onRunToNextBreakPointRequest: ifjDebugger.runToNextBreakpoint()
-            onReadingChanged: {
-                if(root.state == "runningDebug" && reading)
-                    consoleWidget.debugToolbarEnabled = false
-                else if(root.state == "runningDebug" && !reading)
-                    consoleWidget.debugToolbarEnabled = true
+            contentWidth: Core.scaledSize(500)
+            height: parent.height
+
+            onLineClicked: {
+                codeEditor.scrollToLine(line)
+                codeEditor.highlightLine(line)
             }
         }
     }

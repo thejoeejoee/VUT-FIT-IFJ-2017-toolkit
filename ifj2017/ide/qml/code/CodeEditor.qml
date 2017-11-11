@@ -107,9 +107,26 @@ Item {
             id: currentLineMark
             width: parent.width
             height: textEdit.contentHeight / textEdit.lineCount
-            y: (component.currentLine - 1) * height -textEdit.flickableItem.contentY
+            y: (component.currentLine - 1) * height - textEdit.flickableItem.contentY
             color: "red"
             opacity: 0.4
+        }
+
+        Rectangle{
+            id: lineHighlighter
+
+            signal show()
+
+            width: parent.width
+            height: textEdit.contentHeight / textEdit.lineCount
+
+            color: "black"
+            opacity: 0
+
+            onShow: SequentialAnimation {
+                NumberAnimation { target: lineHighlighter; property: "opacity"; from: 0; to: 0.4; duration: 300; easing.type: Easing.OutQuart }
+                NumberAnimation { target: lineHighlighter; property: "opacity"; easing.type: Easing.InQuart; from: 0.4; to: 0; duration: 300 }
+            }
         }
     }
 
@@ -269,6 +286,11 @@ Item {
         else
             textDocument.remove(textDocument.selectionStart, textDocument.selectionEnd)
         textDocument.insert(textDocument.selectionStart, expansion)
+    }
+
+    function highlightLine(line) {
+        lineHighlighter.y = (line - 1) * lineHighlighter.height - textEdit.flickableItem.contentY
+        lineHighlighter.show()
     }
 
     function scrollToLine(line) {

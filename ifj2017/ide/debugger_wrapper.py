@@ -13,6 +13,7 @@ from ifj2017.ide.core.tree_view_model import TreeViewModel
 from ifj2017.ide.io_wrapper import IOWrapper
 from ifj2017.interpreter.debugger import Debugger
 from ifj2017.interpreter.exceptions import InvalidCodeException, BaseInterpreterError
+from ifj2017.interpreter.interpreter import Interpreter
 from ifj2017.interpreter.state import State
 
 class DebuggerWorker(QThread):
@@ -95,6 +96,7 @@ class DebuggerWrapper(QObject):
     currentLineChanged = pyqtSignal(int, arguments=["line"])
     programEnded = pyqtSignal()
     programEndedWithError = pyqtSignal(str, arguments=["msg"])
+    callStackModelChanged = pyqtSignal(QVariant, arguments=["model"])
 
     def __init__(self, parent: Optional[QObject] = None):
         super().__init__(parent)
@@ -103,6 +105,7 @@ class DebuggerWrapper(QObject):
         self._model = None
         self._io_wrapper = None
         self._program_line = -1
+        self._call_stack_model = []
 
         self._init_debug_worker()
 
@@ -112,6 +115,10 @@ class DebuggerWrapper(QObject):
         self._debugger_worker.programEndedWithError.connect(self.programEndedWithError)
         self._debugger_worker.currentLineChanged.connect(self._update_program_line)
         self._debugger_worker.stateChanged.connect(self._set_model_data)
+
+    @pyqtProperty(QVariant, notify=callStackModelChanged)
+    def callStackModel(self) -> QVariant:
+        return QVariant(self._call_stack_model)
 
     @pyqtProperty(IOWrapper)
     def ioWrapper(self) -> IOWrapper:
@@ -250,10 +257,15 @@ class DebuggerWrapper(QObject):
             ''
         )
 
+        self._call_stack_model = [self._debugger._interpreter.program_line(x) for x in state.call_stack]
+        self.callStackModelChanged.emit(QVariant(self._call_stack_model))
+
     @pyqtSlot()
     def stop(self):
         self._debugger.stop()
         self._io_wrapper.unblockWaitSignal.emit()
         self._program_line = -1
         self._model.clear()
+        self._call_stack_model = []
+        self.callStackModelChanged.emit(QVariant(self._call_stack_model))
         self.currentLineChanged.emit(-1)
