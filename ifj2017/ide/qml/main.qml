@@ -223,7 +223,9 @@ td {
             - debug run to next breakpoint (F5)<br>
             - debug run to next line (F6)<br>
         <br><b>Code</b><br>
-            - show completer (Ctrl + Space)
+            - show completer (Ctrl + Space)<br>
+            - find (Ctrl + F)<br>
+            - hide find panel (Esc)
     </td><td>
         <b>License</b> LGPL<br>
         <br><b>Repository</b><br>
