@@ -152,7 +152,7 @@ class Instruction(object):
         'FLOAT2INT': lambda state, op0, op1: state.set_value(op1, int(state.get_value(op1))),
         'FLOAT2R2EINT': lambda state, op0, op1: state.set_value(
             op0,
-            even_round(state.get_value(op0))
+            even_round(state.get_value(op1))
         ),
         'FLOAT2R2OINT': lambda state, op0, op1: state.set_value(
             op0,

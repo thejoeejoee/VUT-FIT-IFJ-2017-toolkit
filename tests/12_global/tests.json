@@ -34,6 +34,14 @@
     {
       "name": "08",
       "compiler_exit_code": 3
+    },
+    {
+      "name": "09",
+      "stdout": " 26 27"
+    },
+    {
+      "name": "10",
+      "stdout": " 26 27 4 8 28 29 16"
     }
   ],
   "extensions": [
