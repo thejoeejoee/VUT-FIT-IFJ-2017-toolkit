@@ -32,6 +32,11 @@ class CodeAnalyzer(QObject):
         return QVariant(
             [
                 dict(
+                    identifier=match,
+                    type=Expression.ExpressionTypes.Types
+                ) for match in sorted(("int", "bool", "float", "string"))
+            ] + [
+                dict(
                     identifier=func,
                     type=Expression.ExpressionTypes.Instruction
                 ) for func in INSTRUCTIONS
