@@ -229,6 +229,7 @@ Item {
 
         x: component.calcTextInfoPos(width)
         y: textEdit.cursorRectangle.y + textEdit.cursorRectangle.height + textEdit.y
+        z: 2
         itemHeight: Core.scaledSize(20)
 
         opacity: 0.8
