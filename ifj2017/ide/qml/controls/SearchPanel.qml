@@ -53,5 +53,6 @@ Rectangle {
 
     function hide() {
         component.visible = false
+        component.searchPattern = ""
     }
 }
