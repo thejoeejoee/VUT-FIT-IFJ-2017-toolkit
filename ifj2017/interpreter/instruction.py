@@ -9,15 +9,23 @@ from .operand import Operand
 from .prices import InstructionPrices
 from .state import State
 
+
 def even_round(v: int) -> int:
-    if int(v) % 2 == 0:
-        return int(math.floor(v))
-    return int(math.ceil(v))
+    return int(round(v))
+
 
 def odd_round(v: int) -> int:
-    if int(v) % 2 == 1:
-        return int(math.floor(v))
-    return int(math.ceil(v))
+    return int(
+        (
+            math.floor,
+            math.ceil,
+            math.floor,
+            lambda v: math.floor(v) if v % 2.0 == 1.5 else math.ceil(v)
+        )[
+            int(((v % 2) // 0.5))
+        ](v)
+    )
+
 
 def _unknown_command(state, *args):
     raise InvalidCodeException(InvalidCodeException.UNKNOWN_INSTRUCTION)
