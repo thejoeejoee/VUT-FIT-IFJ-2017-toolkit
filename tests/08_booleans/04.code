@@ -25,33 +25,44 @@ scope
 	dim res as boolean
 	dim minus as integer
 	minus = minus - 10
-	
+
 	res = equali(1, 1)
-	a = a and res	
+	a = a and res
+
 	res = equali(1, 1.1)
 	a = a and res
-	res = equali(1.8, 1.1)
+
+	res = equali(1.7, 1.6)
 	a = a and res
+
 	res = equali(1.8, 0.1)
 	a = a and not res
+
 	res = equals(!"", !"")
 	a = a and res
+
 	res = equals(!"         \n         ", !"         \n         ")
 	a = a and res
+
 	res = equalb(true, true)
 	a = a and res
+
 	res = equalb(false, false)
 	a = a and res
+
 	res = biggeri(42, minus)
 	a = a and res
+
 	res = biggeri(42.78, 41.78)
 	a = a and res
+
 	res = biggerorequald(42.78, 42.78)
 	a = a and res
-	res = biggerorequald(42.78, minus)
+
+	res = biggerorequald(minus, 42.78)
 	a = a and not res
 
-	if a and b then
+	if a then
 		print 1;
 	else
 		print 0;
