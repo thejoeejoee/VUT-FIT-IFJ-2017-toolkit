@@ -83,7 +83,7 @@ class ExpSyntaxHighlighter(QObject):
         pattern_format = self._setupFormat(QColor(SEARCH_FORMAT), self._base_font, False)
         if pattern:
             self._syntax_highlighter.setSearchRule(
-                HighlightRule(pattern_format, QRegularExpression(re.escape(pattern)))
+                HighlightRule(pattern_format, QRegularExpression(re.escape(pattern), QRegularExpression.CaseInsensitiveOption))
             )
         else:
             self._syntax_highlighter.setSearchRule(None)
