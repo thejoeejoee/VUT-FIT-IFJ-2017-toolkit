@@ -1,0 +1,12 @@
+' basic continue
+scope
+	dim a as integer = 20
+	do while a > 0
+		print a;
+		a = a - 1
+		if a > 11 then
+			continue do
+		end if 
+		print a;
+	loop
+end scope
