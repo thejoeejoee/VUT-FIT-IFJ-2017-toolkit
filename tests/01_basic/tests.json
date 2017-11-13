@@ -67,7 +67,7 @@
     {
       "name": "22",
       "stdin": "soucet\n4\n5",
-      "stdout": "? ?  9"
+      "stdout": "? ? ? 9"
     }
   ]
 }

@@ -1,26 +1,27 @@
 # coding=utf-8
+import logging
 import sys
-
 from os import path
 from platform import system
 
+from PyQt5.QtCore import (QSize, QtFatalMsg, QtCriticalMsg, QtWarningMsg, QtInfoMsg,
+                          qInstallMessageHandler, QtDebugMsg)
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QIcon
 from PyQt5.QtQml import QQmlApplicationEngine, qmlRegisterSingletonType, qmlRegisterType
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import (QSize, QtFatalMsg, QtCriticalMsg, QtWarningMsg, QtInfoMsg,
-                          qInstallMessageHandler, QtDebugMsg)
 
-from ifj2017.ide.settings import ICON_SIZES
-from ifj2017.ide.code_analyzer import CodeAnalyzer
-from ifj2017.ide.code.expression import ExpSyntaxHighlighter, ExpAnalyzer
-from ifj2017.ide.core.core import Core
-from ifj2017.ide.core.tree_view_model import TreeViewModel
 from ifj2017.ide.code.diff_code_analyzer import DiffCodeAnalyzer
-from ifj2017.ide.debugger_wrapper import DebuggerWrapper
-from ifj2017.ide.io_wrapper import IOWrapper
+from ifj2017.ide.code.expression import ExpSyntaxHighlighter, ExpAnalyzer
+from ifj2017.ide.code_analyzer import CodeAnalyzer
+from ifj2017.ide.core.core import Core
 from ifj2017.ide.core.file_io import FileIO, FILE_PREFIX
 from ifj2017.ide.core.formatted_text_writer import FormattedTextWriter
+from ifj2017.ide.core.tree_view_model import TreeViewModel
+from ifj2017.ide.debugger_wrapper import DebuggerWrapper
+from ifj2017.ide.io_wrapper import IOWrapper
+from ifj2017.ide.settings import ICON_SIZES
+
 
 try:
     from termcolor import colored
@@ -83,6 +84,12 @@ core = Core()
 engine = QQmlApplicationEngine()
 engine.rootContext().setContextProperty("rootDir", base_url.toString())
 engine.rootContext().setContextProperty("Core", core)
-engine.load(QUrl("qml/main.qml"))
+engine.load(base_url.resolved(QUrl("qml/main.qml")))
 
-sys.exit(app.exec())
+
+def main():
+    sys.exit(app.exec())
+
+
+if __name__ == '__main__':
+    main()

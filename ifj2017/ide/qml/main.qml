@@ -227,7 +227,7 @@ td {
             - find (Ctrl + F)<br>
             - hide find panel (Esc)
     </td><td>
-        <b>License</b> LGPL<br>
+        <b>License</b> GPL v3<br>
         <br><b>Repository</b><br>
              - <a href="http://bit.ly/IFJ-toolkit">thejoeejoee@VUT-FIT-IFJ-toolkit</a><br>
         <br><b>Authors</b><br>
