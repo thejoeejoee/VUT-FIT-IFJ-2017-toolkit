@@ -42,7 +42,7 @@
     },
     {
       "name": "01",
-      "stdout": " 2 8 4 2 4 foobar"
+      "stdout": " 2 8 4 2 4bar foo "
     },
     {
       "name": "02",
