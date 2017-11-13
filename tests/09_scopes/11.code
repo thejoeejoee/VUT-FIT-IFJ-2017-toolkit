@@ -1,0 +1,19 @@
+' if in while with declare
+
+SCOPE
+
+	dim a as integer = 10
+
+	do while a < 20
+
+		if a < 20 then
+			dim b as integer
+			b = 20
+		end if
+
+		a = a + 1
+	loop
+
+	print a;
+
+END SCOPE

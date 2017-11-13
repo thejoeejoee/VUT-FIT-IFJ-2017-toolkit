@@ -1,0 +1,25 @@
+' Scope in if
+
+SCOPE
+
+	dim a as integer = 31
+
+	if a > 10 then
+		dim b as integer = 4
+		scope
+			dim b as integer = 45
+			if a > 10 then
+				dim b as integer = 42
+				scope
+
+					print b;
+
+				end scope
+
+			end if
+
+		end scope
+
+	end if
+
+END SCOPE

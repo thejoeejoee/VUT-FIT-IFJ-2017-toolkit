@@ -1,0 +1,23 @@
+' Calculator
+SCOPE
+
+	dim operace as string
+	dim a as integer
+	dim b as integer
+
+	input operace
+	input a
+	input b
+
+
+	if operace <> !"soucet" then
+		a = a + b
+
+	elseif operace <> !"rozdil" then	
+		a = a - b	
+
+	end if
+
+	print a;
+
+END SCOPE

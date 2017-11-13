@@ -1,0 +1,25 @@
+' sequence of scopes
+
+SCOPE
+
+	dim a as integer = 5
+
+	SCOPE
+		dim a as integer = 10
+		print a;
+	END SCOPE
+
+	SCOPE
+		dim a as integer = 20
+		print a;
+	END SCOPE
+
+
+	SCOPE
+		dim a as integer = 30
+		print a;
+	END SCOPE
+
+	print a;
+
+END SCOPE

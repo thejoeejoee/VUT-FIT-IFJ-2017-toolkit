@@ -14,6 +14,11 @@
       ]
     },
     {
+      "name": "12",
+      "stdin": "Martin Kobelka napsal tento test",
+      "stdout": "? Martin Kobelka napsal tento test"
+    },
+    {
       "name": "13",
       "info": "Multi line string",
       "stdout": "ahoj\nsvete",
@@ -52,6 +57,17 @@
     {
       "name": "20",
       "stdout": " 11"
+    },
+    {
+      "name": "21",
+      "stdin": "1\n4\n5",
+
+      "stdout": "? ? ?  10"
+    },
+    {
+      "name": "22",
+      "stdin": "soucet\n4\n5",
+      "stdout": "? ?  9"
     }
   ]
 }

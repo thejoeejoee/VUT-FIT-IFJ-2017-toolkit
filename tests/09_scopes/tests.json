@@ -1,3 +1,18 @@
 {
-    "extensions": ["SCOPE"]
+    "extensions": ["SCOPE"],
+     "tests": [
+
+    {
+      "name": "09",
+      "stdout": " 10 20 30 5"
+    },
+    {
+      "name": "10",
+      "stdout": " 42"
+    },
+    {
+      "name": "11",
+      "stdout": " 20"
+    }
+  ]
 }

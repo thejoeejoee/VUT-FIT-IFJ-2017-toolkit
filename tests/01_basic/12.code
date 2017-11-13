@@ -1,0 +1,11 @@
+' Print input
+
+SCOPE
+
+	dim hdghaskljkl as string
+
+	input hdghaskljkl
+
+	print hdghaskljkl;
+
+END SCOPE

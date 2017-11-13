@@ -1,0 +1,16 @@
+' Sčítačka
+
+
+
+SCOPE
+
+	dim a as integer
+	dim b as integer
+	dim c as integer
+	input a
+	input b
+	input c
+	a = a + b + c
+	print a;
+
+END SCOPE
