@@ -10,14 +10,21 @@ SCOPE
 	input b
 
 
-	if operace <> !"soucet" then
+	if operace = !"soucet" then
 		a = a + b
+		print a;
 
-	elseif operace <> !"rozdil" then	
+	elseif operace = !"rozdil" then	
 		a = a - b	
+		print a;
+
+	elseif operace = !"soucin" then	
+		a = a * b
+		print a;	
+
+	else
+		print !"Neplatna operace";
 
 	end if
-
-	print a;
 
 END SCOPE

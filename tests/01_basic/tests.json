@@ -66,8 +66,8 @@
     },
     {
       "name": "22",
-      "stdin": "soucet\n4\n5",
-      "stdout": "? ? ? 9"
+      "stdin": "rozdil\n10\n5",
+      "stdout": "? ? ?  5"
     }
   ]
 }

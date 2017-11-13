@@ -52,6 +52,11 @@
     {
       "name": "12",
       "stdout": " 1 1 1 1"
+    },
+    {
+      "name": "13",
+      "stdout": "? ?  42",
+      "stdin": "Ahojky\nAhojky"
     }
   ]
 }

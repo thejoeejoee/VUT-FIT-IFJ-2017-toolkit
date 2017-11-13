@@ -1,0 +1,13 @@
+' Compare equal input strings
+scope
+
+	dim a as string
+	dim b as string
+	input a
+	input b
+	if a = b then
+		print 42;
+	else
+		print 43;	
+	end if
+end scope
