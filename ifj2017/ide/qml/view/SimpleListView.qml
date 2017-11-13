@@ -47,7 +47,7 @@ Rectangle {
                     height: Core.scaledSize(25)
 
                     Text {
-                        text: modelData
+                        text: modelData[0] + "\t" + modelData[1]
                         height: parent.height
 
                         font.pixelSize: Core.scaledSize(15)
@@ -70,7 +70,7 @@ Rectangle {
 
                         hoverEnabled: true
                         anchors.fill: parent
-                        onClicked: component.clicked(modelData)
+                        onClicked: component.clicked(modelData[0])
                     }
                 }
             }

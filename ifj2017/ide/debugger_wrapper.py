@@ -16,6 +16,7 @@ from ifj2017.interpreter.exceptions import InvalidCodeException, BaseInterpreter
 from ifj2017.interpreter.interpreter import Interpreter
 from ifj2017.interpreter.state import State
 
+
 class DebuggerWorker(QThread):
     class CommandType(IntEnum):
         RUN = 1
@@ -90,6 +91,7 @@ class DebuggerWorker(QThread):
         if state is None:
             self.programEnded.emit()
         return state is None
+
 
 class DebuggerWrapper(QObject):
     breakpointsChanged = pyqtSignal(QVariant)
@@ -257,7 +259,13 @@ class DebuggerWrapper(QObject):
             ''
         )
 
-        self._call_stack_model = [self._debugger._interpreter.program_line(x) for x in state.call_stack]
+        self._call_stack_model = [
+            [
+                self._debugger._interpreter.program_line(x),
+                state.program_counter_to_label(x - 1)
+            ]
+            for x in state.call_stack
+            ]
         self.callStackModelChanged.emit(QVariant(self._call_stack_model))
 
     @pyqtSlot()

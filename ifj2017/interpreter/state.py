@@ -220,3 +220,6 @@ class State(object):
             self.instruction_price,
             self.operand_price
         )
+
+    def program_counter_to_label(self, pc):
+        return {v: k for k, v in self.labels.items()}.get(pc) or ''
