@@ -1,8 +1,8 @@
 ' global variable initialized from other global variable
 
-shared dim a bs integer
-shared dim b bs double
-shared dim c bs string
+dim shared a as integer
+dim shared b as double
+dim shared c as string
 
 
 scope
@@ -12,13 +12,13 @@ scope
 		print 1;
 	end if
 
-	if c <> 0 then
+	if b <> 0 then
 		print 0;
 	else
 		print 1;
 	end if
 
-	if b <> !"" then
+	if c <> !"" then
 		print 0;
 	else
 		print 1;

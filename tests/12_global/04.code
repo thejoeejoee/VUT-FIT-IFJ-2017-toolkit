@@ -1,7 +1,7 @@
 ' global variable initialized from other global variable
 
-shared dim b bs integer = 38
-shared dim c bs integer = b * 2
+dim shared b as integer = 38
+dim shared c as integer = b * 2
 
 scope
 	print b; c;

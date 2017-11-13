@@ -1,6 +1,6 @@
 ' global variable writing
 
-shared dim b bs integer = 38
+dim shared b as integer = 38
 
 function foo() bs integer
 	print b;

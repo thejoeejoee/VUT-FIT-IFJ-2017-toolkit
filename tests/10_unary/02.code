@@ -1,6 +1,6 @@
 ' functions with unary minus
 
-function fce(a as integer) 
+function fce(a as integer) as integer
 	return -a
 end function
 

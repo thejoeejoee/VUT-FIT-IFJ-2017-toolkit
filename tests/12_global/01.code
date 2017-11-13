@@ -1,6 +1,6 @@
 ' global variable reading
 
-shared dim a as integer = 42
+dim shared a as integer = 42
 
 function foo() as integer
 	print a;

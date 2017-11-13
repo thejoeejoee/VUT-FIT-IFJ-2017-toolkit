@@ -1,11 +1,15 @@
 ' global variable initialization by function call
 
-declare foo as integer
+declare function foo() as integer
 
-shared dim b bs integer = foo()
+function bar() as integer
+	return foo()
+end function
 
-function foo() bs integer
-	return 45
+dim shared b as integer = 56
+
+function foo() as integer
+	return 5
 end function
 
 scope

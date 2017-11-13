@@ -1,7 +1,7 @@
 ' duplicted global variable name
 
-shared dim c bs integer
-shared dim c bs integer
+dim shared c as integer
+dim shared c as integer
 
 scope
 

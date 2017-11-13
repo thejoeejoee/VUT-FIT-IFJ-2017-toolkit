@@ -21,6 +21,10 @@
       "compiler_exit_code": 2
     },
     {
+      "name": "08",
+      "compiler_exit_code": 2
+    },
+    {
       "info": "Empty condition",
       "code": "scope \n if 10 < 15 then \n end if \n end scope"
     },
