@@ -262,10 +262,14 @@ class DebuggerWrapper(QObject):
         self._call_stack_model = [
             [
                 self._debugger._interpreter.program_line(x),
-                state.program_counter_to_label(x - 1)
+                (
+                    self._debugger._interpreter._instructions[x].op0.label
+                 if x != state.program_counter
+                    else None
+                ) or ''
             ]
-            for x in state.call_stack
-            ]
+            for x in state.call_stack + [state.program_counter]
+            ][::-1]
         self.callStackModelChanged.emit(QVariant(self._call_stack_model))
 
     @pyqtSlot()
