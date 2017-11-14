@@ -22,6 +22,14 @@ SCOPE
 		a = a * b
 		print a;	
 
+	elseif operace = !"mocnina" then	
+		a = a * a
+		print a;	
+
+	elseif operace = !"dvojnasobek" then	
+		a = a * 2
+		print a;	
+
 	else
 		print !"Neplatna operace";
 

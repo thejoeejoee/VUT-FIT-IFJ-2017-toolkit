@@ -3,13 +3,13 @@
 declare function foo() as integer
 
 function bar() as integer
-	return foo()
+	return 25
 end function
 
-dim shared b as integer = 56
+dim shared b as integer = foo()
 
 function foo() as integer
-	return 5
+	return bar()
 end function
 
 scope

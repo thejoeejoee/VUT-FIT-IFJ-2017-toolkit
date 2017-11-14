@@ -2,15 +2,22 @@
 
 dim shared b as integer = 38
 
-function foo() bs integer
+function foo() as integer
 	print b;
 	b = 12
 	print b;
 end function
 
+function bar() as integer
+	print b;
+end function
+
 scope
+	print b;
 	dim b as integer
 	print b;
 	b = foo()
 	print b;
+	b = bar()
 end scope
+

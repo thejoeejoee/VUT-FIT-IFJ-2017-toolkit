@@ -4,6 +4,7 @@ dim shared a as integer = 42
 
 function foo() as integer
 	print a;
+	return a * 2
 end function
 
 scope

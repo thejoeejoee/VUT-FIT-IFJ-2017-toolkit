@@ -17,6 +17,10 @@
       "stdout": " 63 63 63 63 63 63 57 57 57 57 57"
     },
     {
+      "name": "18",
+      "timeout": 2
+    },
+    {
       "name": "06",
       "extensions": [
         "IFTHEN"
