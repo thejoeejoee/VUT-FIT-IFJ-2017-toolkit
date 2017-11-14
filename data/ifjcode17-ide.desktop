@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=IFJcode17 IDE
+Comment=Integrated development environment for IFJcode17
+Exec=ifjcode17-ide
+Icon=ifjcode17-ide.svg
+Terminal=false
+StartupNotify=true
+Type=Application
+Categories=Utility;Application;
