@@ -80,6 +80,7 @@ qmlRegisterType(FormattedTextWriter, "FormattedTextWriter", 1, 0, "FormattedText
 core = Core()
 
 engine = QQmlApplicationEngine()
+engine.rootContext().setContextProperty("ossystem", system())
 engine.rootContext().setContextProperty("rootDir", base_url.toString())
 engine.rootContext().setContextProperty("Core", core)
 engine.load(base_url.resolved(QUrl("qml/main.qml")))

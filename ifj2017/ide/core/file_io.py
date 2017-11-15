@@ -6,7 +6,8 @@ from collections import defaultdict
 
 FILE_PREFIX = defaultdict(lambda: "file://", **{
     "Windows": "file:///",
-    "Linux": "file://"
+    "Linux": "file://",
+    "Darwin": "file://"
 })
 
 class FileIO(QObject):

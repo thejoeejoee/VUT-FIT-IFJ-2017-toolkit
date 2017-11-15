@@ -132,7 +132,9 @@ DropDown {
       @param event Passed key event
       */
     function handleOtherKeys(event) {
-        if(event.key == Qt.Key_Space && (event.modifiers & Qt.ControlModifier)) {
+        var desiredKey = (ossystem != "Darwin") ?Qt.Key_Space :Qt.Key_J
+
+        if(event.key == desiredKey && (event.modifiers & Qt.ControlModifier)) {
             component.show()
             event.accepted = true
         }
