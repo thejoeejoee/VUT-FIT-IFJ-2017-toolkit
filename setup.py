@@ -17,7 +17,7 @@ base_path = abspath(dirname(__file__))
 
 def setup():
     core.setup(
-        name='IFJcode17-IDE',
+        name='IFJcode17-toolkit',
         version='1.0',
         license='GNU GENERAL PUBLIC LICENSE Version 3',
         long_description=open(join(base_path, 'README.md')).read(),
@@ -51,6 +51,8 @@ def setup():
         entry_points={
             'console_scripts': [
                 'ifjcode17-ide=ifj2017.ide.main:main',
+                'ifjcode17-tests=ifj2017.test.main:main',
+                'ifjcode17-interpreter=ifj2017.interpreter.main:main',
             ]
         },
         data_files=[

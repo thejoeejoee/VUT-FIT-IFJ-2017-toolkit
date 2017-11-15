@@ -19,7 +19,7 @@ class Interpreter(object):
             raise InvalidCodeException("Empty code")
 
         # _start from 1, .IFJcode17 striped
-        for i, line in enumerate(self._code.split('\n'), start=1):
+        for i, line in enumerate(self._code.splitlines(), start=1):
             line = line.strip().split('#', 1)[0].strip()  # naive method to strip comment?
             if not line or line.startswith('#'):
                 # comment line

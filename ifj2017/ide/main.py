@@ -1,5 +1,4 @@
 # coding=utf-8
-import logging
 import sys
 from os import path
 from platform import system
@@ -21,7 +20,6 @@ from ifj2017.ide.core.tree_view_model import TreeViewModel
 from ifj2017.ide.debugger_wrapper import DebuggerWrapper
 from ifj2017.ide.io_wrapper import IOWrapper
 from ifj2017.ide.settings import ICON_SIZES
-
 
 try:
     from termcolor import colored
@@ -88,7 +86,7 @@ engine.load(base_url.resolved(QUrl("qml/main.qml")))
 
 
 def main():
-    sys.exit(app.exec())
+    return app.exec()
 
 
 if __name__ == '__main__':
