@@ -227,8 +227,10 @@ Item {
     Completer {
         id: completer
 
+        property real unnormilizedY: textEdit.cursorRectangle.y + textEdit.cursorRectangle.height + textEdit.y - textEdit.flickableItem.contentY
+
         x: component.calcTextInfoPos(width)
-        y: textEdit.cursorRectangle.y + textEdit.cursorRectangle.height + textEdit.y
+        y: unnormilizedY - ((unnormilizedY + completer.height > textEdit.height) ?completer.height + currentLineMark.height :0)
         z: 2
         itemHeight: Core.scaledSize(20)
 
