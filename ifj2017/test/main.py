@@ -24,9 +24,11 @@ def main():
     parser.add_argument("-e", "--extensions-file", help="path to file with extensions 'rozsireni'")
     parser.add_argument("-v", "--verbose", help="enable verbose output", default=False, action='store_true')
     parser.add_argument("-d", "--tests-dir", help="path to folder with tests to run",
-                        type=str, default=path.join(__PROJECT_ROOT__, 'tests'))
+                        type=str, default=path.join(__PROJECT_ROOT__, 'ifj2017/tests'))
     parser.add_argument("-l", "--log-dir", help="path to folder with logs",
-                        type=str, default=path.join(__PROJECT_ROOT__, 'log'))
+                        type=str)
+    parser.add_argument("-t", "--token-file", help="path to token file (default .TOKEN in log dir)",
+                        type=str)
     parser.add_argument("--benchmark-url-target", help="target hostname to send benchmark results",
                         type=str, default='https://ifj.josefkolar.cz')
     parser.add_argument("--command-timeout", help="maximal timeout for compiler and interpreter",

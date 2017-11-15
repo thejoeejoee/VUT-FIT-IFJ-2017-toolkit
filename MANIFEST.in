@@ -1,6 +1,5 @@
 graft ifj2017
-graft bin
-graft tests
+graft data
 include ide.py
 include test.py
 include README.md

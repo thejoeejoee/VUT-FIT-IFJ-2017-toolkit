@@ -6,7 +6,7 @@ import platform
 import shutil
 from datetime import datetime
 from io import StringIO
-from os.path import basename, abspath, isfile
+from os.path import basename, abspath, isfile, dirname
 from subprocess import PIPE, Popen, TimeoutExpired
 from tempfile import mktemp
 
@@ -90,12 +90,22 @@ class TestRunner(object):
         TestLogger.verbose = args.verbose
         self._no_stdout_diff = args.no_stdout_diff
         self._reports = []
-        self._uploader = BenchmarkUploader(args.benchmark_url_target)
+
+        if not self._log_dir:
+            self._log_dir = os.path.join(dirname(abspath(self._compiler_binary)), 'log')
+
+        token_file = args.token_file or os.path.join(self._log_dir, '.TOKEN')
+        self._uploader = BenchmarkUploader(
+            args.benchmark_url_target,
+            token_file
+        )
 
         if path.exists(self._log_dir):
             for root, dirs, files in os.walk(self._log_dir):
                 for f in files:
-                    os.unlink(os.path.join(root, f))
+                    file_path = os.path.join(root, f)
+                    if file_path != token_file:
+                        os.unlink(file_path)
                 for d in dirs:
                     shutil.rmtree(os.path.join(root, d))
         else:

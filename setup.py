@@ -1,6 +1,7 @@
 # coding=utf-8
 
 
+import sys
 from distutils import core
 from os.path import abspath, dirname, join
 
@@ -11,21 +12,27 @@ __copyright__ = "Copyright 2017, Josef Kolář & Son Hai Nguyen"
 __credits__ = ["Josef Kolář", "Son Hai Nguyen"]
 __license__ = "GNU GPL Version 3"
 
+if sys.version_info[0] < 3:
+    print('Run in python3 please.', file=sys.stderr)
+    exit(1)
+
 base_path = abspath(dirname(__file__))
 
 try:
     import pypandoc
 
     long_description = pypandoc.convert(join(base_path, 'README.md'), 'rst')
-except(IOError, ImportError):
+except(IOError, ImportError) as e:
     long_description = open(join(base_path, 'README.md')).read()
 
 
 def setup():
     core.setup(
         name='IFJcode17-toolkit',
-        version='1.0',
+        version='1.0.5',
         license='GNU GENERAL PUBLIC LICENSE Version 3',
+        description='Toolkit for IFJ17 language compiler (as project at FIT BUT in Brno) with '
+                    'interactive debugger and automatic tests.',
         long_description=long_description,
         url='https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit',
         classifiers=[

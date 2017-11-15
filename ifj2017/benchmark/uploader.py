@@ -1,26 +1,24 @@
 # coding=utf-8
 
+import os
 import urllib
 import urllib.request
 import uuid
 from json import dumps, loads
-from os import path
 from os.path import basename
 from urllib.error import URLError
 
-from .. import __PROJECT_ROOT__
 from ..test.base import TestReport
 from ..test.logger import TestLogger
 
 
 class BenchmarkUploader(object):
-    TOKEN_FILE = path.join(__PROJECT_ROOT__, '.TOKEN')
-
-    def __init__(self, _api_hostname):
+    def __init__(self, _api_hostname, token_file):
         self._api_hostname = _api_hostname
         self._reports = []  # type: list[TestReport]
         self._token = None
         self._has_connection = False
+        self._token_file = token_file
 
     @property
     def has_connection(self):
@@ -41,7 +39,7 @@ class BenchmarkUploader(object):
         if not self._has_connection:
             return
         try:
-            with open(self.TOKEN_FILE) as f:
+            with open(self._token_file) as f:
                 token = str(uuid.UUID(f.read(), version=4))
         except (ValueError, OSError):
             token = None
@@ -100,7 +98,7 @@ class BenchmarkUploader(object):
         return response
 
     def _save_token(self, token):
-        with open(self.TOKEN_FILE, 'w') as f:
+        with open(self._token_file, 'w') as f:
             f.write(token)
 
     def _request(self, url, data):
