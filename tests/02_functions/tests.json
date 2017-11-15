@@ -72,6 +72,11 @@
     {
       "name": "24",
       "compiler_exit_code": 4
+    },
+    {
+      "name": "25",
+      "stdout": " 486",
+      "timeout": 2
     }
   ]
 }

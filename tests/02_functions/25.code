@@ -3000,5 +3000,7 @@ return 499
 end function
 
 scope
-	print rABPTPTXapABpJkQOlZiWGBUiYgBiTzaF();
+	dim res as integer
+	res = rABPTPTXapABpJkQOlZiWGBUiYgBiTzaF()
+	print res;
 end scope

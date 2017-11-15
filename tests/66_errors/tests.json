@@ -225,9 +225,14 @@
       "code": "dim a as integer \n end scope"
     },
     {
-      "info": "No function return",
+      "info": "Missing return data type I",
       "compiler_exit_code": 2,
       "code": "function foo() \n end function \n scope \n end scope"
+    },
+    {
+      "info": "Missing return data type II",
+      "compiler_exit_code": 2,
+      "code": "function foo() as \n end function \n scope \n end scope"
     },
     {
       "info": "No then after if",
