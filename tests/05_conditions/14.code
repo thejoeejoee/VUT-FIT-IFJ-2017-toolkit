@@ -1,0 +1,8 @@
+' Correct condition without spaces
+scope
+dim a as integer=10
+if a<100then
+    print!"ok";
+end if
+
+end scope

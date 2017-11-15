@@ -1,0 +1,23 @@
+' input into shared
+
+dim shared promena as integer
+
+function foo() as integer
+	static poprve as integer = 0
+	static promena as integer
+	if poprve = 0 then
+	    promena = 42
+		poprve = 1
+	else
+		return promena	
+	end if
+end function
+
+scope
+	input promena
+	dim a as integer
+	a = foo()
+	print a;
+	a = foo()
+	print a;
+end scope

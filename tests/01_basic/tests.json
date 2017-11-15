@@ -71,7 +71,7 @@
     },
     {
       "name": "23",
-      "timeout": 10
+      "timeout": 1
     }
   ]
 }

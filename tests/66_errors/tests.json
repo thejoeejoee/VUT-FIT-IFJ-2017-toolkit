@@ -253,6 +253,16 @@
       "info": "False brackets in expression",
       "compiler_exit_code": 2,
       "code": "function foo() as itneger\n end function \n scope \n dim a as integer = foo)( \n end scope"
+    },
+    {
+      "info": "False print",
+      "compiler_exit_code": 2,
+      "code": "scope \n print42; \n end scope"
+    },
+    {
+      "info": "False if",
+      "compiler_exit_code": 2,
+      "code": "scope \n dim a as integer \n ifa<10 then \n else \n end if\n \n end scope"
     }
   ]
 }

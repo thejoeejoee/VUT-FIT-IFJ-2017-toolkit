@@ -1,0 +1,6 @@
+'Exotic print format
+scope
+	print 42;
+	print                     42;	
+	print			42;
+end scope

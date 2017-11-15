@@ -1,0 +1,14 @@
+' collision of static and shared
+
+dim shared promena as integer = 31
+
+function foo() as integer
+	static promena as integer = 42
+	return promena
+end function
+
+scope
+	dim promena as integer
+	promena = foo()
+	print promena;
+end scope
