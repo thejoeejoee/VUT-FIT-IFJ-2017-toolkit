@@ -3,6 +3,7 @@ import QtQuick.Controls 1.4
 import QtQuick.Dialogs 1.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Dialogs 1.2
 
 import TreeViewModel 1.0
 import Debugger 1.0
@@ -42,7 +43,6 @@ ApplicationWindow {
         }
 
         style: MenuBarStyle {
-
             background: Rectangle { color: "lightGray" }
             itemDelegate: Rectangle {
                 implicitWidth: lab.contentWidth * 2
@@ -63,7 +63,6 @@ ApplicationWindow {
                 itemDelegate {
                     background: Rectangle {
                         color: (styleData.selected) ? "lightGray" : "#ececec"
-
                     }
 
                     label: Text {
@@ -74,6 +73,29 @@ ApplicationWindow {
                 }
             }
         }
+    }
+
+    onClosing: {
+        if(codeEditor.diffLines.length) {
+            close.accepted = false
+            saveBeforeExitDialog.visible = true
+        }
+    }
+
+    MessageDialog {
+        id: saveBeforeExitDialog
+
+        title: qsTr("Save changes")
+        text: ("Changes are not saved. Do you want to save them?")
+        standardButtons: StandardButton.Yes | StandardButton.No | StandardButton.Abort
+
+        onYes: {
+            saveFile()
+            root.fileActionType = "saveBeforeQuit"
+        }
+
+        onNo: Qt.quit()
+        onRejected: visible = false
     }
 
     Rectangle {
@@ -119,10 +141,13 @@ ApplicationWindow {
                 codeEditor.code = fileIO.read()
                 codeEditor.removesDiffMarks()
             }
-            else if(root.fileActionType == "save" || root.fileActionType == "saveAs") {
+            else if(root.fileActionType == "save" || root.fileActionType == "saveAs" || root.fileActionType == "saveBeforeQuit") {
                 fileIO.write(codeEditor.code)
                 codeEditor.removesDiffMarks()
             }
+
+            if(root.fileActionType == "saveBeforeQuit")
+                Qt.quit()
             root.fileActionType = ""
         }
     }
@@ -153,7 +178,7 @@ ApplicationWindow {
 
     Shortcut {
         sequence: "Esc"
-        enabled: searchPanel.visible
+        enabled: searchPanel.visible && (searchPanel.focus || !codeEditor.completer.visible)
         onActivated: searchPanel.hide()
     }
 
