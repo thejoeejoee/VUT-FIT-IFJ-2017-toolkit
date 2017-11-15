@@ -2,6 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 1.4
 import QtQuick.Dialogs 1.0
 import QtQuick.Layouts 1.0
+import QtQuick.Controls.Styles 1.4
 
 import TreeViewModel 1.0
 import Debugger 1.0
@@ -20,6 +21,60 @@ ApplicationWindow {
     width: Core.scaledSize(1200)
     height: Core.scaledSize(800)
     title: fileIO.source + ((fileIO.source) ?" - " :"") + qsTr("Advánc IFJcode17 IDE")
+
+    menuBar: MenuBar {
+        Menu {
+            title: qsTr("File")
+            MenuItem {
+                text: qsTr("Open...\t\tCtrl+O")
+                onTriggered: openFile()
+            }
+
+            MenuItem {
+                text: qsTr("Save...\t\tCtrl+S")
+                onTriggered: saveFile()
+            }
+
+            MenuItem {
+                text: qsTr("Save as..\t\tCtrl+Shift+S")
+                onTriggered: saveFileAs()
+            }
+        }
+
+        style: MenuBarStyle {
+
+            background: Rectangle { color: "lightGray" }
+            itemDelegate: Rectangle {
+                implicitWidth: lab.contentWidth * 2
+                implicitHeight: lab.contentHeight * 1.2
+                color: styleData.selected || styleData.open ? "#494949" : "transparent"
+
+                Text {
+                    id: lab
+                    color: (styleData.selected  || styleData.open) ? "white" : "black"
+                    text: styleData.text
+                    font.pixelSize: Core.scaledSize(13)
+
+                    anchors.centerIn: parent
+                }
+            }
+
+            menuStyle: MenuStyle {
+                itemDelegate {
+                    background: Rectangle {
+                        color: (styleData.selected) ? "lightGray" : "#ececec"
+
+                    }
+
+                    label: Text {
+                        color: (styleData.selected) ? "black" : "black"
+                        text: styleData.text
+                        font.pixelSize: Core.scaledSize(11)
+                    }
+                }
+            }
+        }
+    }
 
     Rectangle {
         id: root
