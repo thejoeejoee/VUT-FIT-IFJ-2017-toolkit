@@ -77,6 +77,20 @@ class SyntaxHighlighter(QSyntaxHighlighter):
                     self._setFormat(match.capturedStart(), match.capturedLength(), rule.text_format)
                     cursor = match.capturedStart() + match.capturedLength()
 
+    def searchMatchedLines(self):
+        text = self.document().toPlainText().split("\n")
+        matched_lines = []
+
+        if not self._search_rule:
+            return matched_lines
+
+        for line, line_text in enumerate(text):
+            if self._search_rule.match_pattern.match(line_text).hasMatch():
+                matched_lines.append(line + 1)
+
+        return matched_lines
+
+
     def addHighlightRule(self, highlightRule: HighlightRule) -> None:
         self._highlight_rules.append(highlightRule)
 

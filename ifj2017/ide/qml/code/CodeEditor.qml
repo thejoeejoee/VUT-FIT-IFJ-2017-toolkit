@@ -1,5 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 
 import StyleSettings 1.0
 import ExpSyntaxHighlighter 1.0
@@ -8,6 +9,7 @@ import CodeAnalyzer 1.0
 import DiffCodeAnalyzer 1.0
 
 import "../controls"
+import "../view"
 
 Item {
     id: component
@@ -25,25 +27,15 @@ Item {
     property color lineNumberColor: "gray"
     property int currentLine: -1
     property string placeHolderText: ""
+    property var diffLines: []
     property alias editorDisabled: textEdit.readOnly
 
 
     clip: true
+
     onCurrentLineChanged: {
         if(currentLine != -1)
             component.scrollToLine(currentLine)
-    }
-
-    function removesDiffMarks() {
-        diffCodeAnalyzer.code = textEdit.text
-        diffCodeAnalyzer.saveTempCode(textEdit.text)
-        internal.diffLines = []
-        internal.diffLinesChanged()
-    }
-
-    QtObject {
-        id: internal
-        property var diffLines: []
     }
 
     Item {
@@ -85,13 +77,13 @@ Item {
         anchors.bottom: parent.bottom
 
         onLineCountChanged: {
-            internal.diffLines = diffCodeAnalyzer.compare(textEdit.text)
+            component.diffLines = diffCodeAnalyzer.compare(textEdit.text)
             diffCodeAnalyzer.saveTempCode(textEdit.text)
         }
 
         onTextChanged: {
             updateCompleterModel()
-            internal.diffLines = diffCodeAnalyzer.compare(textEdit.text)
+            component.diffLines = diffCodeAnalyzer.compare(textEdit.text)
             diffCodeAnalyzer.saveTempCode(textEdit.text)
         }
         onSelectedTextChanged: {
@@ -102,6 +94,21 @@ Item {
         }
 
         onCursorPositionChanged: updateCompleterModel()
+        style: TextAreaStyle {
+            handle: Rectangle {
+                implicitWidth: 14
+                implicitHeight: 14
+                color: "lightGray"
+            }
+
+            scrollBarBackground: Item {
+                implicitWidth: 14
+                implicitHeight: 14
+            }
+
+            incrementControl: Item {}
+            decrementControl: Item {}
+        }
 
         Rectangle{
             id: currentLineMark
@@ -128,6 +135,18 @@ Item {
                 NumberAnimation { target: lineHighlighter; property: "opacity"; easing.type: Easing.InQuart; from: 0.4; to: 0; duration: 300 }
             }
         }
+    }
+
+    ScrollBarHighlights {
+        target: textEdit
+        model: component.breakpoints
+        color: "red"
+    }
+
+    ScrollBarHighlights {
+        target: textEdit
+        model: esh.searchMatchedLines
+        color: "green"
     }
 
     // LINE NUMBERS
@@ -161,7 +180,7 @@ Item {
                     // diff mark
                     Rectangle {
                         color: "green"
-                        visible: (internal.diffLines.indexOf(modelData + 1) != -1)
+                        visible: (component.diffLines.indexOf(modelData + 1) != -1)
                         width: 2
                         height: parent.height
 
@@ -311,6 +330,13 @@ Item {
 
     function setSearchPattern(pattern) {
         esh.setSearchPattern(pattern)
+    }
+
+    function removesDiffMarks() {
+        diffCodeAnalyzer.code = textEdit.text
+        diffCodeAnalyzer.saveTempCode(textEdit.text)
+        component.diffLines = []
+        component.diffLinesChanged()
     }
 }
 

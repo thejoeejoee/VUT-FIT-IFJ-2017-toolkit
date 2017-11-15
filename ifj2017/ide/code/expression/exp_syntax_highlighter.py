@@ -4,6 +4,8 @@ import re
 from typing import Optional, List
 
 from PyQt5.QtCore import QObject, QRegularExpression, pyqtProperty, pyqtSlot
+from PyQt5.QtCore import QVariant
+from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QColor, QFont
 from PyQt5.QtGui import QTextCharFormat
 from PyQt5.QtQml import QJSValue
@@ -23,11 +25,14 @@ class ExpSyntaxHighlighter(QObject):
     Class which wraps SyntaxHighliter and expose only target
     """
 
+    searchMatchedLinesChanged = pyqtSignal(QVariant, arguments=["lines"])
+
     def __init__(self, parent: Optional[QObject] = None):
         super().__init__(parent)
 
         self._syntax_highlighter = SyntaxHighlighter(self)
         self._base_font = None
+        self._search_matched_lines = []
 
     def _setupFormat(self, color: QColor, fontSettings: QFont, colorIsForeground: bool = True) -> QTextCharFormat:
         pattern_format = QTextCharFormat()
@@ -88,6 +93,13 @@ class ExpSyntaxHighlighter(QObject):
         else:
             self._syntax_highlighter.setSearchRule(None)
         self._syntax_highlighter.rehighlight()
+
+        self._search_matched_lines = self._syntax_highlighter.searchMatchedLines()
+        self.searchMatchedLinesChanged.emit(QVariant(self._search_matched_lines))
+
+    @pyqtProperty(QVariant, notify=searchMatchedLinesChanged)
+    def searchMatchedLines(self):
+        return QVariant(self._search_matched_lines)
 
     @pyqtProperty(QQuickItem)
     def target(self) -> None:
