@@ -16,6 +16,6 @@ end function
 
 scope
 	dim res as integer
-	res = factorial(25)
+	res = factorial(10)
 	print res;
 end scope

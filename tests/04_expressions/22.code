@@ -1,0 +1,10 @@
+' Doubles with another format
+scope
+
+dim a as double = 10.8
+dim b as double = 67.432e-2
+dim c as double = 67.432e2
+
+print a + b - c;
+
+end scope

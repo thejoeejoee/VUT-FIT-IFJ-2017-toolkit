@@ -1,0 +1,7 @@
+' Add doubles with +e
+scope
+dim ahoj as double = 10.8e2
+dim neboj as double = 67.432e-2
+
+print ahoj + neboj;
+end scope

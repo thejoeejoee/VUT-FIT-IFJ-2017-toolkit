@@ -1,0 +1,8 @@
+' Add doubles with dot format
+scope
+dim ahoj as double = 10.8
+dim neboj as double = 67.4
+
+print ahoj + neboj;
+
+end scope
