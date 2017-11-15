@@ -69,14 +69,12 @@ Item {
     visible: false
     height: flick.height
 
-    onModelChanged: {
-        currentItemIndex = 0
-        currentItem = model[0]
-    }
+    onModelChanged: component.resetModelSelection()
 
     onShow: {
         if(!component.visible)
             component.showAnimation()
+        component.resetModelSelection()
     }
 
     onHide: {
@@ -231,5 +229,14 @@ Item {
                 return false
             return true
         }
+    }
+
+    function resetModelSelection() {
+        if(model.length == 0)
+            return
+
+        component.currentItemIndex = 0
+        component.currentItem = model[0]
+        flick.contentY = 0
     }
 }
