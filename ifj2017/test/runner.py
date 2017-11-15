@@ -60,8 +60,9 @@ STDOUT DIFF:
 
 class TestRunner(object):
     INTERPRETERS = {
-        'Linux': path.join(__PROJECT_ROOT__, 'bin/linux/ic17int'),
-        'Windows': path.join(__PROJECT_ROOT__, 'bin/windows/ic17int.exe'),
+        'Linux': path.join(__PROJECT_ROOT__, 'ifj2017/bin/linux/ic17int'),
+        'Darwin': path.join(__PROJECT_ROOT__, 'ifj2017/bin/linux/ic17int'),
+        'Windows': path.join(__PROJECT_ROOT__, 'ifj2017/bin/windows/ic17int.exe'),
     }
     EXTENSION_FILE_NAME = 'rozsireni'
 
