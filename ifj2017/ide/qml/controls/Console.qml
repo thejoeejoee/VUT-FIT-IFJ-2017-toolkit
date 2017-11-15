@@ -48,7 +48,7 @@ Rectangle {
         id: editableText
 
         y: readonlyText.y + ((readonlyText.text)
-                             ?readonlyText.contentHeight - contentHeight :0)
+                             ?readonlyText.contentHeight - contentHeight :0) - readonlyText.flickableItem.contentY
 
         width: parent.width
         readOnly: true
@@ -76,11 +76,7 @@ Rectangle {
     }
 
     function read() {
-        var lines = readonlyText.text.split("\n")
-        var lastLine = lines[lines.length - 1]
-
         editableText.forceActiveFocus()
-//        flick.scrollToEnd()
         component.reading = true
         editableText.readOnly = false;
     }
