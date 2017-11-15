@@ -68,6 +68,10 @@
       "name": "22",
       "stdin": "rozdil\n10\n5",
       "stdout": "? ? ?  5"
+    },
+    {
+      "name": "23",
+      "timeout": 10
     }
   ]
 }
