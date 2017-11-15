@@ -19,7 +19,7 @@ ApplicationWindow {
     visible: true
     width: Core.scaledSize(1200)
     height: Core.scaledSize(800)
-    title: fileIO.source + ((fileIO.source) ?" - " :"") + qsTr("Advanced IFJcode17 debugger IDE")
+    title: fileIO.source + ((fileIO.source) ?" - " :"") + qsTr("Advánc IFJcode17 IDE")
 
     Rectangle {
         id: root
