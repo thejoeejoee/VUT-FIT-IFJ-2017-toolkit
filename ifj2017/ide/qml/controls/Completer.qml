@@ -139,16 +139,9 @@ DropDown {
             event.accepted = true
         }
 
-        if(component.visible && component.model.length) {
-            switch(event.key) {
-                case Qt.Key_Return:
-                case Qt.Key_Enter:
-                    //component.chooseCurrent()
-                    break;
-                case Qt.Key_Escape:
-                    component.hide()
-                    break;
-            }
+        if(component.visible && component.model.length && event.key == Qt.Key_Escape) {
+            component.hide()
+            event.accepted = true
         }
     }
 
