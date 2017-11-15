@@ -59,6 +59,8 @@ ApplicationWindow {
         onAccepted: {
             fileIO.source = fileDialog.fileUrl
             if(root.fileActionType == "open") {
+                if(root.state != "stopped")
+                    stopProgram()
                 codeEditor.code = fileIO.read()
                 codeEditor.removesDiffMarks()
             }
