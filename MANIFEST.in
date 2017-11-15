@@ -3,3 +3,5 @@ graft bin
 graft tests
 include ide.py
 include test.py
+include README.md
+include setup.cfg

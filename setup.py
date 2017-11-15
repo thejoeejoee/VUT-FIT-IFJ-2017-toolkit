@@ -4,7 +4,6 @@
 from distutils import core
 from os.path import abspath, dirname, join
 
-import os
 from setuptools import find_packages
 
 __author__ = "Josef Kolář, Son Hai Nguyen"
@@ -14,13 +13,20 @@ __license__ = "GNU GPL Version 3"
 
 base_path = abspath(dirname(__file__))
 
+try:
+    import pypandoc
+
+    long_description = pypandoc.convert(join(base_path, 'README.md'), 'rst')
+except(IOError, ImportError):
+    long_description = open(join(base_path, 'README.md')).read()
+
 
 def setup():
     core.setup(
         name='IFJcode17-toolkit',
         version='1.0',
         license='GNU GENERAL PUBLIC LICENSE Version 3',
-        long_description=open(join(base_path, 'README.md')).read(),
+        long_description=long_description,
         url='https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit',
         classifiers=[
             'Development Status :: 5 - Production/Stable',
@@ -46,6 +52,8 @@ def setup():
         ],
         requires=[
             'termcolor',
+            'PyOpenGL',
+            'PyQt5',
         ],
         # package_dir={'': base_path},
         entry_points={
