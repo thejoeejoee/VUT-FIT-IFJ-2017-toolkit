@@ -298,16 +298,16 @@ td {
 <table>
     <tr><td>
         <b>File</b><br>
-            - open file (Ctrl+O)<br>
-            - save file (Ctrl+S)<br>
-            - save file as (Ctrl+Shift+S)<br>
+            - open file (%1+O)<br>
+            - save file (%1+S)<br>
+            - save file as (%1+Shift+S)<br>
         <br><b>Run program</b><br>
             - run program (F5)<br>
             - debug run to next breakpoint (F5)<br>
             - debug run to next line (F6)<br>
         <br><b>Code</b><br>
-            - show completer (Ctrl+Space) (Ctrl+J on OS X)<br>
-            - find (Ctrl + F)<br>
+            - show completer (%1+Space) (Cmd+J on OS X)<br>
+            - find (%1 + F)<br>
             - hide find panel (Esc)
     </td><td>
         <b>License</b> GPL v3<br>
@@ -317,7 +317,7 @@ td {
             - <a href="http://goo.gl/7eKD7G">Son Hai Nguyen</a>, xnguye16, <a href="http://goo.gl/j5KDWY">@SonyPony</a><br>
             - <a href="http://goo.gl/thmHgr">Josef Kolář</a>, xkolar71, <a href="http://goo.gl/9b9pC9">@thejoeejoee</a><br><br>
     </td></tr>
-</table>'
+</table>'.arg((ossystem != "Darwin") ?"Ctrl" :"Cmd")
                 lineNumbersPanelColor: "#f2f2f2"
                 breakpoints: ifjDebugger.breakpoints
                 currentLine: ifjDebugger.currentLine
