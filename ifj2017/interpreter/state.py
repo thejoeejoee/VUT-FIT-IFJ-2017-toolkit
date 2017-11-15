@@ -5,7 +5,7 @@ import re
 from io import StringIO
 
 from .exceptions import EmptyDataStackError, UndefinedVariableError, UndeclaredVariableError, \
-    FrameError, UnknownLabelError, InvalidReturnError
+    FrameError, UnknownLabelError, InvalidReturnError, InvalidOperandTypeError
 from .operand import Operand, TypeOperand
 from .prices import InstructionPrices
 
@@ -78,9 +78,13 @@ class State(object):
             if variable_value is None:
                 raise UndefinedVariableError(value.name, value.frame)
             return variable_value
+        raise InvalidOperandTypeError()
 
     def set_value(self, to, what):
         # type: (Operand, Operand|object) -> None
+        if to.type != TypeOperand.VARIABLE:
+            raise InvalidOperandTypeError()
+
         frame = self.frame(to.frame)
         if frame is None:
             raise FrameError('Non existing frame {}'.format(to.frame))

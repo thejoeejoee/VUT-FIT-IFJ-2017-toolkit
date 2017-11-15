@@ -1,8 +1,9 @@
 # coding=utf-8
 
-from .exceptions import InterpreterStopException, InvalidCodeException
+from .exceptions import InterpreterStopException, InvalidCodeException, BaseInterpreterError
 from .instruction import Instruction
 from .state import State
+
 
 class Interpreter(object):
     def __init__(self, code, state_kwargs=None):
@@ -29,7 +30,11 @@ class Interpreter(object):
                 continue
 
             if not started:
-                raise InvalidCodeException('Invalid code, expecting .IFJcode17, found {}.'.format(line))
+                raise InvalidCodeException(
+                    InvalidCodeException.MISSING_HEADER,
+                    line=line,
+                    line_index=i
+                )
 
             self._instructions.append(Instruction(line=line.strip(), line_index=i))
 
@@ -65,7 +70,7 @@ class Interpreter(object):
 
     def debug(self):
         state, program_length = self._prepare_state()
-        while state.program_counter < program_length  and self._active:
+        while state.program_counter < program_length and self._active:
             yield state  # can be modified
             program_counter = state.program_counter
             instruction = self._instructions[state.program_counter]  # type: Instruction

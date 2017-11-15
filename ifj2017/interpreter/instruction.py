@@ -4,7 +4,7 @@ import math
 import operator
 from inspect import getfullargspec
 
-from .exceptions import InvalidCodeException
+from .exceptions import InvalidCodeException, BaseInterpreterError
 from .operand import Operand
 from .prices import InstructionPrices
 from .state import State
@@ -65,6 +65,7 @@ class Instruction(object):
         count = len(parts)
         self.name = parts[0].upper()
         self.line_index = line_index
+        self._line = line
 
         command = self._commands.get(self.name)
 
@@ -188,7 +189,12 @@ class Instruction(object):
         logging.info('Processing {} on {}.'.format(self.name, self.line_index))
         command = self._commands.get(self.name, _unknown_command)
         price = InstructionPrices.INSTRUCTIONS.get(self.name)
-        command(state, *self.operands)  # fake instance argument
+        try:
+            command(state, *self.operands)  # fake instance argument
+        except BaseInterpreterError as e:
+            e.line_index = self.line_index
+            e.line = self._line
+            raise
         state.instruction_price += price
         state.executed_instructions += 1
         state.program_line = self.line_index
