@@ -1,7 +1,12 @@
 # Toolkit k `IFJ2017` a `IFJcode17`
-Repozitář obsahuje sadu plně automatických testů včetně vyhodnocování správných naávratových kódů či obsahu na standardním výstupu. 
+Repozitář nástrojů k projektu kompilátoru do předmětu **IFJ** na FIT VUT v Brně. Mezi nástroje patří **sada testů** včetně autmatického spouštěče jednotek, **vývojové prostředí včetně debuggeru** jazyka `IFJcode17` a **vlastní interpret** tohoto jazyka.
+Instalace těchto balíků je podrobně popsána ve Wiki, obecně je lze **nainstalovat** následovně:
 
-[**Dokumentace k dostupným nástrojům naleznete ve Wiki.**](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki)
+```bash
+pip3 install IFJcode17-toolkit
+```
+
+**[Dokumentaci k nástrojům naleznete zde.](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki)**
 
 [![screenshot](https://ctrlv.cz/shots/2017/10/15/A6RL.png)](https://ctrlv.cz/shots/2017/10/15/A6RL.png)
 
@@ -14,6 +19,7 @@ _Také oceníme, když nám nalezené chyby zareportujete do Github issues, kam 
 ![Pomožte!](https://ctrlv.cz/shots/2017/10/10/KP3O.png)
 
 ## Changelog
+* 15-11-2017 - publikace `1.0` na PyPi pod názvem `IFJcode17-toolkit`
 * 09-11-2017 - uživatelské testování a ladění IFJcode17 IDE, příprava release
 * 08-11-2017 - kompletní testy pro `UNARY, SCOPE, BOOLOP, BASE`, testy na chyby zmíněné na přednáškách/democviku, celkem asi 180 testů
 * 31-10-2017 - další várka testů, ~140 testů včetně testů některých rozšíření
