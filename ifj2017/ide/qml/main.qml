@@ -281,7 +281,7 @@ td {
             - debug run to next breakpoint (F5)<br>
             - debug run to next line (F6)<br>
         <br><b>Code</b><br>
-            - show completer (Ctrl + Space)<br>
+            - show completer (Ctrl+Space) (Ctrl+J on OS X)<br>
             - find (Ctrl + F)<br>
             - hide find panel (Esc)
     </td><td>
