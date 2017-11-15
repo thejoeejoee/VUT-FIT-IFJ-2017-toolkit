@@ -96,6 +96,7 @@ ApplicationWindow {
 
     Shortcut {
         sequence: "Esc"
+        enabled: searchPanel.visible
         onActivated: searchPanel.hide()
     }
 
