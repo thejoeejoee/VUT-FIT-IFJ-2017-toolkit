@@ -23,7 +23,7 @@ Tímto chceme všechny uživatele tototo repozitáře poprosit o **spolupráci s
 
 _Také oceníme, když nám nalezené chyby zareportujete do Github issues, kam nám jistě můžete zapsat i vylepšení, co vás napadla nebo by se vám hodila - určitě se nějak domluvíme._
 
-![Buď jako Iva!](https://ctrlv.cz/shots/2017/11/16/XwNo.png)
+![Buď jako Iva!](https://ctrlv.cz/shots/2017/11/16/HfU0.png)
 
 ![Nebuď jako rohlík!](https://ctrlv.cz/shots/2017/11/16/cNpu.png)
 
@@ -41,6 +41,6 @@ _Také oceníme, když nám nalezené chyby zareportujete do Github issues, kam 
 * 18-10-2017 - zveřejněno, průběžně základní sada ~60 testů
 
 ## Autoři
-- [Josef Kolář](https://www.facebook.com/kolar.joe), xkolar71, [@thejoeejoee](https://github.com/thejoeejoee) - idea, spouštěč, hodnotící interpret, Wiki
-- [Son Hai Nguyen](https://www.facebook.com/sony.nguyen.98), xnguye16, [@SonyPony](https://github.com/SonyPony) - JSON definice, konzultace, IDE
+- [Josef Kolář](https://www.facebook.com/kolar.joe), xkolar71, [@thejoeejoee](https://github.com/thejoeejoee) - automatické testy, interpret
+- [Son Hai Nguyen](https://www.facebook.com/sony.nguyen.98), xnguye16, [@SonyPony](https://github.com/SonyPony) - vývojové prostředí, debugger
 - [Martin Kobelka](https://www.facebook.com/martin.kobelka), xkobel02, [@martinkobelka](https://github.com/martinkobelka) - definice testů
