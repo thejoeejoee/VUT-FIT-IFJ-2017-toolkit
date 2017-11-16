@@ -3,7 +3,7 @@ Repozitář nástrojů k projektu kompilátoru do předmětu **IFJ** na FIT VUT 
 Instalace těchto balíků je podrobně popsána ve Wiki, obecně je lze **nainstalovat** následovně:
 
 ```bash
-pip3 install IFJcode17-toolkit
+$ pip install IFJcode17-toolkit
 ```
 **[Dokumentaci k nástrojům naleznete zde.](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki)**
 
