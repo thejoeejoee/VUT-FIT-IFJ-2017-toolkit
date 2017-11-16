@@ -7,8 +7,12 @@ pip3 install IFJcode17-toolkit
 ```
 **[Dokumentaci k nástrojům naleznete zde.](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki)**
 
-[![screenshot](https://ctrlv.cz/shots/2017/11/16/axPA.png)](https://ctrlv.cz/shots/2017/11/16/axPA.png)
-[![screenshot](https://ctrlv.cz/shots/2017/10/15/A6RL.png)](https://ctrlv.cz/shots/2017/10/15/A6RL.png)
+## IDE
+Spouštění vývojového prostředí provedete po nainstalování pomocí příkazu `ifjcode17-ide`, níže náhled jeho rozhraní při spuštěném debuggeru. Více informací o jeho funkci naleznete ve [wiki](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/wiki/V%C3%BDvojov%C3%A9-prost%C5%99ed%C3%AD-pro-IFJcode17).
+[![náhled IDE](https://ctrlv.cz/shots/2017/11/16/axPA.png)](https://ctrlv.cz/shots/2017/11/16/axPA.png)
+## Automatické testy
+Toolkit obsahu sadu více než 200 testovacích jednotek předkládaných vašemu kompilátoru. Jejich automatické spuštění provedete pomocí příkazu `ifjcode17-tests <cesta k vašemu kompilátoru>`. Veškeré další informace naleznete ve [wiki](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/wiki/Automatick%C3%A9-testy).
+[![náhled do testů](https://ctrlv.cz/shots/2017/11/16/yVIi.png)](https://ctrlv.cz/shots/2017/11/16/yVIi.png)
 
 ## Spolupráce
 Tímto chceme všechny uživatele tototo repozitáře poprosit o **spolupráci s definicí testů** či jinou, jak uvážíte. Myslíme si, že čím více testovacích jednotek vytvoříme, tím **více** budeme mít **pokrytých stavů kompilátoru** a tím méně nás překvapí hodnocení. 
@@ -23,7 +27,7 @@ _Také oceníme, když nám nalezené chyby zareportujete do Github issues, kam 
 ![Pomožte!](https://ctrlv.cz/shots/2017/10/10/KP3O.png)
 
 ## Changelog
-* 16-11-2017 - publikace `1.1` Oprava chyb v IDE a přidání značek ve scrollbaru IDE
+* 16-11-2017 - publikace `1.1` oprava chyb v IDE a přidání značek do scrollbaru IDE
 * 15-11-2017 - publikace `1.0` na PyPi pod názvem `IFJcode17-toolkit`
 * 09-11-2017 - uživatelské testování a ladění IFJcode17 IDE, příprava release
 * 08-11-2017 - kompletní testy pro `UNARY, SCOPE, BOOLOP, BASE`, testy na chyby zmíněné na přednáškách/democviku, celkem asi 180 testů
