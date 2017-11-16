@@ -23,6 +23,7 @@ _Také oceníme, když nám nalezené chyby zareportujete do Github issues, kam 
 ![Pomožte!](https://ctrlv.cz/shots/2017/10/10/KP3O.png)
 
 ## Changelog
+* 15-11-2017 - publikace `1.1` Oprava chyb v IDE a přidání značek ve scrollbaru IDE
 * 15-11-2017 - publikace `1.0` na PyPi pod názvem `IFJcode17-toolkit`
 * 09-11-2017 - uživatelské testování a ladění IFJcode17 IDE, příprava release
 * 08-11-2017 - kompletní testy pro `UNARY, SCOPE, BOOLOP, BASE`, testy na chyby zmíněné na přednáškách/democviku, celkem asi 180 testů
