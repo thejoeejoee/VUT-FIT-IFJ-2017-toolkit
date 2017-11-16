@@ -308,6 +308,11 @@
       "info": "Print without semicolon",
       "compiler_exit_code": 2,
       "code": "scope \n print 42; 42 \n end scope"
+    },
+    {
+      "info": "Empty file",
+      "name": "17",
+      "compiler_exit_code": 2
     }
 
   ]
