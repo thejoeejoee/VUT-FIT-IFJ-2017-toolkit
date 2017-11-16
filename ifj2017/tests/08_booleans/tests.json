@@ -15,6 +15,21 @@
     {
       "name": "04",
       "stdout": " 1"
+    },
+    {
+      "info": "Single dim in expression",
+      "stdout": " 42",
+      "code": "scope \n dim a as boolean = true\n if a then \n print 42; \n else \n end if\n end scope"
+    },
+    {
+      "info": "Equl in expression (it compare)",
+      "stdout": "falsefalse",
+      "code": "scope \n dim a as boolean = false \n if a = false then \n print a; \n else \n end if \n print a; \n end scope \n"
+    },
+    {
+      "info": "Print boolean",
+      "stdout": "true",
+      "code": "scope \n dim a as boolean = true \n print a; \n end scope"
     }
   ],
   "extensions": [

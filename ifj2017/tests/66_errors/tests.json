@@ -263,6 +263,52 @@
       "info": "False if",
       "compiler_exit_code": 2,
       "code": "scope \n dim a as integer \n ifa<10 then \n else \n end if\n \n end scope"
+    },
+    {
+      "info": "assignment without expr",
+      "compiler_exit_code": 2,
+      "code": "scope \n dim a as integer \n a = \n end scope"
+    },
+    {
+      "info": "assignment without expr 2",
+      "compiler_exit_code": 2,
+      "code": "scope \n dim a as integer = \n end scope"
+    },
+    {
+      "info": "do while without expression",
+      "compiler_exit_code": 2,
+      "code": "scope \n do while \n loop \n end scope"
+    },
+    {
+      "info": "return expression",
+      "compiler_exit_code": 2,
+      "code": "function foo() as integer \n return \n end function \n scope  \n loop \n end scope"
+    },
+    {
+      "info": "function arguments without comma",
+      "compiler_exit_code": 2,
+      "code": "function foo(a as integer b as integer) as integer \n end function \n scope  \n loop \n end scope"
+    },
+    {
+      "info": "function arguments without type",
+      "compiler_exit_code": 2,
+      "code": "function foo(a, b as integer) as integer \n end function \n scope  \n loop \n end scope"
+    },
+    {
+      "info": "Input with invalid identifier",
+      "compiler_exit_code": 3,
+      "code": "scope \n dim a as integer \n input ab \n end scope"
+    },
+    {
+      "info": "No eol after statement",
+      "compiler_exit_code": 2,
+      "code": "scope \n dim a as integer dim b as integer\n input ab \n end scope"
+    },
+    {
+      "info": "Print without semicolon",
+      "compiler_exit_code": 2,
+      "code": "scope \n print 42; 42 \n end scope"
     }
+
   ]
 }
