@@ -6,6 +6,8 @@ SCOPE
 	if 10 < 15 then
 		dim a as integer = 669878
 		print a;
+	else
+		
 	end if
 
 	END SCOPE

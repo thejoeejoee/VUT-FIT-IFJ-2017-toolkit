@@ -1,11 +1,13 @@
 ' basic constant assigment with implicit coversions
 scope
 
-dim b as integer
-b = 42.78
-b = 78e12
+	dim b as integer
+	b = 42.78
+	b = 78e3
 
-dim c as double
-c  = 74
+	dim c as double
+	c  = 74
+
+	print b; c;
 
 end scope

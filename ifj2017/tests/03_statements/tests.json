@@ -1,6 +1,14 @@
 {
   "tests": [
     {
+      "name": "01",
+      "stdout": "fooman 42 74.85"
+    },
+    {
+      "name": "02",
+      "stdout": " 78000 74"
+    },
+    {
       "name": "03",
       "compiler_exit_code": 4
     },

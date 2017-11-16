@@ -1,3 +1,4 @@
+' print without space
 scope
 	print(0-5);
 end scope
