@@ -42,5 +42,5 @@ _Také oceníme, když nám nalezené chyby zareportujete do Github issues, kam 
 
 ## Autoři
 - [Josef Kolář](https://www.facebook.com/kolar.joe), xkolar71, [@thejoeejoee](https://github.com/thejoeejoee) - idea, spouštěč, hodnotící interpret, Wiki
-- [Son Hai Nguyen](https://www.facebook.com/sony.nguyen.98), xnguye16, [@SonyPony](https://github.com/SonyPony) - JSON definice, konzultace
+- [Son Hai Nguyen](https://www.facebook.com/sony.nguyen.98), xnguye16, [@SonyPony](https://github.com/SonyPony) - JSON definice, konzultace, IDE
 - [Martin Kobelka](https://www.facebook.com/martin.kobelka), xkobel02, [@martinkobelka](https://github.com/martinkobelka) - definice testů
