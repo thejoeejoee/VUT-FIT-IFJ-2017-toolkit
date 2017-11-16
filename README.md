@@ -1,5 +1,5 @@
 # Toolkit k `IFJ2017` a `IFJcode17`
-Repozitář nástrojů k projektu kompilátoru do předmětu **IFJ** na FIT VUT v Brně. Mezi nástroje patří **sada testů** včetně autmatického spouštěče jednotek, **vývojové prostředí včetně debuggeru** jazyka `IFJcode17` a **vlastní interpret** tohoto jazyka.
+Repozitář nástrojů k projektu kompilátoru do předmětu **IFJ** na FIT VUT v Brně. Mezi nástroje patří **sada testů** včetně automatické spouštěče testových jednotek, **vývojové prostředí včetně debuggeru** jazyka `IFJcode17` a **vlastní interpret** tohoto jazyka.
 Instalace těchto balíků je podrobně popsána ve Wiki, obecně je lze **nainstalovat** následovně:
 
 ```bash
