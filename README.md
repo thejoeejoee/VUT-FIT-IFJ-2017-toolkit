@@ -18,6 +18,8 @@ _Také oceníme, když nám nalezené chyby zareportujete do Github issues, kam 
 
 ![Buď jako Iva!](https://ctrlv.cz/shots/2017/11/16/XwNo.png)
 
+![Nebuď jako rohlík!](https://ctrlv.cz/shots/2017/11/16/cNpu.png)
+
 ![Pomožte!](https://ctrlv.cz/shots/2017/10/10/KP3O.png)
 
 ## Changelog
