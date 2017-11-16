@@ -16,6 +16,8 @@ Tímto chceme všechny uživatele tototo repozitáře poprosit o **spolupráci s
 
 _Také oceníme, když nám nalezené chyby zareportujete do Github issues, kam nám jistě můžete zapsat i vylepšení, co vás napadla nebo by se vám hodila - určitě se nějak domluvíme._
 
+![Buď jako Iva!](https://ctrlv.cz/shots/2017/11/16/XwNo.png)
+
 ![Pomožte!](https://ctrlv.cz/shots/2017/10/10/KP3O.png)
 
 ## Changelog
