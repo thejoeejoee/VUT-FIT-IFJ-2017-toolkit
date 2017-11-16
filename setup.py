@@ -23,13 +23,16 @@ try:
 
     long_description = pypandoc.convert(join(base_path, 'README.md'), 'rst')
 except(IOError, ImportError) as e:
-    long_description = open(join(base_path, 'README.md')).read()
+    try:
+        long_description = open(join(base_path, 'README.md')).read()
+    except Exception as e:
+        long_description = ''
 
 
 def setup():
     core.setup(
         name='IFJcode17-toolkit',
-        version='1.0.6',
+        version='1.1.1',
         license='GNU GENERAL PUBLIC LICENSE Version 3',
         description='Toolkit for IFJ17 language compiler (as project at FIT BUT in Brno) with '
                     'interactive debugger and automatic tests.',
