@@ -5,9 +5,9 @@ Instalace těchto balíků je podrobně popsána ve Wiki, obecně je lze **nains
 ```bash
 pip3 install IFJcode17-toolkit
 ```
-
 **[Dokumentaci k nástrojům naleznete zde.](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki)**
 
+[![screenshot](https://ctrlv.cz/shots/2017/11/16/axPA.png)](https://ctrlv.cz/shots/2017/11/16/axPA.png)
 [![screenshot](https://ctrlv.cz/shots/2017/10/15/A6RL.png)](https://ctrlv.cz/shots/2017/10/15/A6RL.png)
 
 ## Spolupráce
