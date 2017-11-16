@@ -9,9 +9,12 @@ $ pip install IFJcode17-toolkit
 
 ## IDE
 Spouštění vývojového prostředí provedete po nainstalování pomocí příkazu `ifjcode17-ide`, níže náhled jeho rozhraní při spuštěném debuggeru. Více informací o jeho funkci naleznete ve [wiki](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/wiki/V%C3%BDvojov%C3%A9-prost%C5%99ed%C3%AD-pro-IFJcode17).
+
 [![náhled IDE](https://ctrlv.cz/shots/2017/11/16/axPA.png)](https://ctrlv.cz/shots/2017/11/16/axPA.png)
+
 ## Automatické testy
 Toolkit obsahu sadu více než 200 testovacích jednotek předkládaných vašemu kompilátoru. Jejich automatické spuštění provedete pomocí příkazu `ifjcode17-tests <cesta k vašemu kompilátoru>`. Veškeré další informace naleznete ve [wiki](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/wiki/Automatick%C3%A9-testy).
+
 [![náhled do testů](https://ctrlv.cz/shots/2017/11/16/yVIi.png)](https://ctrlv.cz/shots/2017/11/16/yVIi.png)
 
 ## Spolupráce
