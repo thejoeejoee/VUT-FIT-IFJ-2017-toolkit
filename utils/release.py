@@ -1,16 +1,17 @@
+#!/usr/bin/env python3
 # coding=utf-8
 import sys
 from argparse import ArgumentParser
 from datetime import datetime
 from glob import glob1
-from os import unlink
+from os import unlink, getcwd
 from os.path import basename, join, abspath, dirname
 from tarfile import TarFile
 from tempfile import mktemp
 
 from git import Repo
 
-__DIR__ = abspath(dirname(__file__))
+__DIR__ = abspath(getcwd())
 
 HEADER = """\
 /*
@@ -52,7 +53,7 @@ def deploy(source_dir, to_archive):
     source_files.add(join(source_dir, '../rozdeleni'))
     source_files.add(join(source_dir, '../rozsireni'))
 
-    to_archive = '{}.tar.gz'.format(to_archive)
+    to_archive = '{}.tgz'.format(to_archive)
     try:
         unlink(to_archive)
     except OSError:
