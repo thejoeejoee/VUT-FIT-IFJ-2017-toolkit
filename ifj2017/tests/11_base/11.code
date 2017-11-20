@@ -1,0 +1,8 @@
+' = != =
+scope
+
+dim a as boolean
+a = &b10101010 = 170
+print a;
+
+end scope

@@ -39,6 +39,10 @@
     {
       "compiler_exit_code": 2,
       "name": "10" 
+    },
+    {
+      "stdout": "true",
+      "name": "11" 
     }
   ],
   "extensions": [
