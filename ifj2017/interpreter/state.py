@@ -194,13 +194,30 @@ class State(object):
             else:
                 self.set_value(to, False)
 
+    ESCAPE_RE = re.compile(r'\\([0-9]{3})')
+
     def write(self, op):
         value = self.get_value(op)
         rendered = str(value)
         if isinstance(value, (int, float)):
             rendered = '% g' % (value,)
 
-        self.stdout.write(codecs.decode(rendered, 'unicode_escape'))
+        def __(m):
+            # magic for decimal \ddd to octal \ooo
+            return '\\{}'.format(
+                oct(
+                    int(
+                        m.group(1)
+                    )
+                ).lstrip('0o').zfill(3)
+            )
+
+        self.stdout.write(
+            codecs.decode(
+                self.ESCAPE_RE.sub(repl=__, string=rendered),
+                'unicode_escape'
+            )
+        )
 
     def string_to_int_stack(self):
         index = self.pop_stack()
