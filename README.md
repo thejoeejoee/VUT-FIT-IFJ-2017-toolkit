@@ -30,6 +30,7 @@ _Také oceníme, když nám nalezené chyby zareportujete do Github issues, kam 
 ![Pomožte!](https://ctrlv.cz/shots/2017/10/10/KP3O.png)
 
 ## Changelog
+* 20-11-2017 - changelog nyní veden standardně v [releases na GitHub](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/releases)
 * 16-11-2017 - publikace `1.1` oprava chyb v IDE a přidání značek do scrollbaru IDE
 * 15-11-2017 - publikace `1.0` na PyPi pod názvem `IFJcode17-toolkit`
 * 09-11-2017 - uživatelské testování a ladění IFJcode17 IDE, příprava release

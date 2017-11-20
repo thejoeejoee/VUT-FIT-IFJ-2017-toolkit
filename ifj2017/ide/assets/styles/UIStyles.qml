@@ -17,6 +17,7 @@ QtObject {
             typeColors[0] = "#00bff2"
             typeColors[1] = "#ffe20d"
             typeColors[2] = "white"
+            typeColors[3] = "orange"
         }
     }
 }

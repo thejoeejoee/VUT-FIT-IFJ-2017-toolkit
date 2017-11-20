@@ -15,6 +15,7 @@ class Expression(QObject):
         Instruction = 0
         Variable = 1
         Types = 2
+        Header = 3
 
     Q_ENUMS(ExpressionTypes)
 

@@ -65,13 +65,15 @@ class Operand(object):
 
         raise InvalidCodeException(InvalidCodeException.INVALID_OPERAND)
 
-
     def _resolve_constant(self, constant_match):
         # type: (Match) -> None
         type_, value = constant_match.groups()
-        self.value = self.CONSTANT_MAPPING.get(type_.lower())(value)
-        if type_.lower() == self.CONSTANT_MAPPING_REVERSE.get(bool):
-            self.value = self.BOOL_LITERAL_MAPPING.get(value.lower())
+        try:
+            self.value = self.CONSTANT_MAPPING.get(type_.lower())(value)
+            if type_.lower() == self.CONSTANT_MAPPING_REVERSE.get(bool):
+                self.value = self.BOOL_LITERAL_MAPPING.get(value.lower())
+        except ValueError:
+            pass
         if self.value is None:
             raise InvalidCodeException(type_=InvalidCodeException.INVALID_OPERAND)
         self.type = TypeOperand.CONSTANT
