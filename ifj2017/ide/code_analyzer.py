@@ -1,6 +1,7 @@
 # coding=utf-8
 import re
 from typing import Optional
+
 from PyQt5.QtCore import QObject, QVariant, pyqtProperty, pyqtSignal
 from PyQt5.QtQml import QQmlEngine, QJSEngine
 
@@ -31,6 +32,11 @@ class CodeAnalyzer(QObject):
     def completerModel(self) -> QVariant:
         return QVariant(
             [
+                dict(
+                    identifier='.IFJcode17',
+                    type=Expression.ExpressionTypes.Header
+                )
+            ] if '.IFJcode17' not in self.code else [] + [
                 dict(
                     identifier=match,
                     type=Expression.ExpressionTypes.Types
