@@ -23,6 +23,22 @@
     {
       "stdout": " 80970",
       "name": "06"
+    },
+    {
+      "compiler_exit_code": 2,
+      "name": "07"
+    },
+    {
+      "compiler_exit_code": 2,
+      "name": "08"
+    },
+    {
+      "compiler_exit_code": 2,
+      "name": "09"
+    },
+    {
+      "compiler_exit_code": 2,
+      "name": "10" 
     }
   ],
   "extensions": [

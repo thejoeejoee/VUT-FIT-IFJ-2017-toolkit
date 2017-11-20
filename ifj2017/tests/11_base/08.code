@@ -1,0 +1,5 @@
+' Uncorrect number inside base
+scope
+	dim x as integer = 10100a1
+	print x;
+end scope

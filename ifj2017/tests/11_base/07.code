@@ -1,0 +1,5 @@
+' Uncorrect number inside base
+scope
+	dim x as integer = &b1010041 ' To same jako &b10100 41 - dva integery, čtyřka už tam nepatří, vyhodi syntax error
+	print x;
+end scope

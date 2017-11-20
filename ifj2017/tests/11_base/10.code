@@ -1,0 +1,6 @@
+' Uncorrect number inside base
+scope
+	dim x as integer = &hagbaba
+
+	print x;
+end scope
