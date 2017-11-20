@@ -1,0 +1,13 @@
+' Multiple return inside function
+
+function foo() as integer
+	return 42
+	return 31
+	return 22
+end function
+
+scope
+	dim b as integer
+	b = foo()
+	print b;
+end scope
