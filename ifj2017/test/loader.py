@@ -27,9 +27,10 @@ class TestLoader(object):
     def load_tests(self, section_dir):
         assert path.isdir(section_dir)
 
-        compact_tests = self._load_compact_tests(section_dir)
+        json_file = self._load_json_file(section_dir)
+        compact_tests = self._load_compact_tests(section_dir, json_file)
         already_loaded = set(map(attrgetter('name'), compact_tests))
-        file_tests = self._load_file_tests(section_dir, already_loaded)
+        file_tests = self._load_file_tests(section_dir, already_loaded, json_file)
         tests = tuple(file_tests) + tuple(compact_tests)
         test_names = tuple(map(attrgetter('name'), tests))
         conflicting = set(test for test in test_names if test_names.count(test) > 1)
@@ -42,20 +43,23 @@ class TestLoader(object):
             key=lambda test: (len(test.name), test.name)
         )
 
-    def _load_compact_tests(self, section_dir):
+    def _load_json_file(self, section_dir):
         data = self.load_file(
             path.join(section_dir, 'tests.json'),
             allow_fail=True
         )
         if not data:
-            return ()
+            return {}
         try:
-            data = json.loads(data)
+            return json.loads(data)
         except (json.JSONDecodeError, TypeError) as e:
             TestLogger.log_warning(
                 "File {} is not valid json to load ({}).".format(path.join(section_dir, 'tests.json'), e)
             )
-            return ()
+            return {}
+        return data
+
+    def _load_compact_tests(self, section_dir, data):        
         cases = []
         extensions = tuple(data.get('extensions', ()))
         try:
@@ -102,7 +106,8 @@ class TestLoader(object):
             return ()
         return cases
 
-    def _load_file_tests(self, section_dir, already_loaded):
+    def _load_file_tests(self, section_dir, already_loaded, data):        
+        extensions = tuple(data.get('extensions', ()))
         for code_file in sorted(iglob(path.join(section_dir, "*.code"))):
             name, _ = path.splitext(path.basename(code_file))
             if name in already_loaded:
@@ -118,7 +123,7 @@ class TestLoader(object):
                     int(self._load_test_file(section_dir, name, 'iexitcode') or 0),
                     self._load_test_file(section_dir, name, 'info') or self._get_code_info(code) or '',
                     section_dir,
-                    set(),
+                    set(extensions),
                     self._default_timeout
                 )
             except ValueError as e:
