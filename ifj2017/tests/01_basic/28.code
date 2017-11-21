@@ -1,0 +1,5 @@
+' More prints
+scope
+	print !"ahoj";
+	print !"ahoj";
+end scope

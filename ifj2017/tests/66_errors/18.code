@@ -1,0 +1,10 @@
+' Declaration after definition
+
+function foo() as integer
+
+end function
+
+declare function foo() as integer
+
+scope
+end scope
