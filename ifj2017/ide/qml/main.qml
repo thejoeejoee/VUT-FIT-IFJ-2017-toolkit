@@ -90,11 +90,15 @@ ApplicationWindow {
         standardButtons: StandardButton.Yes | StandardButton.No | StandardButton.Abort
 
         onYes: {
+            root.fileActionType = "saveBeforeQuit"
             saveFile()
             root.fileActionType = "saveBeforeQuit"
         }
 
-        onNo: Qt.quit()
+        onNo: {
+            stopProgram()
+            Qt.quit()
+        }
         onRejected: visible = false
     }
 
@@ -146,8 +150,10 @@ ApplicationWindow {
                 codeEditor.removesDiffMarks()
             }
 
-            if(root.fileActionType == "saveBeforeQuit")
+            if(root.fileActionType == "saveBeforeQuit") {
+                stopProgram()
                 Qt.quit()
+            }
             root.fileActionType = ""
         }
     }
@@ -422,6 +428,10 @@ td {
         else {
             fileIO.write(codeEditor.code)
             codeEditor.removesDiffMarks()
+            if(root.fileActionType == "saveBeforeQuit") {
+                stopProgram()
+                Qt.quit()
+            }
         }
     }
 
