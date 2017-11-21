@@ -1,10 +1,13 @@
 # coding=utf-8
 import sys
+import signal
+
 from os import path
 from platform import system
 
 from PyQt5.QtCore import (QSize, QtFatalMsg, QtCriticalMsg, QtWarningMsg, QtInfoMsg,
                           qInstallMessageHandler, QtDebugMsg)
+from PyQt5.QtCore import QTimer
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QIcon
 from PyQt5.QtQml import QQmlApplicationEngine, qmlRegisterSingletonType, qmlRegisterType
@@ -27,6 +30,22 @@ except ImportError:
     def colored(mode, *args, **kwargs):
         return mode
 
+# See more at https://coldfix.de/2016/11/08/pyqt-boilerplate/#keyboardinterrupt-ctrl-c
+def setup_interrupt_handling():
+    signal.signal(signal.SIGINT, _interrupt_handler)
+    safe_timer(50, lambda: None)
+
+def _interrupt_handler(signum, frame):
+    QApplication.quit()
+
+
+def safe_timer(timeout, func, *args, **kwargs):
+    def timer_event():
+        try:
+            func(*args, **kwargs)
+        finally:
+            QTimer.singleShot(timeout, timer_event)
+    QTimer.singleShot(timeout, timer_event)
 
 def qt_message_handler(mode, context, message):
     modes = {
@@ -91,4 +110,5 @@ def main():
 
 
 if __name__ == '__main__':
+    setup_interrupt_handling()
     main()
