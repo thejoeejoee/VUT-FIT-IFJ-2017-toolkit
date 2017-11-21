@@ -1,0 +1,24 @@
+' Declaration in If in IF in While in Function
+function foo() as integer
+    dim a as integer = 10
+    dim b as integer = 10
+    do while a > 4
+        if a > 4 then
+            dim a as integer
+            a = 5
+            if b = 7 then
+                return a
+            else
+            end if
+        else
+        end if
+        a = a - 1
+        b = b - 1
+    loop
+end function
+
+scope
+    dim a as integer
+    a = foo()
+    print a;
+end scope

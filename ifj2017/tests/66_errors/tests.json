@@ -352,7 +352,20 @@
       "info": "Print without semicolon 2",
       "compiler_exit_code": 2,
       "code": "scope \n  print 10 10;\n end scope"
+    },
+    {
+      "name": "19",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "20",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "21",
+      "compiler_exit_code": 3
     }
+
 
   ]
 }

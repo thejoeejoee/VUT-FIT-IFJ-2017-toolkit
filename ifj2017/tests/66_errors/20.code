@@ -1,0 +1,9 @@
+' Colision of argument name and function name
+
+declare function foo1() as integer
+function bar(foo1 as integer) as integer
+return foo1
+end function
+
+scope
+end scope

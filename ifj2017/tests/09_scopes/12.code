@@ -1,0 +1,302 @@
+' 100 scopes, test for symbol table
+SCOPE
+dim a as integer = 100
+SCOPE
+dim a as integer = 99
+SCOPE
+dim a as integer = 98
+SCOPE
+dim a as integer = 97
+SCOPE
+dim a as integer = 96
+SCOPE
+dim a as integer = 95
+SCOPE
+dim a as integer = 94
+SCOPE
+dim a as integer = 93
+SCOPE
+dim a as integer = 92
+SCOPE
+dim a as integer = 91
+SCOPE
+dim a as integer = 90
+SCOPE
+dim a as integer = 89
+SCOPE
+dim a as integer = 88
+SCOPE
+dim a as integer = 87
+SCOPE
+dim a as integer = 86
+SCOPE
+dim a as integer = 85
+SCOPE
+dim a as integer = 84
+SCOPE
+dim a as integer = 83
+SCOPE
+dim a as integer = 82
+SCOPE
+dim a as integer = 81
+SCOPE
+dim a as integer = 80
+SCOPE
+dim a as integer = 79
+SCOPE
+dim a as integer = 78
+SCOPE
+dim a as integer = 77
+SCOPE
+dim a as integer = 76
+SCOPE
+dim a as integer = 75
+SCOPE
+dim a as integer = 74
+SCOPE
+dim a as integer = 73
+SCOPE
+dim a as integer = 72
+SCOPE
+dim a as integer = 71
+SCOPE
+dim a as integer = 70
+SCOPE
+dim a as integer = 69
+SCOPE
+dim a as integer = 68
+SCOPE
+dim a as integer = 67
+SCOPE
+dim a as integer = 66
+SCOPE
+dim a as integer = 65
+SCOPE
+dim a as integer = 64
+SCOPE
+dim a as integer = 63
+SCOPE
+dim a as integer = 62
+SCOPE
+dim a as integer = 61
+SCOPE
+dim a as integer = 60
+SCOPE
+dim a as integer = 59
+SCOPE
+dim a as integer = 58
+SCOPE
+dim a as integer = 57
+SCOPE
+dim a as integer = 56
+SCOPE
+dim a as integer = 55
+SCOPE
+dim a as integer = 54
+SCOPE
+dim a as integer = 53
+SCOPE
+dim a as integer = 52
+SCOPE
+dim a as integer = 51
+SCOPE
+dim a as integer = 50
+SCOPE
+dim a as integer = 49
+SCOPE
+dim a as integer = 48
+SCOPE
+dim a as integer = 47
+SCOPE
+dim a as integer = 46
+SCOPE
+dim a as integer = 45
+SCOPE
+dim a as integer = 44
+SCOPE
+dim a as integer = 43
+SCOPE
+dim a as integer = 42
+SCOPE
+dim a as integer = 41
+SCOPE
+dim a as integer = 40
+SCOPE
+dim a as integer = 39
+SCOPE
+dim a as integer = 38
+SCOPE
+dim a as integer = 37
+SCOPE
+dim a as integer = 36
+SCOPE
+dim a as integer = 35
+SCOPE
+dim a as integer = 34
+SCOPE
+dim a as integer = 33
+SCOPE
+dim a as integer = 32
+SCOPE
+dim a as integer = 31
+SCOPE
+dim a as integer = 30
+SCOPE
+dim a as integer = 29
+SCOPE
+dim a as integer = 28
+SCOPE
+dim a as integer = 27
+SCOPE
+dim a as integer = 26
+SCOPE
+dim a as integer = 25
+SCOPE
+dim a as integer = 24
+SCOPE
+dim a as integer = 23
+SCOPE
+dim a as integer = 22
+SCOPE
+dim a as integer = 21
+SCOPE
+dim a as integer = 20
+SCOPE
+dim a as integer = 19
+SCOPE
+dim a as integer = 18
+SCOPE
+dim a as integer = 17
+SCOPE
+dim a as integer = 16
+SCOPE
+dim a as integer = 15
+SCOPE
+dim a as integer = 14
+SCOPE
+dim a as integer = 13
+SCOPE
+dim a as integer = 12
+SCOPE
+dim a as integer = 11
+SCOPE
+dim a as integer = 10
+SCOPE
+dim a as integer = 9
+SCOPE
+dim a as integer = 8
+SCOPE
+dim a as integer = 7
+SCOPE
+dim a as integer = 6
+SCOPE
+dim a as integer = 5
+SCOPE
+dim a as integer = 4
+SCOPE
+dim a as integer = 3
+SCOPE
+dim a as integer = 2
+SCOPE
+dim a as integer = 1
+print a;
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope
+end scope

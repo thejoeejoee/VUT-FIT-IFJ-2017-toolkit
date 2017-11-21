@@ -1,0 +1,16 @@
+' Colision of argument name and function name
+
+declare function foo1() as integer
+declare function bar(foo1 as integer) as integer
+
+function foo1() as integer
+    return 42
+end function
+
+function bar(a as integer) as integer
+    return 42
+end function
+    
+scope
+
+end scope

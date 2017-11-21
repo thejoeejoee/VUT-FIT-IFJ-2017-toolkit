@@ -1,0 +1,16 @@
+' Colision which is OK
+function bar(foo1 as integer) as integer
+    return foo1
+end function
+
+declare function foo1() as integer
+
+function foo1() as integer
+    return 42
+end function
+
+scope
+    dim a as integer 
+    a = foo1()
+    print a;
+end scope
