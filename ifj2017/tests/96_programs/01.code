@@ -1,0 +1,31 @@
+'vypocet prvocisla
+function prvocislo(a as integer) as boolean
+   
+    dim delitel as integer = a - 1
+    
+    do while delitel > 1
+    
+        if ((a \ delitel) * delitel) = a then
+            return false
+        else
+        end if
+        delitel = delitel - 1
+    loop
+    
+   
+    
+    return true
+end function
+
+scope
+
+    dim cislo as integer
+    input cislo
+    dim overeni as boolean 
+    overeni = prvocislo(cislo)
+    if overeni then
+        print !"Cislo "; cislo ; !" je prvocislo";
+    else
+        print !"Cislo "; cislo ; !" neni prvocislo";
+    end if
+end scope

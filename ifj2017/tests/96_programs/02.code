@@ -1,0 +1,35 @@
+' Print all prime numbers
+function prvocislo(a as integer) as boolean
+   
+    dim delitel as integer = a - 1
+    
+    do while delitel > 1
+    
+        if ((a \ delitel) * delitel) = a then
+            return false
+        else
+        end if
+        delitel = delitel - 1
+    loop
+    
+   
+    
+    return true
+end function
+
+scope
+dim cislo as integer
+input cislo
+
+dim aktualni as integer = 1
+dim je_prvocislo as boolean
+do while aktualni <= cislo
+    je_prvocislo = prvocislo(aktualni)
+    if je_prvocislo then
+        print aktualni;
+    else
+    end if
+    aktualni = aktualni + 1
+loop
+
+end scope
