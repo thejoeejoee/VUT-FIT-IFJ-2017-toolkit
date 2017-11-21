@@ -113,8 +113,13 @@
     },
     {
       "info": "wrong if termination",
-      "code": "scope \n if 1 < 2 then \n wend if end scope",
+      "code": "scope \n if 1 < 2 then \n end uf end scope",
       "compiler_exit_code": 2
+    },
+    {
+      "info": "wrong if termination",
+      "code": "scope \n if 1 < 2 then \n wend if end scope",
+      "compiler_exit_code": 3
     },
     {
       "info": "undefined variable",
@@ -245,7 +250,7 @@
     },
     {
       "info": "Exprected dim",
-      "compiler_exit_code": 2,
+      "compiler_exit_code": 3,
       "code": "scope \n a as integer \n end scope"
     },
     {
@@ -260,12 +265,12 @@
     },
     {
       "info": "False print",
-      "compiler_exit_code": 2,
+      "compiler_exit_code": 3,
       "code": "scope \n print42; \n end scope"
     },
     {
       "info": "False if",
-      "compiler_exit_code": 2,
+      "compiler_exit_code": 3,
       "code": "scope \n dim a as integer \n ifa<10 then \n else \n end if\n \n end scope"
     },
     {
