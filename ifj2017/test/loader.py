@@ -60,8 +60,20 @@ class TestLoader(object):
         extensions = tuple(data.get('extensions', ()))
         try:
             for i, test_case in enumerate(data.get('tests', ())):
-                name = test_case.get('name') or '{:03}'.format(i + 1)
-                code = test_case.get('code') or self._load_test_file(section_dir, name, 'code')
+                name = test_case.get('name')
+                code = test_case.get('code')
+
+                if name and code:
+                    TestLogger.log_warning(
+                        "Redefined test {} in file {}, skipping.".format(name, path.join(section_dir, 'tests.json'))
+                    )
+                    continue
+
+                if not name:
+                    name = '{:03}'.format(i + 1)
+                
+                if not code:
+                    code = self._load_test_file(section_dir, name, 'code')
 
                 cases.append(
                     TestInfo(
