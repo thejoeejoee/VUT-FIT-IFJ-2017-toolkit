@@ -1,0 +1,13 @@
+' Program to Count Number of Digits in an Integer
+scope
+    dim a as integer
+    input a
+    
+    dim soucet as integer
+    do while a <> 0
+        a = a \ 10
+        soucet = soucet + 1
+    loop
+    
+    print soucet;
+end scope

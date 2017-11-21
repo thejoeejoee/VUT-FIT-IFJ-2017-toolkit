@@ -1,0 +1,51 @@
+' Draw primary numbers from interval
+declare function prvocislo(cislo as integer) as boolean
+
+function prvocislo(a as integer) as boolean
+   
+    dim delitel as integer = a - 1
+    
+    do while delitel > 1
+    
+        if ((a \ delitel) * delitel) = a then
+            return false
+        else
+        end if
+        delitel = delitel - 1
+    loop
+    
+   
+    
+    return true
+end function
+
+scope
+    dim flag as boolean
+    print !"Enter two positive integers:\n";
+    
+    dim n1 as integer
+    dim n2 as integer
+    
+    input n1
+    print !"\n";
+    input n2
+    print !"\n";
+    
+    print !"Prime numbers between"; n1 ; !" and"; n2 ; !" are";
+    
+    dim i as integer = n1 + 1
+    
+    do while i < n2
+    
+        flag = prvocislo(i)
+        
+        if flag then
+            print i;
+        else
+        end if
+        
+        i = i + 1
+    loop
+
+   
+end scope

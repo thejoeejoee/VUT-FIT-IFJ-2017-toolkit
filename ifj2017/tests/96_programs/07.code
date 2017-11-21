@@ -1,0 +1,25 @@
+' Draw a pyramide
+scope 
+    print !"Enter number of rows\n";
+    dim rows as integer
+    input rows
+    
+    print !"\n";
+    
+    dim i as integer = 1
+    dim j as integer = 1
+    
+    do while i <= rows
+        j = 1
+        do while j <= i
+        
+        
+            print j;
+            j = j + 1
+        loop
+        print !"\n";
+        i = i + 1
+    loop
+    
+end scope
+    

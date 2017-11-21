@@ -1,0 +1,37 @@
+' GCD of Two Numbers using Recursion
+declare function modulo(a as integer, b as integer) as integer
+
+function hcf(n1 as integer, n2 as integer) as integer
+    
+    if n2 <> 0 then
+        dim vysledek as integer
+        vysledek = hcf(n2, modulo(n1, n2))
+       return vysledek
+    else 
+       return n1
+    end if
+
+end function
+
+function modulo(delitel as integer, delenec as integer) as integer
+    dim vysledek as integer
+    vysledek = delitel - (delitel\delenec)*delenec
+    return vysledek
+end function
+
+scope
+    
+    dim n1 as integer
+    dim n2 as integer
+    print !"Enter two positive integers:\n";
+    input n1
+    print !"\n";
+    input n2
+    print !"\n";
+    
+    dim vysledek as integer
+    vysledek = hcf(n1, n2)
+    print !"G.C.D of"; n1; !" and"; n2 ; !" is"; vysledek;
+
+
+end scope

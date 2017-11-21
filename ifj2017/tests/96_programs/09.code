@@ -1,0 +1,10 @@
+' Count modulo
+function modulo(delitel as integer, delenec as integer) as integer
+    dim vysledek as integer
+    vysledek = delitel - (delitel\delenec)*delenec
+    return vysledek
+end function
+
+scope
+	print modulo (10, 4);
+end scope

@@ -1,0 +1,18 @@
+' Add numbers from 1 to n
+scope
+    
+    dim a as integer
+    input a
+    
+    dim b as integer = 1
+    
+    
+    dim soucet as integer
+    do while b <= a
+        soucet = soucet + b
+        b = b + 1
+    loop
+    
+    print !"Soucet cisel do"; a ; !" je"; soucet;
+    
+end scope

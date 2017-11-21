@@ -1,0 +1,13 @@
+'Swap
+scope 
+
+dim a as integer = 10
+dim b as integer = 30
+
+dim pomocna as integer = b
+b = a
+a = pomocna
+
+print a; b;
+
+end scope

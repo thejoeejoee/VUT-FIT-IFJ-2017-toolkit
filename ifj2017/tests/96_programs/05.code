@@ -1,0 +1,22 @@
+' Print biggest number from three numbers
+scope
+    
+   dim a as integer
+   dim b as integer
+   dim c as integer
+   
+   input a
+   input b
+   input c
+   
+   if c > b then
+        if c > a then
+            print c;
+        else
+            print a;
+        end if
+   else
+        print b;
+   end if
+    
+end scope
