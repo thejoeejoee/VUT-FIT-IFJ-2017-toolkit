@@ -1,5 +1,5 @@
+#!/usr/bin/env python3
 # coding=utf-8
-
 
 import sys
 from distutils import core
@@ -12,8 +12,8 @@ __copyright__ = "Copyright 2017, Josef Kolář & Son Hai Nguyen"
 __credits__ = ["Josef Kolář", "Son Hai Nguyen"]
 __license__ = "GNU GPL Version 3"
 
-if sys.version_info[0] < 3:
-    print('Run in python3 please.', file=sys.stderr)
+if sys.version_info < (3, 5):
+    print('Run in python >= 3.5 please.', file=sys.stderr)
     exit(1)
 
 base_path = abspath(dirname(__file__))
@@ -32,7 +32,7 @@ except(IOError, ImportError) as e:
 def setup():
     core.setup(
         name='IFJcode17-toolkit',
-        version='1.1.7',
+        version='1.1.8',
         license='GNU GENERAL PUBLIC LICENSE Version 3',
         description='Toolkit for IFJ17 language compiler (as project at FIT BUT in Brno) with '
                     'interactive debugger and automatic tests.',
