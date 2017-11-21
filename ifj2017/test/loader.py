@@ -65,15 +65,16 @@ class TestLoader(object):
 
                 if name and code:
                     TestLogger.log_warning(
-                        "Redefined test {} in file {}.".format(name, path.join(section_dir, 'tests.json'))
+                        "Redefined test {} in file {}, skipping.".format(name, path.join(section_dir, 'tests.json'))
                     )
+                    continue
 
                 if not name:
                     name = '{:03}'.format(i + 1)
                 
                 if not code:
                     code = self._load_test_file(section_dir, name, 'code')
-                
+
                 cases.append(
                     TestInfo(
                         name,
