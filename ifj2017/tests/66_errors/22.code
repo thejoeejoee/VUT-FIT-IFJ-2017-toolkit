@@ -1,4 +1,4 @@
-' GCD of Two Numbers using Recursion
+' GCD of Two Numbers using Recursion erre
 declare function modulo(a as integer, b as integer) as integer
 
 function hcf(n1 as integer, n2 as integer) as integer
@@ -6,7 +6,7 @@ function hcf(n1 as integer, n2 as integer) as integer
     if n2 <> 0 then
         dim vysledek as integer
         dim modulo_ as integer
-        modulo_ = modulo(n1, n2)
+        modulo = modulo(n1, n2) ' error, variable modulo does not exists
         vysledek = hcf(n2, modulo_)
        return vysledek
     else 
