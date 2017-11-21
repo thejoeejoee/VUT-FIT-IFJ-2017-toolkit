@@ -37,14 +37,14 @@ class FileIO(QObject):
         if not self._source:
             return
 
-        with open(self._source, "w") as f:
-            f.write(content)
+        with open(self._source, "wb") as f:
+            f.write(bytes(content, encoding='utf-8'))
 
     @pyqtSlot(result=str)
     def read(self) -> str:
         if not self._source:
             return ""
 
-        with open(self._source, "r") as f:
+        with open(self._source, "rb") as f:
             read_data = f.read()
-        return read_data
+        return str(read_data, encoding='utf-8')
