@@ -67,7 +67,10 @@
     {
       "name": "22",
       "stdin": "rozdil\n10\n5",
-      "stdout": "? ? ?  5"
+      "stdout": "? ? ?  5",
+      "extensions": [
+        "IFTHEN"
+      ]
     },
     {
       "name": "23",
@@ -76,6 +79,12 @@
     {
       "name": "25",
       "stdout": "-5"
+    },
+    {
+      "name": "27",
+      "extensions": [
+        "BOOLOP"
+      ]
     }
   ]
 }
