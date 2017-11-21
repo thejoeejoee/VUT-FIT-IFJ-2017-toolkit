@@ -38,6 +38,11 @@ Rectangle {
             editableText.x = fm.advanceWidth(lastLine) + readonlyText.anchors.leftMargin
         }
 
+        onFocusChanged: {
+            if(focus)
+                editableText.forceActiveFocus()
+        }
+
         FontMetrics {
             id: fm
             font: readonlyText.font
