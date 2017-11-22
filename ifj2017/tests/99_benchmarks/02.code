@@ -20,7 +20,7 @@ end function
 scope
 
 	dim c as integer
-	c = fib(25)
+	c = fib(12)
 	print c;
 
 end scope
