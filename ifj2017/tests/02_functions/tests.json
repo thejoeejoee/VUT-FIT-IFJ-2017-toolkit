@@ -15,12 +15,12 @@
     {
       "info": "Asc value",
       "stdout": " 104",
-      "code": "scope \n print asc(!\"ahoj\", 2); \n end scope"
+      "code": "scope \n dim a as integer \n a = asc(!\"ahoj\", 2) \n print a; \n end scope"
     },
     {
       "info": "Chr function",
       "stdout": "a",
-      "code": "scope \n print chr(97); \n end scope"
+      "code": "scope \n dim c as string \n c = chr(97) \n print c; \n end scope"
     },
     {
       "info": "function integer implicit return",
