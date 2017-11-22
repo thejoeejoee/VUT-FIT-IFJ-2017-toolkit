@@ -309,6 +309,36 @@
       "code": "scope \n dim a as integer \n input ab \n end scope"
     },
     {
+      "info": "Undefined variable assignment",
+      "compiler_exit_code": 3,
+      "code": "scope \n a = 31 \n end scope"
+    },
+    {
+      "info": "Undefined variable assignment in function",
+      "compiler_exit_code": 3,
+      "code": "function foo() as integer \n  dim a as integer\n ab = 10 \n end function \n scope \n end scope"
+    },
+    {
+      "info": "Undefined variable assignment in function",
+      "compiler_exit_code": 3,
+      "code": "function foo() as integer \n  dim a as integer\n ab = 10 \n end function \n scope \n end scope"
+    },
+    {
+      "info": "Undefined variable in if",
+      "compiler_exit_code": 3,
+      "code": "scope \n if a < 10 then \n else \n end if \n end scope"
+    },
+    {
+      "info": "Undefined variable in while",
+      "compiler_exit_code": 3,
+      "code": "scope \n do while a < 10 then \n loop \n end scope"
+    },
+    {
+      "info": "Undefined variable in calling function",
+      "compiler_exit_code": 3,
+      "code": "function foo(a as integer) as integer \n end function \n scope \n dim a as integer \n a = foo(b) \n end scope"
+    },
+    {
       "info": "No eol after statement",
       "compiler_exit_code": 2,
       "code": "scope \n dim a as integer dim b as integer\n input ab \n end scope"
@@ -334,6 +364,36 @@
       "code": "scope  \n end scope \n declare function foo() as integer"
     },
     {
+      "info": "function in function",
+      "compiler_exit_code": 2,
+      "code": "function foo() as integer \n function bar() as integer \n end function \n end function \n scope \n end scope \n"
+    },
+    {
+      "info": "declaration in function",
+      "compiler_exit_code": 2,
+      "code": "function foo() as integer \n declare function bar() as integer \n end function \n scope \n end scope \n"
+    },
+    {
+      "info": "Function in scope",
+      "compiler_exit_code": 2,
+      "code": " scope \n function foo() as integer \n end function \n end scope \n"
+    },
+    {
+      "info": "Declaration in scope",
+      "compiler_exit_code": 2,
+      "code": " scope \n declare function foo() as integer \n  end scope \n"
+    },
+    {
+      "info": "Declaration in function in scope",
+      "compiler_exit_code": 2,
+      "code": " scope \n function foo() as integer \n declare function foo() as integer \n end function \n end scope \n"
+    },
+    {
+      "info": "Scope in function",
+      "compiler_exit_code": 2,
+      "code": "function foo() as integer \n scope \n end scope \n end function \n scope \n end scope"
+    },
+    {
       "info": "No end scope",
       "compiler_exit_code": 2,
       "code": "scope \n dim a as integer \n print a;"
@@ -357,6 +417,16 @@
       "info": "Print without semicolon 2",
       "compiler_exit_code": 2,
       "code": "scope \n  print 10 10;\n end scope"
+    },
+    {
+      "info": "Lexical error in assignment",
+      "compiler_exit_code": 1,
+      "code": "scope \n  dim a as integer = &\n end scope"
+    },
+    {
+      "info": "Lexical error in print",
+      "compiler_exit_code": 1,
+      "code": "scope \n print &;\n end scope"
     },
     {
       "name": "19",

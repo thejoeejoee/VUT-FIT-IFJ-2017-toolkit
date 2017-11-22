@@ -43,6 +43,26 @@
     {
       "stdout": "true",
       "name": "11" 
+    },
+    {
+      "info": "Empty binary number",
+      "code": "scope \n dim a as integer = &b\n print a;\n end scope ",
+      "stdout": " 0"
+    },
+    {
+      "info": "Empty octa number",
+      "code": "scope \n dim a as integer = &o\n print a;\n end scope ",
+      "stdout": " 0"
+    },
+    {
+      "info": "Empty hexa number",
+      "code": "scope \n dim a as integer = &h\n print a;\n end scope ",
+      "stdout": " 0"
+    },
+    {
+      "info": "Print empty binary number",
+      "code": "scope \n print &b;\n end scope ",
+      "stdout": " 0"
     }
   ],
   "extensions": [
