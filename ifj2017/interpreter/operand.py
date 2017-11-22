@@ -89,8 +89,8 @@ class Operand(object):
 
     def _resolve_type(self, type_match):
         # type: (Match) -> None
-        self.data_type = type_match.group(1)
-        if not self.data_type:
+        self.data_type = type_match.group(1).lower()
+        if self.data_type not in self.CONSTANT_MAPPING:
             raise InvalidCodeException(type_=InvalidCodeException.INVALID_OPERAND)
         self.type = TypeOperand.DATA_TYPE
 

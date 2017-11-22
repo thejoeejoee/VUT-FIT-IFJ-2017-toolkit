@@ -45,6 +45,11 @@ class BaseInterpreterError(RuntimeError):
         return self.msg or 'Interpreter error{}'.format(self.on_line)
 
 
+class UnknownDataTypeError(BaseInterpreterError):
+    def __str__(self):
+        return 'Unknown data type error{}'.format(self.on_line)
+
+
 class EmptyDataStackError(BaseInterpreterError):
     def __str__(self):
         return 'Empty data stack error{}'.format(self.on_line)

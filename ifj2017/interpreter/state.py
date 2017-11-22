@@ -4,6 +4,7 @@ import logging
 import re
 from io import StringIO
 
+from ifj2017.interpreter.exceptions import UnknownDataTypeError
 from .exceptions import EmptyDataStackError, UndefinedVariableError, UndeclaredVariableError, \
     FrameError, UnknownLabelError, InvalidReturnError, InvalidOperandTypeError
 from .operand import Operand, TypeOperand
@@ -193,6 +194,8 @@ class State(object):
                 self.set_value(to, Operand.BOOL_LITERAL_MAPPING.get(match.group(0).lower()))
             else:
                 self.set_value(to, False)
+        else:
+            raise UnknownDataTypeError()
 
     ESCAPE_RE = re.compile(r'\\([0-9]{3})')
 
