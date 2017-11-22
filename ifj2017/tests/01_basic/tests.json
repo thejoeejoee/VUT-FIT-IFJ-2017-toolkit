@@ -85,6 +85,10 @@
       "info": "Print string with char 238",
       "code": "scope \n print !\"\\238\"; \n end scope",
       "stdout": "Todo"
+    },
+    {
+      "name": "29",
+      "timeout": 5
     }
 
   ]
