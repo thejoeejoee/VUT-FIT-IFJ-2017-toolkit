@@ -1,4 +1,6 @@
 # Sada nástrojů pro `IFJ17` a `IFJcode17`
+
+[![Join the chat at https://gitter.im/VUT-FIT-IFJ-2017-toolkit/Lobby](https://badges.gitter.im/VUT-FIT-IFJ-2017-toolkit/Lobby.svg)](https://gitter.im/VUT-FIT-IFJ-2017-toolkit/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Repozitář obsahuje nástroje k projektu kompilátoru do předmětu **IFJ** na FIT VUT v Brně v _akademickém roce 2017/2018_. Mezi nástroje patří **sada testů** včetně automatické spouštěče testových jednotek, **vývojové prostředí včetně debuggeru** jazyka `IFJcode17` a **vlastní interpret** tohoto jazyka.
 Instalace těchto balíků je podrobně popsána ve Wiki, obecně je lze **nainstalovat** následovně:
 
