@@ -1,0 +1,29 @@
+' nested function calls with multiple data types
+function blank() as integer
+    print !"blank";
+    return 42 * 10 / 8
+end function
+
+function dbl(par as double, par2 as integer) as double
+    print par;
+    print !"dbl";
+    print par2;
+    return 2.78 / par + par2 * 0.3
+end function
+
+function int_(par as integer) as string
+    print !"int";
+    print par;
+    return !"barman"
+end function
+
+function str_(par as string) as double
+    print !"str";
+    print par;
+    return 75 * 78.74 / 0.12345
+end function
+
+scope
+    dim var_ as integer = str_(int_(dbl(blank(), blank())))
+    print var_;
+end scope

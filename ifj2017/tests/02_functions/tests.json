@@ -44,12 +44,16 @@
     {
       "name": "18",
       "stdout": " 16",
-      "extensions": ["FUNEXP"]
+      "extensions": [
+        "FUNEXP"
+      ]
     },
     {
       "name": "19",
       "stdout": " 256",
-      "extensions": ["FUNEXP"]
+      "extensions": [
+        "FUNEXP"
+      ]
     },
     {
       "name": "20",
@@ -87,6 +91,13 @@
       "name": "27",
       "compiler_exit_code": 4,
       "stdout": " 0"
+    },
+    {
+      "name": "29",
+      "stdout": "blankblank 52dbl 52int 16strbarman 47837",
+      "extensions": [
+        "FUNEXP"
+      ]
     },
     {
       "info": "Length of string with escape sequences",

@@ -1,0 +1,21 @@
+' multiple functions call
+function ComplexIntFunc(par1 as string, par2 as double) as integer
+    print par1;
+    print par2;
+    return par2 * 10e1 / 0.39 + 7.74 - par2
+end function
+
+function ComplexDblFunc(par1 as double, par2 as integer, par3 as integer) as double
+    return 2 * 8 / 74 * (par1 + par2) + 12 + 54 * 0.78e2 / (12e-2 / par3) + 124 / (0 - par3)
+end function
+
+function ComplexStrFunc(par1 as string, par2 as string) as string
+    print par2;
+    print par1;
+    return !"\n" + par1 + !"  ---   "+ par2 + !"\n"
+end function
+
+scope
+    dim complexFuncCallExpr as integer = 40 + 15/8 + ComplexIntFunc(ComplexStrFunc(ComplexStrFunc(!"1", !"2"), !"str"), ComplexDblFunc(15, ComplexIntFunc(!"jedna", 15.1), 16))
+    print !"\nResult is "; complexFuncCallExpr;
+end scope
