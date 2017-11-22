@@ -14,7 +14,10 @@
     },
     {
       "name": "04",
-      "stdout": " 123 74"
+      "stdout": " 123 74",
+      "extensions": [
+        "IFTHEN"
+      ]
     },
     {
       "name": "05",
@@ -57,6 +60,12 @@
       "name": "13",
       "stdout": "? ?  42",
       "stdin": "Ahojky\nAhojky"
+    },
+    {
+      "name": "14",
+      "extensions": [
+        "IFTHEN"
+      ]
     }
   ]
 }
