@@ -53,7 +53,10 @@
     },
     {
       "name": "20",
-      "stdout": " 16"
+      "stdout": " 16",
+      "extensions": [
+        "FUNEXP"
+      ]
     },
     {
       "name": "21",

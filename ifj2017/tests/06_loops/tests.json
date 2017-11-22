@@ -21,6 +21,12 @@
       "timeout": 2
     },
     {
+      "name": "05",
+      "extensions": [
+        "SCOPE"
+      ]
+    },
+    {
       "name": "06",
       "extensions": [
         "IFTHEN"
