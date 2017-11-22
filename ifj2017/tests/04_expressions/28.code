@@ -1,0 +1,4 @@
+' Divide priority 2 (fail types)
+scope
+    print 10000000/3\4/4
+end scope

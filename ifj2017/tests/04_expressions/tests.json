@@ -40,6 +40,26 @@
       "info": "Print boolean expr 2",
       "stdout": "false",
       "code": "scope \n print 2 > 2.3;\n end scope"
+    },
+    {
+      "name": "24",
+      "timeout": 1
+    },
+    {
+      "name": "25",
+      "timeout": 1
+    },
+    {
+      "name": "27",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "28",
+      "compiler_exit_code": 4
+    },
+    {
+      "name": "30",
+      "compiler_exit_code": 4
     }
   ]
 }

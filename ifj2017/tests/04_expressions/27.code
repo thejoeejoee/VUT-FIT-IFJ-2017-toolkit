@@ -1,0 +1,4 @@
+' Divide priority (fail types)
+scope
+    print 100000\3/4\4\4/6;
+end scope

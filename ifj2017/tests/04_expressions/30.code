@@ -1,0 +1,4 @@
+' Divide priority 2 (fail types)
+scope
+    print 7\4/2
+end scope

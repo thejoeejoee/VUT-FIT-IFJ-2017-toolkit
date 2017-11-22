@@ -1,0 +1,4 @@
+' Bracket, \ and /
+scope
+    print (7\4)/2;
+end scope
