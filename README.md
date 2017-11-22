@@ -1,13 +1,22 @@
 # Sada nástrojů pro `IFJ17` a `IFJcode17`
 
+[![PyPI version](https://badge.fury.io/py/IFJcode17-toolkit.svg)](https://badge.fury.io/py/IFJcode17-toolkit)
+[![GitHub issues](https://img.shields.io/github/issues/thejoeejoee/VUT-FIT-IFJ-2017-toolkit.svg)](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/issues)
+[![GitHub stars](https://img.shields.io/github/stars/thejoeejoee/VUT-FIT-IFJ-2017-toolkit.svg)](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/stargazers)
+[![GitHub license](https://img.shields.io/github/license/thejoeejoee/VUT-FIT-IFJ-2017-toolkit.svg)](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/thejoeejoee/VUT-FIT-IFJ-2017-toolkit.svg)](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/releases)
 [![Join the chat at https://gitter.im/VUT-FIT-IFJ-2017-toolkit/Lobby](https://badges.gitter.im/VUT-FIT-IFJ-2017-toolkit/Lobby.svg)](https://gitter.im/VUT-FIT-IFJ-2017-toolkit/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Wiki](https://img.shields.io/badge/Wiki-here-blue.svg)](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki)
+
 Repozitář obsahuje nástroje k projektu kompilátoru do předmětu **IFJ** na FIT VUT v Brně v _akademickém roce 2017/2018_. Mezi nástroje patří **sada testů** včetně automatické spouštěče testových jednotek, **vývojové prostředí včetně debuggeru** jazyka `IFJcode17` a **vlastní interpret** tohoto jazyka.
 Instalace těchto balíků je podrobně popsána ve Wiki, obecně je lze **nainstalovat** následovně:
 
 ```bash
 $ pip install IFJcode17-toolkit
 ```
-**[Dokumentaci k nástrojům naleznete zde.](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki)**
+**Dokumentaci k nástrojům naleznete na [Github Wiki](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests/wiki).**
+
+**Pro řešení chyb, definice testů či komunikaci mezi týmy můžete využít [Gitter místnost](https://gitter.im/VUT-FIT-IFJ-2017-toolkit/Lobby).**
 
 ## IDE
 Spouštění vývojového prostředí provedete po nainstalování pomocí příkazu `ifjcode17-ide`, níže náhled jeho rozhraní při spuštěném debuggeru. Více informací o jeho funkci naleznete ve [wiki](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/wiki/V%C3%BDvojov%C3%A9-prost%C5%99ed%C3%AD-pro-IFJcode17).
