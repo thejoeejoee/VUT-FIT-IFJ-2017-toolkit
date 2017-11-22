@@ -150,7 +150,7 @@ class Instruction(object):
             state.get_value(op0),
             state.get_value(op1),
         ))),
-        'STRLEN': lambda state, target, string: state.set_value(target, len(state.get_value(string))),
+        'STRLEN': State.str_len,
         'GETCHAR': lambda state, target, string, index: state.set_value(
             target,
             state.get_value(string)[state.get_value(index)]

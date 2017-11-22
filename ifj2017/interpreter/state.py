@@ -153,6 +153,9 @@ class State(object):
         changed[self.get_value(index)] = self.get_value(from_)[0]
         self.set_value(where, changed)
 
+    def str_len(self, target, string):
+        return self.set_value(target, len(self.ESCAPE_RE.sub('_', self.get_value(string))))
+
     def read(self, to, type_):
         # type: (Operand, Operand) -> None
         self.stdout.write('? ')
