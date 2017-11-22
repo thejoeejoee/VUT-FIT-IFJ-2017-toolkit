@@ -87,6 +87,26 @@
       "name": "27",
       "compiler_exit_code": 4,
       "stdout": " 0"
+    },
+    {
+      "info": "Length of string with escape sequences",
+      "stdout": " 3",
+      "code": "scope \n dim a as integer \n a = Length(!\"\\n\\t\\n\")\n print a; \n end scope "
+    },
+    {
+      "info": "Length of string with escape sequences",
+      "stdout": " 3",
+      "code": "scope \n dim a as integer \n a = Length(!\"\\069\\042\\054\")\n print a; \n end scope "
+    },
+    {
+      "info": "Length of string with escape from top of ascii table",
+      "stdout": " 3",
+      "code": "scope \n dim a as integer \n a = Length(!\"\\210\\190\\255\")\n print a; \n end scope "
+    },
+    {
+      "info": "Length of string with escape from top of ascii table",
+      "stdout": " 10",
+      "code": "scope \n dim a as integer \n a = Length(!\"b\\069\\0423\\054e\\210l\\190\\255\")\n print a; \n end scope "
     }
   ]
 }

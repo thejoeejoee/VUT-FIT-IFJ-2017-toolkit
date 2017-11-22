@@ -80,6 +80,12 @@
       "extensions": [
         "BOOLOP"
       ]
+    },
+    {
+      "info": "Print string with char 238",
+      "code": "scope \n print !\"\\238\"; \n end scope",
+      "stdout": "Todo"
     }
+
   ]
 }
