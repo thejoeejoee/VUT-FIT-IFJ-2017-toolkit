@@ -33,6 +33,13 @@
       "extensions": [
         "FUNEXP"
       ]
+    },
+    {
+      "name": "13",
+      "extensions": [
+        "FUNEXP",
+        "SCOPE"
+      ]
     }
   ]
 }
