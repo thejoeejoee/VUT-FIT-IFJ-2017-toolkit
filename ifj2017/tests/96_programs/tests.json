@@ -14,9 +14,15 @@
     },
     {
       "name": "08",
-        "extensions": [
+      "extensions": [
         "BOOLOP"
       ]
+    },
+    {
+      "name": "10",
+      "extensions": [
+        "SCOPE"
+      ]      
     }
   ]
 }
