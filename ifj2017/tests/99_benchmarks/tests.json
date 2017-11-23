@@ -2,7 +2,10 @@
   "tests": [
     {
       "name": "01",
-      "timeout": 3
+      "timeout": 3,
+      "extensions": [
+        "UNARY"
+      ]
     },
     {
       "name": "02",
