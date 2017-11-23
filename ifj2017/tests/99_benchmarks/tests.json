@@ -9,7 +9,10 @@
     },
     {
       "name": "02",
-      "timeout": 4
+      "timeout": 4,
+      "extensions": [
+        "SCOPE"
+      ]
     },
     {
       "name": "11",
