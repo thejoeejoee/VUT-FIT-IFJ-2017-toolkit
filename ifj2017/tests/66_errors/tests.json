@@ -94,7 +94,8 @@
     {
       "info": "empty program",
       "code": "",
-      "compiler_exit_code": 2
+      "compiler_exit_code": 2,
+      "allow_empty": true
     },
     {
       "info": "missing end scope",
@@ -351,7 +352,8 @@
     {
       "info": "Empty file",
       "name": "17",
-      "compiler_exit_code": 2
+      "compiler_exit_code": 2,
+      "allow_empty": true
     },
     {
       "info": "Function after scope",

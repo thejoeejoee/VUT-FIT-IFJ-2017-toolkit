@@ -10,11 +10,12 @@ from .logger import TestLogger
 
 
 class TestLoader(object):
-    def __init__(self, tests_dir, default_timeout):
+    def __init__(self, tests_dir, default_timeout, tests_wildcards):
         assert path.isdir(tests_dir), "Given tests dir is valid filesystem folder."
 
         self._tests_dir = tests_dir
         self._default_timeout = default_timeout
+        self._tests_wildcards = self._parse_wildcards(tests_wildcards)
 
     def load_section_dirs(self):
         return sorted(
@@ -57,9 +58,8 @@ class TestLoader(object):
                 "File {} is not valid json to load ({}).".format(path.join(section_dir, 'tests.json'), e)
             )
             return {}
-        return data
 
-    def _load_compact_tests(self, section_dir, data):        
+    def _load_compact_tests(self, section_dir, data):
         cases = []
         extensions = tuple(data.get('extensions', ()))
         try:
@@ -75,9 +75,13 @@ class TestLoader(object):
 
                 if not name:
                     name = '{:03}'.format(i + 1)
-                
+
                 if not code:
                     code = self._load_test_file(section_dir, name, 'code')
+
+                if not code and not test_case.get('allow_empty'):
+                    TestLogger.log_warning('Test {} has not defined code, skipping.'.format(name))
+                    continue
 
                 cases.append(
                     TestInfo(
@@ -106,7 +110,7 @@ class TestLoader(object):
             return ()
         return cases
 
-    def _load_file_tests(self, section_dir, already_loaded, data):        
+    def _load_file_tests(self, section_dir, already_loaded, data):
         extensions = tuple(data.get('extensions', ()))
         for code_file in sorted(iglob(path.join(section_dir, "*.code"))):
             name, _ = path.splitext(path.basename(code_file))
@@ -139,16 +143,19 @@ class TestLoader(object):
             else ''
         )
 
+    def _parse_wildcards(self, tests_wildcards):
+        pass
+
     def _load_test_file(self, section_dir, test_name, type_):
         return ((
-            self.load_file(
-                path.join(
-                    section_dir,
-                    '.'.join((test_name, type_))
-                ),
-                allow_fail=True
-            ) or '').replace('\r\n', '\n').replace('\r', '\n') # normalize newlines to \n
-        ) or ''
+                    self.load_file(
+                        path.join(
+                            section_dir,
+                            '.'.join((test_name, type_))
+                        ),
+                        allow_fail=True
+                    ) or '').replace('\r\n', '\n').replace('\r', '\n')  # normalize newlines to \n
+                ) or ''
 
     @staticmethod
     def load_file(file, allow_fail=False):

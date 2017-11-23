@@ -81,7 +81,8 @@ class TestRunner(object):
         self._log_dir = args.log_dir
         self._loader = TestLoader(
             args.tests_dir,
-            args.command_timeout
+            args.command_timeout,
+            args.tests
         )
         self._extensions_auto_loaded_from = False
         self._extensions = self._try_load_extensions(args.extensions_file, args.compiler)
@@ -122,13 +123,7 @@ class TestRunner(object):
             TestLogger.log_warning('Unable to authenticate user ({}), terminating...'.format(e))
             return 1
 
-        for test_section_dir in self._loader.load_section_dirs():
-            self._actual_section = path.basename(test_section_dir)
-
-            TestLogger.log_section(self._actual_section)
-            os.mkdir(path.join(self._log_dir, self._actual_section))
-            for test_info in self._loader.load_tests(test_section_dir):
-                self._run_test(test_info)
+        self._run_tests()
 
         if self._uploader.has_connection:
             try:
@@ -143,6 +138,15 @@ class TestRunner(object):
             TestLogger.log_warning('Results upload skipped.')
 
         return TestLogger.log_results(self._reports)
+
+    def _run_tests(self):
+        for test_section_dir in self._loader.load_section_dirs():
+            self._actual_section = path.basename(test_section_dir)
+
+            TestLogger.log_section(self._actual_section)
+            os.mkdir(path.join(self._log_dir, self._actual_section))
+            for test_info in self._loader.load_tests(test_section_dir):
+                self._run_test(test_info)
 
     def _run_test(self, test_info):
         report = TestReport()
