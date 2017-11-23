@@ -27,7 +27,10 @@
     },
     {
       "name": "17",
-      "stdout": " 42"
+      "stdout": " 42",
+      "extensions": [
+        "FUNEXP"
+      ]
     },
     {
       "name": "18",
