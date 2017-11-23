@@ -104,6 +104,10 @@ class TestLogger(object):
     @classmethod
     def log_results(cls, reports):
         total = len(reports)
+        if not total:
+            cls.log(cls.UNDERLINE, cls.BLUE, cls.WARNING, 'No tests found.')
+            return 0
+
         success = len(tuple(filter(attrgetter('success'), reports)))
         skipped = len(tuple(filter(lambda r: r.success is None, reports)))
 

@@ -19,7 +19,7 @@ def main():
         exit(1)
 
     parser.add_argument("compiler", help="path to IFJ17 compiler binary")
-    parser.add_argument('tests', nargs='*', help='wilcards to specify, which sections/tests run')
+    parser.add_argument('tests', nargs='*', help='wildcards to specify, which sections/tests run', default=[])
     parser.add_argument("-i", "--interpreter", help="path to IFJ17 interpreter binary",
                         type=str, default=TestRunner.INTERPRETERS.get(platform.system()))
     parser.add_argument("-e", "--extensions-file", help="path to file with extensions 'rozsireni'")

@@ -4,6 +4,8 @@ import os
 import os.path as path
 from glob import iglob
 from operator import attrgetter
+from os.path import basename
+from typing import Set, Tuple, Optional
 
 from .base import TestInfo
 from .logger import TestLogger
@@ -15,7 +17,7 @@ class TestLoader(object):
 
         self._tests_dir = tests_dir
         self._default_timeout = default_timeout
-        self._tests_wildcards = self._parse_wildcards(tests_wildcards)
+        self._tests_wildcards = self._parse_wildcards(tests_wildcards)  # type: Set[Tuple[str, Optional[str]]]
 
     def load_section_dirs(self):
         return sorted(
@@ -23,15 +25,16 @@ class TestLoader(object):
             for dir_
             in os.listdir(self._tests_dir)
             if path.isdir(path.join(self._tests_dir, dir_))
+            and self._allow_wildcard(dir_)
         )
 
     def load_tests(self, section_dir):
         assert path.isdir(section_dir)
 
-        json_file = self._load_json_file(section_dir)
-        compact_tests = self._load_compact_tests(section_dir, json_file)
+        json_data = self._load_json_file(section_dir)
+        compact_tests = self._load_compact_tests(section_dir, json_data)
         already_loaded = set(map(attrgetter('name'), compact_tests))
-        file_tests = self._load_file_tests(section_dir, already_loaded, json_file)
+        file_tests = self._load_file_tests(section_dir, already_loaded, json_data)
         tests = tuple(file_tests) + tuple(compact_tests)
         test_names = tuple(map(attrgetter('name'), tests))
         conflicting = set(test for test in test_names if test_names.count(test) > 1)
@@ -76,6 +79,9 @@ class TestLoader(object):
                 if not name:
                     name = '{:03}'.format(i + 1)
 
+                if not self._allow_wildcard(basename(section_dir), name):
+                    continue
+
                 if not code:
                     code = self._load_test_file(section_dir, name, 'code')
 
@@ -116,6 +122,8 @@ class TestLoader(object):
             name, _ = path.splitext(path.basename(code_file))
             if name in already_loaded:
                 continue
+            if not self._allow_wildcard(basename(section_dir), name):
+                continue
             try:
                 code = self.load_file(code_file)
                 info = TestInfo(
@@ -135,6 +143,23 @@ class TestLoader(object):
                 continue
             yield info
 
+    def _allow_wildcard(self, section, name=None):
+        if not self._tests_wildcards:
+            return True
+
+        if name:
+            return any(
+                section_wc in section and (name_wc is None or name == name_wc)
+                for section_wc, name_wc
+                in self._tests_wildcards
+            )
+
+        return any(
+            section_wc in section
+            for section_wc, name_wc
+            in self._tests_wildcards
+        )
+
     @classmethod
     def _get_code_info(cls, code):
         return (
@@ -143,8 +168,21 @@ class TestLoader(object):
             else ''
         )
 
-    def _parse_wildcards(self, tests_wildcards):
-        pass
+    @staticmethod
+    def _parse_wildcards(tests_wildcards):
+        wildcards = set()
+        for wildcard in filter(None, tests_wildcards):
+            parts = wildcard.split('/')
+            parts_count = len(parts)
+            if parts_count == 1:
+                section, name = parts[0], None
+            elif parts_count == 2:
+                section, name = parts
+            else:
+                TestLogger.log_warning('Invalid wildcard {}, skipping.'.format(wildcard))
+                continue
+            wildcards.add((section, name))
+        return wildcards
 
     def _load_test_file(self, section_dir, test_name, type_):
         return ((
