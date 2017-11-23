@@ -100,6 +100,12 @@
       ]
     },
     {
+      "name": "30",
+      "extensions": [
+        "FUNEXP"
+      ]
+    },
+    {
       "info": "Length of string with escape sequences",
       "stdout": " 3",
       "code": "scope \n dim a as integer \n a = Length(!\"\\n\\t\\n\")\n print a; \n end scope "
