@@ -148,7 +148,10 @@
     {
       "info": "undeclared function call",
       "code": "scope \n dim a as integer = foo()\n end scope",
-      "compiler_exit_code": 3
+      "compiler_exit_code": 3,
+      "extensions": [
+        "FUNEXP"
+      ]
     },
     {
       "info": "assignment or undefined variable",
