@@ -7,6 +7,12 @@
       ]
     },
     {
+      "name": "03",
+      "extensions": [
+        "FUNEXP"
+      ]
+    },
+    {
       "info": "implicit conversion",
       "stdout": " 1.5",
       "code": "scope \n print 3/2.0;\n end scope"
