@@ -452,7 +452,10 @@
     },
     {
       "name": "22",
-      "compiler_exit_code": 3
+      "compiler_exit_code": 3,
+      "extensions": [
+          "SCOPE"
+      ]
     }
 
 
