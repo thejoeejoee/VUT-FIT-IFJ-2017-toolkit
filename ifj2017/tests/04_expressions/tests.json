@@ -51,6 +51,15 @@
       "code": "scope \n print 2 > 2.3;\n end scope"
     },
     {
+      "info": "= != =",
+      "name": "23",
+      "stdout": "true",
+      "code": "scope \n dim a as boolean \n a = 1 = 1 \n print a; \n end scope",
+      "extensions": [
+        "BOOLOP"
+      ]
+    },
+    {
       "name": "24",
       "timeout": 1
     },
