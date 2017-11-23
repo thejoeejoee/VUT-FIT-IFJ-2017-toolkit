@@ -1,4 +1,4 @@
-' Declaration and definition of function are'nt the same
+' Declaration and definition of function aren't the same
 
 declare function fooqwead() as integer
 function fooqwead() as string
