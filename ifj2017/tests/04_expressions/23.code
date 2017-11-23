@@ -1,8 +1,0 @@
-' = != =
-scope
-
-dim a as boolean
-a = 1 = 1
-print a;
-
-end scope

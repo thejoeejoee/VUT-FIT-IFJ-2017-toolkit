@@ -22,7 +22,10 @@
     },
     {
       "name": "06",
-      "stdout": " 42-78 142.254-1.42879e+07 14.25"
+      "stdout": " 42-78 142.254-1.42879e+07 14.25",
+      "extensions": [
+        "UNARY"
+      ]
     },
     {
       "name": "07",
@@ -34,7 +37,10 @@
     },
     {
       "info": "Empty condition",
-      "code": "scope \n if 10 < 15 then \n end if \n end scope"
+      "code": "scope \n if 10 < 15 then \n end if \n end scope",
+      "extensions": [
+        "IFTHEN"
+      ]
     },
     {
       "info": "Empty condition",
@@ -44,7 +50,7 @@
       "info": "Empty condition",
       "code": "scope \n if 10 < 15 then \n end if \n end scope",
       "compiler_exit_code": 0,
-        "extensions": [
+      "extensions": [
         "IFTHEN"
       ]
     }

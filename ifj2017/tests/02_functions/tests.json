@@ -10,7 +10,7 @@
     },
     {
       "name": "07",
-      "compiler_exit_code": 4
+      "compiler_exit_code": 3
     },
     {
       "info": "Asc value",
@@ -95,6 +95,12 @@
     {
       "name": "29",
       "stdout": "blankblank 52dbl 52int 16strbarman 47837",
+      "extensions": [
+        "FUNEXP"
+      ]
+    },
+    {
+      "name": "30",
       "extensions": [
         "FUNEXP"
       ]

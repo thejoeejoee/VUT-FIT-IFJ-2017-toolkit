@@ -7,6 +7,12 @@
       ]
     },
     {
+      "name": "03",
+      "extensions": [
+        "FUNEXP"
+      ]
+    },
+    {
       "info": "implicit conversion",
       "stdout": " 1.5",
       "code": "scope \n print 3/2.0;\n end scope"
@@ -21,7 +27,10 @@
     },
     {
       "name": "17",
-      "stdout": " 42"
+      "stdout": " 42",
+      "extensions": [
+        "FUNEXP"
+      ]
     },
     {
       "name": "18",
@@ -40,6 +49,14 @@
       "info": "Print boolean expr 2",
       "stdout": "false",
       "code": "scope \n print 2 > 2.3;\n end scope"
+    },
+    {
+      "info": "= != =",
+      "stdout": "true",
+      "code": "scope \n dim a as boolean \n a = 1 = 1 \n print a; \n end scope",
+      "extensions": [
+        "BOOLOP"
+      ]
     },
     {
       "name": "24",
