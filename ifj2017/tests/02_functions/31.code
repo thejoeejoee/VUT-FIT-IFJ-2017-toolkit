@@ -1,0 +1,9 @@
+' missmatch in return data type
+
+declare function foo() as integer
+
+function foo() as string 
+end function
+
+scope
+end scope

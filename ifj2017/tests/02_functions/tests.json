@@ -106,6 +106,10 @@
       ]
     },
     {
+      "name": "31",
+      "compiler_exit_code": 3
+    },
+    {
       "info": "Length of string with escape sequences",
       "stdout": " 3",
       "code": "scope \n dim a as integer \n a = Length(!\"\\n\\t\\n\")\n print a; \n end scope "
