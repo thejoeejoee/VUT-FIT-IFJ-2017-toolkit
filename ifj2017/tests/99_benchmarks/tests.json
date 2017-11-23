@@ -15,6 +15,12 @@
       ]
     },
     {
+      "name": "03",
+      "extensions": [
+        "FUNEXP"
+      ]
+    },
+    {
       "name": "11",
       "timeout": 3
     },
