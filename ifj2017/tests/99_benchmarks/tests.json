@@ -22,7 +22,10 @@
     },
     {
       "name": "11",
-      "timeout": 3
+      "timeout": 3,
+      "extensions": [
+        "UNARY"
+      ]
     },
     {
       "name": "12",
