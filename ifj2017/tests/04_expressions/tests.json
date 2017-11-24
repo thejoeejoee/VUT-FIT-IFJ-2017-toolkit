@@ -68,15 +68,15 @@
     },
     {
       "name": "27",
-      "compiler_exit_code": 4
+      "stdout": " 25000"
     },
     {
       "name": "28",
-      "compiler_exit_code": 4
+      "stdout": " 3333333"
     },
     {
       "name": "30",
-      "compiler_exit_code": 4
+      "stdout": " 3"
     }
   ]
 }
