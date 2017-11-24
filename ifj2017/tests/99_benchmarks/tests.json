@@ -4,6 +4,7 @@
       "name": "01",
       "timeout": 3,
       "extensions": [
+        "IFTHEN",
         "UNARY"
       ]
     },
@@ -11,7 +12,9 @@
       "name": "02",
       "timeout": 4,
       "extensions": [
-        "SCOPE"
+        "SCOPE",
+        "IFTHEN",
+        "FUNEXP"
       ]
     },
     {
