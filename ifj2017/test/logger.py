@@ -81,7 +81,7 @@ class TestLogger(object):
     @classmethod
     def log_test_ok(cls):
         cls._test_case_success = True
-        cls.log(cls.GREEN, cls.BOLD, '✓', end=False)
+        cls.log(cls.GREEN, cls.BOLD, '√', end=False)
 
     @classmethod
     def log_warning(cls, warning):
@@ -125,7 +125,7 @@ class TestLogger(object):
             cls.BOLD,
             ''.join(
                 (
-                    (cls.FAIL + '×', cls.GREEN + '✓')[report.success]
+                    (cls.FAIL + '×', cls.GREEN + '√')[report.success]
                     if report.success is not None
                     else cls.BLUE + '-'
                 )

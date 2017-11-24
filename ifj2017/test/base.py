@@ -23,5 +23,6 @@ class TestReport(object):
 
     success = None
 
+    skipped = None
 
 __all__ = ['TestReport', 'TestInfo']
