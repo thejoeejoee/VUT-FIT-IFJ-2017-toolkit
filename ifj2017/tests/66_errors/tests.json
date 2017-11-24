@@ -404,7 +404,10 @@
     {
       "info": "Scope in function",
       "compiler_exit_code": 2,
-      "code": "function foo() as integer \n scope \n end scope \n end function \n scope \n end scope"
+      "code": "function foo() as integer \n scope \n end scope \n end function \n scope \n end scope",
+      "extensions": [
+        "SCOPE"
+      ]
     },
     {
       "info": "No end scope",
@@ -457,11 +460,8 @@
       "name": "22",
       "compiler_exit_code": 3,
       "extensions": [
-          "SCOPE"
+        "SCOPE"
       ]
     }
-
-
-
   ]
 }

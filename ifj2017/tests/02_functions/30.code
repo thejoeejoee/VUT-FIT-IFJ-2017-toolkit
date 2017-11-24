@@ -10,8 +10,6 @@ function ComplexDblFunc(par1 as double, par2 as integer, par3 as integer) as dou
 end function
 
 function ComplexStrFunc(par1 as string, par2 as string) as string
-    print par2;
-    print par1;
     return !"\n" + par1 + !"  ---   "+ par2 + !"\n"
 end function
 
