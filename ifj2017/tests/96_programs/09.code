@@ -6,5 +6,7 @@ function modulo(delitel as integer, delenec as integer) as integer
 end function
 
 scope
-	print modulo (10, 4);
+	dim a as integer
+	a = modulo (10, 4)
+	print a;
 end scope
