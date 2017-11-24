@@ -151,6 +151,7 @@ class TestRunner(object):
     def _run_test(self, test_info):
         report = TestReport()
         report.test_info = test_info
+        report.skipped = None
         TestLogger.log_test(
             test_info.name,
             ' ({})'.format(
@@ -162,6 +163,7 @@ class TestRunner(object):
                 ', '.join(test_info.extensions - self._extensions)
             ), end=False)
             report.success = None
+            report.skipped = True
             self._save_report(test_info, report)
             return
 
@@ -328,6 +330,7 @@ class TestRunner(object):
             ) or '# ---')
         self._reports.append(report)
         TestLogger._test_case_success = report.success
+        TestLogger._test_case_skipped = report.skipped
         TestLogger.log_end_test_case()
 
     @classmethod
