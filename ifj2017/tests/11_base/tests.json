@@ -42,6 +42,9 @@
     },
     {
       "stdout": "true",
+      "extensions": [
+        "BOOLOOP"
+      ],
       "name": "11" 
     },
     {
