@@ -40,7 +40,8 @@ class TestLogger(object):
     verbose = False
 
     _test_case_buffer = None
-    _test_case_success = None
+    _test_case_success = None    
+    _test_case_skipped = None
 
     @classmethod
     def log(cls, *args, stream=sys.stderr, end=True, indent=0):
@@ -89,7 +90,7 @@ class TestLogger(object):
     @classmethod
     def log_end_test_case(cls):
         cls.log()
-        if cls.verbose or not cls._test_case_success:
+        if cls.verbose or not cls._test_case_success and not cls._test_case_skipped:
             cls._log_buffer()
         cls._test_case_buffer = None
 
