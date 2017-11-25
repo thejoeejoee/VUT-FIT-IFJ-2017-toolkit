@@ -11,6 +11,16 @@ VARIABLE_RE = re.compile(r'^(?P<frame>[GLT]F)@(?P<name>{})$'.format(_IDENTIFIER_
 TYPE_RE = re.compile(r'^(?P<type>int|string|bool|float)$', re.IGNORECASE)
 LABEL_RE = re.compile(r'^{}$'.format(_IDENTIFIER_RE_PART), re.IGNORECASE)
 
+float_ = float
+
+
+def float(value):
+    # sorry, Python builtin
+    try:
+        return float_(value)
+    except ValueError:
+        return float_.fromhex(value)
+
 
 class TypeOperand(IntEnum):
     VARIABLE = 1

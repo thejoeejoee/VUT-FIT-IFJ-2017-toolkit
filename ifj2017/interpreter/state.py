@@ -182,12 +182,12 @@ class State(object):
                 self.set_value(to, int(''.join(loaded)))
             except ValueError:
                 self.set_value(to, 0)
-        elif type_.data_type == Operand.CONSTANT_MAPPING_REVERSE.get(float):
+        elif type_.data_type == Operand.CONSTANT_MAPPING_REVERSE.get(Operand.CONSTANT_MAPPING.get('float')):
             float_re = re.compile(r'^(\d+\.\d+)|(\d+[Ee][+-]?\d+)')
             match = float_re.match(input_)
             assert match
             try:
-                self.set_value(to, float(match.group(0)))
+                self.set_value(to, Operand.CONSTANT_MAPPING.get('float')(match.group(0)))
             except ValueError:
                 self.set_value(to, .0)
         elif type_.data_type == Operand.CONSTANT_MAPPING_REVERSE.get(bool):
