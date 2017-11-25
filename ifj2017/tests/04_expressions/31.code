@@ -1,0 +1,5 @@
+' Random math expression test
+
+scope
+    print 565656/(56565+(56567/565/6778*6567886)) * 4;
+end scope

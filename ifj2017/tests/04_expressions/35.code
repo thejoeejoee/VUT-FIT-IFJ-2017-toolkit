@@ -1,0 +1,5 @@
+' Expression with -
+
+scope
+	print 0-54577;
+end scope

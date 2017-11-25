@@ -1,0 +1,8 @@
+' Random math expression test
+
+scope
+    dim a as double
+    a = (565656\(1689\1.001\1.51111)+55656/5665\3.5\1.5\5.5) / 3
+    print a;
+
+end scope

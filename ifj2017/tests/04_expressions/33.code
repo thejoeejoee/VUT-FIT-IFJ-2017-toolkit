@@ -1,0 +1,7 @@
+' Random math expression with -
+
+scope
+    dim a as double
+    print ((0-4576.5656*4)*676/5/65.67\6.68*(0-58.56678))/(0-5);
+
+end scope
