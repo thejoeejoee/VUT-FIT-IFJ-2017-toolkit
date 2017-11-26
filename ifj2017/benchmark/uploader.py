@@ -1,6 +1,5 @@
 # coding=utf-8
 
-import os
 import urllib
 import urllib.request
 import uuid
@@ -19,6 +18,7 @@ class BenchmarkUploader(object):
         self._token = None
         self._has_connection = False
         self._token_file = token_file
+        self._last_response = None
 
     @property
     def has_connection(self):
@@ -26,14 +26,18 @@ class BenchmarkUploader(object):
 
     def check_connection(self):
         request = urllib.request.Request(self._api_hostname)
-        request.get_method = lambda: 'HEAD'
+        request.get_method = lambda: 'GET'
 
         try:
-            response = urllib.request.urlopen(request)
+            data = self._request('/api/v1/service-online', {}, force=True)
         except URLError as e:
-            TestLogger.log_warning('Invalid URL {} ({}).'.format(self._api_hostname, e))
+            TestLogger.log_warning('Problem with connecting to {} ({}).'.format(self._api_hostname, e))
         else:
-            self._has_connection = 200 >= response.status < 400
+            self._has_connection = (
+                200 >= self._last_response.status < 400
+            ) and data.get('success')
+            if data.get('msg'):
+                TestLogger.log_warning(data.get('msg'))
 
     def authenticate_user(self):
         if not self._has_connection:
@@ -101,14 +105,15 @@ class BenchmarkUploader(object):
         with open(self._token_file, 'w') as f:
             f.write(token)
 
-    def _request(self, url, data):
-        if not self._has_connection:
+    def _request(self, url, data, force=False):
+        if not self._has_connection and not force:
             return {}
         request = urllib.request.Request(''.join((self._api_hostname, url)))
         request.add_header('Content-type', 'application/json')
         response = urllib.request.urlopen(request, bytes(dumps(
             data
-        ), encoding='utf-8'))
+        ), encoding='utf-8') if data else None)
         body = response.read()
         response.close()
+        self._last_response = response
         return loads(str(body, encoding='utf-8'), encoding='utf-8')
