@@ -50,6 +50,15 @@ class UnknownDataTypeError(BaseInterpreterError):
         return 'Unknown data type error{}'.format(self.on_line)
 
 
+class StringError(BaseInterpreterError):
+    def __init__(self, source, index):
+        self._source = source
+        self._index = index
+
+    def __str__(self):
+        return 'Invalid index {} on string "{}"{}'.format(self._index, self._source, self.on_line)
+
+
 class EmptyDataStackError(BaseInterpreterError):
     def __str__(self):
         return 'Empty data stack error{}'.format(self.on_line)
