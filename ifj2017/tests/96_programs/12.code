@@ -1,0 +1,42 @@
+' Leap year
+
+declare function modulo(delitel as integer, delenec as integer) as integer
+
+function get_year() as integer
+    print !"Enter a year: ";
+    dim year as integer
+    input year
+    return year
+end function
+
+function modulo(delitel as integer, delenec as integer) as integer
+    dim vysledek as integer
+    vysledek = delitel - (delitel\delenec)*delenec
+    return vysledek
+end function
+
+scope
+    dim year as integer
+    year = get_year()
+    
+    
+    if(modulo(year, 4) = 0) then
+    
+        if(modulo(year, 100) = 0) then
+        
+            ' year is divisible by 400, hence the year is a leap year
+            if (modulo(year, 400) = 0) then
+                print year; !" is a leap year";
+            else
+                print year; !" is not a leap year";
+            end if
+            
+        else
+            print year; !" is a leap year";
+        end if
+    
+    else
+         print year; !" is not a leap year";
+    end if
+
+end scope

@@ -32,6 +32,14 @@
         "GLOBAL",
         "FUNEXP"
       ]      
+    },
+    {
+      "name": "13",
+      "stdout": " 1405",
+      "extensions": [
+        "UNARY",
+        "FUNEXP"
+      ]      
     }
   ]
 }
