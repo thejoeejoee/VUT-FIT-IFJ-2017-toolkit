@@ -31,6 +31,14 @@
       "extensions": [
         "IFTHEN"
       ]
+    },
+    {
+      "name": "19",
+      "extensions": [
+        "IFTHEN",
+        "UNARY",
+        "FUNEXP"
+      ]
     }
   ]
 }
