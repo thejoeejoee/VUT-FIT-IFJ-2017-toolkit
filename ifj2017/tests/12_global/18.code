@@ -1,0 +1,12 @@
+' Small WTF problem
+dim shared a as integer
+
+function foo() as integer
+        a = a + 3
+        return a
+end function
+
+scope
+     a = a + foo()
+     print a; 'Why 6??
+end scope

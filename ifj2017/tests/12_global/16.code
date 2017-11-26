@@ -1,0 +1,13 @@
+' input into static
+
+function foo() as integer
+    static a as integer
+    input a
+    return a
+end function
+
+scope
+    dim a as integer
+    a = foo()
+    print a;
+end scope

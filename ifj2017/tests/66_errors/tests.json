@@ -773,6 +773,57 @@
       "info": "Empty print",
       "compiler_exit_code": 2,
       "code": "scope \n print ; \n end scope"
+},
+{
+      "info": "Redefine build-in function",
+      "compiler_exit_code": 2,
+      "code": "declare function length() as integer\n function length() as integer \n end function\nscope\nend scope"
+},
+{
+      "info": "Redefine build-in function",
+      "compiler_exit_code": 2,
+      "code": "declare function SUBSTR() as integer\n function SUBSTR() as integer \n end function\nscope\nend scope"
+},
+{
+      "info": "Redefine build-in function",
+      "compiler_exit_code": 2,
+      "code": "declare function AsC() as integer\n function AsC() as integer \n end function\nscope\nend scope"
+},
+{
+      "info": "Redefine build-in function",
+      "compiler_exit_code": 2,
+      "code": "declare function CHr() as integer\n function CHr() as integer \n end function\nscope\nend scope"
+},
+{
+      "info": "Function with keyword",
+      "compiler_exit_code": 2,
+      "code": "declare function scope() as integer\n function scope() as integer \n end function\nscope\nend scope"
+},
+{
+      "info": "Redefine shared variable",
+      "compiler_exit_code": 3,
+      "code": "dim shared a as integer \n dim shared a as string \n scope \n end scope"
+},
+{
+      "info": "Redefine static variable",
+      "compiler_exit_code": 3,
+      "code": "function foo() as integer \n static a as integer \n print a; \n static a as integer \n end function \n scope \n end scope",
+      "extensions": [
+        "GLOBAL"
+      ]
+},
+{
+      "info": "Undefined variable",
+      "compiler_exit_code": 3,
+      "code": "scope \n print 42 + a + 42\n end scope"
+},
+{
+      "info": "Undefined function FUNEXP",
+      "compiler_exit_code": 3,
+      "code": "scope \n print 42 + a() + 42\n end scope",
+      "extensions": [
+        "FUNEXP"
+      ]
 }
   ]
 }

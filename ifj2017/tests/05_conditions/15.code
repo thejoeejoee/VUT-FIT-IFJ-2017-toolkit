@@ -1,0 +1,61 @@
+' Many conditions
+
+scope
+
+dim a as integer
+
+if a < 1 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a <= 0 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a >= 0 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a >= 0-1 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a > 0 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a <> 0 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a <> 1 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a = 1 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a = 0 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+end scope

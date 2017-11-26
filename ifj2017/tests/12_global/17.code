@@ -1,0 +1,14 @@
+' Test of asociativity
+
+dim shared sdilena as integer
+
+function nastav_global(a as integer) as integer
+    sdilena = a
+    return a
+end function
+
+scope
+    dim b as integer
+    b = nastav_global(24) + 10 + nastav_global(42)
+    print sdilena;
+end scope
