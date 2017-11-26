@@ -22,6 +22,17 @@ def float(value):
         return float_.fromhex(value)
 
 
+ESCAPE_RE = re.compile(r'\\([0-9]{3})')
+
+
+def unquote_escape_sequences(value):
+    def __(m):
+        # magic for decimal \ddd to octal \ooo
+        return chr(int(m.group(1)))
+
+    return ESCAPE_RE.sub(__, value)
+
+
 class TypeOperand(IntEnum):
     VARIABLE = 1
     CONSTANT = 2
@@ -82,6 +93,8 @@ class Operand(object):
             self.value = self.CONSTANT_MAPPING.get(type_.lower())(value)
             if type_.lower() == self.CONSTANT_MAPPING_REVERSE.get(bool):
                 self.value = self.BOOL_LITERAL_MAPPING.get(value.lower())
+            elif type_.lower() == self.CONSTANT_MAPPING_REVERSE.get(str):
+                self.value = unquote_escape_sequences(value=self.value)
         except ValueError:
             pass
         if self.value is None:
@@ -98,7 +111,7 @@ class Operand(object):
         self.type = TypeOperand.VARIABLE
 
     def _resolve_type(self, type_match):
-        # type: (Match) -> None
+        # type: (Match[str]) -> None
         self.data_type = type_match.group(1).lower()
         if self.data_type not in self.CONSTANT_MAPPING:
             raise InvalidCodeException(type_=InvalidCodeException.INVALID_OPERAND)

@@ -185,21 +185,23 @@ class TestLoader(object):
         return wildcards
 
     def _load_test_file(self, section_dir, test_name, type_):
-        return ((
-                    self.load_file(
-                        path.join(
-                            section_dir,
-                            '.'.join((test_name, type_))
-                        ),
-                        allow_fail=True
-                    ) or '').replace('\r\n', '\n').replace('\r', '\n')  # normalize newlines to \n
-                ) or ''
+        # splitlines is not possible due endlines at and of file
+        return (
+                   (
+                       self.load_file(
+                           path.join(
+                               section_dir,
+                               '.'.join((test_name, type_))
+                           ),
+                           allow_fail=True
+                       ) or '').replace('\r\n', '\n').replace('\r', '\n')  # normalize newlines to \n
+               ) or ''
 
     @staticmethod
     def load_file(file, allow_fail=False):
         assert allow_fail or (path.isfile(file) and os.access(file, os.R_OK))
         try:
-            with open(file, 'rb') as f:
+            with open(file, 'rbU') as f:
                 return f.read().decode('utf-8')
         except IOError:
             if not allow_fail:

@@ -211,22 +211,7 @@ class State(object):
         elif isinstance(value, float):
             rendered = '{: g}'.format(value)
 
-        def __(m):
-            # magic for decimal \ddd to octal \ooo
-            return '\\{}'.format(
-                oct(
-                    int(
-                        m.group(1)
-                    )
-                ).lstrip('0o').zfill(3)
-            )
-
-        self.stdout.write(
-            codecs.decode(
-                self.ESCAPE_RE.sub(repl=__, string=rendered),
-                'unicode_escape'
-            )
-        )
+        self.stdout.write(rendered)
 
     def string_to_int_stack(self):
         index = self.pop_stack()
