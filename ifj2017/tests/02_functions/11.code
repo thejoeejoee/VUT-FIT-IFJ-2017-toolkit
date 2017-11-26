@@ -15,4 +15,6 @@ scope
 	dim b as integer
 	b = GHGKghgk67()
 	print b;
+	b = GHGKghgk67()
+	print b;
 end scope
