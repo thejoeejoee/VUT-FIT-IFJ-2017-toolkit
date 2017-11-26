@@ -473,7 +473,7 @@
     {
       "info": "Error in type compatibility",
       "compiler_exit_code": 4,
-      "code": "scope \n dim a as string \n a = a + !\"ahoj\" \n end scope"
+      "code": "scope \n dim a as string \n a = a + !\"ahoj\" + 5 \n end scope"
     },
     {
       "info": "Error in type compatibility",
