@@ -27,7 +27,6 @@
     {
       "name": "11",
       "stdout": "?  3.2?  7.12?  17.44?  16.4?  17.28?  11.24?  1.8",
-      "stdin": "2\n4\n10\n8\n9\n5\n0",
       "extensions": [
         "GLOBAL",
         "FUNEXP"

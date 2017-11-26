@@ -2,10 +2,12 @@
 # coding=utf-8
 import sys
 from argparse import ArgumentParser
+from collections import Counter
 from datetime import datetime
 from glob import glob1
+from operator import itemgetter
 from os import unlink, getcwd
-from os.path import basename, join, abspath, dirname
+from os.path import basename, join, abspath
 from tarfile import TarFile
 from tempfile import mktemp
 
@@ -65,9 +67,12 @@ def deploy(source_dir, to_archive):
 
         for file_ in source_files:
             print('Processing {}.'.format(file_), file=sys.stderr)
-            authors = set(
-                author.strip('\'') for author in
-                repository.git.log(join(source_dir, file_), pretty="format:'%an (%aE)'", follow=True).splitlines()
+            counter = Counter(
+                repository.git.log(
+                    join(source_dir, file_),
+                    pretty="format:%an (%aE)",
+                    follow=True
+                ).splitlines()
             )
             if basename(file_) in {'rozsireni', 'rozdeleni'}:
                 target_archive.add(file_, arcname=basename(file_))
@@ -78,7 +83,7 @@ def deploy(source_dir, to_archive):
             _add_header(
                 join(source_dir, file_),
                 modified,
-                authors
+                map(itemgetter(0), counter.most_common())
             )
             target_archive.add(modified, arcname=basename(file_))
 
