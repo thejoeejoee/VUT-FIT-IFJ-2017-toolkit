@@ -405,7 +405,8 @@
       "info": "Scope in function",
       "code": "function foo() as integer \n scope \n end scope \n end function \n scope \n end scope",
       "extensions": [
-        "SCOPE"
+        "SCOPE",
+        "_TODO"
       ]
     },
     {
@@ -460,6 +461,32 @@
       "compiler_exit_code": 3,
       "extensions": [
         "SCOPE"
+      ]
+    },
+    {
+      "info": "Error in type compatibility",
+      "compiler_exit_code": 4,
+      "code": "scope \n dim a as boolean \n a = a + true \n end scope",
+      "extensions": [
+        "BOOLOP"
+      ]
+    },
+    {
+      "info": "Error in type compatibility",
+      "compiler_exit_code": 4,
+      "code": "scope \n dim a as string \n a = a + !\"ahoj\" + 5 \n end scope"
+    },
+    {
+      "info": "Error in type compatibility",
+      "compiler_exit_code": 4,
+      "code": "scope \n dim a as string \n a = a + 42 \n end scope"
+    },
+    {
+      "info": "Error in type compatibility",
+      "compiler_exit_code": 4,
+      "code": "scope \n dim a as boolean \n a = a + 42 \n end scope",
+      "extensions": [
+        "BOOLOP"
       ]
     }
   ]

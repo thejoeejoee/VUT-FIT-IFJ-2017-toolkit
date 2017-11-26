@@ -1,0 +1,19 @@
+' Scope in if in function
+
+unction foo() as integer
+    dim a as integer
+    a = 10
+    if a = 10 then
+        scope
+            a = 20
+            return a
+        end scope
+        
+    end if
+end function
+
+scope
+    dim a as integer
+    a = foo()
+    print a;
+end scope

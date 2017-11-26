@@ -1,0 +1,19 @@
+' substr in loop
+
+scope
+    dim a as string
+    dim a_len as integer
+    dim res as string
+    a = !"hgdfh_DFGkf5665678"
+    a_len =  length(a)
+    dim i as integer = 1
+
+    do while i <= a_len
+        res = substr(a, 1, i)
+        print res;
+        res = substr(a, i, a_len)
+        print res;
+        i = i + 1
+    loop
+    
+end scope

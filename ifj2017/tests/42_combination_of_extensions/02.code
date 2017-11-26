@@ -1,0 +1,26 @@
+' FUNEXP, BASE, GLOBAL, IFTHEN
+
+dim shared a as integer
+
+function foo() as integer
+    a = a + &b11
+    return a
+end function
+
+scope
+
+    scope
+        dim a as integer 
+        a = 10
+        print a;
+    end scope
+    
+    a = a + &h56 + foo()
+
+    if a < 90 then
+        print a;!"text";
+    elseif a = 92 then
+        print a;
+    end if
+
+end scope

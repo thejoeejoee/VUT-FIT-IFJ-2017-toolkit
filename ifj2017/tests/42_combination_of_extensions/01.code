@@ -1,0 +1,14 @@
+' FUNEXP, BASE, GLOBAL
+function foo() as integer
+    static hodnota as integer
+    hodnota = hodnota + &b111
+    return hodnota
+end function
+
+scope
+    dim i as integer 
+    do while i < 10
+        print foo();
+        i = i + 1
+    loop
+end scope

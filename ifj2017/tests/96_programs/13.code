@@ -1,0 +1,16 @@
+' Sum asc values in string'
+
+scope
+    dim a as string 
+    a = !"hgdfh_DFGkf5665678"
+    dim b as integer
+    
+    dim i as integer = 1
+    do while i <= length(a)
+        b += asc(a, i)
+        i += 1
+    loop
+    
+    print b;
+    
+end scope
