@@ -158,7 +158,6 @@ class State(object):
 
     def read(self, to, type_):
         # type: (Operand, Operand) -> None
-        self.stdout.write('? ')
         loaded = []
         input_ = self.stdin.readline().strip()  # type: str
         input_len = len(input_)
@@ -205,8 +204,12 @@ class State(object):
     def write(self, op):
         value = self.get_value(op)
         rendered = str(value)
-        if isinstance(value, (int, float)):
-            rendered = '% g' % (value,)
+        if isinstance(value, bool):
+            rendered = str(value).lower()
+        elif isinstance(value, int):
+            rendered = '{: d}'.format(value)
+        elif isinstance(value, float):
+            rendered = '{: g}'.format(value)
 
         def __(m):
             # magic for decimal \ddd to octal \ooo
