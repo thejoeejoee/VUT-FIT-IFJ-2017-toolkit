@@ -185,7 +185,7 @@ class Instruction(object):
         'STRI2INTS': State.string_to_int_stack,
     }
 
-    def run(self, state):
+    def run(self, state: State):
         logging.info('Processing {} on {}.'.format(self.name, self.line_index))
         command = self._commands.get(self.name, _unknown_command)
         price = InstructionPrices.INSTRUCTIONS.get(self.name)
