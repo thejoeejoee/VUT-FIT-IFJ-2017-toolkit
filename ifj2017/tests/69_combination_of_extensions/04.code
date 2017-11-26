@@ -1,0 +1,12 @@
+' FUNEXP, GLOBAL, BASE, UNARY'
+dim shared a as integer
+
+function foo() as integer
+    a += &o12345
+    return a
+end function
+
+scope
+    a += foo()
+    print a;
+end scope
