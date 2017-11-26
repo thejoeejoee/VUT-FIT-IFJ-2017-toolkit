@@ -1,0 +1,47 @@
+' Variables, functions and too many integers and doubles and implicit conversion of return
+
+function foo() as integer 
+    return 5667.00
+end function
+
+function foooo() as double 
+    return 67.566776
+end function
+
+
+scope
+dim PTaEnHjwiYfAucgiijwvsAZtwxDyEs as integer = 23
+dim obqSDCoQqqFuEJvTtYYNrogXRocasi as integer = 2
+dim mLVIooEpzxvsGjmtHAuGywMmFMNFjD as integer = 55
+dim aUbkYyYpGVstJpXmscUREjjLIsYESy as double = 0.5309487541816
+dim IBEnbkEVXLtUuPkbAkUcUTnVyWtVbH as integer = 6
+dim ZvlhaaZeRKUElPYQanVvzkxYHwMoPO as double = 0.41150804814487
+dim BiWpJmqPZkuAIrJLYfkfDVumZpCwNk as double = 0.57787783377705
+dim PvGHbferYxNqKlAZTIYGclLNylCcfF as double = 0.89604342444616
+dim bJYhQvXMBAbpVxUOXudGhybtuEbYoc as integer = 5
+dim PzBdbfrIXJXzKfWpHnCvinbeQuqXSR as integer = 47
+dim wJfsaUIMiiaBbxhKzYZHjpGBsPzRgj as integer = 3
+dim qvzZzZZsEesvNXnktHILENpAhvSJtp as integer = 32
+dim vNCJHDMisjPOTQnoGczYoobtTsBEWt as double = 0.93275502088142
+dim jnwjNCQoJvRLAaLBaxJgcAxBtxAfeG as integer = 73
+dim hOEjqyvXwDMOGFsZpatOGrfCiDlImy as double = 0.3799013608973
+dim lEtnwQFBgLemlCgeZncujOHwuBtjhQ as double = 0.0544138499789
+dim fcCjJqyZqgUJlvmfcnRPZSYKiSAWcE as double = 0.012340153573239
+dim phxtStQcEpLXWdPuRuNxxThbyhjIbl as integer = 94
+dim XeDEQtwaDDFhBYfTdZiRmGMCXjPBpK as integer = 58
+dim IfVHYAaJTNXlzqRsdUvhjUDaIKvjtN as double = 0.4587897413684
+dim result as double =XeDEQtwaDDFhBYfTdZiRmGMCXjPBpK-0+phxtStQcEpLXWdPuRuNxxThbyhjIbl-BiWpJmqPZkuAIrJLYfkfDVumZpCwNk+13-hOEjqyvXwDMOGFsZpatOGrfCiDlImy-0.88512466982246+ZvlhaaZeRKUElPYQanVvzkxYHwMoPO-PzBdbfrIXJXzKfWpHnCvinbeQuqXSR-bJYhQvXMBAbpVxUOXudGhybtuEbYoc-0.71639653840866+13-mLVIooEpzxvsGjmtHAuGywMmFMNFjD+bJYhQvXMBAbpVxUOXudGhybtuEbYoc+bJYhQvXMBAbpVxUOXudGhybtuEbYoc-aUbkYyYpGVstJpXmscUREjjLIsYESy-qvzZzZZsEesvNXnktHILENpAhvSJtp+0.02817375679881+0.77133556491292+ZvlhaaZeRKUElPYQanVvzkxYHwMoPO+0.19621478728774-lEtnwQFBgLemlCgeZncujOHwuBtjhQ+0.24190424859612-0.3227290382249-0.19906102968336-0.9219118333058-53-lEtnwQFBgLemlCgeZncujOHwuBtjhQ-84-0.2926702337771-82+phxtStQcEpLXWdPuRuNxxThbyhjIbl+vNCJHDMisjPOTQnoGczYoobtTsBEWt+BiWpJmqPZkuAIrJLYfkfDVumZpCwNk+hOEjqyvXwDMOGFsZpatOGrfCiDlImy+0.020495357467092-0.23932499682499+0.75985083159052+0.41695280532211-hOEjqyvXwDMOGFsZpatOGrfCiDlImy-66+76+90+0.26061058010003-55-0.93188765641855+0.19030437394525-0.58900129822502+31-ZvlhaaZeRKUElPYQanVvzkxYHwMoPO-phxtStQcEpLXWdPuRuNxxThbyhjIbl-39-vNCJHDMisjPOTQnoGczYoobtTsBEWt-46+wJfsaUIMiiaBbxhKzYZHjpGBsPzRgj+89-PTaEnHjwiYfAucgiijwvsAZtwxDyEs-48-IBEnbkEVXLtUuPkbAkUcUTnVyWtVbH-phxtStQcEpLXWdPuRuNxxThbyhjIbl+0.19737349878874-0.18316600061169+fcCjJqyZqgUJlvmfcnRPZSYKiSAWcE-0.27928438702565+31-50-mLVIooEpzxvsGjmtHAuGywMmFMNFjD+0.46249797123601+24-bJYhQvXMBAbpVxUOXudGhybtuEbYoc-94+0.85175654471468+obqSDCoQqqFuEJvTtYYNrogXRocasi+0.20859484291104-0.67517176907285-0.70662763282034-0.3795841384584+0.6217488379319+74+69-vNCJHDMisjPOTQnoGczYoobtTsBEWt+0.87554967025088-56+95+14-19-0.076938805671846-0.91791010085396+3-mLVIooEpzxvsGjmtHAuGywMmFMNFjD+0.57785324127313-44-0.39703021682661+vNCJHDMisjPOTQnoGczYoobtTsBEWt-22+0.94567879659388+0.61017636191574+IBEnbkEVXLtUuPkbAkUcUTnVyWtVbH-IfVHYAaJTNXlzqRsdUvhjUDaIKvjtN+0.54465926929594-phxtStQcEpLXWdPuRuNxxThbyhjIbl
+
+
+dim funkce as double
+funkce = foo()
+dim funcke2 as double
+funcke2 = foooo()
+
+'result = result + funkce
+result = result + funkce
+result = result + funcke2
+
+
+print result;
+end scope
