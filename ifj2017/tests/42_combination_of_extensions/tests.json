@@ -1,0 +1,54 @@
+{
+  "tests": [
+    {
+      "name": "01",
+      "stdout": " 7 14 21 28 35 42 49 56 63 70",
+        "extensions": [
+        "FUNEXP",
+        "BASE",
+        "GLOBAL"
+      ]
+    },
+    {
+      "name": "02",
+      "stdout": " 10 92",
+        "extensions": [
+        "FUNEXP",
+        "BASE",
+        "GLOBAL",
+        "IFTHEN"
+      ]
+    },
+    {
+      "name": "03",
+      "stdout": "chameleon jihobaciolofilni",
+        "extensions": [
+        "FUNEXP",
+        "BOOLOP",
+        "IFTHEN",
+        "SCOPE"
+      ]
+    },
+    {
+      "name": "04",
+      "stdout": " 10698",
+        "extensions": [
+        "FUNEXP",
+        "UNARY",
+        "BASE",
+        "GLOBAL"
+      ]
+    },
+    {
+      "name": "05",
+      "stdout": " 1004",
+        "extensions": [
+        "FUNEXP",
+        "UNARY",
+        "BASE",
+        "GLOBAL",
+        "IFTHEN"
+      ]
+    }
+  ]
+}

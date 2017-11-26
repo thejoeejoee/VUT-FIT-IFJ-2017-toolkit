@@ -1,0 +1,36 @@
+' FUNEXP, SCOPE, BOOLOP, IFTHEN
+dim shared a as integer
+
+function foo() as boolean
+
+    return true
+
+end function
+
+function fooooo() as boolean
+
+    return true AND true OR false
+
+end function
+
+scope
+
+    dim a as boolean = false
+    
+    if a then
+        print !"pupupidu";
+    elseif fooooo() and foo() and true then
+    
+        scope
+            dim a as boolean
+            a = true
+            if (a = true) and fooooo() and foo() then
+                print !"chameleon jihobaciolofilni";
+            end if
+        
+        end scope
+    else
+        print !"posledni";
+    end if
+
+end scope

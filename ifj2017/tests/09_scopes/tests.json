@@ -13,6 +13,28 @@
     {
       "name": "11",
       "stdout": " 20"
+    },
+    {
+      "name": "11",
+      "stdout": " 20",
+        "extensions": [
+        "_TODO"
+      ]
+    },
+    {
+      "name": "12",
+      "stdout": " 20",
+        "extensions": [
+        "_TODO"
+      ]
+    },
+    {
+      "name": "13",
+      "stdout": " 31",
+        "extensions": [
+        "_TODO",
+        "UNARY"
+      ]
     }
   ]
 }

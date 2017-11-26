@@ -1,0 +1,27 @@
+' FUNEXP, GLOBAL, IFTHEN, UNARY, BASE
+dim shared b as integer
+
+declare function foooo() as integer
+
+
+function foo() as integer
+
+    static a as integer
+    a += &b1
+    b += a
+    a = foooo()
+    return a
+
+end function
+
+function foooo() as integer
+    b *= 2
+    if b < 1000 then
+        b = foo()
+    end if
+    return b
+end function
+
+scope
+    print foo();
+end scope

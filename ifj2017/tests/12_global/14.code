@@ -1,0 +1,18 @@
+' Shared and static
+dim shared a as integer
+
+function foo() as integer
+    print a;
+    static a as integer 
+    a += 1
+    print a;
+end function
+
+scope
+    dim a as integer
+    do while a < 10
+        print foo();
+        a = a + 1
+    loop
+    
+end scope

@@ -1,0 +1,23 @@
+' Scope in if in in while function
+
+function foo() as integer
+    dim a as integer
+    a = 10
+    scope
+        if a = 10 then
+            scope
+               do while a < 30
+                    a += 3
+                loop
+                return a
+            end scope
+            
+        end if
+    end scope
+end function
+
+scope
+    dim a as integer
+    a = foo()
+    print a;
+end scope
