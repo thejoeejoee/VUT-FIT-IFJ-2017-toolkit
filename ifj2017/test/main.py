@@ -24,6 +24,8 @@ def main():
                         type=str, default=TestRunner.INTERPRETERS.get(platform.system()))
     parser.add_argument("-e", "--extensions-file", help="path to file with extensions 'rozsireni'")
     parser.add_argument("-v", "--verbose", help="enable verbose output", default=False, action='store_true')
+    parser.add_argument("--no-interpreter", help="disable interpretation by ic17int", default=False,
+                        action='store_true')
     parser.add_argument("-d", "--tests-dir", help="path to folder with tests to run",
                         type=str, default=path.join(__PROJECT_ROOT__, 'ifj2017/tests'))
     parser.add_argument("-l", "--log-dir", help="path to folder with logs",

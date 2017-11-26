@@ -70,7 +70,7 @@ class TestRunner(object):
         super(TestRunner, self).__init__()
         assert path.isfile(args.compiler) and os.access(args.compiler, os.X_OK), \
             "Given compiler ({}) is file and is executable.".format(args.compiler)
-        assert path.isfile(args.interpreter) and os.access(args.interpreter, os.X_OK), \
+        assert args.no_interpreter or  (path.isfile(args.interpreter) and os.access(args.interpreter, os.X_OK)), \
             "Given interpreter ({}) is file and is executable.".format(args.interpreter)
         assert isinstance(args.command_timeout, float) and args.command_timeout > 0, \
             'Command timeout is positive int'
@@ -79,6 +79,7 @@ class TestRunner(object):
         self._interpreter_binary = args.interpreter
         self._command_timeout = args.command_timeout
         self._log_dir = args.log_dir
+        self._no_interpreter = args.no_interpreter
         self._loader = TestLoader(
             args.tests_dir,
             args.command_timeout,
@@ -190,7 +191,7 @@ class TestRunner(object):
                 return
 
         TestLogger.log_test_ok()
-        if report.compiler_exit_code != 0:
+        if report.compiler_exit_code != 0 or self._no_interpreter:
             # compiler stops this test case
             report.success = True
             self._save_report(test_info, report)
@@ -360,6 +361,13 @@ class TestRunner(object):
                     ' - autoloaded from {}'.format(self._extensions_auto_loaded_from)
                     if self._extensions_auto_loaded_from else ''
                 ),
+            )
+        if self._no_interpreter:
+            TestLogger.log(
+                TestLogger.WARNING,
+                TestLogger.UNDERLINE,
+                TestLogger.BOLD,
+                "WARNING: Running without interpreter - without STDOUT check."
             )
 
     def _try_load_extensions(self, extensions_file, compiler_path):
