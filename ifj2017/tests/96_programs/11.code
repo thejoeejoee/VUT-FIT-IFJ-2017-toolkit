@@ -1,0 +1,24 @@
+' signal filtering
+function filter(a as integer) as double
+    static x1 as double
+    static x2 as double
+    
+    x2 = x1 * 0.6
+    x1 = a * 0.6
+    
+    return x1 + x2 + a
+    
+end function
+
+scope
+
+    dim a as double
+    a = 1
+    
+    do while a <> 0
+        input a
+        print filter(a) ;
+    loop
+    
+
+end scope
