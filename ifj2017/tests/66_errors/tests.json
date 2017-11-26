@@ -405,7 +405,8 @@
       "info": "Scope in function",
       "code": "function foo() as integer \n scope \n end scope \n end function \n scope \n end scope",
       "extensions": [
-        "SCOPE"
+        "SCOPE",
+        "_TODO"
       ]
     },
     {
