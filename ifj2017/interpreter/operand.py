@@ -22,6 +22,17 @@ def float(value):
         return float_.fromhex(value)
 
 
+ESCAPE_RE = re.compile(r'\\([0-9]{3})')
+
+
+def unquote_escape_sequences(value):
+    def __(m):
+        # magic for decimal \ddd to octal \ooo
+        return chr(int(m.group(1)))
+
+    return ESCAPE_RE.sub(__, value)
+
+
 class TypeOperand(IntEnum):
     VARIABLE = 1
     CONSTANT = 2
@@ -75,20 +86,22 @@ class Operand(object):
 
         raise InvalidCodeException(InvalidCodeException.INVALID_OPERAND)
 
-    def _resolve_constant(self, constant_match):
-        # type: (Match) -> None
-        type_, value = constant_match.groups()
+    def _resolve_constant(self, constant_match: Match[str]) -> None:
+        type_, value = constant_match.groups()  # type: str, str
+        type_ = type_.lower().strip()
         try:
-            self.value = self.CONSTANT_MAPPING.get(type_.lower())(value)
-            if type_.lower() == self.CONSTANT_MAPPING_REVERSE.get(bool):
+            self.value = self.CONSTANT_MAPPING.get(type_)(value)
+            if type_ == self.CONSTANT_MAPPING_REVERSE.get(bool):
                 self.value = self.BOOL_LITERAL_MAPPING.get(value.lower())
+            elif type_ == self.CONSTANT_MAPPING_REVERSE.get(str):
+                self.value = unquote_escape_sequences(value=self.value)
         except ValueError:
             pass
         if self.value is None:
             raise InvalidCodeException(type_=InvalidCodeException.INVALID_OPERAND)
         self.type = TypeOperand.CONSTANT
 
-    def _resolve_variable(self, variable_match):
+    def _resolve_variable(self, variable_match: Match[str]) -> None:
         # type: (Match) -> None
         frame, name = variable_match.groups()
         if not (frame and name):
@@ -97,8 +110,8 @@ class Operand(object):
         self.name = name
         self.type = TypeOperand.VARIABLE
 
-    def _resolve_type(self, type_match):
-        # type: (Match) -> None
+    def _resolve_type(self, type_match: Match[str]) -> None:
+        # type: (Match[str]) -> None
         self.data_type = type_match.group(1).lower()
         if self.data_type not in self.CONSTANT_MAPPING:
             raise InvalidCodeException(type_=InvalidCodeException.INVALID_OPERAND)

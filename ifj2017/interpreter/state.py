@@ -1,10 +1,10 @@
 # coding=utf-8
-import codecs
 import logging
 import re
 from io import StringIO
+from typing import Optional, Union
 
-from ifj2017.interpreter.exceptions import UnknownDataTypeError
+from ifj2017.interpreter.exceptions import UnknownDataTypeError, StringError
 from .exceptions import EmptyDataStackError, UndefinedVariableError, UndeclaredVariableError, \
     FrameError, UnknownLabelError, InvalidReturnError, InvalidOperandTypeError
 from .operand import Operand, TypeOperand
@@ -61,8 +61,7 @@ class State(object):
         self.temp_frame = self.frame_stack[-1]
         self.frame_stack = self.frame_stack[:-1]
 
-    def get_value(self, value):
-        # type: (Operand) -> object
+    def get_value(self, value: Optional[Operand]) -> Union[None, int, str, float]:
         if value is None:
             # variable declaration
             return None
@@ -153,8 +152,18 @@ class State(object):
         changed[self.get_value(index)] = self.get_value(from_)[0]
         self.set_value(where, changed)
 
+    def get_char(self, target, string, index):
+        source = self.get_value(string)
+        try:
+            self.set_value(
+                target,
+                source[self.get_value(index)]
+            )
+        except IndexError:
+            raise StringError(source, self.get_value(index))
+
     def str_len(self, target, string):
-        return self.set_value(target, len(self.ESCAPE_RE.sub('_', self.get_value(string))))
+        return self.set_value(target, len(('_', self.get_value(string))))
 
     def read(self, to, type_):
         # type: (Operand, Operand) -> None
@@ -211,22 +220,7 @@ class State(object):
         elif isinstance(value, float):
             rendered = '{: g}'.format(value)
 
-        def __(m):
-            # magic for decimal \ddd to octal \ooo
-            return '\\{}'.format(
-                oct(
-                    int(
-                        m.group(1)
-                    )
-                ).lstrip('0o').zfill(3)
-            )
-
-        self.stdout.write(
-            codecs.decode(
-                self.ESCAPE_RE.sub(repl=__, string=rendered),
-                'unicode_escape'
-            )
-        )
+        self.stdout.write(rendered)
 
     def string_to_int_stack(self):
         index = self.pop_stack()

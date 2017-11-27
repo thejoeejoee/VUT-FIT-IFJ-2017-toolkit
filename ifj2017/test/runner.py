@@ -265,18 +265,22 @@ class TestRunner(object):
 
         process = Popen([self._interpreter_binary, '-v', code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         try:
-            out, err = process.communicate(input=bytes(test_info.stdin, encoding='utf-8'),
-                                           timeout=test_info.timeout)
+            out, err = process.communicate(
+                input=bytes(test_info.stdin, encoding='utf-8'),
+                timeout=test_info.timeout
+            )
         except (TimeoutError, TimeoutExpired):
             process.kill()
             raise
         finally:
             os.remove(code_temp)
         # err has non-escaped characters
-        return out.decode('ascii'), err.decode('unicode_escape'), process.returncode
+        return out.decode('raw_unicode_escape'), err.decode('raw_unicode_escape'), process.returncode
 
     def _interpret_price(self, code, test_info):
-        interpreter = Interpreter(code=code, state_kwargs=dict(stdin=StringIO(test_info.stdin)))
+        interpreter = Interpreter(code=code, state_kwargs=dict(
+            stdin=StringIO(test_info.stdin),
+        ))
         return interpreter.run()
 
     def _save_report(self, test_info, report):

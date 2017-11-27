@@ -151,10 +151,7 @@ class Instruction(object):
             state.get_value(op1),
         ))),
         'STRLEN': State.str_len,
-        'GETCHAR': lambda state, target, string, index: state.set_value(
-            target,
-            state.get_value(string)[state.get_value(index)]
-        ),
+        'GETCHAR': State.get_char,
         'SETCHAR': State.set_char,
 
         'INT2FLOAT': lambda state, op0, op1: state.set_value(op1, float(state.get_value(op1))),
