@@ -1278,7 +1278,10 @@
     {
       "info": "Redefine shared variable",
       "compiler_exit_code": 3,
-      "code": "dim shared a as integer \n dim shared a as string \n scope \n end scope"
+      "code": "dim shared a as integer \n dim shared a as string \n scope \n end scope",
+      "extensions": [
+        "GLOBAL"
+      ]
     },
     {
       "info": "Redefine static variable",
