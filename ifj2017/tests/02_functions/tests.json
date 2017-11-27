@@ -106,6 +106,12 @@
       ]
     },
     {
+      "name": "35",
+      "extensions": [
+        "FUNEXP"
+      ]
+    },
+    {
       "name": "31",
       "compiler_exit_code": 3
     },
