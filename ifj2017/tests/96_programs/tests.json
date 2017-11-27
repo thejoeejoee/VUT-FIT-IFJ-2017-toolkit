@@ -2,13 +2,13 @@
   "tests": [
     {
       "name": "01",
-        "extensions": [
+      "extensions": [
         "BOOLOP"
       ]
     },
     {
       "name": "02",
-        "extensions": [
+      "extensions": [
         "BOOLOP"
       ]
     },
@@ -22,7 +22,7 @@
       "name": "10",
       "extensions": [
         "SCOPE"
-      ]      
+      ]
     },
     {
       "name": "11",
@@ -33,18 +33,12 @@
       ]
     },
     {
-      "name": "12",
-      "extensions": [
-        "FUNEXP"
-      ]
-    },
-    {
       "name": "13",
       "stdout": " 1405",
       "extensions": [
         "UNARY",
         "FUNEXP"
-      ]      
+      ]
     }
   ]
 }

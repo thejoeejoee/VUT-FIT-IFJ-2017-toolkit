@@ -1333,6 +1333,14 @@
       "info": "Lexical error",
       "compiler_exit_code": 1,
       "code": "scope \n dim a as double = .0\n end scope"
+    },
+    {
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n print &a1; \n end scope",
+      "extensions": [
+        "BASE"
+      ]
     }
   ]
 }
