@@ -824,6 +824,36 @@
       "extensions": [
         "FUNEXP"
       ]
+},
+{
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n print !\"ahoj \n\" \n end scope"
+},
+{
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n dim a as double = 31. 31\n end scope"
+},
+{
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n dim a as double = 31 .31\n end scope"
+},
+{
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n dim a as double = 31.31e*3\n end scope"
+},
+{
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n dim a as double = 31.31e*3\n end scope"
+},
+{
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n dim a as double = .0\n end scope"
 }
   ]
 }
