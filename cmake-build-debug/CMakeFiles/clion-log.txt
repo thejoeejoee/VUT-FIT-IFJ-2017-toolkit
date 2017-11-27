@@ -1,1 +1,0 @@
-CMakeLists.txt not found in D:\School\IFJ\VUT-FIT-IFJ-2017-toolkit
