@@ -1,0 +1,15 @@
+'All formats of double
+scope
+    dim a as double = 11.43
+    dim b as double = 31e2
+    dim c as double = 31e-3
+    dim d as double = 31.42e2
+    dim e as double = 31.42e-2
+    dim f as double = 31E2
+    dim g as double = 341E-4
+    dim h as double = 31.42E2
+    dim i as double = 31.42E-2
+    
+    print a + b + c + d + e + f+ g + h + i;
+    
+end scope

@@ -43,12 +43,18 @@
     {
       "info": "Print boolean expr",
       "stdout": "true",
-      "code": "scope \n print 5 > 2.3;\n end scope"
+      "code": "scope \n print 5 > 2.3;\n end scope",
+      "extensions": [
+        "BOOLOP"
+      ]
     },
     {
       "info": "Print boolean expr 2",
       "stdout": "false",
-      "code": "scope \n print 2 > 2.3;\n end scope"
+      "code": "scope \n print 2 > 2.3;\n end scope",
+      "extensions": [
+        "BOOLOP"
+      ]
     },
     {
       "info": "= != =",

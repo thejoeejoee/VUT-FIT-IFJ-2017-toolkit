@@ -1,15 +1,15 @@
 ' collision normal, shared and shared
 
-dim shared promena as integer = 31
+dim shared variable as integer = 31
 
 function foo() as integer
-	static promena as integer = 42
-	return promena
+	static variable as integer = 42
+	return variable
 end function
 
 scope
-	print promena;
-	dim promena as integer
-	promena = foo()
-	print promena;
+	print variable;
+	dim variable as integer
+	variable = foo()
+	print variable;
 end scope

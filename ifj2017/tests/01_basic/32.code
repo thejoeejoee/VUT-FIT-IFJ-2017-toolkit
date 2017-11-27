@@ -1,0 +1,15 @@
+' Case sensitive
+
+function fun(a as integer) as integer
+	return 5
+end function
+
+scope
+    dim a as integer
+    A = 5
+    dim b as integer
+    b = FuN(5)
+    
+    print a; b;
+
+end scope

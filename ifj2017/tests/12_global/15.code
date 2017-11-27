@@ -1,0 +1,8 @@
+' Input into shared
+
+dim shared a as integer
+
+scope
+    input a
+    print a;
+end scope

@@ -1,6 +1,6 @@
 ' Scope in if in function
 
-unction foo() as integer
+function foo() as integer
     dim a as integer
     a = 10
     if a = 10 then

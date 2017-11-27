@@ -17,9 +17,9 @@ scope
     
     a = a + &h56 + foo()
 
-    if a < 90 then
+    if a < 50 then
         print a;!"text";
-    elseif a = 92 then
+    elseif a = 89 then
         print a;
     end if
 

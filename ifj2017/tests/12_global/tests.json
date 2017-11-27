@@ -49,6 +49,20 @@
       "extensions": [
         "FUNEXP"
       ]
+    },
+    {
+      "name": "18",
+      "extensions": [
+        "FUNEXP"
+      ]
+    },
+    {
+      "name": "19",
+      "compiler_exit_code": 6
+    },
+    {
+      "name": "20",
+      "compiler_exit_code": 6
     }
   ],
   "extensions": [

@@ -1,0 +1,28 @@
+' Chr with bad values (undefined behaviour)
+
+scope
+    dim a as integer
+    input a
+    if asc(chr(a), 1) <= 255 and asc(chr(21233359), 1) >= 0 then
+    
+        print !"OK";
+    else
+        print !"error";
+    end if
+    input a
+    if asc(chr(-a), 1) <= 255 and asc(chr(-1), 1) >= 0 then
+    
+        print !"OK";
+    else
+        print !"error";
+    end if
+    input a
+     if asc(chr(a), 1) <= 255 and asc(chr(256), 1) >= 0 then
+    
+        print !"OK";
+    else
+        print !"error";
+    end if
+    
+    
+end scope

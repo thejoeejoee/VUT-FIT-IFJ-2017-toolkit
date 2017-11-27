@@ -1,0 +1,11 @@
+' Pririty
+
+scope
+
+if( true and true or true and false ) then
+	print !"ok";
+else
+	print !"notok";
+end if
+
+end scope

@@ -1,0 +1,16 @@
+' Print chr with double
+
+scope
+    dim a as double = 58.5
+    
+    dim b as string
+    b = !"GHGHGKGHGGHUILTZGFFG"
+    b = chr(a)
+    
+    print b;
+    
+    b = chr(40.3)
+    
+    print b;
+    
+end scope

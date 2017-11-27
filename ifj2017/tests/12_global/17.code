@@ -1,0 +1,14 @@
+' Test of asociativity
+
+dim shared shared_variable as integer
+
+function set_global_state(a as integer) as integer
+    shared_variable = a
+    return a
+end function
+
+scope
+    dim b as integer
+    b = set_global_state(24) + 10 + set_global_state(42)
+    print shared_variable;
+end scope

@@ -1,0 +1,62 @@
+' Many conditions double version
+
+scope
+
+dim a as double
+a = 1.1
+
+if a < 1 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a <= 0 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a >= 0 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a >= 0-1 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a > 0 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a <> 0 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a <> 1 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a = 1 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a = 0 then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+end scope

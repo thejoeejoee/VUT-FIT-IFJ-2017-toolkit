@@ -1,0 +1,57 @@
+' String relations
+
+scope
+
+dim a as string
+a = !"ahoj"
+
+if a < !"bhoj" then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a <> !"ahoj" then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a <> !"bhoj" then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a >= !"ahoj" then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a >= !"hoj" then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a <= !"ahoj" then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a = !"ahoj" then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+if a = !"bhoj" then
+    print !"OK";
+else
+    print !"NOTOK";
+end if
+
+
+end scope

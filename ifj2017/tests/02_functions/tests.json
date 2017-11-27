@@ -106,6 +106,23 @@
       ]
     },
     {
+      "name": "35",
+      "stdout": "OKOKOK",
+      "extensions": [
+        "FUNEXP",
+        "BOOLOP"
+      ]
+    },
+    {
+      "name": "36",
+      "stdin": "54545\n1\n256",
+      "stdout": "? OK? OK? OK",
+      "extensions": [
+        "FUNEXP",
+        "BOOLOP"
+      ]
+    },
+    {
       "name": "31",
       "compiler_exit_code": 3
     },

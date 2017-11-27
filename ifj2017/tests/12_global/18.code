@@ -1,0 +1,12 @@
+' Small WTF problem (6 is too ok)
+dim shared a as integer
+
+function foo() as integer
+    a = a + 3
+    return a
+end function
+
+scope
+     a = a + foo()
+     print a; '3 or 6 is ok (undefined)
+end scope

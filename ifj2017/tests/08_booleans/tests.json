@@ -17,6 +17,10 @@
       "stdout": " 1"
     },
     {
+      "name": "05",
+      "stdout": "ok"
+    },
+    {
       "info": "Single dim in expression",
       "stdout": " 42",
       "code": "scope \n dim a as boolean = true\n if a then \n print 42; \n else \n end if\n end scope"
