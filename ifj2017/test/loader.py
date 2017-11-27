@@ -172,7 +172,7 @@ class TestLoader(object):
     def _parse_wildcards(tests_wildcards):
         wildcards = set()
         for wildcard in filter(None, tests_wildcards):
-            parts = wildcard.split('/')
+            parts = tuple(filter(None, wildcard.split('/')))
             parts_count = len(parts)
             if parts_count == 1:
                 section, name = parts[0], None
