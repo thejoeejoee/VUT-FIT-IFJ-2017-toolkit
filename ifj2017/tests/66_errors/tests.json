@@ -577,6 +577,11 @@
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
+      "code": "scope \n print 2.8e-; \n end scope"
+    },
+    {
+      "info": "lexical error",
+      "compiler_exit_code": 1,
       "code": "scope \n print 2.8e--6; \n end scope"
     },
     {
@@ -655,9 +660,9 @@
       "code": "scope \n print !\"\\\";\n end scope"
     },
     {
-      "info": "lexical error",
-      "compiler_exit_code": 1,
-      "code": "scope \n print 25; ' \n end scope"
+      "info": "syntax error",
+      "compiler_exit_code": 2,
+      "code": "scope \n print 2/''/5; \n end scope"
     },
     {
       "info": "lexical error",
@@ -692,17 +697,17 @@
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print abcd#; \n end scope"
+      "code": "scope \n print #abcd; \n end scope"
     },
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print abcd!; \n end scope"
+      "code": "scope \n print !abcd; \n end scope"
     },
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print abcd^; \n end scope"
+      "code": "scope \n print ^abcd; \n end scope"
     },
     {
       "info": "lexical error for Sony",
@@ -712,7 +717,7 @@
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print abcd\"; \n end scope"
+      "code": "scope \n print \"abcd; \n end scope"
     },
     {
       "info": "lexical error",
@@ -722,17 +727,17 @@
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print abcd|; \n end scope"
+      "code": "scope \n print |abcd; \n end scope"
     },
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print abcd$; \n end scope"
+      "code": "scope \n print $abcd; \n end scope"
     },
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print abč; \n end scope"
+      "code": "scope \n print čab; \n end scope"
     },
     {
       "info": "lexical error",
@@ -742,27 +747,27 @@
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print a%; \n end scope"
+      "code": "scope \n print %a; \n end scope"
     },
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print a[; \n end scope"
+      "code": "scope \n print [a; \n end scope"
     },
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print a]; \n end scope"
+      "code": "scope \n print ]a; \n end scope"
     },
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print a{; \n end scope"
+      "code": "scope \n print {a; \n end scope"
     },
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print a}; \n end scope"
+      "code": "scope \n print }a; \n end scope"
     },
     {
       "info": "lexical error",
@@ -772,7 +777,7 @@
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print a`; \n end scope"
+      "code": "scope \n print `a; \n end scope"
     },
     {
       "info": "lexical error",
@@ -802,22 +807,22 @@
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print foo\u0007man; \n end scope"
+      "code": "scope \n print \u0007; \n end scope"
     },
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print hell@; \n end scope"
+      "code": "scope \n print @hell; \n end scope"
     },
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print hell.; \n end scope"
+      "code": "scope \n print .hell; \n end scope"
     },
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print hell:; \n end scope"
+      "code": "scope \n print :hell; \n end scope"
     },
     {
       "info": "lexical error",
@@ -827,7 +832,7 @@
     {
       "info": "lexical error",
       "compiler_exit_code": 1,
-      "code": "scope \n print hel\u007Flo; \n end scope"
+      "code": "scope \n print \u007F; \n end scope"
     },
     {
       "info": "lexical error",
@@ -836,132 +841,132 @@
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0000o; \n end scope",
+      "code": "scope \n print \u0000; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0001o; \n end scope",
+      "code": "scope \n print \u0001; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0002o; \n end scope",
+      "code": "scope \n print \u0002; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0003o; \n end scope",
+      "code": "scope \n print \u0003; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0004o; \n end scope",
+      "code": "scope \n print \u0004; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0005o; \n end scope",
+      "code": "scope \n print \u0005; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0006o; \n end scope",
+      "code": "scope \n print \u0006; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0007o; \n end scope",
+      "code": "scope \n print \u0007; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0008o; \n end scope",
+      "code": "scope \n print \u0008; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u000eo; \n end scope",
+      "code": "scope \n print \u000e; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u000fo; \n end scope",
+      "code": "scope \n print \u000f; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0010o; \n end scope",
+      "code": "scope \n print \u0010; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0011o; \n end scope",
+      "code": "scope \n print \u0011; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0012o; \n end scope",
+      "code": "scope \n print \u0012; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0013o; \n end scope",
+      "code": "scope \n print \u0013; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0014o; \n end scope",
+      "code": "scope \n print \u0014; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0015o; \n end scope",
+      "code": "scope \n print \u0015; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0016o; \n end scope",
+      "code": "scope \n print \u0016; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0017o; \n end scope",
+      "code": "scope \n print \u0017; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0018o; \n end scope",
+      "code": "scope \n print \u0018; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u0019o; \n end scope",
+      "code": "scope \n print \u0019; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u001ao; \n end scope",
+      "code": "scope \n print \u001a; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u001bo; \n end scope",
+      "code": "scope \n print \u001b; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u001co; \n end scope",
+      "code": "scope \n print \u001c; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u001do; \n end scope",
+      "code": "scope \n print \u001d; \n end scope",
       "compiler_exit_code": 1
     },
     {
       "info": "lexical error",
-      "code": "scope \n print hell\u001eo; \n end scope",
+      "code": "scope \n print \u001e; \n end scope",
       "compiler_exit_code": 1
     },
     {
