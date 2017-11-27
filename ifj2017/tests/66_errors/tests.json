@@ -406,14 +406,6 @@
       "code": " scope \n function foo() as integer \n declare function foo() as integer \n end function \n end scope \n"
     },
     {
-      "info": "Scope in function",
-      "code": "function foo() as integer \n scope \n end scope \n end function \n scope \n end scope",
-      "extensions": [
-        "SCOPE",
-        "_TODO"
-      ]
-    },
-    {
       "info": "No end scope",
       "compiler_exit_code": 2,
       "code": "scope \n dim a as integer \n print a;"
