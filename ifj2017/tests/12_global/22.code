@@ -1,0 +1,15 @@
+' static variable with static assign
+
+function counter(add as integer) as integer
+    static a as integer = 3.1 * 4
+    a = a + add
+    return a
+end function
+
+scope
+    dim a as integer
+    a = counter(10)
+    print a;
+    a = counter(12)
+    print a;
+end scope

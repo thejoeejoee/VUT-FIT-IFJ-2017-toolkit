@@ -67,6 +67,10 @@
     {
       "name": "21",
       "stdout": " 42"
+    },
+    {
+      "name": "22",
+      "stdout": " 22 34"
     }
   ],
   "extensions": [
