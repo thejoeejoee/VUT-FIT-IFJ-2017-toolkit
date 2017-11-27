@@ -1,8 +1,9 @@
-' Static in function in scope 
+' Static in function in scope
 function foo() as integer
-	static a as integer
+    static a as integer
+    a = 10
     scope
-        a = 10
+        a = 30
     end scope
     return a
 end function

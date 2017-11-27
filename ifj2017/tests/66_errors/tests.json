@@ -1337,10 +1337,78 @@
     {
       "info": "Lexical error",
       "compiler_exit_code": 1,
+      "code": "scope \n print 41e;\n end scope"
+    },
+    {
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n print 41e-;\n end scope"
+    },
+    {
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n print 41e--;\n end scope"
+    },
+    {
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n print 41e-+;\n end scope"
+    },
+    {
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n print 41ef;\n end scope"
+    },
+    {
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n print 41e 81;\n end scope"
+    },
+    {
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
       "code": "scope \n print &a1; \n end scope",
       "extensions": [
         "BASE"
       ]
+    },
+    {
+      "info": "Return in scope in scope",
+      "compiler_exit_code": 2,
+      "code": "scope \n \n scope \n return 10 \n end scope\n end scope",
+      "extensions": [
+        "SCOPE"
+      ]
+    },
+    {
+      "info": "Return in scope",
+      "compiler_exit_code": 2,
+      "code": "scope \n return 10 \n end scope"
+    },
+    {
+      "info": "Return in scope in if",
+      "compiler_exit_code": 2,
+      "code": "scope \n if 10 = 10 then \n return 10 \n else \n end if \n end scope"
+    },
+    {
+      "info": "Return in scope in while",
+      "compiler_exit_code": 2,
+      "code": "scope \n do while 10 = 10 \n return 10 \n loop \n end scope"
+    },
+    {
+      "info": "Return in scope in while in scope",
+      "compiler_exit_code": 2,
+      "code": "scope \n do while 10 = 10 \n scope \n return 10 \n end scope \n loop \n end scope"
+    },
+    {
+      "info": "Forum test 1",
+      "compiler_exit_code":1,
+      "code": "scope \n print !\"ahoj\\800\"; \n end scope"
+    },
+    {
+      "info": "Forum test 2",
+      "compiler_exit_code": 3,
+      "code": "scope \n di@m a as integer \n end scope"
     }
   ]
 }

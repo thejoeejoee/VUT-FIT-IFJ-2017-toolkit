@@ -106,6 +106,7 @@
       ]
     },
     {
+<<<<<<< be80ebabc821cd58b60f5a7c1835613153aaf3c8
       "name": "35",
       "stdout": "OKOKOK",
       "extensions": [
@@ -123,6 +124,8 @@
       ]
     },
     {
+=======
+>>>>>>> Add some tests
       "name": "31",
       "compiler_exit_code": 3
     },
@@ -145,6 +148,37 @@
       "info": "Length of string with escape from top of ascii table",
       "stdout": " 10",
       "code": "scope \n dim a as integer \n a = Length(!\"b\\069\\0423\\054e\\210l\\190\\255\")\n print a; \n end scope "
+    },
+    {
+      "name": "35",
+      "stdout": " 780",
+      "extensions": [
+        "SCOPE",
+        "GLOBAL"
+      ]
+    },
+    {
+      "name": "36",
+      "stdout": " 10",
+      "extensions": [
+        "SCOPE",
+        "GLOBAL"
+      ]
+    },
+    {
+      "name": "37",
+      "stdout": " 30",
+      "extensions": [
+        "SCOPE",
+        "GLOBAL"
+      ]
+    },
+    {
+      "name": "38",
+      "stdout": " 216",
+      "extensions": [
+        "SCOPE"
+      ]
     }
   ]
 }

@@ -1,27 +1,36 @@
-' Chr with bad values (undefined behaviour)
+dim shared a as integer
+
+function foo(a as integer) as integer
+    static nova as integer 
+    dim ahoj as integer = 42
+    a = a + ahoj
+    nova = nova + ahoj
+    scope
+        dim ahoj as integer = 56
+        nova = nova + ahoj
+        a = a + ahoj
+        nova = nova + a
+    end scope
+    nova = nova + a
+    
+    return nova
+
+end function
 
 scope
     
-    if asc(chr(21233359), 1) <= 255 and asc(chr(21233359), 1) >= 0 then
+    dim b as integer
+    b = foo(41)
+    b = foo(45)
+    scope
+        dim b as integer
+        b = 20
+        a = a + b
+    end scope
     
-        print !"OK";
-    else
-        print !"error";
-    end if
+    b = b + a
     
-    if asc(chr(-1), 1) <= 255 and asc(chr(-1), 1) >= 0 then
-    
-        print !"OK";
-    else
-        print !"error";
-    end if
-    
-     if asc(chr(256), 1) <= 255 and asc(chr(256), 1) >= 0 then
-    
-        print !"OK";
-    else
-        print !"error";
-    end if
-    
-    
+    print b;
+
+
 end scope

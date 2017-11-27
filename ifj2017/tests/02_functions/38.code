@@ -1,0 +1,54 @@
+' Scope in function
+function foo() as integer
+    dim vysledek as integer
+    vysledek = 10
+    dim mezihodnota as integer
+    scope
+        dim vysledek as integer
+        vysledek = 5
+    end scope
+    vysledek = mezihodnota + vysledek
+    
+    scope
+        dim mezihodnota as integer
+        mezihodnota = 33
+        scope
+            dim mezihodnota as integer
+            mezihodnota = 3
+            vysledek = vysledek + mezihodnota
+        end scope
+        vysledek = vysledek + mezihodnota
+    end scope
+    
+    vysledek = vysledek + mezihodnota
+    
+    if mezihodnota > 0 then 
+        dim mezihodnota as integer
+        mezihodnota = 45
+        vysledek = vysledek + mezihodnota
+    else
+    
+    end if
+    
+    dim i as integer = 8
+    do while i < 10
+        dim mezihodnota as integer
+        mezihodnota = 76
+        vysledek = vysledek + mezihodnota
+            scope
+                mezihodnota = 9
+                vysledek = vysledek + mezihodnota    
+            end scope
+        i = i + 1
+    loop
+    vysledek = vysledek + mezihodnota
+    
+    return vysledek
+    
+end function
+
+scope
+    dim vysledek as integer
+    vysledek = foo()
+    print vysledek;
+end scope
