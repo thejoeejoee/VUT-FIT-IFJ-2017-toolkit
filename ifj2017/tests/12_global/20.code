@@ -1,0 +1,12 @@
+' static variable with parameter assign
+
+
+function counter(a as integer) as integer
+	dim b as integer = a
+    b = a * b
+	static c as integer = b
+	return c
+end function
+
+scope
+end scope

@@ -2,13 +2,21 @@
 
 
 function counter(a as integer) as integer
-	static c as integer = a
+	static c as integer
+	if c = 0 then
+	    c = a
+	else
+	end if
 	c = c + 1
 	return c
 end function
 
 function multiplier(a as integer) as integer
-	static c as integer = a
+	static c as integer
+	if c = 0 then
+	    c = a
+	else
+	end if
 	c = c * 2
 	return c
 end function

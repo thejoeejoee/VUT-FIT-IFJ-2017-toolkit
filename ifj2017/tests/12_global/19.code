@@ -1,0 +1,10 @@
+' static variable with dynamic assign
+
+function counter(a as integer) as integer
+	static c as integer = a
+	c = c + 1
+	return c
+end function
+
+scope
+end scope

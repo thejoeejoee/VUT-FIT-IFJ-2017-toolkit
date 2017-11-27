@@ -110,7 +110,7 @@
       "stdout": "OKOKOK",
       "extensions": [
         "FUNEXP",
-        "BOOLEAN"
+        "BOOLOP"
       ]
     },
     {
@@ -119,8 +119,7 @@
       "stdout": "? OK? OK? OK",
       "extensions": [
         "FUNEXP",
-        "BOOLEAN"
-
+        "BOOLOP"
       ]
     },
     {
