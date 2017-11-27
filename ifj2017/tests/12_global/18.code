@@ -1,4 +1,4 @@
-' Small WTF problem
+' Small WTF problem (6 is too ok)
 dim shared a as integer
 
 function foo() as integer
@@ -8,5 +8,5 @@ end function
 
 scope
      a = a + foo()
-     print a; 'Why 6??
+     print a; '3 or 6 is ok (undefined)
 end scope
