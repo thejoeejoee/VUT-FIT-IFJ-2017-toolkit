@@ -62,7 +62,6 @@ class State(object):
         self.frame_stack = self.frame_stack[:-1]
 
     def get_value(self, value: Optional[Operand]) -> Union[None, int, str, float]:
-        # type: (Operand) -> object
         if value is None:
             # variable declaration
             return None
