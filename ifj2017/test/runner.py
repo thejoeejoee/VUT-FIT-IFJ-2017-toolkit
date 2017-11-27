@@ -275,7 +275,7 @@ class TestRunner(object):
         finally:
             os.remove(code_temp)
         # err has non-escaped characters
-        return out.decode('unicode_escape'), err.decode('unicode_escape'), process.returncode
+        return out.decode('raw_unicode_escape'), err.decode('raw_unicode_escape'), process.returncode
 
     def _interpret_price(self, code, test_info):
         interpreter = Interpreter(code=code, state_kwargs=dict(
