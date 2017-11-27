@@ -1,0 +1,15 @@
+' static variable with dynamic assign
+
+function counter(a as integer) as integer
+	static c as integer
+	c = a
+	c = c + 1
+	return c
+end function
+
+scope
+    dim a as integer
+    a = 41
+    a = counter(a)
+    print a;
+end scope

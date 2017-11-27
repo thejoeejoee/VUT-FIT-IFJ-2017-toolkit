@@ -63,6 +63,10 @@
     {
       "name": "20",
       "compiler_exit_code": 6
+    },
+    {
+      "name": "21",
+      "stdout": 42
     }
   ],
   "extensions": [
