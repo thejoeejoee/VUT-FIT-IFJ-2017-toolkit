@@ -30,7 +30,13 @@
       "extensions": [
         "GLOBAL",
         "FUNEXP"
-      ]      
+      ]
+    },
+    {
+      "name": "12",
+      "extensions": [
+        "FUNEXP"
+      ]
     },
     {
       "name": "13",
