@@ -1,0 +1,7 @@
+' Declared but undefined
+
+declare function foo() as integer
+
+scope
+
+end scope 

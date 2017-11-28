@@ -1,0 +1,8 @@
+' Undefined variable
+scope
+   if a < 10 then
+   
+   else
+   
+   end if
+end scope

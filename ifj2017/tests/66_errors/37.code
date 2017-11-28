@@ -1,0 +1,8 @@
+' Undefined function
+scope
+   if foo() < 10 then
+   
+   else
+   
+   end if
+end scope

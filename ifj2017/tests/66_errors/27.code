@@ -1,0 +1,13 @@
+' Redeclared function
+
+declare function foo(a as integer, b as integer) as integer
+
+declare function foo(a as integer, b as integer) as integer
+
+function foo(a as integer, b as integer) as integer
+
+end function
+
+scope
+
+end scope 

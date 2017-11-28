@@ -1,0 +1,11 @@
+' Smaller number of arguments in definition
+
+declare function foo(a as integer, b as integer) as integer
+
+function foo(a as integer) as integer
+
+end function
+
+scope
+
+end scope 

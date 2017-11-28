@@ -1,0 +1,7 @@
+' Undefined variable
+scope
+
+    dim a as integer
+    b = a
+
+end scope

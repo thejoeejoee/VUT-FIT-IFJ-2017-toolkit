@@ -1409,6 +1409,70 @@
       "info": "Forum test 2",
       "compiler_exit_code": 3,
       "code": "scope \n di@m a as integer \n end scope"
+    },
+    {
+      "name": "24",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "25",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "26",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "27",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "28",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "29",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "30",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "31",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "32",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "33",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "34",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "35",
+      "compiler_exit_code": 3,
+      "extensions" : [
+
+      	"FUNEXP"
+      ]
+    },
+    {
+      "name": "36",
+      "compiler_exit_code": 3
+    },
+    {
+      "name": "37",
+      "compiler_exit_code": 3,
+      "extensions" : [
+
+      	"FUNEXP"
+      ]
     }
   ]
 }

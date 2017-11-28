@@ -1,0 +1,4 @@
+' Undefined variable
+scope
+    print 31 + b;
+end scope

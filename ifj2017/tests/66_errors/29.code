@@ -1,0 +1,10 @@
+' redefined function
+function foo() as integer 
+    return 31
+end function
+
+declare function foo() as integer
+
+scope
+
+end scope
