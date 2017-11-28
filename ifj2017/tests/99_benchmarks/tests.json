@@ -47,6 +47,13 @@
     {
       "name": "07",
       "stdin": "abcdefg\nabcdefgh"
+    },
+    {
+      "name": "14",
+      "extensions": [
+        "SCOPE"
+      ],
+      "timeout": 10
     }
   ]
 }
