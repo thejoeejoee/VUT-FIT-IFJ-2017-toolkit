@@ -129,17 +129,17 @@ scope
             a = 110
             b = 100
             do while b > 7
-                do while a > -110
+                do while a > 0-110
                     print !"\n";
                     if a > 58 then
                         print a;
-                    elseif a > -60 then
+                    elseif a > 0-60 then
                         print a;
                     else
                         print a;
                     end if
                     a = a - 1
-                    if a = -110 then
+                    if a = 0-110 then
                         b = 0
                     end if
                 loop

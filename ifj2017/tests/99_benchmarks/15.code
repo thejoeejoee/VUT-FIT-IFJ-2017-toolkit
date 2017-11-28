@@ -151,17 +151,17 @@ scope
             HHKL__6767 = 110
             GJ__56GHGH_GGH = 100
             do while GJ__56GHGH_GGH > 7
-                do while HHKL__6767 > -110
+                do while HHKL__6767 > 0-110
                     print !"\n";
                     if HHKL__6767 > 58 then
                         print HHKL__6767;
-                    elseif HHKL__6767 > -60 then
+                    elseif HHKL__6767 > 0-60 then
                         print HHKL__6767;
                     else
                         print HHKL__6767;
                     end if
                     HHKL__6767 = HHKL__6767 - 1
-                    if HHKL__6767 = -110 then
+                    if HHKL__6767 = 0-110 then
                         GJ__56GHGH_GGH = 0
                     end if
                 loop
