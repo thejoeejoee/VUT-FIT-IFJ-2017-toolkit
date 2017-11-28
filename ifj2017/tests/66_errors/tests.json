@@ -966,6 +966,36 @@
       "compiler_exit_code": 1
     },
     {
+      "info": "lexical error",
+      "code": "scope \n dim a as double = 31.e21 \n end scope",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "lexical error",
+      "code": "scope \n print !\"ahoj\\31\"; \n end scope",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "lexical error",
+      "code": "scope \n print !\"ahoj\\3\"; \n end scope",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "lexical error",
+      "code": "scope \n print !\"ahoj\\\"; \n end scope",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "lexical error",
+      "code": "scope \n print !\"ahoj\\256\"; \n end scope",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "lexical error",
+      "code": "scope \n PRINT !\"\\\"; \n end scope",
+      "compiler_exit_code": 1
+    },
+    {
       "info": "Keyword instead identifier",
       "compiler_exit_code": 2,
       "code": "scope \n dim as as integer\n end scope"
