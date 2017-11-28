@@ -255,7 +255,7 @@ class TestRunner(object):
         except (TimeoutError, TimeoutExpired):
             process.kill()
             raise
-        return out.decode('ascii'), err.decode('ascii'), process.returncode
+        return out.decode('raw_unicode_escape'), err.decode('raw_unicode_escape'), process.returncode
 
     def _interpret(self, code, test_info):
         code_temp = mktemp()
