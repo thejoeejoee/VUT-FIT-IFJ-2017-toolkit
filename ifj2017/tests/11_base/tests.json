@@ -22,7 +22,10 @@
     },
     {
       "stdout": " 80970",
-      "name": "06"
+      "name": "06",
+      "extensions": [
+        "FUNEXP"
+      ]
     },
     {
       "compiler_exit_code": 2,

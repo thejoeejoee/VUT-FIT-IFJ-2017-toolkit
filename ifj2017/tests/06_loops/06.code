@@ -1,7 +1,8 @@
 ' while with elseif in condition
 scope
+    dim a as integer
 	if 78 > 2 then
-	    dim a as integer = 12
+	    a = 12
 		do while a >= 1
 			if a > 8 then
 				print 69;
