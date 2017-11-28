@@ -1,0 +1,9 @@
+' Double implicit conversion
+scope
+	Dim x as double = 15.3
+	DIM y as double = 3.6
+	DIM z as double
+	z = x \ y
+	print z;
+
+end scope
