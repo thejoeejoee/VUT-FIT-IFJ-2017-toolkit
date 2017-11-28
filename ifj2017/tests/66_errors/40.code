@@ -1,0 +1,6 @@
+' Fail implicit conversion
+
+scope
+	dim a as integer
+	a = !""
+end scope

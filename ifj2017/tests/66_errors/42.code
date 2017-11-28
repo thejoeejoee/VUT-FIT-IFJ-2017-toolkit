@@ -1,0 +1,6 @@
+' Fail implicit conversion
+
+scope
+	dim a as string
+	a = 41.789
+end scope
