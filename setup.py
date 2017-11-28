@@ -32,7 +32,7 @@ except(IOError, ImportError) as e:
 def setup():
     core.setup(
         name='IFJcode17-toolkit',
-        version='1.4.1',
+        version='1.4.2',
         license='GNU GENERAL PUBLIC LICENSE Version 3',
         description='Toolkit for IFJ17 language compiler (as project at FIT BUT in Brno) with '
                     'interactive debugger and automatic tests.',
