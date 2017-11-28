@@ -1,0 +1,12 @@
+' Small number of function arguments
+function foo(a as integer) as integer
+    
+end function
+
+scope
+   if foo() < 10 then
+   
+   else
+   
+   end if
+end scope
