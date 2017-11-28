@@ -120,16 +120,16 @@ class TestLogger(object):
             cls.BOLD,
             ' {:.2f}%'.format((float(success) / (total - skipped)) * 100),
             cls.END,
-            ' ({}/{})\n\t'.format(success, total - skipped),
+            ' ({}/{})\n'.format(success, total - skipped),
             cls.END,
             cls.BOLD,
             ''.join(
                 (
-                    (cls.FAIL + '×', cls.GREEN + '√')[report.success]
+                    ((cls.FAIL + '×', cls.GREEN + '.')[report.success]
                     if report.success is not None
-                    else cls.BLUE + '-'
-                )
-                for report in reports),
+                    else cls.BLUE + '_')
+                ) + ('\n' if not (i % 120) else '')
+                for i, report in enumerate(reports, start=1)),
             ''
         )
         return bool(total - success)

@@ -70,7 +70,7 @@ class TestRunner(object):
         super(TestRunner, self).__init__()
         assert path.isfile(args.compiler) and os.access(args.compiler, os.X_OK), \
             "Given compiler ({}) is file and is executable.".format(args.compiler)
-        assert args.no_interpreter or  (path.isfile(args.interpreter) and os.access(args.interpreter, os.X_OK)), \
+        assert args.no_interpreter or (path.isfile(args.interpreter) and os.access(args.interpreter, os.X_OK)), \
             "Given interpreter ({}) is file and is executable.".format(args.interpreter)
         assert isinstance(args.command_timeout, float) and args.command_timeout > 0, \
             'Command timeout is positive int'
@@ -125,7 +125,7 @@ class TestRunner(object):
             return 1
 
         self._run_tests()
-
+        result = TestLogger.log_results(self._reports)
         if self._uploader.has_connection:
             try:
                 response = self._uploader.send_reports()
@@ -137,8 +137,7 @@ class TestRunner(object):
                 TestLogger.log_warning('Unable to send reports ({}), terminating...'.format(e))
         else:
             TestLogger.log_warning('Results upload skipped.')
-
-        return TestLogger.log_results(self._reports)
+        return result
 
     def _run_tests(self):
         for test_section_dir in self._loader.load_section_dirs():
@@ -333,6 +332,7 @@ class TestRunner(object):
                 in enumerate(lines, start=1)
                 if line
             ) or '# ---')
+            write('\n' * 2)
         self._reports.append(report)
         TestLogger._test_case_success = report.success
         TestLogger._test_case_skipped = report.skipped
@@ -359,10 +359,9 @@ class TestRunner(object):
             TestLogger.log(
                 TestLogger.GREEN,
                 TestLogger.BOLD,
-                "Activated {} extensions: {}{}.".format(
-                    len(self._extensions),
+                "Activated extensions: {}{}.".format(
                     ', '.join(sorted(self._extensions)),
-                    ' - autoloaded from {}'.format(self._extensions_auto_loaded_from)
+                    ' from {}'.format(self._extensions_auto_loaded_from)
                     if self._extensions_auto_loaded_from else ''
                 ),
             )
