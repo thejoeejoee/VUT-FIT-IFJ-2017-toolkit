@@ -1373,6 +1373,26 @@
       ]
     },
     {
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n print !\"\t\";\n end scope"
+    },
+    {
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n print !\"\u0011\";\n end scope"
+    },
+    {
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n print !\"\u0001\";\n end scope"
+    },
+    {
+      "info": "Lexical error",
+      "compiler_exit_code": 1,
+      "code": "scope \n print !\"\u0010\";\n end scope"
+    },
+    {
       "info": "Return in scope in scope",
       "compiler_exit_code": 2,
       "code": "scope \n \n scope \n return 10 \n end scope\n end scope",
@@ -1384,6 +1404,11 @@
       "info": "Return in scope",
       "compiler_exit_code": 2,
       "code": "scope \n return 10 \n end scope"
+    },
+    {
+      "info": "Return in scope",
+      "compiler_exit_code": 2,
+      "code": "scope  end scope"
     },
     {
       "info": "Return in scope in if",
