@@ -1,0 +1,357 @@
+' Torture test without extensions
+
+/''/'''''''''''''''''''''''''''''''''''''''
+declare function __(ahoj as integer) as integer
+/''/'''''''''''''''''''''''''''''''''''''''
+/''/'''''''''''''''''''''''''''''''''''''''
+' factorial by recursion/''/'''''''''''''''''''''''''''''''''''''''
+declare function factorial (n As integer) As integer/''/'''''''''''''''''''''''''''''''''''''''
+/''/'''''''''''''''''''''''''''''''''''''''
+function factorial (n As integer) As integer/''/'''''''''''''''''''''''''''''''''''''''
+/''/dim temp_result As integer/''/'''''''''''''''''''''''''''''''''''''''
+/''/dim decremented_n As integer/''/'''''''''''''''''''''''''''''''''''''''
+/''/dim result As integer/''/'''''''''''''''''''''''''''''''''''''''
+/''/if n < 2 Then/''/'''''''''''''''''''''''''''''''''''''''
+/''//''/result = 1/''/'''''''''''''''''''''''''''''''''''''''
+/''/Else/''/'''''''''''''''''''''''''''''''''''''''
+/''/decremented_n = n - 1/''/'''''''''''''''''''''''''''''''''''''''
+/''/temp_result = factorial(decremented_n)/''/'''''''''''''''''''''''''''''''''''''''
+/''/result = n * temp_result/''/'''''''''''''''''''''''''''''''''''''''
+/''/end if/''/'''''''''''''''''''''''''''''''''''''''
+/''/Return result/''/'''''''''''''''''''''''''''''''''''''''
+end function/''/'''''''''''''''''''''''''''''''''''''''
+/''/'''''''''''''''''''''''''''''''''''''''
+declare function multiply(_GHH as integer, ghgj__5667 as integer) as integer/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+function foo(a as integer) as integer
+    dim b as integer = a
+    dim c as integer
+    c = __(b)
+    print c;
+    return b + 10
+end function
+
+declare function hanoi(________________ as integer, from as string, too as string, middle as string) as integer
+
+function __(a as integer) as integer
+    dim bl__6790 as integer
+    if a > 2 then
+        bl__6790 = __(a - 1)
+        return 0
+    else
+        print a;
+        return 0
+    end if
+end function
+
+' big count of function parameters
+    
+function testing(n as integer, a AS double, b AS double, c AS double, d AS integer, e AS double, f AS double, g AS integer, h AS integer, i AS integer, j AS double, k AS double, l AS integer, m AS double, o AS integer, p AS integer, q AS integer, r AS double, s AS double, t AS double, u AS double, v AS integer, w AS double, x AS double, y AS integer, z AS integer, aa AS double, ab AS double, ac AS integer, ad AS integer, ae AS integer, af AS double, ag AS integer, ah AS double, ai AS integer, aj AS integer, ak AS double, al AS double, am AS double, an AS double, ao AS integer, ap AS integer, aq AS double, ar AS integer, at AS integer, au AS double, av AS integer, aw AS integer, ax AS integer, ay AS integer, az AS integer, ba AS double, bb AS integer, bc AS double, bd AS double, be AS double, bf AS integer, bg AS double, bh AS integer, bi AS integer, bj AS integer, bk AS integer, bl AS integer, bm AS double, bn AS double, bo AS integer, bp AS double, bq AS double, br AS integer, bs AS integer, bt AS double, bu AS double, bv AS integer, bw AS double, bx AS integer, by AS integer, bz AS double, ca AS double, cb AS double, cc AS integer, cd AS double, ce AS integer, cf AS integer, cg AS double, ch AS double, ci AS integer, cj AS double, ck AS double, cl AS double, cm AS double, cn AS integer, co AS double, cp AS double, cq AS double, cr AS integer, cs AS integer, ct AS integer, cu AS double, cv AS integer, cw AS double, cx AS integer) as integer
+    dim res as integer
+    if n > 0 then
+        n = n - 1
+        res = testing(n, a, b, c, d, e, f, g, h, i, j, k, l, m, o, p, q, r, s, t, u, v, w, x, y, z, aa, ab, ac, ad, ae, af, ag, ah, ai, aj, ak, al, am, an, ao, ap, aq, ar, at, au, av, aw, ax, ay, az, ba, bb, bc, bd, be, bf, bg, bh, bi, bj, bk, bl, bm, bn, bo, bp, bq, br, bs, bt, bu, bv, bw, bx, by, bz, ca, cb, cc, cd, ce, cf, cg, ch, ci, cj, ck, cl, cm, cn, co, cp, cq, cr, cs, ct, cu, cv, cw, cx)
+        return res
+    else 
+        return a - b * c + d * e + f * g * h * i - j * k + l - m - o * p - q + r - s - t - u + v - w - x - y * z - aa + ab * ac - ad - ae * af - ag + ah * ai * aj + ak * al - am * an * ao + ap + aq + ar + at + au * av * aw + ax + ay + az - ba + bb + bc - bd - be * bf * bg - bh - bi + bj + bk - bl * bm - bn * bo * bp - bq * br * bs - bt + bu + bv - bw * bx * by - bz * ca * cb * cc + cd - ce * cf + cg * ch + ci - cj - ck - cl * cm + cn * co - cp - cq * cr - cs * ct + cu - cv * cw * cx 
+    end if
+end function
+
+function hanoi(n as integer, from as string, too as string, middle as string) as integer
+    dim c as integer
+    if n = 1 then
+        print !"Move disk 1 from row "; from; !" to rod "; too; !"\n";
+        return 0
+    end if
+    c = hanoi(n - 1, from, middle, too)
+    print !"Move disk"; n; !" from row "; from; !" to rod "; too; !"\n";
+    c = hanoi(n - 1, middle, too, from)
+end function
+
+declare function ackermann(FGJKL as integer, FGHJK as integer) as integer
+
+
+/''/
+function multiply(a as integer, b as integer) as integer '
+    return a * b '
+end function
+
+' Ackerman function for ackerman(2, 5)
+function ackermann(m as integer, n as integer) as integer
+    if m = 0 then
+        return n + 1
+    else
+        if n = 0 then
+            return ackermann(m - 1, 1)
+        else
+            return ackermann(m - 1, ackermann(m, n - 1))
+        end if
+    end if
+end function
+
+
+function fib(n as integer) as integer
+    if n = 0 then
+        return 0
+    elseif n = 1 then
+        return 1
+    else
+        dim a as integer
+        dim b as integer
+        dim c as integer
+        a = fib(n - 1)
+        b = fib(n - 2)
+        c = a + b
+        return c
+    end if
+    return 0
+end function
+
+
+scope
+
+    dim a as integer
+    input a
+    a = foo(a)
+    
+    dim b as integer = 31.7
+    do while a > 2
+        do while b > 5 
+            print a * b;
+            b = b - 1
+        loop
+        a = a - 1
+    loop
+    
+    dim f as double = 31.2
+    dim g as double = 4e2
+    dim h as double = 4e2-2
+    dim i as double = 4.4e2
+    dim j as double = 4.4e-2
+    
+    dim __78d as integer = 1
+    dim GKJ__78 as double
+    do while __78d < 5 
+        GKJ__78 = GKJ__78 + f + g + h + i + j
+        __78d = __78d + 1
+        print GKJ__78; 
+    loop
+    
+    print a;
+    
+    dim __j33eno as string
+    input __j33eno
+    print __j33eno;
+
+    dim _HHHGhjh79 as double = 47.86
+    dim HHKL__6767 as integer = 110
+    dim GJ__56GHGH_GGH as integer = 100 /'hdfhjfhadfadafjasfksadfjkadsjks'/
+    if 47 > 32 then/'hdfhjfhadfadafjasfksadfjkadsjks'/
+        do while _HHHGhjh79 > 44
+            HHKL__6767 = 110
+            GJ__56GHGH_GGH = 100
+            do while GJ__56GHGH_GGH > 7
+                do while HHKL__6767 > -110
+                    print !"\n";
+                    if HHKL__6767 > 58 then
+                        print HHKL__6767;
+                    elseif HHKL__6767 > -60 then
+                        print HHKL__6767;
+                    else
+                        print HHKL__6767;
+                    end if
+                    HHKL__6767 = HHKL__6767 - 1
+                    if HHKL__6767 = -110 then
+                        GJ__56GHGH_GGH = 0
+                    end if
+                loop
+            loop
+            _HHHGhjh79 = _HHHGhjh79 - 1.05
+        loop
+    else
+        print 78;
+    end if
+/'hdfhjfhadfadafjasfksadfjkadsjks'/
+    dim _GHLk_GJK__DSG as integer
+    _gHLk_GjK__DSG = fib(12)
+    print _GHLk_GJK__DSG;
+
+    dim ______dkhfskldfhsdfsfhjghs as integer
+    ______dkhfskldfhsdfsfhjghs = hanoi(4, !"A", !"B", !"C")
+
+    dim SEDFGUHdfgh___ as integer = 74
+    dim __aa11__aa11 as double = 745.745
+    dim ________________________________ as double = 0-123456789
+        
+    dim _a_a__a_a__a_a__a_a__a_a__a_a_ as double
+
+    ________________________________ = (SEDFGUHdfgh___ * SEDFGUHdfgh___) + __aa11__aa11 / __aa11__aa11 - __aa11__aa11 * SEDFGUHdfgh___ + (__aa11__aa11 * (SEDFGUHdfgh___ * SEDFGUHdfgh___ + __aa11__aa11 * SEDFGUHdfgh___ + ________________________________ * 7 + 2 * 5 * __aa11__aa11) - __aa11__aa11 * 78 * 96 - __aa11__aa11 * SEDFGUHdfgh___ + (__aa11__aa11 + ________________________________ + __aa11__aa11 + ________________________________ + __aa11__aa11 + ________________________________)) / ________________________________
+    print ________________________________;
+    print !"\n";
+    _a_a__a_a__a_a__a_a__a_a__a_a_ = SEDFGUHdfgh___ + (__aa11__aa11 / ________________________________) - (7 + __aa11__aa11 - 0 / (2 * (4 - SEDFGUHdfgh___ + 8 * 9 / (________________________________ * 74 - ________________________________ + ________________________________ * (__aa11__aa11 * 8 + 4) + __aa11__aa11 * SEDFGUHdfgh___ / ________________________________ + 7) - SEDFGUHdfgh___ + 7) - SEDFGUHdfgh___ * __aa11__aa11 / __aa11__aa11) + 1)/4
+    _a_a__a_a__a_a__a_a__a_a__a_a_ = _a_a__a_a__a_a__a_a__a_a__a_a_ - 2 * _a_a__a_a__a_a__a_a__a_a__a_a_
+    print _a_a__a_a__a_a__a_a__a_a__a_a_;
+
+    dim res as integer
+    res = factorial(3)
+    print res;
+
+    'Hlavni telo programu
+    dim s1 As String
+    dim s2 As String
+    dim s1len As Integer
+    s1 = !"Toto je nejaky text"
+    s2 = s1 + !", ktery jeste trochu obohatime"
+    Print s1; !"\n"; s2; !"\n";
+    s1len = Length(s1)
+    s1len = s1len - 4 + 1
+    s1 = SubStr(s2, s1len, 4)
+    Print !"4 znaky od "; s1len; !". znaku v \""; s2; !"\":"; s1; !"\n";
+    Print !"Zadejte serazenou posloupnost vsech malych pismen a-h, ";
+    Print !"pricemz se pismena nesmeji v posloupnosti opakovat";
+    Input s1
+    print !"?";
+    Do While (s1 <> !"abcdefgh")
+        Print !"\nSpatne zadana posloupnost, zkuste znovu";
+        Input s1
+        print !"!";
+    Loop
+
+    /' Factorial by iteration method '/
+
+    Dim qwertzuiolkjhgfdsayxcvbnm As Integer
+    DIM vysl AS INTEGER
+    PrinT !"Zadejte cislo pro vypocet faktorialu";
+    InpuT qwertzuiolkjhgfdsayxcvbnm
+    If qwertzuiolkjhgfdsayxcvbnm < 0 THEN
+    print !"\nFaktorial nelze spocitat\n";
+    ELSE
+    Vysl = 1
+    Do WHile qwertzuiolkjhgfdsayxcvbnm > 0
+    VYSL = vysl * qwertzuiolkjhgfdsayxcvbnm
+    qwertzuiolkjhgfdsayxcvbnm = qwertzuiolkjhgfdsayxcvbnm - 1
+    LooP
+    Print vYsl;
+    end IF
+
+
+
+/'hdfhjfhadfadafjasfksadfjkadsjks'//'hdfhjfhadfadafjasfksadfjkadsjks'//'hdfhjfhadfadafjasfksadfjkadsjks'//'hdfhjfhadfadafjasfksadfjkadsjks'//'hdfhjfhadfadafjasfksadfjkadsjks'//'hdfhjfhadfadafjasfksadfjkadsjks'/
+
+
+
+
+    dim vysledek as double/'hdfhjfhadfadafjasfksadfjkadsjks'/
+    dim citatel as integer/'hdfhjfhadfadafjasfksadfjkadsjks'/
+    citatel = 1/'hdfhjfhadfadafjasfksadfjkadsjks'/
+    dim jmenovatel as integer/'hdfhjfhadfadafjasfksadfjkadsjks'/
+    jmenovatel = 1/'hdfhjfhadfadafjasfksadfjkadsjks'/
+/'hdfhjfhadfadafjasfksadfjkadsjks'/
+    dim pocitadlo as integer/'hdfhjfhadfadafjasfksadfjkadsjks'/
+    pocitadlo = 1/'hdfhjfhadfadafjasfksadfjkadsjks'/
+
+    do while pocitadlo < 20/'hdfhjfhadfadafjasfksadfjkadsjks'/
+
+        vysledek = vysledek + citatel / jmenovatel/'hdfhjfhadfadafjasfksadfjkadsjks'/
+
+        citatel = citatel * 2/'hdfhjfhadfadafjasfksadfjkadsjks'/
+        jmenovatel = jmenovatel * pocitadlo/'hdfhjfhadfadafjasfksadfjkadsjks'/
+
+        pocitadlo = pocitadlo + 1/'hdfhjfhadfadafjasfksadfjkadsjks'/
+
+    loop/'hdfhjfhadfadafjasfksadfjkadsjks'/
+
+    print vysledek;
+
+
+
+    dim ___asdfghj___wertzu as integer
+    ___asdfghj___wertzu = testing(10, 4, 1, 1, 8, 15, 8, 1, 7, 12, 4, 10, 0, 2, 8, 0, 7, 6, 15, 3, 5, 14, 11, 2, 5, 4, 6, 2, 13, 12, 0, 14, 10, 5, 4, 6, 13, 7, 10, 11, 13, 9, 12, 0, 7, 5, 13, 14, 4, 15, 13, 12, 5, 9, 14, 4, 14, 15, 5, 12, 9, 8, 3, 14, 11, 0, 3, 9, 3, 3, 14, 6, 7, 11, 4, 4, 12, 8, 11, 11, 4, 4, 4, 14, 3, 12, 6, 5, 11, 15, 3, 7, 0, 14, 5, 10, 15, 5, 1, 12, 5)
+    if ___asdfghj___wertzu = -12697 then
+        print !"OK";
+    else
+        print !"NONOK";
+    end if
+
+
+    dim DTRZU56855 as integer = 1
+    do while DTRZU56855 < 10 
+    
+        dim __GHGR6767hhj as integer = 1
+        
+         do while __GHGR6767hhj < 10 
+            
+            print multiply(DTRZU56855, __GHGR6767hhj);
+            
+            __GHGR6767hhj = __GHGR6767hhj + 1
+        loop
+        print !"\n";
+        DTRZU56855 = DTRZU56855 + 1
+    loop
+
+    dim buffer as string
+    dim count as integer = 42
+    do while count > 0
+        buffer = !"" + buffer + !" barman" + !"" ' for price and optimalization
+        count = count - 1
+    loop
+    print buffer;
+
+
+    dim _______________LLLLLLLLLLLLL as double
+    dim HJJJJJJJJJJJJJJJJJJJJJJJJJJK as integer
+    HJJJJJJJJJJJJJJJJJJJJJJJJJJK = 1
+    dim FGHGGGGGFGGGGGHGHGHGHGJGG as integer
+    FGHGGGGGFGGGGGHGHGHGHGJGG = 1
+
+    dim POIJIOPIOJIOPJIOJIOJIJIOP as integer
+    POIJIOPIOJIOPJIOJIOJIJIOP = 1
+
+    do while POIJIOPIOJIOPJIOJIOJIJIOP < 20
+
+        _______________LLLLLLLLLLLLL = _______________LLLLLLLLLLLLL + HJJJJJJJJJJJJJJJJJJJJJJJJJJK / FGHGGGGGFGGGGGHGHGHGHGJGG
+
+        HJJJJJJJJJJJJJJJJJJJJJJJJJJK = HJJJJJJJJJJJJJJJJJJJJJJJJJJK * 2
+        FGHGGGGGFGGGGGHGHGHGHGJGG = FGHGGGGGFGGGGGHGHGHGHGJGG * POIJIOPIOJIOPJIOJIOJIJIOP
+
+        POIJIOPIOJIOPJIOJIOJIJIOP = POIJIOPIOJIOPJIOJIOJIJIOP + 1
+
+    loop
+
+    print _______________LLLLLLLLLLLLL;
+
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+/''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''//''/
+
+
+
+
+
+
+    dim ackermanwowowow______________ as integer
+    ackermanwowowow______________ = ackermann(2, 5)
+    print ackermanwowowow______________;
+
+    
+
+end scope
