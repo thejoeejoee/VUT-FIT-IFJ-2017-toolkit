@@ -1,7 +1,7 @@
 ' calling multiple functions
 
 function _add_two(_ as integer) as integer
-	dim res as integer
+	dim res as integer = 0 - 15
 	res = _ + 2
 	return res
 end function
@@ -18,7 +18,7 @@ function ____(_______ as integer) as double
 end function
 
 function __compute() as double
-	dim res as integer
+	dim res as integer = 10 - 9
 	res = _multiply(30, 10)
 	res = _add_two(res)
 	res = ____(res)

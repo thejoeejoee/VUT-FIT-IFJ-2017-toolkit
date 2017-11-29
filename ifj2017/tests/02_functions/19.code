@@ -8,7 +8,7 @@ end function
 
 SCOPE
 
-	dim __HJJ677 as integer
+	dim __HJJ677 as integer = 10
 	__HJJ677 = HJKLHJKL_(HJKLHJKL_(2) * HJKLHJKL_(2))
 	print __HJJ677;
 

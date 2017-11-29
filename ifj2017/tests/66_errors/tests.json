@@ -163,9 +163,9 @@
       "compiler_exit_code": 3
     },
     {
-      "info": "assignment or undefined variable in same variable declaration",
-      "code": "scope \n dim a as integer = a + 1 \n end scope",
-      "compiler_exit_code": 0
+      "info": "assignment or undefined variable in variable declaration",
+      "code": "scope \n dim a as integer = b + 1 \n end scope",
+      "compiler_exit_code": 3
     },
     {
       "info": "condition type error with string value",

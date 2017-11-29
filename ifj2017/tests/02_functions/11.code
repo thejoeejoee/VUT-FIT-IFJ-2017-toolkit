@@ -5,14 +5,14 @@ function GHGKghgk55() as integer
 end function
 
 function GHGKghgk67() as integer
-	dim a as integer
+	dim a as integer = 40
 	a = GHGKghgk55()
 	a = a + a
 	return a
 end function
 
 scope
-	dim b as integer
+	dim b as integer = 20
 	b = GHGKghgk67()
 	print b;
 	b = GHGKghgk67()

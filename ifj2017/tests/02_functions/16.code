@@ -5,19 +5,19 @@ function GK6767__() as integer
 end function
 
 function GKJ5___GGK() as integer
-	dim a as integer
+	dim a as integer = 10
 	a = GK6767__()
 	return a
 end function
 
 function foo() as integer
-	dim a as integer
+	dim a as integer = 11
 	a = GKJ5___GGK()
 	return a
 end function
 
 scope
-	dim a as integer
+	dim a as integer = 9
 	a = foo()
 	print a;
 end scope

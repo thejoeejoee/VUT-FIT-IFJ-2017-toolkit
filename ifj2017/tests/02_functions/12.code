@@ -1,8 +1,8 @@
 ' Recursive function
 
 function recursive(param as integer) as integer
-	dim param0 as integer
-	dim res as integer
+	dim param0 as integer = 12
+	dim res as integer = 10
 	param0 = param - 1
 	if param = 0 then
 		return 42
@@ -13,7 +13,7 @@ function recursive(param as integer) as integer
 end function
 
 scope
-	dim a as integer
+	dim a as integer = 12
 	a = recursive(4)
 	print a;
 

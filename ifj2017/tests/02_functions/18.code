@@ -9,7 +9,7 @@ end function
 
 SCOPE
 
-	dim a as integer
+	dim a as integer = 0 - 10
 	a = __HJHLH(__HJHLH(__HJHLH(2)))
 	print a;
 
