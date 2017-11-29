@@ -98,17 +98,19 @@ end function
 function fib(n as integer) as integer
     if n = 0 then
         return 0
-    elseif n = 1 then
-        return 1
     else
-        dim a as integer
-        dim b as integer
-        dim c as integer
-        a = fib(n - 1)
-        b = fib(n - 2)
-        c = a + b
-        return c
-    end if
+	    if n = 1 then
+	        return 1
+	    else
+	        dim a as integer
+	        dim b as integer
+	        dim c as integer
+	        a = fib(n - 1)
+	        b = fib(n - 2)
+	        c = a + b
+	        return c
+	    end if
+	end if
     return 0
 end function
 
