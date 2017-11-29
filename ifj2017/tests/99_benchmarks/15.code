@@ -59,6 +59,7 @@ end function
 
 function hanoi(n as integer, from as string, too as string, middle as string) as integer
     dim c as integer
+    dim HHLKJKLNJKNJKLHUHUHU as integer = n - 1
     if n = 1 then
         print !"Move disk 1 from row "; from; !" to rod "; too; !"\n";
         return 0
@@ -67,6 +68,7 @@ function hanoi(n as integer, from as string, too as string, middle as string) as
     print !"Move disk"; n; !" from row "; from; !" to rod "; too; !"\n";
     c = hanoi(n - 1, middle, too, from)
 end function
+' TODO
 
 declare function ackermann(FGJKL as integer, FGHJK as integer) as integer
 

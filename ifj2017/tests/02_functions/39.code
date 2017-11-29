@@ -1,0 +1,19 @@
+declare function hanoi(________________ as integer, from as string, too as string, middle as string) as integer
+
+function hanoi(n as integer, from as string, too as string, middle as string) as integer
+    dim c as integer
+    dim promena as integer = n - 1
+    if n = 1 then
+        print !"Move disk 1 from row "; from; !" to rod "; too; !"\n";
+        return 0
+    end if
+    c = hanoi(promena, from, middle, too)
+    print !"Move disk"; n; !" from row "; from; !" to rod "; too; !"\n";
+    c = hanoi(promena, middle, too, from)
+end function
+
+scope
+	dim ______dkhfskldfhsdfsfhjghs as integer
+    ______dkhfskldfhsdfsfhjghs = hanoi(4, !"A", !"B", !"C")
+
+end scope
