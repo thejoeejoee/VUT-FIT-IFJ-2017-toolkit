@@ -19,6 +19,7 @@ deploy:
     skip_cleanup: true
     api_key:
       secure: GQpuCDgUTanpKrMCDBOoYRHP33wIzmOqS+CY9jnx2FOSrtpHDQMK4Qh46WlaELWLGb20nNxtVCRunhwmedWWPV6HdoHXQKMiB8xNderVjSEs4LCc+fpA1K+sLdP2l3HyuGxrsc2PS4vTtBG0/a/XhLVwmXPycbjwNGWRZWzukMRalcjuOhWGxCvr1xCB6FArsRUE910FTrKPyuQ8lu2kLSVYkCFMoCp8XfNhfv/S0lsHK32PmRWDUO6QxlCWwTo1HeYJHuumy8xGkodGWl6sZRzaIK5RIvnQmuWxCxTycG+oBX+5zb9IPcSgNmVchkR+5QWwAQlOIzwMET/6fPWNX+/hjAy4Z3C6UyBWmZtYBjEA8v2K6Cg96Rcintpu/NQPDVk6KpvS5DnfzUC+EqLwVjFfbgspmE/pVOBNBTqjajDFi8RZHMw6kpMd/fis6wI/sdw+But9pFUQ4YIlcF4cFYXywGnv6r3E6uh3cXpablT7QLDgPJoTM6kbK8uZ/g3xC6BHnX0ZN5HMtGaDU7mBtErzhaA6IvFiasJUaFigK4vrrpEiyvGxEryyWotHWK+P3JBckmX3b/7fHFHkDEdfDxs1725tyk02dHkzw9QeHTT6lv+MivnRY+mlMHr9R7NXCZuI2Dff7hYBhVu0z2HvExJSPWuMOJEP5hldo4aXlQE=
+    file_glob: true
     file: dist/*
     on:
       tags: true
