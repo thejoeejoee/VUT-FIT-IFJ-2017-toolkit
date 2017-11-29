@@ -1,0 +1,12 @@
+' GLOBAL, SCOPE
+
+scope
+	dim i as integer
+
+	do while i < 4
+		static counter as integer
+		counter = counter + 1
+		print counter;
+		i = i + 1
+	loop
+end scope
