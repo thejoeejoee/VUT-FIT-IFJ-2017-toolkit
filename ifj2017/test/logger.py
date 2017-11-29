@@ -3,6 +3,9 @@
 import os
 import sys
 from operator import attrgetter
+from typing import Optional
+
+from ifj2017.interpreter.state import State
 
 
 def disable_color():
@@ -40,7 +43,7 @@ class TestLogger(object):
     verbose = False
 
     _test_case_buffer = None
-    _test_case_success = None    
+    _test_case_success = None
     _test_case_skipped = None
 
     @classmethod
@@ -84,8 +87,8 @@ class TestLogger(object):
         cls.log(cls.GREEN, cls.BOLD, '√', end=False)
 
     @classmethod
-    def log_warning(cls, warning):
-        cls.log(cls.FAIL, cls.BOLD, 'WARNING: ', warning)
+    def log_warning(cls, warning, end=True):
+        cls.log(cls.FAIL, cls.BOLD, 'WARNING: ', warning, end=end)
 
     @classmethod
     def log_end_test_case(cls):
@@ -95,12 +98,24 @@ class TestLogger(object):
         cls._test_case_buffer = None
 
     @classmethod
-    def log_price(cls, state):
+    def log_price(cls, state: State, groot_price: Optional[int]):
         # (State) -> None
-        cls.log(cls.BLUE, ' ', state.operand_price + state.instruction_price, ' ({}+{})'.format(
-            state.instruction_price,
-            state.operand_price
-        ), end=False)
+        cls.log(
+            cls.BLUE,
+            ' ',
+            state.operand_price + state.instruction_price,
+            ' ({}+{}) '.format(
+                state.instruction_price,
+                state.operand_price
+            ),
+            end=False
+        )
+        if groot_price != state.price:
+            cls.log_warning(
+                'Computed price {} does not matched price from reference interpreter {}, '
+                'please contact maintainers.'.format(state.price, groot_price),
+                end=False
+            )
 
     @classmethod
     def log_results(cls, reports):
@@ -126,8 +141,8 @@ class TestLogger(object):
             ''.join(
                 (
                     ((cls.FAIL + '×', cls.GREEN + '.')[report.success]
-                    if report.success is not None
-                    else cls.BLUE + '_')
+                     if report.success is not None
+                     else cls.BLUE + '_')
                 ) + ('\n' if not (i % 120) else '')
                 for i, report in enumerate(reports, start=1)),
             ''

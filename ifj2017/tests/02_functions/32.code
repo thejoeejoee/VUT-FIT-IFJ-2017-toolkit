@@ -7,7 +7,7 @@ scope
     dim j as integer
     i = asc(!"gzgfggffg", a)
     j = asc(!"ERTZUG", 3.0)
-    
-    print i;j;
+
+    print i; j;
     
 end scope

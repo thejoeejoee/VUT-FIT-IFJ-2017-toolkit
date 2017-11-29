@@ -40,6 +40,7 @@ TEST_LOG_HEADER = """\
 # EXPECTED INTERPRETER EXIT CODE: {}
 # CURRENT INTERPRETER EXIT CODE: {}
 # PRICE: {}
+# GROOT: {}
 # 
 """
 
@@ -197,9 +198,7 @@ class TestRunner(object):
             return
 
         try:
-            report.interpreter_stdout, report.interpreter_stderr, report.interpreter_exit_code = self._interpret(
-                report.compiler_stdout, test_info
-            )
+            self._interpret(report, test_info)
         except (TimeoutExpired, TimeoutError) as e:
             TestLogger.log_test_fail('INTERPRETER TIMEOUT')
             report.success = False
@@ -242,7 +241,7 @@ class TestRunner(object):
         except Exception as e:
             TestLogger.log(TestLogger.WARNING, ' (fail: {})'.format(e))
         else:
-            TestLogger.log_price(state=state)
+            TestLogger.log_price(state=state, groot_price=report.groot_price)
             self._uploader.collect_report(report)
         report.success = True
         self._save_report(test_info, report)
@@ -257,10 +256,11 @@ class TestRunner(object):
             raise
         return out.decode('raw_unicode_escape'), err.decode('raw_unicode_escape'), process.returncode
 
-    def _interpret(self, code, test_info):
+    def _interpret(self, report: TestReport, test_info: TestInfo) -> None:
         code_temp = mktemp()
+        # add GROOT at the end to compute price
         with open(code_temp, 'wb') as f:
-            f.write(bytes(code, encoding='utf-8'))
+            f.write(bytes('\n'.join((report.compiler_stdout, 'GROOT')), encoding='utf-8'))
 
         process = Popen([self._interpreter_binary, '-v', code_temp], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         try:
@@ -273,14 +273,23 @@ class TestRunner(object):
             raise
         finally:
             os.remove(code_temp)
+        out, err, exit_code = out.decode('raw_unicode_escape'), err.decode('raw_unicode_escape'), process.returncode
+
+        try:
+            groot = err.splitlines()[-1]
+            report.groot_price = int(groot[groot.find('(') + 1:groot.find(')')])
+        except (IndexError, ValueError):
+            pass
+
         # err has non-escaped characters
-        return out.decode('raw_unicode_escape'), err.decode('raw_unicode_escape'), process.returncode
+        report.interpreter_stdout, report.interpreter_stderr, report.interpreter_exit_code = out, err, exit_code
 
     def _interpret_price(self, code, test_info):
         interpreter = Interpreter(code=code, state_kwargs=dict(
             stdin=StringIO(test_info.stdin),
         ))
-        return interpreter.run()
+        state = interpreter.run()
+        return state
 
     def _save_report(self, test_info, report):
         # type: (TestInfo, TestReport) -> None
@@ -313,10 +322,11 @@ class TestRunner(object):
                 test_info.interpreter_exit_code,
                 report.interpreter_exit_code,
                 '{} ({}+{})'.format(
-                    report.state.instruction_price + report.state.operand_price,
+                    report.state.price,
                     report.state.instruction_price,
                     report.state.operand_price
-                ) if report.state else '---'
+                ) if report.state else '---',
+                report.groot_price if report.groot_price is not None else '---'
             ))
             write(
                 '\n'.join(

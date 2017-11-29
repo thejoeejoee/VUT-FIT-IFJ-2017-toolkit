@@ -93,8 +93,7 @@ class State(object):
         frame[to.name] = self.get_value(what)
 
         # explicit variable access, only declaration
-        if what is None:
-            self.operand_price += InstructionPrices.OPERAND_VARIABLE
+        self.operand_price += InstructionPrices.OPERAND_VARIABLE
 
     def define_variable(self, variable):
         # type: (Operand) -> None
@@ -163,7 +162,7 @@ class State(object):
             raise StringError(source, self.get_value(index))
 
     def str_len(self, target, string):
-        return self.set_value(target, len(('_', self.get_value(string))))
+        return self.set_value(target, len(self.get_value(string)))
 
     def read(self, to, type_):
         # type: (Operand, Operand) -> None
@@ -247,3 +246,7 @@ class State(object):
 
     def program_counter_to_label(self, pc):
         return {v: k for k, v in self.labels.items()}.get(pc) or ''
+
+    @property
+    def price(self):
+        return self.operand_price + self.instruction_price

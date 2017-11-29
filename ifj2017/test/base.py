@@ -21,6 +21,8 @@ class TestReport(object):
     state = None  # type: State
     test_info = None  # type: TestInfo
 
+    groot_price = None  # type: TestInfo
+
     success = None
 
     skipped = None

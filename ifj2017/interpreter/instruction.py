@@ -145,6 +145,7 @@ class Instruction(object):
 
         'BREAK': lambda state: state.stderr.write('{}\n'.format(state)),
         'DPRINT': lambda state, op0: state.stderr.write('{}\n'.format(state.get_value(op0))),
+        'GROOT': lambda state: state.stderr.write('Price: {} ({}+{}).\n'.format(state.price, state.instruction_price, state.operand_price)),
 
         'CONCAT': lambda state, target, op0, op1: state.set_value(target, ''.join((
             state.get_value(op0),
