@@ -1,0 +1,6 @@
+' maximum for C integer
+
+scope
+    dim a as double = 1.79761e+308
+    print a;
+end scope
