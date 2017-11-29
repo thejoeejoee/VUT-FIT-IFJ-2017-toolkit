@@ -7,6 +7,8 @@ from os.path import abspath, dirname, join
 
 from setuptools import find_packages
 
+import ifj2017
+
 __author__ = "Josef Kolář, Son Hai Nguyen"
 __copyright__ = "Copyright 2017, Josef Kolář & Son Hai Nguyen"
 __credits__ = ["Josef Kolář", "Son Hai Nguyen"]
@@ -32,7 +34,7 @@ except(IOError, ImportError) as e:
 def setup():
     core.setup(
         name='IFJcode17-toolkit',
-        version='1.4.3',
+        version=ifj2017.__version__,
         license='GNU GENERAL PUBLIC LICENSE Version 3',
         description='Toolkit for IFJ17 language compiler (as project at FIT BUT in Brno) with '
                     'interactive debugger and automatic tests.',

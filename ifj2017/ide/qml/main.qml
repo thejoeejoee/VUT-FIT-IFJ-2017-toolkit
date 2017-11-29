@@ -21,7 +21,7 @@ ApplicationWindow {
     visible: true
     width: Core.scaledSize(1200)
     height: Core.scaledSize(800)
-    title: fileIO.source + ((fileIO.source) ?" - " :"") + qsTr("Advánc IFJcode17 IDE")
+    title: fileIO.source + ((fileIO.source) ?" - " :"") + qsTr("Advánc IFJcode17 IDE ") + packageVersion
 
     menuBar: MenuBar {
         Menu {
@@ -316,6 +316,7 @@ td {
             - find (%1 + F)<br>
             - hide find panel (Esc)
     </td><td>
+        <b>Version</b> %2<br>
         <b>License</b> GPL v3<br>
         <br><b>Repository</b><br>
              - <a href="http://bit.ly/IFJ-toolkit">thejoeejoee@VUT-FIT-IFJ-toolkit</a><br>
@@ -323,7 +324,7 @@ td {
             - <a href="http://goo.gl/7eKD7G">Son Hai Nguyen</a>, xnguye16, <a href="http://goo.gl/j5KDWY">@SonyPony</a><br>
             - <a href="http://goo.gl/thmHgr">Josef Kolář</a>, xkolar71, <a href="http://goo.gl/9b9pC9">@thejoeejoee</a><br><br>
     </td></tr>
-</table>'.arg((ossystem != "Darwin") ?"Ctrl" :"Cmd")
+</table>'.arg((ossystem != "Darwin") ?"Ctrl" :"Cmd").arg(packageVersion)
                 lineNumbersPanelColor: "#f2f2f2"
                 breakpoints: ifjDebugger.breakpoints
                 currentLine: ifjDebugger.currentLine

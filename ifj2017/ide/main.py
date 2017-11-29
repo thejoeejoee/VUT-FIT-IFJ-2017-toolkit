@@ -1,7 +1,6 @@
 # coding=utf-8
-import sys
 import signal
-
+import sys
 from os import path
 from platform import system
 
@@ -13,6 +12,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtQml import QQmlApplicationEngine, qmlRegisterSingletonType, qmlRegisterType
 from PyQt5.QtWidgets import QApplication
 
+import ifj2017
 from ifj2017.ide.code.diff_code_analyzer import DiffCodeAnalyzer
 from ifj2017.ide.code.expression import ExpSyntaxHighlighter, ExpAnalyzer
 from ifj2017.ide.code_analyzer import CodeAnalyzer
@@ -100,6 +100,7 @@ core = Core()
 
 engine = QQmlApplicationEngine()
 engine.rootContext().setContextProperty("ossystem", system())
+engine.rootContext().setContextProperty("packageVersion", ifj2017.version)
 engine.rootContext().setContextProperty("rootDir", base_url.toString())
 engine.rootContext().setContextProperty("Core", core)
 engine.load(base_url.resolved(QUrl("qml/main.qml")))

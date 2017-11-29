@@ -4,6 +4,7 @@ import platform
 from argparse import ArgumentParser
 from os import path
 
+import ifj2017
 from ifj2017 import __PROJECT_ROOT__
 from ifj2017.test.runner import TestRunner
 
@@ -40,6 +41,8 @@ def main():
                         default=False)
     parser.add_argument("--no-stdout-diff", action='store_true', help="disable stdout log by difflib",
                         default=False)
+
+    parser.add_argument('-V', '--version', action='version', version='%(prog)s {}'.format(ifj2017.__version__))
 
     runner = TestRunner(parser.parse_args())
     return runner.run()

@@ -19,6 +19,7 @@ class BenchmarkUploader(object):
         self._has_connection = False
         self._token_file = token_file
         self._last_response = None
+        self.version = None
 
     @property
     def has_connection(self):
@@ -32,12 +33,14 @@ class BenchmarkUploader(object):
             data = self._request('/api/v1/service-online', {}, force=True)
         except URLError as e:
             TestLogger.log_warning('Problem with connecting to {} ({}).'.format(self._api_hostname, e))
+            return
         else:
             self._has_connection = (
                 200 >= self._last_response.status < 400
             ) and data.get('success')
             if data.get('msg'):
                 TestLogger.log_warning(data.get('msg'))
+            self.version = data.get('version')
 
     def authenticate_user(self):
         if not self._has_connection:

@@ -10,6 +10,7 @@ from os.path import basename, abspath, isfile, dirname
 from subprocess import PIPE, Popen, TimeoutExpired
 from tempfile import mktemp
 
+import ifj2017
 from .base import TestInfo
 from .base import TestReport
 from .loader import TestLoader
@@ -138,6 +139,10 @@ class TestRunner(object):
                 TestLogger.log_warning('Unable to send reports ({}), terminating...'.format(e))
         else:
             TestLogger.log_warning('Results upload skipped.')
+        if self._uploader.version != ifj2017.version:
+            TestLogger.log_warning(
+                'Outdated package version, actual version on PyPI is {}.'.format(self._uploader.version)
+            )
         return result
 
     def _run_tests(self):
@@ -362,8 +367,8 @@ class TestRunner(object):
         TestLogger.log(
             TestLogger.BLUE,
             TestLogger.BOLD,
-            "Welcome to automatic test runner for IFJ17 compiler "
-            "(https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests)."
+            "Welcome to automatic test runner for IFJ17 compiler {} "
+            "(https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-tests).".format(ifj2017.__version__)
         )
         if self._extensions:
             TestLogger.log(
