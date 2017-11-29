@@ -1,0 +1,10 @@
+' Basic UNTIL loop
+
+scope
+	dim i as integer
+
+	do until i > 10
+		print i;
+		i = i + 1
+	loop
+end scope

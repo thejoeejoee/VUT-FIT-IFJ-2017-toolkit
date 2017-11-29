@@ -1,0 +1,27 @@
+'Lots of computation with loops
+
+function pow (b as integer, e as integer) as integer
+	dim result as integer = 1
+
+	for i as integer = 1 to e
+		result = result * b
+	next i
+	return result
+end function
+
+scope
+	dim i as double = 0 - 450
+	dim j as integer
+
+	for num as integer = 0 to 20 step 20
+		j = num
+		do while num > j - 19
+			i = i + num
+			num = num - 1
+		loop
+		i = i * 0.5
+	next num
+
+	i = pow (i, 3)
+	print i;
+end scope

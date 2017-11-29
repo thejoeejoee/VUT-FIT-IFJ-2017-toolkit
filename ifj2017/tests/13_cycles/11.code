@@ -1,0 +1,17 @@
+'Exit from nested do loops (do, do)
+
+scope
+	dim i as integer
+
+	do while i < 5
+		do while i < 3
+			print i;
+			if i >= 2 then
+				exit do, do
+			else
+				i = i + 1
+			end if
+		loop
+		i = i + 1
+	loop
+end scope

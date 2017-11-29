@@ -1,0 +1,22 @@
+'Continue in nested loops
+
+scope
+	dim i as integer
+	dim j as integer
+
+	do while i < 10
+		j = 0
+		do until j > 8
+			j = j + 1
+			if i = 5 then
+				Continue do
+			else
+				j = j + 1
+			end if
+			print j;
+		loop
+
+		print !"\n";
+		i = i + 1
+	loop
+end scope

@@ -1,0 +1,8 @@
+'For loop with new variable
+
+scope
+	for i as integer = 20 to 25
+		print i;
+		i = i + 1
+	next
+end scope
