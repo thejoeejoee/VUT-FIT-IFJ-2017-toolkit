@@ -36,7 +36,7 @@ def main():
     parser.add_argument("--benchmark-url-target", help="target hostname to send benchmark results",
                         type=str, default='https://ifj.josefkolar.cz')
     parser.add_argument("--command-timeout", help="maximal timeout for compiler and interpreter",
-                        type=float, default=.2)
+                        type=float, default=.25)
     parser.add_argument("--no-colors", action='store_true', help="disable colored output (for Windows CMD etc.)",
                         default=False)
     parser.add_argument("--no-stdout-diff", action='store_true', help="disable stdout log by difflib",
