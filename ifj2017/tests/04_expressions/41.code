@@ -1,0 +1,6 @@
+' maximum for C integer
+
+scope
+    dim a as integer = 2*1000000000+147*1000000+483*1000+647
+    print a;
+end scope

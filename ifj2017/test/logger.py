@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import os
+import shutil
 import sys
 from operator import attrgetter
 from typing import Optional
@@ -41,6 +42,7 @@ class TestLogger(object):
 
     disable_colors = disable_color()
     verbose = False
+    console_width, console_height = shutil.get_terminal_size((120, 20))
 
     _test_case_buffer = None
     _test_case_success = None
@@ -143,7 +145,7 @@ class TestLogger(object):
                     ((cls.FAIL + '×', cls.GREEN + '.')[report.success]
                      if report.success is not None
                      else cls.BLUE + '_')
-                ) + ('\n' if not (i % 120) else '')
+                ) + ('\n' if not (i % cls.console_width) else '')
                 for i, report in enumerate(reports, start=1)),
             ''
         )
