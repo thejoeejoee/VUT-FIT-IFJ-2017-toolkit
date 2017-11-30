@@ -140,12 +140,17 @@ class Instruction(object):
         'READ': State.read,
         'TYPE': lambda state, op0, op1: state.set_value(
             op0,
-            Operand.CONSTANT_MAPPING_REVERSE.get(type(state.get_value(op1))) if state.get_value(op1) is not None else ''
+            type(state.get_value(op1)).__name__
+            if state.get_value(op1) is not None else ''
         ),
 
         'BREAK': lambda state: state.stderr.write('{}\n'.format(state)),
         'DPRINT': lambda state, op0: state.stderr.write('{}\n'.format(state.get_value(op0))),
-        'GROOT': lambda state: state.stderr.write('Price: {} ({}+{}).\n'.format(state.price, state.instruction_price, state.operand_price)),
+        'GROOT': lambda state: state.stderr.write(
+            'Price: {} ({}+{}).\n'.format(
+                state.price, state.instruction_price, state.operand_price
+            )
+        ),
 
         'CONCAT': lambda state, target, op0, op1: state.set_value(target, ''.join((
             state.get_value(op0),
