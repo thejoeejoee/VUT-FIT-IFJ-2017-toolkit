@@ -1,0 +1,22 @@
+function foo1(a as double) as integer
+    print a;
+end function
+
+function foo2(a as double) as double
+    print a;
+end function
+
+function foo3(a as double) as string
+    print !"oy";
+end function
+
+scope
+    dim a as integer = 5.6
+    dim b as integer = foo1(2.9)
+    dim c as double = foo1(2.4)
+    dim d as double = foo2(2.4)
+    dim e as string = foo3(2.6)
+    dim f as integer = foo1(a)
+
+    print a;b;c;d;e;f;
+end scope

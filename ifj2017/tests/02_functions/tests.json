@@ -159,6 +159,14 @@
       "extensions": [
         "SCOPE"
       ]
+    },
+    {
+      "name": "40",
+      "stdout": " 2.9 2.4 2.4oy 6 6 0 0 0 0"
+    },
+    {
+      "name": "41",
+      "stdout": " 4es 1011"
     }
   ]
 }
