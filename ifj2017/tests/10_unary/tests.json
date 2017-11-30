@@ -41,6 +41,36 @@
       "stdout": " 42"
     },
     {
+      "info": "string assignment with minus operator",
+      "compiler_exit_code": 4,
+      "code": "scope\n dim a as string = !\"random text\" \n a -= !\" another\"\n end scope"
+    },
+    {
+      "info": "string assignment with multiply operator",
+      "compiler_exit_code": 4,
+      "code": "scope\n dim a as string = !\"random text\" \n a *= !\" another\"\n end scope"
+    },
+    {
+      "info": "string assignment with divide operator",
+      "compiler_exit_code": 4,
+      "code": "scope\n dim a as string = !\"random text\" \n a /= !\" another\"\n end scope"
+    },
+    {
+      "info": "string assignment with integer divide operator",
+      "compiler_exit_code": 4,
+      "code": "scope\n dim a as string = !\"random text\" \n a \\= !\" another\"\n end scope"
+    },
+    {
+      "info": "assignment with operator (string into integer)",
+      "compiler_exit_code": 4,
+      "code": "scope\n dim a as integer = 5\n a += !\"text\"\n end scope"
+    },
+    {
+      "info": "assignment with operator (integer into string)",
+      "compiler_exit_code": 4,
+      "code": "scope\n dim a as string = !\"random text\"\n a += 5\n end scope"
+    },
+    {
       "name": "01",
       "stdout": " 2 8 4 2 4bar foo "
     },
@@ -54,6 +84,10 @@
         "FUNEXP"
       ],
       "stdout": "-22684"
+    },
+    {
+      "name": "04",
+      "stdout": "TOTO JE ZKOUSKA!"
     }
   ],
   "extensions": [
