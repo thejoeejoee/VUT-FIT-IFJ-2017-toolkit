@@ -3,16 +3,16 @@ python:
 - 3.6
 - 3.5
 script:
-- echo "test";
+- echo "All right!";
 deploy:
   - provider: pypi
     skip_cleanup: true
     user: thejoeejoee
+    distributions: sdist bdist_wheel
     password:
       secure: UVPdqi8aIdV3PZ5+ASFpLyEPtOy354wgdNz0oWM4O9moCVajtaSIW/VVEUDlkiKuZzvLUYaHQa2ZASk5cg6kjaSuncN08/oEzDpm2YwQywIvcgYf6NgCXlyIFJYPwWxl565UNMM/5j6XOnJP7btJ5Zzl7RGkJKlYy78UPuWZePTALfWikcRDgYgOsh9F1VfrzeBVAVS/bnwXbTKLAzucKVJvxty/CX81JasQ7vrce88s+Os/4NFVIpM8vw/s0hlyHxF5j8kZDOARMjpJ6DBPgBKnkddRnrCDiwA8bfcU1G9rwkZkpvvSgRUHkS/vSp4RCRhm7/0zgedLdRtSEvREqafdfQwTFLiVomBkaXuc8LYTw1uW+ks9WIx3BG//nVv7bN27i9B4395FYco6FN8b9eWTOlmYaNuOuGxC6voIOHLZwVM0Qd+UyZGfvaUmFainua555c3H0WolllzIrHvIzqke435Xil14ds6agcoxQuOTZFYcV1zjufJbVSgTPRUbCKeesU73ATsBz+FXrSGULeeH/c6jWH6ZcPEGZh472Q8ec+n4c12hP8VXgcuqgnSxiNmNMliay7j3Zw4dsSY7hkapHfy3g9+tnSamcuJwVRMOpEcQJs2EFxej8p2ivnrPqXt5vDyPE5JkZrrIOZnTGu0HVBgyPv0qNdEw1s+/4EA=
     on:
       branch: master
-      distributions: sdist bdist_wheel
       repo: thejoeejoee/VUT-FIT-IFJ-2017-toolkit
 
   - provider: releases
