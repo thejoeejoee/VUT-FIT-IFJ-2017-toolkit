@@ -1,0 +1,39 @@
+' Usage of builtin functions inside user-defined functions
+
+function strLen(s as string) as integer
+    dim b as integer = length(s)
+    return b
+end function
+
+function subString(s As String, i As Integer, n As Integer) As String
+    dim b as String = SubStr(s, i, n)
+    return b
+end function
+
+function AsciiVal(s As String, i As Integer) As Integer
+    dim b as Integer = asc(s, i)
+    return b
+end function
+
+function CharFromAscii(i As Integer) As String
+    dim b as String = Chr(i)
+    return b
+end function
+
+scope
+    dim a as integer
+    a = strLen(!"test")
+    print a;
+
+    dim b as string
+    b = subString(!"test", 2, 2)
+    print b;
+
+    dim c as integer
+    c = AsciiVal(!"test", 2)
+    print c;
+
+    dim d as string
+    d = CharFromAscii(49)
+    print d;
+end scope

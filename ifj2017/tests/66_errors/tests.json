@@ -1626,6 +1626,10 @@
     {
       "name": "42",
       "compiler_exit_code": 4
+    },
+    {
+      "name": "43",
+      "compiler_exit_code": 3
     }
   ]
 }
