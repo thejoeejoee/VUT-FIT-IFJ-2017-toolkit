@@ -39,6 +39,16 @@
         "UNARY",
         "FUNEXP"
       ]
+    },
+    {
+      "name": "14",
+      "stdin": "whatareversedstring",
+      "stdout": "? gnirtsdesreveratahw"
+    },
+    {
+      "name": "15",
+      "stdin": "12.25\n0.125",
+      "stdout": "?  2.24298\n? -2.06119\n"
     }
   ]
 }

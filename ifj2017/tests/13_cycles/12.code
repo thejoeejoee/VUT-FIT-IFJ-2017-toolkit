@@ -1,0 +1,10 @@
+'Exit from nested loops (for, for)
+
+scope
+	for i as integer = 3 to 6
+		for j as integer = i to 4
+			print j;
+			exit for, for
+		next
+	next
+end scope

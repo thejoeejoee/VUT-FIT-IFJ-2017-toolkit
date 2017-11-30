@@ -1,0 +1,13 @@
+'Nested do and for loops
+
+scope
+	dim i as integer
+
+	do
+		for j as integer = i to i + 5
+			print j;
+		next
+		print !"\n";
+		i = i + 1
+	loop while i < 5
+end scope

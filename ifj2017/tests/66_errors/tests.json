@@ -436,6 +436,46 @@
       "code": "scope \n  dim a as integer = &\n end scope"
     },
     {
+      "info": "Lexical error in assignment",
+      "compiler_exit_code": 1,
+      "code": "3."
+    },
+    {
+      "info": "Lexical error in assignment",
+      "compiler_exit_code": 1,
+      "code": "3.e"
+    },
+    {
+      "info": "Lexical error in assignment",
+      "compiler_exit_code": 1,
+      "code": "3e."
+    },
+    {
+      "info": "Lexical error in assignment",
+      "compiler_exit_code": 1,
+      "code": "3e-"
+    },
+    {
+      "info": "Lexical error in assignment",
+      "compiler_exit_code": 1,
+      "code": "3e+"
+    },
+    {
+      "info": "Lexical error in assignment",
+      "compiler_exit_code": 1,
+      "code": "3e+"
+    },
+    {
+      "info": "Lexical error in assignment",
+      "compiler_exit_code": 1,
+      "code": "3.e+"
+    },
+    {
+      "info": "Lexical error in assignment",
+      "compiler_exit_code": 1,
+      "code": "3.e-"
+    },
+    {
       "info": "Lexical error in print",
       "compiler_exit_code": 1,
       "code": "scope \n print &;\n end scope"
@@ -993,6 +1033,36 @@
     {
       "info": "lexical error",
       "code": "scope \n PRINT !\"\\\"; \n end scope",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "lexical error",
+      "code": "scope \n print !\"",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "lexical error",
+      "code": "scope \n print !\"\\",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "lexical error",
+      "code": "scope \n print !\"\\1",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "lexical error",
+      "code": "scope \n print !\"\\12",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "lexical error",
+      "code": "scope \n print !\"\\123",
+      "compiler_exit_code": 1
+    },
+    {
+      "info": "lexical error",
+      "code": "scope \n print !\"\\t",
       "compiler_exit_code": 1
     },
     {

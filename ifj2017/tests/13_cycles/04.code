@@ -1,0 +1,16 @@
+'Infinite loop with exit
+
+scope
+	dim i as integer
+
+	do
+		i = i + 1
+
+		if i > 10 then
+			exit do
+		else
+			i = i + 1
+			print i;
+		end if
+	loop
+end scope

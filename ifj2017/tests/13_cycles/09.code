@@ -1,0 +1,7 @@
+'For loop with step
+
+scope
+	for i as double = 0.5 to 5.0 step 0.5
+		print i;
+	next
+end scope

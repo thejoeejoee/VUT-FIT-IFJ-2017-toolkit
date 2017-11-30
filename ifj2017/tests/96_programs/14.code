@@ -1,0 +1,21 @@
+'Reverse string function
+
+function Reverse_str(s as string) as string
+	dim str_len as integer = length(s)
+	dim reversed as string
+
+	dim i as integer
+	do while i < str_len
+	   reversed = reversed + substr(s, str_len - i, 1)
+	   i = i + 1
+	loop
+	
+	return reversed
+end function
+
+scope
+    dim s as string
+    input s
+    s = reverse_str(s)
+    print s;
+end scope

@@ -1,0 +1,9 @@
+'Simple for cycle
+
+scope 
+	dim i as integer
+
+	for i = 1 to 4
+		print i;
+	next
+end scope
