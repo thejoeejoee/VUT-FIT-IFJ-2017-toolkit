@@ -1,3 +1,5 @@
+' Functions with implicit conversions
+
 function foo1(a as double) as integer
     print a;
 end function
