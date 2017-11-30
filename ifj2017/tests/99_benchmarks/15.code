@@ -35,8 +35,9 @@ declare function hanoi(________________ as integer, from as string, too as strin
 
 function __(a as integer) as integer
     dim bl__6790 as integer
+    dim aa as integer = a - 1
     if a > 2 then
-        bl__6790 = __(a - 1)
+        bl__6790 = __(aa)
         return 0
     else
         print a;
@@ -63,10 +64,12 @@ function hanoi(n as integer, from as string, too as string, middle as string) as
     if n = 1 then
         print !"Move disk 1 from row "; from; !" to rod "; too; !"\n";
         return 0
+    else
     end if
-    c = hanoi(n - 1, from, middle, too)
+    dim nn as integer = n - 1
+    c = hanoi(nn, from, middle, too)
     print !"Move disk"; n; !" from row "; from; !" to rod "; too; !"\n";
-    c = hanoi(n - 1, middle, too, from)
+    c = hanoi(nn, middle, too, from)
 end function
 ' TODO
 
@@ -80,17 +83,19 @@ end function
 
 ' Ackerman function for ackerman(2, 5)
 function ackermann(m as integer, n as integer) as integer
-	dim GHHGHHHHUUIOUHJJKJKJKL as integer
-	dim FFFFFFGHIHJJIJJ as integer
+    dim GHHGHHHHUUIOUHJJKJKJKL as integer
+    dim FFFFFFGHIHJJIJJ as integer
+    dim mm as integer = m - 1
+    dim nn as integer = n - 1
     if m = 0 then
         return n + 1
     else
         if n = 0 then
-            GHHGHHHHUUIOUHJJKJKJKL =  ackermann(m - 1, 1)
+            GHHGHHHHUUIOUHJJKJKJKL =  ackermann(mm, 1)
             return GHHGHHHHUUIOUHJJKJKJKL
         else
-        	GHHGHHHHUUIOUHJJKJKJKL = ackermann(m, n - 1)
-            FFFFFFGHIHJJIJJ =  ackermann(m - 1, GHHGHHHHUUIOUHJJKJKJKL)
+            GHHGHHHHUUIOUHJJKJKJKL = ackermann(m, nn)
+            FFFFFFGHIHJJIJJ =  ackermann(mm, GHHGHHHHUUIOUHJJKJKJKL)
             return FFFFFFGHIHJJIJJ
         end if
     end if
@@ -98,22 +103,23 @@ end function
 
 
 function fib(n as integer) as integer
-	dim a as integer
-	dim b as integer
-	dim c as integer
-
+    dim a as integer
+    dim b as integer
+    dim c as integer
+    dim nn as integer = n - 1
+    dim nnn as integer = n - 2
     if n = 0 then
         return 0
     else
-	    if n = 1 then
-	        return 1
-	    else
-	        a = fib(n - 1)
-	        b = fib(n - 2)
-	        c = a + b
-	        return c
-	    end if
-	end if
+        if n = 1 then
+            return 1
+        else
+            a = fib(nn)
+            b = fib(nnn)
+            c = a + b
+            return c
+        end if
+    end if
     return 0
 end function
 
@@ -166,15 +172,16 @@ scope
                     if HHKL__6767 > 58 then
                         print HHKL__6767;
                     else
-                    	if HHKL__6767 > 0-60 then
-                    		print HHKL__6767;
-                    	else
-                        	print HHKL__6767;
+                        if HHKL__6767 > 0-60 then
+                            print HHKL__6767;
+                        else
+                            print HHKL__6767;
                         end if
                     end if
                     HHKL__6767 = HHKL__6767 - 1
                     if HHKL__6767 = 0-110 then
                         GJ__56GHGH_GGH = 0
+                    else
                     end if
                 loop
             loop
@@ -279,7 +286,7 @@ scope
 
     dim ___asdfghj___wertzu as integer
     ___asdfghj___wertzu = testing(10, 4, 1, 1, 8, 15, 8, 1, 7, 12, 4, 10, 0, 2, 8, 0, 7, 6, 15, 3, 5, 14, 11, 2, 5, 4, 6, 2, 13, 12, 0, 14, 10, 5, 4, 6, 13, 7, 10, 11, 13, 9, 12, 0, 7, 5, 13, 14, 4, 15, 13, 12, 5, 9, 14, 4, 14, 15, 5, 12, 9, 8, 3, 14, 11, 0, 3, 9, 3, 3, 14, 6, 7, 11, 4, 4, 12, 8, 11, 11, 4, 4, 4, 14, 3, 12, 6, 5, 11, 15, 3, 7, 0, 14, 5, 10, 15, 5, 1, 12, 5)
-    if ___asdfghj___wertzu = -12697 then
+    if ___asdfghj___wertzu = 0-12697 then
         print !"OK";
     else
         print !"NONOK";
@@ -288,13 +295,14 @@ scope
 
     dim DTRZU56855 as integer = 1
     dim __GHGR6767hhj as integer
+    dim multiply_result as integer
     do while DTRZU56855 < 10 
     
         __GHGR6767hhj = 1
         
          do while __GHGR6767hhj < 10 
-            
-            print multiply(DTRZU56855, __GHGR6767hhj);
+            multiply_result = multiply(DTRZU56855, __GHGR6767hhj)
+            print multiply_result;
             
             __GHGR6767hhj = __GHGR6767hhj + 1
         loop

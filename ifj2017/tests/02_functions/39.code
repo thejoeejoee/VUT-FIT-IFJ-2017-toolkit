@@ -6,6 +6,7 @@ function hanoi(n as integer, from as string, too as string, middle as string) as
     if n = 1 then
         print !"Move disk 1 from row "; from; !" to rod "; too; !"\n";
         return 0
+    else
     end if
     c = hanoi(promena, from, middle, too)
     print !"Move disk"; n; !" from row "; from; !" to rod "; too; !"\n";
