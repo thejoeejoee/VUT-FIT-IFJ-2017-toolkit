@@ -49,6 +49,14 @@
         "GLOBAL",
         "IFTHEN"
       ]
+    },
+    {
+      "name": "06",
+      "stdout": " 1 2 3 4",
+        "extensions": [
+        "GLOBAL",
+        "SCOPE"
+      ]
     }
   ]
 }

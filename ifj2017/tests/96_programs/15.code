@@ -1,0 +1,39 @@
+'Taylor polynom for log
+
+function taylor_log(x as double, n as integer) as double
+	dim result as double
+	dim x_exp as double = 1
+	dim numerator_fraction as double
+	dim i as integer = 1
+
+	if x > 1 then
+		numerator_fraction = (x - 1) / x
+
+		do while i <= n
+			x_exp = x_exp * numerator_fraction
+			result = result + x_exp / i
+			i = i + 1
+		loop
+	else
+		x = 1 - x
+
+		do while i <= n
+			x_exp = x_exp * x
+			result = result - (x_exp / i)
+			i = i + 1
+		loop
+	end if
+	return result
+end function
+
+scope
+	dim d as double
+
+	input d
+	d = taylor_log(d, 10)
+	print d; !"\n";
+
+	input d
+	d = taylor_log(d, 20)
+	print d; !"\n";
+end scope

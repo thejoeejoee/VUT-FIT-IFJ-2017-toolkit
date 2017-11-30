@@ -1,0 +1,13 @@
+'Iterator name collision
+
+scope
+	dim i as integer
+
+	i = 20
+
+	for i as double = 0 to 1 step 0.125
+		print i;
+	next i
+
+	print i;
+end scope

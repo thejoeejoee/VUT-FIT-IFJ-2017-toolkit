@@ -1,0 +1,10 @@
+' Simple do ... loop while
+
+scope
+	dim i as integer
+
+	do
+		print i;
+		i = i + 2
+	loop while i < 9
+end scope

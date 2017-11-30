@@ -1,0 +1,10 @@
+'For next with iterator
+
+scope
+	dim max as integer = 6
+	dim s as integer = 2
+
+	for i as integer = 0 to max step s
+		print i;
+	next i
+end scope

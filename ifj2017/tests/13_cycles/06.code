@@ -1,0 +1,31 @@
+'Exit in nested loops
+
+scope
+	dim i as integer
+	dim j as integer
+
+	do
+		i = i + 1
+		j = 0
+
+		do until j > 100
+			j = j + 1
+
+			if j > 10 then
+				exit do
+			else
+				i = i + 1
+			end if
+			print j;
+		loop
+
+		print i;
+
+		if i > 100 then
+			exit do
+		else
+			i = i + 1
+		end if
+		print !",";
+	loop
+end scope
