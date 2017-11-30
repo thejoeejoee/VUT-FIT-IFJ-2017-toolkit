@@ -1,0 +1,13 @@
+' constant propagation into loop II
+
+scope
+	dim counter as integer = 50
+	dim constant as integer = 8 + 7
+
+	do while counter > 0
+		print (10.2 / 98 + (counter \ 3 * 6.85) - 14) / (counter + 5) + (constant + 9 - 8) * ((constant+17.21)\(10.8 * counter));
+		counter = counter - 1
+		print !"\n";
+	loop
+
+end scope

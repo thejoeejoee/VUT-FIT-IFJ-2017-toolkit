@@ -1,0 +1,27 @@
+' constant propagation after function call
+
+function function_() as integer
+	print !"Function called!\n";
+	return 0 - 42
+end function
+
+scope
+	dim const as integer = 25
+
+	print const; !"\n";
+	print const * 2; !"\n";
+	print const * 2 + const; !"\n";
+	print 2 / const; !"\n";
+	print const * (const * const + 3); !"\n";
+	print (const - 98) / (const + 6) * (const * const + 3); !"\n";
+
+	const = function_()
+
+	print const; !"\n";
+	print const * 2; !"\n";
+	print const * 2 + const; !"\n";
+	print 2 / const; !"\n";
+	print const * (const * const + 3); !"\n";
+	print (const - 98) / (const + 6) * (const * const + 3); !"\n";
+
+end scope
