@@ -1,0 +1,10 @@
+' string assignment with plus operator
+scope
+	dim a as string
+	a += !"TOTO"
+	print a;
+
+	dim b as string = !" JE"
+	b += !" ZKOUSKA!"
+	print b;
+end scope
