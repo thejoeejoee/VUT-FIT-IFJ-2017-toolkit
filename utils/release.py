@@ -57,8 +57,10 @@ def include_tests(archive: TarFile):
         return name.endswith('pyc') or '__pycache__' in name
 
     archive.add(join(__PROJECT_DIR__, 'test.py'), 'tests/test.py')
+    print('Processing tests/test.py.', file=sys.stderr)
     for d in 'benchmark interpreter test tests __init__.py'.split():
         archive.add(join(__PROJECT_DIR__, 'ifj2017/{}'.format(d)), 'tests/ifj2017/{}'.format(d), exclude=exclude)
+        print('Processing {}.'.format('tests/ifj2017/{}'.format(d)), file=sys.stderr)
 
 
 def deploy(source_dir, to_archive, tests=False):
