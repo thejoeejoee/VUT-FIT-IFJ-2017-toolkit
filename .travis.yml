@@ -3,7 +3,8 @@ python:
 - 3.6
 - 3.5
 script:
-- echo "All right!";
+- printf "xkobel02\nxtravi99\n" | python ./test.py --log-dir log/ $(which true) 2>&1 | grep -i -v warning
+
 #deploy:
 #  - provider: pypi
 #    skip_cleanup: true
