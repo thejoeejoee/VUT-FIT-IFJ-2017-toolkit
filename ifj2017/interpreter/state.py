@@ -38,12 +38,12 @@ class State(object):
             raise FrameError('Access to non existing local frame.')
         return self.frame_stack[-1]
 
-    def frame(self, frame):
+    def frame(self, frame: str):
         return {
             'TF': lambda: self.temp_frame,
             'LF': lambda: self.local_frame,
             'GF': lambda: self.global_frame,
-        }.get(frame)()
+        }.get(frame.upper())()
 
     def create_frame(self):
         self.temp_frame = {}
