@@ -1527,7 +1527,7 @@
     },
     {
       "info": "Forum test 1",
-      "compiler_exit_code":1,
+      "compiler_exit_code": 1,
       "code": "scope \n print !\"ahoj\\800\"; \n end scope"
     },
     {
@@ -1582,9 +1582,8 @@
     {
       "name": "35",
       "compiler_exit_code": 3,
-      "extensions" : [
-
-      	"FUNEXP"
+      "extensions": [
+        "FUNEXP"
       ]
     },
     {
@@ -1594,24 +1593,21 @@
     {
       "name": "37",
       "compiler_exit_code": 3,
-      "extensions" : [
-
-      	"FUNEXP"
+      "extensions": [
+        "FUNEXP"
       ]
     },
     {
       "name": "38",
       "compiler_exit_code": 4,
-      "extensions" : [
-
+      "extensions": [
         "FUNEXP"
       ]
     },
     {
       "name": "39",
       "compiler_exit_code": 4,
-      "extensions" : [
-
+      "extensions": [
         "FUNEXP"
       ]
     },
@@ -1629,7 +1625,7 @@
     },
     {
       "name": "43",
-      "stdout": " 10 25"
+      "compiler_exit_code": 3
     }
   ]
 }
