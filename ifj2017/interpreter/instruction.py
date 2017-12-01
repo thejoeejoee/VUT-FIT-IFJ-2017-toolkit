@@ -160,8 +160,8 @@ class Instruction(object):
         'GETCHAR': State.get_char,
         'SETCHAR': State.set_char,
 
-        'INT2FLOAT': lambda state, op0, op1: state.set_value(op1, float(state.get_value(op1))),
-        'FLOAT2INT': lambda state, op0, op1: state.set_value(op1, int(state.get_value(op1))),
+        'INT2FLOAT': lambda state, op0, op1: state.set_value(op0, float(state.get_value(op1))),
+        'FLOAT2INT': lambda state, op0, op1: state.set_value(op0, int(state.get_value(op1))),
         'FLOAT2R2EINT': lambda state, op0, op1: state.set_value(
             op0,
             even_round(state.get_value(op1))
