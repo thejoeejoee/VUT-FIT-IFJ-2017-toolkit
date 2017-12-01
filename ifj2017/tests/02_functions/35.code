@@ -1,3 +1,4 @@
+' function with covered static
 dim shared a as integer
 
 function foo(a as integer) as integer
