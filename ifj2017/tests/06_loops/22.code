@@ -1,0 +1,29 @@
+' cyclus with constant propagation & input & if
+
+scope
+
+    dim a as integer
+
+    input a
+
+    a = a + 10
+
+    dim b as integer
+    b = a + 20
+
+    dim c as integer
+
+    c = a + 10 + b
+
+    do while c > 0
+
+        if c = 10 then
+            c = 31
+        else
+        end if
+
+        print c;
+        c = c - a
+    loop
+
+end scope

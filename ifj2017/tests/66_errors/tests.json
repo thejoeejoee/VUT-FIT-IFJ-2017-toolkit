@@ -1511,6 +1511,21 @@
       "code": "scope  end scope"
     },
     {
+      "info": "Return in scope",
+      "compiler_exit_code": 2,
+      "code": "scope \n dim a as integer = 10 \n if 1 < a < 20 then \n else \n end if \n end scope"
+    },
+    {
+      "info": "(a > b) > 1",
+      "compiler_exit_code": 4,
+      "code": "scope \n dim a as integer \n dim b as integer \n if (a > b) > 1 then \n else \n end if \n end scope"
+    },
+    {
+      "info": "a > b > 1",
+      "compiler_exit_code": 2,
+      "code": "scope \n dim a as integer \n dim b as integer \n if a > b > 1 then \n else \n end if \n end scope"
+    },
+    {
       "info": "Return in scope in if",
       "compiler_exit_code": 2,
       "code": "scope \n if 10 = 10 then \n return 10 \n else \n end if \n end scope"

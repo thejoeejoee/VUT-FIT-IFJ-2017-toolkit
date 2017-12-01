@@ -1,0 +1,24 @@
+' cyclus with constant propagation & input
+
+scope
+
+    dim a as integer
+
+    input a
+
+    a = a + 10
+
+    dim b as integer
+    b = a + 20
+
+    dim c as integer
+
+    c = a + 10 + b
+
+    do while c > 0
+
+        print c;
+        c = c - a
+    loop
+
+end scope
