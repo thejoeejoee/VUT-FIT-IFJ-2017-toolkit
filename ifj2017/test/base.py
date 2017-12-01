@@ -21,10 +21,11 @@ class TestReport(object):
     state = None  # type: State
     test_info = None  # type: TestInfo
 
-    groot_price = None  # type: TestInfo
+    groot_price = None  # type: int
 
     success = None
 
     skipped = None
+
 
 __all__ = ['TestReport', 'TestInfo']

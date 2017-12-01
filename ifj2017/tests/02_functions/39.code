@@ -1,3 +1,5 @@
+' hanoi towers recursion
+
 declare function hanoi(________________ as integer, from as string, too as string, middle as string) as integer
 
 function hanoi(n as integer, from as string, too as string, middle as string) as integer
@@ -16,5 +18,4 @@ end function
 scope
 	dim ______dkhfskldfhsdfsfhjghs as integer
     ______dkhfskldfhsdfsfhjghs = hanoi(4, !"A", !"B", !"C")
-
 end scope
