@@ -137,7 +137,7 @@ class TestLogger(object):
             'RESULTS:',
             cls.END,
             cls.BOLD,
-            ' {:.2f}%'.format((float(success) / (total - skipped)) * 100),
+            ' {:.3f}%'.format((float(success) / (total - skipped)) * 100),
             cls.END,
             ' ({}/{})\n'.format(success, total - skipped),
             cls.END,
