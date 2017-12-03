@@ -1650,7 +1650,7 @@
     {
       "info": "Errors during interpretation",
       "interpreter_exit_code": 57,
-      "code": "scope \n print 3\\-0.2; \n end scope"
+      "code": "scope \n print 3\\(0-0.2); \n end scope"
     },
     {
       "info": "Errors during interpretation",

@@ -1,22 +1,26 @@
 ' Usage of builtin functions inside user-defined functions
 
 function strLen(s as string) as integer
-    dim b as integer = length(s)
+    dim b as integer
+    b = length(s)
     return b
 end function
 
 function subString(s As String, i As Integer, n As Integer) As String
-    dim b as String = SubStr(s, i, n)
+    dim b as String
+    b = SubStr(s, i, n)
     return b
 end function
 
 function AsciiVal(s As String, i As Integer) As Integer
-    dim b as Integer = asc(s, i)
+    dim b as Integer
+    b = asc(s, i)
     return b
 end function
 
 function CharFromAscii(i As Integer) As String
-    dim b as String = Chr(i)
+    dim b as String
+    b = Chr(i)
     return b
 end function
 

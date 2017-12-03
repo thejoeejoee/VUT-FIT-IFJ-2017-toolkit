@@ -14,11 +14,16 @@ end function
 
 scope
     dim a as integer = 5.6
-    dim b as integer = foo1(2.9)
-    dim c as double = foo1(2.4)
-    dim d as double = foo2(2.4)
-    dim e as string = foo3(2.6)
-    dim f as integer = foo1(a)
+    dim b as integer
+    b = foo1(2.9)
+    dim c as double
+    c = foo1(2.4)
+    dim d as double
+    d = foo2(2.4)
+    dim e as string
+    e = foo3(2.6)
+    dim f as integer
+    f = foo1(a)
 
     print a;b;c;d;e;f;
 end scope
