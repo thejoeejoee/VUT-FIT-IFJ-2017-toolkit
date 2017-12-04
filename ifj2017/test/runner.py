@@ -67,6 +67,13 @@ class TestRunner(object):
         'Windows': path.join(__PROJECT_ROOT__, 'ifj2017/bin/windows/ic17int.exe'),
     }
     EXTENSION_FILE_NAME = 'rozsireni'
+    VALGRIND_COMMAND = (
+        'valgrind',
+        '--leak-check=full',
+        '--track-origins=yes',
+        '--show-leak-kinds=all',
+    )
+    MEMORY_LEAK_HEADER = 'LEAK SUMMARY'
 
     def __init__(self, args):
         super(TestRunner, self).__init__()
@@ -81,6 +88,7 @@ class TestRunner(object):
         self._interpreter_binary = args.interpreter
         self._command_timeout = args.command_timeout
         self._log_dir = args.log_dir
+        self._run_valgrind = args.valgrind
         self._no_interpreter = args.no_interpreter
         self._loader = TestLoader(
             args.tests_dir,
@@ -91,7 +99,7 @@ class TestRunner(object):
         self._extensions = self._try_load_extensions(args.extensions_file, args.compiler)
         if args.no_colors:
             TestLogger.disable_colors = args.no_colors
-        TestLogger.verbose = args.verbose
+        TestLogger.verbose = args.verbose or self._run_valgrind
         self._no_stdout_diff = args.no_stdout_diff
         self._reports = []
 
@@ -186,6 +194,9 @@ class TestRunner(object):
             self._save_report(test_info, report)
             return
 
+        if self._run_valgrind and self.MEMORY_LEAK_HEADER in report.compiler_stderr:
+            TestLogger.log_warning(' Memory leak!', end=False)
+
         if test_info.compiler_exit_code is not None:
             if report.compiler_exit_code != test_info.compiler_exit_code:
                 TestLogger.log_test_fail("COMPILER EXIT CODE expected={}, returned={}".format(
@@ -253,9 +264,22 @@ class TestRunner(object):
 
     def _compile(self, test_info):
         # type: (TestInfo) -> tuple
-        process = Popen([self._compiler_binary], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+
+        process = Popen(
+            (
+                self.VALGRIND_COMMAND if self._run_valgrind else ()
+            ) + (
+                self._compiler_binary,
+            ),
+            stdout=PIPE,
+            stdin=PIPE,
+            stderr=PIPE
+        )
         try:
-            out, err = process.communicate(bytes(test_info.code, encoding='utf-8'), timeout=test_info.timeout)
+            out, err = process.communicate(
+                bytes(test_info.code, encoding='utf-8'),
+                timeout=test_info.timeout + 9 * test_info.timeout * self._run_valgrind
+            )
         except (TimeoutError, TimeoutExpired):
             process.kill()
             raise

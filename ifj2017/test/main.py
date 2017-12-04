@@ -41,7 +41,8 @@ def main():
                         default=False)
     parser.add_argument("--no-stdout-diff", action='store_true', help="disable stdout log by difflib",
                         default=False)
-
+    parser.add_argument("--valgrind", action='store_true', help="run compiler under valgrind and check leaks",
+                        default=False)
     parser.add_argument('-V', '--version', action='version', version='%(prog)s {}'.format(ifj2017.__version__))
 
     runner = TestRunner(parser.parse_args())
