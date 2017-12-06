@@ -99,6 +99,18 @@
       "extensions": [
         "SCOPE"
       ]
+    },
+    {
+      "name": "27",
+      "compiler_exit_code": "3"
+    },
+    {
+      "name": "28",
+      "compiler_exit_code": "3"
+    },
+    {
+      "name": "29",
+      "compiler_exit_code": "3"
     }
   ],
   "extensions": [

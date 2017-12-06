@@ -1,0 +1,5 @@
+' Redefinition of static
+scope
+	static a as integer
+	dim a as integer
+end scope

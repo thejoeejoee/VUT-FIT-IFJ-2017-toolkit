@@ -1,0 +1,10 @@
+' Redefinition of static
+function foo() as integer
+	dim a as integer
+    static a as integer
+    return a
+end function
+
+scope
+
+end scope
