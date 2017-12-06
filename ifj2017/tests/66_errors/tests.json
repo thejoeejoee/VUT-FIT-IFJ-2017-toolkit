@@ -1656,6 +1656,31 @@
       "info": "Errors during interpretation",
       "stdout": " 15",
       "code": "scope \n print 3/0.2; \n end scope"
+    },
+    {
+      "info": "Error in semantic analysis",
+      "compiler_exit_code": "4",
+      "code": "function foo() as integer \n return !\"\"\n end function \n scope \n end scope"
+    },
+    {
+      "info": "Error in semantic analysis",
+      "compiler_exit_code": "4",
+      "code": "function foo() as double \n return !\"\"\n end function \n scope \n end scope"
+    },
+    {
+      "info": "Error in semantic analysis",
+      "compiler_exit_code": "4",
+      "code": "function foo() as double \n return 1 < 3 \n end function \n scope \n end scope"
+    },
+    {
+      "info": "Error in semantic analysis",
+      "compiler_exit_code": "4",
+      "code": "function foo() as double \n return 1 = 3 \n end function \n scope \n end scope"
+    },
+    {
+      "info": "Error in semantic analysis",
+      "compiler_exit_code": "4",
+      "code": "function foo() as double \n dim a as string = !\"\" \n return a \n end function \n scope \n end scope"
     }
   ]
 }
