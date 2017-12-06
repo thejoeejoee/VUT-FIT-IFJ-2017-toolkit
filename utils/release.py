@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # coding=utf-8
+import os
 import sys
 from argparse import ArgumentParser
 from collections import Counter
@@ -68,6 +69,7 @@ def deploy(source_dir, to_archive, tests=False):
     source_files = set(glob1(source_dir, '*.c') + glob1(source_dir, '*.h') + glob1(source_dir, 'Makefile'))
     source_files.add(join(source_dir, '../rozdeleni'))
     source_files.add(join(source_dir, '../rozsireni'))
+    source_files.add(join(source_dir, '../doc/build/doc.pdf'))
 
     to_archive = '{}.tgz'.format(to_archive)
     try:
@@ -90,6 +92,9 @@ def deploy(source_dir, to_archive, tests=False):
             if basename(file_) in {'rozsireni', 'rozdeleni'}:
                 target_archive.add(file_, arcname=basename(file_))
                 continue
+            if basename(file_) in {'doc.pdf', }:
+                target_archive.add(file_, arcname='dokumentace.pdf')
+                continue
 
             modified = mktemp()
 
@@ -108,8 +113,11 @@ def main():
         description='Script for deploying archive with IFJ17 compiler.',
     )
 
-    parser.add_argument("source_dir", help="path to src of project")
-    parser.add_argument("archive_name", help="name of produced")
+    parser.add_argument(
+        "--source_dir", help="path to src of project", type=str,
+        default=os.path.expanduser('~/projects/IFJ-VUT-BIT-2017-2018/src')
+    )
+    parser.add_argument("--archive_name", help="name of produced", type=str, default='xkobel02')
     parser.add_argument("--tests", help="include tests?", action='store_true')
 
     args = parser.parse_args()
