@@ -1,0 +1,20 @@
+' static variables in loops
+
+scope
+    dim counter as integer
+    counter = 2
+    do while counter >= 0
+    	static foo as integer = 55
+    	print foo;
+    	foo = foo - 1
+    	counter = counter - 1
+    loop
+
+    counter = 2
+    do while counter >= 0 
+    	static foo as integer = 55
+    	print foo;
+    	foo = foo + 1
+    	counter = counter - 1
+    loop
+end scope

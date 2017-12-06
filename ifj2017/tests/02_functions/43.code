@@ -1,0 +1,14 @@
+function my_input() as integer
+	dim a as integer
+	input a
+	return a
+end function
+
+scope
+	dim b as integer
+	b = my_input()
+	dim c as integer
+	input c
+
+	print c;
+end scope

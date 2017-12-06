@@ -1,0 +1,30 @@
+' static variables in scopes in function
+
+function fce() as integer
+    scope
+        static foo as integer = 55
+        foo = foo + 1
+        print foo;
+        scope 
+            static foo as integer = 55
+            foo = foo + 1
+            print foo;
+        end scope
+    end scope
+    scope 
+        static foo as integer = 55
+        foo = foo + 1
+        print foo;
+        scope 
+            dim foo as integer = 55
+            foo = foo + 1
+            print foo;
+        end scope
+    end scope
+end function
+
+scope
+    dim a as integer
+    a = fce()
+    a = fce()
+end scope

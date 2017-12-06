@@ -1,0 +1,26 @@
+' static variables in loops in function
+
+function fce() as integer
+    dim counter as integer
+    counter = 2
+    do while counter >= 0
+        static foo as integer = 55
+        print foo;
+        foo = foo - 1
+        counter = counter - 1
+    loop
+
+    counter = 2
+    do while counter >= 0 
+        static foo as integer = 55
+        print foo;
+        foo = foo + 1
+        counter = counter - 1
+    loop
+end function
+
+scope
+    dim a as integer
+    a = fce()
+    a = fce()
+end scope
