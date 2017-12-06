@@ -102,6 +102,7 @@ class State(object):
             raise VariableAlreadyDefinedError()
 
         frame[variable.name] = None
+        self.operand_price += InstructionPrices.OPERAND_VARIABLE
 
     def call(self, op):
         # type: (Operand, Operand) -> None
