@@ -97,7 +97,7 @@ class Instruction(object):
         'CREATEFRAME': State.create_frame,
         'PUSHFRAME': State.push_frame,
         'POPFRAME': State.pop_frame,
-        'DEFVAR': lambda state, op: state.set_value(op, None),
+        'DEFVAR': State.define_variable,
         'JUMP': State.jump,
         'CALL': State.call,
         'RETURN': State.return_,

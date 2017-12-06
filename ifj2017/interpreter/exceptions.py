@@ -103,3 +103,8 @@ class InvalidReturnError(BaseInterpreterError):
 class FrameError(BaseInterpreterError):
     def __str__(self):
         return 'Frame error{}'.format(self.on_line)
+
+
+class VariableAlreadyDefinedError(BaseInterpreterError):
+    def __str__(self):
+        return 'Variable already defined{}'.format(self.on_line)

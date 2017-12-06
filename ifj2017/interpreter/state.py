@@ -4,7 +4,7 @@ import re
 from io import StringIO
 from typing import Optional, Union
 
-from ifj2017.interpreter.exceptions import UnknownDataTypeError, StringError
+from ifj2017.interpreter.exceptions import UnknownDataTypeError, StringError, VariableAlreadyDefinedError
 from .exceptions import EmptyDataStackError, UndefinedVariableError, UndeclaredVariableError, \
     FrameError, UnknownLabelError, InvalidReturnError, InvalidOperandTypeError
 from .operand import Operand, TypeOperand
@@ -97,7 +97,11 @@ class State(object):
 
     def define_variable(self, variable):
         # type: (Operand) -> None
-        self.frame(variable.frame)[variable.name] = None
+        frame = self.frame(variable.frame)
+        if variable.name in frame:
+            raise VariableAlreadyDefinedError()
+
+        frame[variable.name] = None
 
     def call(self, op):
         # type: (Operand, Operand) -> None
