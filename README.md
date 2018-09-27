@@ -1,5 +1,7 @@
 # Sada nástrojů pro `IFJ17` a `IFJcode17`
 
+**INFO pro následovníky v IFJ: neváhejte mne kontaktovat, rád předám další generacím - jak IDE, tak testy.**
+
 [![PyPI version](https://badge.fury.io/py/IFJcode17-toolkit.svg)](https://badge.fury.io/py/IFJcode17-toolkit)
 [![GitHub issues](https://img.shields.io/github/issues/thejoeejoee/VUT-FIT-IFJ-2017-toolkit.svg)](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/issues)
 [![GitHub stars](https://img.shields.io/github/stars/thejoeejoee/VUT-FIT-IFJ-2017-toolkit.svg)](https://github.com/thejoeejoee/VUT-FIT-IFJ-2017-toolkit/stargazers)
